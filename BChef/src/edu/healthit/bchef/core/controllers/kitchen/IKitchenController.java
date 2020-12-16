@@ -1,4 +1,4 @@
-package edu.healthit.bchef.core;
+package edu.healthit.bchef.core.controllers.kitchen;
 
 public interface IKitchenController {
 

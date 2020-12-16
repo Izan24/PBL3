@@ -1,4 +1,4 @@
-package edu.healthit.bchef.core;
+package edu.healthit.bchef.core.models;
 
 public class Oven {
 
