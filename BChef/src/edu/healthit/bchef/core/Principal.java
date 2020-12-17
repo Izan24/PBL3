@@ -34,5 +34,4 @@ public class Principal extends JFrame {
 		IKitchenController kitchenController = new KitchenController();
 		Principal view = new Principal();
 	}
-
 }
