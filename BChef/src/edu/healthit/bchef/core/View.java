@@ -26,8 +26,7 @@ public class View extends JPanel {
 	private JPanel createMenuBar() {
 		leftMenu = new JPanel(new GridLayout(1, 4, 10, 10));
 
-		createRoundedButton();
-		//leftMenu.add();
+		leftMenu.add(createRoundedButton("Home", "Home", null, null));
 
 		return null;
 	}
