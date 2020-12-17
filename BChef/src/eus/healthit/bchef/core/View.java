@@ -1,13 +1,14 @@
 package eus.healthit.bchef.core;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import eus.healthit.bchef.core.view.borders.RoundedBorder;
 
 @SuppressWarnings("serial")
 public class View extends JPanel {
