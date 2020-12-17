@@ -2,8 +2,10 @@ package edu.healthit.bchef.core;
 
 import javax.swing.JFrame;
 
+import edu.healthit.bchef.core.controllers.CommandController;
 import edu.healthit.bchef.core.controllers.implementations.KitchenController;
 import edu.healthit.bchef.core.controllers.interfaces.IKitchenController;
+import edu.healthit.bchef.core.enums.VoiceCommand;
 
 public class Principal extends JFrame {
 
@@ -24,6 +26,7 @@ public class Principal extends JFrame {
 		this.setLocation(300, 150);
 		this.setResizable(true);
 
+		//TODO: Funcion de cerrar con guardado (windowlistener)
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setContentPane(view);
 
@@ -32,6 +35,11 @@ public class Principal extends JFrame {
 
 	public static void main(String[] args) {
 		IKitchenController kitchenController = new KitchenController();
-		Principal view = new Principal();
+		
+		String str = "bchef hola ke tal io te doi el numero magico que es 197ekl 199 y 289 el ";
+		
+		System.out.println(CommandController.parseCommand(str).toString());
+		
+		//Principal view = new Principal();
 	}
 }
