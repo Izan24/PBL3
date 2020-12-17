@@ -1,4 +1,4 @@
-package edu.healthit.bchef.core.controllers.view;
+package edu.healthit.bchef.core.controllers.interfaces;
 
 public interface IViewController {
 

@@ -1,5 +1,6 @@
-package edu.healthit.bchef.core.controllers.kitchen;
+package edu.healthit.bchef.core.controllers.implementations;
 
+import edu.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import edu.healthit.bchef.core.models.Kitchen;
 
 public class KitchenController implements IKitchenController {

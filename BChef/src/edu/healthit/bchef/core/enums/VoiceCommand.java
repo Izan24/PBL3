@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.healthit.bchef.core.Configuration;
+
 public enum VoiceCommand {
 	SEARCH_RECIPE ("Busca", "Buscar", "Buscame", "Encuentra"),
 	SEARCH_INGREDIENT("Que tenga", "Que contenga", "Usando", "Con"),
@@ -30,7 +32,7 @@ public enum VoiceCommand {
 	
 	public static VoiceCommand parseCommand(String command) {
 		
-		Collator c = Collator.getInstance(new Locale("es"));
+		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));
 		c.setStrength(Collator.SECONDARY);
 		for(VoiceCommand cmd : values()) {
 			for(String str : cmd.getCommands()) {

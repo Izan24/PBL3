@@ -2,8 +2,8 @@ package edu.healthit.bchef.core;
 
 import javax.swing.JFrame;
 
-import edu.healthit.bchef.core.controllers.kitchen.IKitchenController;
-import edu.healthit.bchef.core.controllers.kitchen.KitchenController;
+import edu.healthit.bchef.core.controllers.implementations.KitchenController;
+import edu.healthit.bchef.core.controllers.interfaces.IKitchenController;
 
 public class Principal extends JFrame {
 
