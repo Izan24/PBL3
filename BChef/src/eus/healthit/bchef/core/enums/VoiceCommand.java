@@ -1,8 +1,8 @@
 package eus.healthit.bchef.core.enums;
 
 public enum VoiceCommand {
-	SEARCH_INGREDIENT("Que tenga", "Que contenga", "Usando", "Con", "Contenga", "Tenga", "Posea", "Use", "Utilice"),
-	SEARCH_RECIPE ("Busca", "Buscar", "Buscame", "Busques", "Encuentra"),
+	SEARCH_INGREDIENT("Que tenga", "Que contenga", "Usando", "Receta con", "Con", "Contenga", "Tenga", "Posea", "Use", "Utilice", "Receta con"),
+	SEARCH_RECIPE ("Busca", "Buscar", "Buscame", "Busques", "Encuentra", "Receta de", "Quiero"),
 	SWITCH_KITCHEN("Apaga", "Enciende", "Fuego", "Horno", "Induccion", "Vitroceramica", "Vitro"),
 	RECIPE_PREVIOUS("Anterior", "Antes", "Repite", "Repeticion", "Olvidado"),
 	RECIPE_NEXT("Siguiente", "Ahora que", "Tengo que hacer", "Continua"),

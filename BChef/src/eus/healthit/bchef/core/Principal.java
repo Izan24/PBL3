@@ -36,9 +36,15 @@ public class Principal extends JFrame {
 	public static void main(String[] args) {
 		IKitchenController kitchenController = new KitchenController();
 		
-		String str = "bchef hola ke tal io te doi el numero magico que es 197ekl 199 y 289 el ";
 		
-		System.out.println(CommandController.parseCommand(str).toString());
+		//StringBuilder str = new StringBuilder("bchef busca una receta con naranjas y  hasta tomates y tomates y tomates versus tomates");
+		//StringBuilder str = new StringBuilder("bchef quiero hacer una receta de arroz con pollo");
+		StringBuilder str = new StringBuilder("bchef quiero macarrones con tomate");
+		//System.out.println(CommandController.parseCommand(str).toString());
+		CommandController controlador = new CommandController();
+		VoiceCommand command = CommandController.parseCommand(str);
+		//System.out.println(command.toString());
+		controlador.selectCommand(command, str.toString());		
 		
 		//Principal view = new Principal();
 	}
