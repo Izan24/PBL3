@@ -58,12 +58,15 @@ public class ButtonFactory {
 			super.setIcon(icon);
 			super.setBorder(new RoundedBorder(30));
 			super.setSize(new Dimension(50, 100));
+			super.setBackground(bgColor);
+			super.setForeground(fgColor);
+			super.setActionCommand(command);
 			super.setBorderPainted(true);
-			super.setOpaque(false);
-			super.setFocusPainted(false);
+			super.setOpaque(true);
+			//super.setFocusPainted(false);
 
 		}
-		
+
 		@Override
 		public void paintComponent(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;

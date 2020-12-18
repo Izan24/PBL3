@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 
 import eus.healthit.bchef.core.models.Recipe;
 
@@ -19,7 +20,8 @@ public class RecipesList extends AbstractListModel<Recipe> {
 	private void initList() {
 
 		for (int i = 0; i < 20; i++) {
-			list.add(new Recipe(String.valueOf(i), "Autor" + i, 2, null, null, null, null, null));
+			list.add(new Recipe("Pollo Sentao " + i, String.valueOf(i), 2, null, null, null, null,
+					new ImageIcon("resources/recipeIcons/pollo-sentao.jpg")));
 		}
 
 	}

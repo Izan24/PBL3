@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.sql.Time;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Recipe {
 
 	String name, author;
@@ -12,10 +14,10 @@ public class Recipe {
 	Time publishDate, duration;
 	List<Ingredients> ingredients;
 	List<RecipeStep> steps;
-	Image image;
+	ImageIcon image;
 
 	public Recipe(String name, String author, int rating, Time publishDate, Time duration,
-			List<Ingredients> ingredients, List<RecipeStep> steps, Image image) {
+			List<Ingredients> ingredients, List<RecipeStep> steps, ImageIcon image) {
 
 		this.name = name;
 		this.author = author;
@@ -83,11 +85,11 @@ public class Recipe {
 		this.steps = steps;
 	}
 
-	public Image getImage() {
+	public ImageIcon getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(ImageIcon image) {
 		this.image = image;
 	}
 

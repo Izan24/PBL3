@@ -1,7 +1,10 @@
 package eus.healthit.bchef.core.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import eus.healthit.bchef.core.view.panels.CenterView;
