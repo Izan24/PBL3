@@ -23,7 +23,5 @@ public class Principal {
 		System.out.println(CommandController.parseCommand(str).toString());
 		
 		Principal principal = new Principal();
-		
-		
 	}
 }

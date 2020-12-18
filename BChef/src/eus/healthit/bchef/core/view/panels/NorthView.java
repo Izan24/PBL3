@@ -1,6 +1,7 @@
-package eus.healthit.bchef.core.view;
+package eus.healthit.bchef.core.view.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
@@ -19,7 +20,8 @@ public class NorthView extends JPanel {
 		super(new BorderLayout(50, 50));
 
 		this.add(createSearchBar(), BorderLayout.CENTER);
-		this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
+				BorderFactory.createEmptyBorder(10, 20, 10, 20)));
 	}
 
 	private JPanel createSearchBar() {

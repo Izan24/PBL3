@@ -27,7 +27,7 @@ public class ButtonFactory {
 	 * @param bgColor  -> the bgColor of the button
 	 * @param fgColor  -> the fgColor of the button
 	 */
-	public RoundedButton createRoundedButton(String name, String command, ActionListener listener, ImageIcon icon,
+	public static RoundedButton createRoundedButton(String name, String command, ActionListener listener, ImageIcon icon,
 			Color bgColor, Color fgColor) {
 
 		RoundedButton button = new RoundedButton(name, command, listener, icon, bgColor, fgColor);
@@ -35,7 +35,7 @@ public class ButtonFactory {
 		return button;
 	}
 
-	public class RoundedButton extends JButton {
+	public static class RoundedButton extends JButton {
 
 		String name, command;
 		ActionListener listener;
@@ -45,22 +45,25 @@ public class ButtonFactory {
 		public RoundedButton(String name, String command, ActionListener listener, ImageIcon icon, Color bgColor,
 				Color fgColor) {
 			super(name);
-			this.setActionCommand(command);
-			this.addActionListener(listener);
-			this.setIcon(icon);
-			this.setBorder(new RoundedBorder(30));
-			this.setSize(new Dimension(50, 100));
-			this.setBorderPainted(true);
-			this.setOpaque(false);
-
+			
 			this.name = name;
 			this.command = command;
 			this.listener = listener;
 			this.icon = icon;
 			this.bgColor = bgColor;
 			this.fgColor = fgColor;
-		}
+			
+			super.setActionCommand(command);
+			super.addActionListener(listener);
+			super.setIcon(icon);
+			super.setBorder(new RoundedBorder(30));
+			super.setSize(new Dimension(50, 100));
+			super.setBorderPainted(true);
+			super.setOpaque(false);
+			super.setFocusPainted(false);
 
+		}
+		
 		@Override
 		public void paintComponent(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
@@ -68,10 +71,9 @@ public class ButtonFactory {
 
 			g2.setColor(bgColor);
 			g2.fillRoundRect(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 30, 30);
-		
 
 			super.paintComponent(g2);
-
+			
 			System.out.println(name + " " + bgColor.getRed() + " " + bgColor.getGreen() + " " + bgColor.getBlue());
 		}
 	}
