@@ -16,11 +16,11 @@ import eus.healthit.bchef.core.view.components.ButtonFactory;
 public class LeftMenuView extends JPanel {
 
 	JButton buttonHome, buttonProfile, buttonList, buttonChef;
-
+	
 	public LeftMenuView() {
 		super(new FlowLayout(10, 10, 10));
 		this.setSize(new Dimension(90,20));
-
+		
 		initButtons();
 
 		this.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
@@ -28,11 +28,13 @@ public class LeftMenuView extends JPanel {
 	}
 
 	private void initButtons() {
-		buttonHome = ButtonFactory.createRoundedButton("Home", "Home", null, null, Color.pink, Color.black);
-		buttonProfile = ButtonFactory.createRoundedButton("Profile", "Profile", null, null, Color.yellow, Color.black);
-		buttonList = ButtonFactory.createRoundedButton("Shopping List", "Shopping List", null, null, Color.red, Color.black);
-		buttonChef = ButtonFactory.createRoundedButton("B-Chef", "B-Chef", null,
-				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.black);
+		ButtonFactory buttonFactory = new ButtonFactory();
+
+		buttonHome = buttonFactory.createRoundedButton("Home", "Home", null, null, Color.pink, Color.white);
+		buttonProfile = buttonFactory.createRoundedButton("Profile", "Profile", null, null, Color.yellow, Color.black);
+		buttonList = buttonFactory.createRoundedButton("Shopping List", "Shopping List", null, null, Color.red, Color.white);
+		buttonChef = buttonFactory.createRoundedButton("B-Chef", "B-Chef", null,
+				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white);
 	}
 
 	private JPanel createMenuBar() {

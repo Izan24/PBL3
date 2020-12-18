@@ -2,7 +2,9 @@ package eus.healthit.bchef.core.view.borders;
 
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 
 import javax.swing.border.Border;
 
@@ -23,8 +25,9 @@ public class RoundedBorder implements Border {
 	}
 
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-		g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-		g.fillRoundRect(x, y, width - 1, height - 1, radius, radius);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+		g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 	}
 
 }
