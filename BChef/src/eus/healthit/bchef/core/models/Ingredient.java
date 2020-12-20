@@ -2,12 +2,12 @@ package eus.healthit.bchef.core.models;
 
 import java.util.List;
 
-public class Ingredients {
+public class Ingredient {
 
 	String name;
-	List<Ingredients> replacements;
+	List<Ingredient> replacements;
 
-	public Ingredients(String name, List<Ingredients> replacements) {
+	public Ingredient(String name, List<Ingredient> replacements) {
 		this.name = name;
 		this.replacements = replacements;
 	}

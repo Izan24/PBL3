@@ -4,6 +4,7 @@ package eus.healthit.bchef.core;
 import eus.healthit.bchef.core.controllers.CommandController;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {

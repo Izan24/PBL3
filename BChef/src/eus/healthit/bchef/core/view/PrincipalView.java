@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import eus.healthit.bchef.core.controllers.CenterViewController;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.panels.CenterView;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;
@@ -21,14 +22,14 @@ public class PrincipalView extends JPanel {
 	
 	CenterViewController centerController;
 
-	public PrincipalView() {
+	public PrincipalView(User user) {
 		super(new BorderLayout());
 		
 		centerController = new CenterViewController(this);
 		
 		leftMenuView = new LeftMenuView(centerController);
 		northView = new NorthView();
-		centerView = new CenterView();
+		centerView = new CenterView(user);
 
 		setContent();
 	}

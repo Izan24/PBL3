@@ -35,27 +35,26 @@ public class LeftMenuView extends JPanel {
 		this.add(createMenuBar());
 	}
 
-	
 	/*
-	 * NOTA
-	 * CREO QUE PODRIAMOS PONER LOS ICONOS EN UNA CLASE Y QUE SEAN ESTATICOS O QUE TENGA METODOS PARA PEDIRLOS
-	 * POR SI ALGUN DIA QUEREMOS CAMBIARLOS NO TENER QUE IR BUSCANDO DONDE SE CREAN LOS BOTONES O POEDER ESCALARLO MAS FACIL
+	 * NOTA CREO QUE PODRIAMOS PONER LOS ICONOS EN UNA CLASE Y QUE SEAN ESTATICOS O
+	 * QUE TENGA METODOS PARA PEDIRLOS POR SI ALGUN DIA QUEREMOS CAMBIARLOS NO TENER
+	 * QUE IR BUSCANDO DONDE SE CREAN LOS BOTONES O POEDER ESCALARLO MAS FACIL
 	 */
 	private void initButtons() {
 
 		Font font = new Font("Arial", Font.BOLD, 12);
 
-		buttonHome = ButtonFactory.createRoundedButton("Home", CenterControllerAC.HOME, listener, null, Color.white,
-				Color.black, font);
+		buttonHome = ButtonFactory.createRoundedButton("Home", CenterControllerAC.HOME, listener,
+				new ImageIcon("resources/menuIcons/home_icon.png"), Color.white, Color.black, font);
 
-		buttonProfile = ButtonFactory.createRoundedButton("Profile", CenterControllerAC.PROFILE, listener, null,
-				Color.white, Color.black, font);
+		buttonProfile = ButtonFactory.createRoundedButton("Profile", CenterControllerAC.PROFILE, listener,
+				new ImageIcon("resources/menuIcons/profile_icon.png"), Color.white, Color.black, font);
 
-		buttonList = ButtonFactory.createRoundedButton("Shopping List", CenterControllerAC.LIST, listener, null,
-				Color.white, Color.black, font);
+		buttonList = ButtonFactory.createRoundedButton("Shopping List", CenterControllerAC.LIST, listener,
+				new ImageIcon("resources/menuIcons/list_icon.png"), Color.white, Color.black, font);
 
 		buttonChef = ButtonFactory.createRoundedButton("B-Chef", CenterControllerAC.BCHEF, listener,
-				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white, font);
+				new ImageIcon("resources/menuIcons/bchef_icon.png"), Color.cyan, Color.white, font);
 	}
 
 	private JPanel createMenuBar() {

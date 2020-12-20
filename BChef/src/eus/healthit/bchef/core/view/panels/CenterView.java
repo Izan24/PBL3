@@ -12,6 +12,7 @@ import javax.swing.text.html.ListView;
 
 import eus.healthit.bchef.core.controllers.CenterControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
@@ -21,14 +22,14 @@ public class CenterView extends JPanel {
 	CenterViewProfile profileView;
 	CenterViewRecipe recipeView;
 
-	public CenterView() {
-		super(new GridLayout());
+	public CenterView(User user) {
+		super(new GridLayout(1,1));
 		this.setSize(new Dimension(90, 20));
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		listView = new CenterViewList();
-		profileView = new CenterViewProfile();
+		profileView = new CenterViewProfile(user);
 		recipeView = new CenterViewRecipe();
 
 		setView(CenterControllerAC.HOME);
@@ -37,7 +38,6 @@ public class CenterView extends JPanel {
 	public void setView(String selection) {
 
 		switch (selection) {
-
 		case CenterControllerAC.HOME:
 			this.removeAll();
 			this.add(listView.getScrollPane());
@@ -45,12 +45,12 @@ public class CenterView extends JPanel {
 
 		case CenterControllerAC.LIST:
 			this.removeAll();
-			// this.add();
+			//this.add(listView);
 			break;
 
 		case CenterControllerAC.PROFILE:
 			this.removeAll();
-			// this.add();
+			this.add(profileView.getPanel());
 			break;
 
 		case CenterControllerAC.BCHEF:
@@ -58,6 +58,8 @@ public class CenterView extends JPanel {
 			// this.add();
 			break;
 		}
+		
+		this.revalidate();
 		this.repaint();
 	}
 }

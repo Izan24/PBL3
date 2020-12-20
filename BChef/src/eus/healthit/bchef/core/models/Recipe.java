@@ -12,12 +12,12 @@ public class Recipe {
 	int rating; // 0 to 10 in 5 stars
 	// dayTime releasedate;
 	Time publishDate, duration;
-	List<Ingredients> ingredients;
+	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
 	ImageIcon image;
 
 	public Recipe(String name, String author, int rating, Time publishDate, Time duration,
-			List<Ingredients> ingredients, List<RecipeStep> steps, ImageIcon image) {
+			List<Ingredient> ingredients, List<RecipeStep> steps, ImageIcon image) {
 
 		this.name = name;
 		this.author = author;
@@ -69,11 +69,11 @@ public class Recipe {
 		this.duration = duration;
 	}
 
-	public List<Ingredients> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<Ingredients> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
