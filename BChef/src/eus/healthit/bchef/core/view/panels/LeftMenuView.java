@@ -6,40 +6,56 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import eus.healthit.bchef.core.controllers.CenterControllerAC;
 import eus.healthit.bchef.core.view.components.ButtonFactory;
 
 public class LeftMenuView extends JPanel {
 
 	JButton buttonHome, buttonProfile, buttonList, buttonChef;
+	ActionListener listener;
 
-	public LeftMenuView() {
+	public LeftMenuView(ActionListener listener) {
 		super(new FlowLayout(10, 10, 10));
-		this.setSize(new Dimension(90, 20));
 
-		initButtons();
+		this.setSize(new Dimension(90, 20));
 
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY),
 				BorderFactory.createEmptyBorder(65, 100, 100, 20)));
 
+		this.listener = listener;
+		initButtons();
+
 		this.add(createMenuBar());
 	}
 
+	
+	/*
+	 * NOTA
+	 * CREO QUE PODRIAMOS PONER LOS ICONOS EN UNA CLASE Y QUE SEAN ESTATICOS O QUE TENGA METODOS PARA PEDIRLOS
+	 * POR SI ALGUN DIA QUEREMOS CAMBIARLOS NO TENER QUE IR BUSCANDO DONDE SE CREAN LOS BOTONES O POEDER ESCALARLO MAS FACIL
+	 */
 	private void initButtons() {
-		
+
 		Font font = new Font("Arial", Font.BOLD, 12);
 
-		buttonHome = ButtonFactory.createRoundedButton("Home", "Home", null, null, Color.white, Color.black,font);
-		buttonProfile = ButtonFactory.createRoundedButton("Profile", "Profile", null, null, Color.white, Color.black,font);
-		buttonList = ButtonFactory.createRoundedButton("Shopping List", "Shopping List", null, null, Color.white,
-				Color.black,font);
-		buttonChef = ButtonFactory.createRoundedButton("B-Chef", "B-Chef", null,
-				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white,font);
+		buttonHome = ButtonFactory.createRoundedButton("Home", CenterControllerAC.HOME, listener, null, Color.white,
+				Color.black, font);
+
+		buttonProfile = ButtonFactory.createRoundedButton("Profile", CenterControllerAC.PROFILE, listener, null,
+				Color.white, Color.black, font);
+
+		buttonList = ButtonFactory.createRoundedButton("Shopping List", CenterControllerAC.LIST, listener, null,
+				Color.white, Color.black, font);
+
+		buttonChef = ButtonFactory.createRoundedButton("B-Chef", CenterControllerAC.BCHEF, listener,
+				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white, font);
 	}
 
 	private JPanel createMenuBar() {

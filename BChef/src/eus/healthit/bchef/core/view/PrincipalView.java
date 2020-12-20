@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import eus.healthit.bchef.core.controllers.CenterViewController;
 import eus.healthit.bchef.core.view.panels.CenterView;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;
@@ -17,10 +18,15 @@ public class PrincipalView extends JPanel {
 	LeftMenuView leftMenuView;
 	NorthView northView;
 	CenterView centerView;
+	
+	CenterViewController centerController;
 
 	public PrincipalView() {
 		super(new BorderLayout());
-		leftMenuView = new LeftMenuView();
+		
+		centerController = new CenterViewController(this);
+		
+		leftMenuView = new LeftMenuView(centerController);
 		northView = new NorthView();
 		centerView = new CenterView();
 
@@ -31,5 +37,9 @@ public class PrincipalView extends JPanel {
 		this.add(leftMenuView, BorderLayout.WEST);
 		this.add(northView, BorderLayout.NORTH);
 		this.add(centerView, BorderLayout.CENTER);
+	}
+	
+	public void changeCenterView(String selection) {
+		centerView.setView(selection);
 	}
 }

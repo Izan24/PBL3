@@ -8,21 +8,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.text.html.ListView;
 
+import eus.healthit.bchef.core.controllers.CenterControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
 public class CenterView extends JPanel {
 
-	/*
-	 * HAY QUE DARLE EL JLIST AL CONTROLADOR, DE MOMENTO ESTÁ AQUI PORQUE NO ESTA EL
-	 * CONTROLADOR
-	 */
-
-	JList<Recipe> recipes;
-	RecipesList listModel;
-	RendererRecipes renderer;
+	CenterViewList listView;
+	CenterViewProfile profileView;
+	CenterViewRecipe recipeView;
 
 	public CenterView() {
 		super(new GridLayout());
@@ -30,23 +27,37 @@ public class CenterView extends JPanel {
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		addScrollPane();
+		listView = new CenterViewList();
+		profileView = new CenterViewProfile();
+		recipeView = new CenterViewRecipe();
 
+		setView(CenterControllerAC.HOME);
 	}
 
-	private void addScrollPane() {
-		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+	public void setView(String selection) {
 
-		recipes = new JList<>();
-		listModel = new RecipesList();
-		renderer = new RendererRecipes();
+		switch (selection) {
 
-		recipes.setModel(listModel);
-		recipes.setCellRenderer(renderer);
+		case CenterControllerAC.HOME:
+			this.removeAll();
+			this.add(listView.getScrollPane());
+			break;
 
-		scrollPane.setViewportView(recipes);
-		this.add(scrollPane);
+		case CenterControllerAC.LIST:
+			this.removeAll();
+			// this.add();
+			break;
+
+		case CenterControllerAC.PROFILE:
+			this.removeAll();
+			// this.add();
+			break;
+
+		case CenterControllerAC.BCHEF:
+			this.removeAll();
+			// this.add();
+			break;
+		}
+		this.repaint();
 	}
 }
