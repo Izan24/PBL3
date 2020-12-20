@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -30,13 +31,15 @@ public class LeftMenuView extends JPanel {
 	}
 
 	private void initButtons() {
+		
+		Font font = new Font("Arial", Font.BOLD, 12);
 
-		buttonHome = ButtonFactory.createRoundedButton("Home", "Home", null, null, Color.pink, Color.white);
-		buttonProfile = ButtonFactory.createRoundedButton("Profile", "Profile", null, null, Color.yellow, Color.black);
-		buttonList = ButtonFactory.createRoundedButton("Shopping List", "Shopping List", null, null, Color.red,
-				Color.white);
+		buttonHome = ButtonFactory.createRoundedButton("Home", "Home", null, null, Color.white, Color.black,font);
+		buttonProfile = ButtonFactory.createRoundedButton("Profile", "Profile", null, null, Color.white, Color.black,font);
+		buttonList = ButtonFactory.createRoundedButton("Shopping List", "Shopping List", null, null, Color.white,
+				Color.black,font);
 		buttonChef = ButtonFactory.createRoundedButton("B-Chef", "B-Chef", null,
-				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white);
+				new ImageIcon("resources/menuIcons/menuIconPrueba.png"), Color.cyan, Color.white,font);
 	}
 
 	private JPanel createMenuBar() {

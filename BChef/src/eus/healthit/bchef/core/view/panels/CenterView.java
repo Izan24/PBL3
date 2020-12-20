@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.view.panels;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JList;
@@ -24,7 +25,7 @@ public class CenterView extends JPanel {
 	RendererRecipes renderer;
 
 	public CenterView() {
-		super(new FlowLayout(10, 10, 10));
+		super(new GridLayout());
 		this.setSize(new Dimension(90, 20));
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
