@@ -23,8 +23,11 @@ public class LeftMenuView extends JPanel {
 
 	public LeftMenuView(ActionListener listener) {
 		super(new FlowLayout(10, 10, 10));
+		this.setBackground(Color.white);
+		this.setOpaque(true);
 
 		this.setSize(new Dimension(90, 20));
+		
 
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY),
 				BorderFactory.createEmptyBorder(65, 100, 100, 20)));

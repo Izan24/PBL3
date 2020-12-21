@@ -21,6 +21,8 @@ public class CenterView extends JPanel {
 	CenterViewList listView;
 	CenterViewProfile profileView;
 	CenterViewRecipe recipeView;
+	CenterBchefView bchefView;
+	
 
 	public CenterView(User user) {
 		super(new GridLayout(1,1));
@@ -31,6 +33,7 @@ public class CenterView extends JPanel {
 		listView = new CenterViewList();
 		profileView = new CenterViewProfile(user);
 		recipeView = new CenterViewRecipe();
+		bchefView = new CenterBchefView();
 
 		setView(CenterControllerAC.HOME);
 	}
@@ -55,7 +58,7 @@ public class CenterView extends JPanel {
 
 		case CenterControllerAC.BCHEF:
 			this.removeAll();
-			// this.add();
+			this.add(bchefView);
 			break;
 		}
 		

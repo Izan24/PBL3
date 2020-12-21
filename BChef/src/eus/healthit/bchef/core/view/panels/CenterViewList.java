@@ -1,5 +1,7 @@
 package eus.healthit.bchef.core.view.panels;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -22,6 +24,8 @@ public class CenterViewList extends JScrollPane {
 	public CenterViewList() {
 
 		super(new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		this.setBackground(Color.white);
+		this.setOpaque(true);
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 

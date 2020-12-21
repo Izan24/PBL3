@@ -1,6 +1,5 @@
 package eus.healthit.bchef.core.models;
 
-import java.awt.image.renderable.RenderContext;
 import java.util.ArrayList;
 import java.util.List;
 

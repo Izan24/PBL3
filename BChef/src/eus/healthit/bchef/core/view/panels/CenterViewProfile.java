@@ -17,8 +17,9 @@ public class CenterViewProfile extends JPanel {
 
 	public CenterViewProfile(User user) {
 		super(new GridLayout(1, 1, 100, 100));
-		this.setBorder(BorderFactory.createLineBorder(Color.red));
-		this.setBackground(Color.red);
+		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		this.setBackground(Color.white);
+		this.setOpaque(true);
 
 		this.user = user;
 
@@ -27,6 +28,8 @@ public class CenterViewProfile extends JPanel {
 
 	private JPanel createContent() {
 		JPanel contentPanel = new JPanel(new BorderLayout(20, 20));
+		contentPanel.setBackground(Color.white);
+		contentPanel.setOpaque(true);
 
 		contentPanel.add(createNorthPanel(), BorderLayout.NORTH);
 		contentPanel.add(createCenterPanel(), BorderLayout.CENTER);
@@ -36,9 +39,17 @@ public class CenterViewProfile extends JPanel {
 
 	private JPanel createNorthPanel() {
 		JPanel northPanel = new JPanel(new BorderLayout(20, 20));
+		northPanel.setBackground(Color.white);
+		northPanel.setOpaque(true);
 
 		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 10, 10));
 		JPanel infoPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+		
+		imagePanel.setBackground(Color.white);
+		imagePanel.setOpaque(true);
+		
+		infoPanel.setBackground(Color.white);
+		infoPanel.setOpaque(true);
 
 		// -------------------------------------------------------------
 		JLabel profilePicture = new JLabel();
@@ -50,7 +61,9 @@ public class CenterViewProfile extends JPanel {
 		infoPanel.add(username);
 
 		JPanel followerPanel = new JPanel(new GridLayout(1, 3, 10, 10));
-		
+		followerPanel.setBackground(Color.white);
+		followerPanel.setOpaque(true);
+
 		JLabel recipes = new JLabel("Recipes\n" + user.getPublishedNumber());
 		JLabel following = new JLabel("Following\n" + user.getFollowedNumber());
 		JLabel followers = new JLabel("Followers\n " + "Todavia no se si meter followers");
@@ -69,6 +82,7 @@ public class CenterViewProfile extends JPanel {
 
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(Color.orange);
 
 		return centerPanel;
 	}

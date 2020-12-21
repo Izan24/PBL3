@@ -18,6 +18,8 @@ public class NorthView extends JPanel {
 
 	public NorthView() {
 		super(new BorderLayout(50, 50));
+		this.setBackground(Color.white);
+		this.setOpaque(true);
 
 		this.add(createSearchBar(), BorderLayout.CENTER);
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
@@ -27,6 +29,8 @@ public class NorthView extends JPanel {
 	private JPanel createSearchBar() {
 
 		JPanel panelSearch = new JPanel(new FlowLayout());
+		panelSearch.setBackground(Color.white);
+		panelSearch.setOpaque(true);
 		panelSearch.setSize(new Dimension(2002, 2002));
 
 		searchBar = new RoundedTextField("Busca una receta");
