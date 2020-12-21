@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.view.panels;
+package eus.healthit.bchef.core.view.panels.center;
 
 import java.awt.Color;
 

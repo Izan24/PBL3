@@ -18,7 +18,7 @@ public class User {
 	List<Recipe> published;
 	List<Recipe> saved;
 	List<Recipe> pending;
-	List<Ingredient> shopList; // HACEMOS QUE SEA INGREDIENT O UN STRING SIN MAS??
+	List<Item> shopList; // HACEMOS QUE SEA INGREDIENT O UN STRING SIN MAS??
 	List<Recipe> history;
 
 	/**
@@ -68,7 +68,7 @@ public class User {
 	 */
 	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
 			String password, List<User> followed, List<Recipe> published, List<Recipe> saved, List<Recipe> pending,
-			List<Ingredient> shopList, List<Recipe> history) {
+			List<Item> shopList, List<Recipe> history) {
 
 		this.id = id;
 		this.name = name;
@@ -221,15 +221,15 @@ public class User {
 	
 	//------------------------------------------------------------------------
 
-	public List<Ingredient> getShopList() {
+	public List<Item> getShopList() {
 		return shopList;
 	}
 	
-	public void addShopElement(Ingredient ingredient) {
+	public void addShopElement(Item ingredient) {
 		shopList.add(ingredient);
 	}
 	
-	public void removeShopElement(Ingredient ingredient) {
+	public void removeShopElement(Item ingredient) {
 		shopList.remove(ingredient);
 	}
 	

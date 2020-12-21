@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 import eus.healthit.bchef.core.controllers.CenterViewController;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.view.panels.CenterView;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;
+import eus.healthit.bchef.core.view.panels.center.CenterView;
 
 @SuppressWarnings("serial")
 public class PrincipalView extends JPanel {

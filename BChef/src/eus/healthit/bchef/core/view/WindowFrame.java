@@ -51,5 +51,7 @@ public class WindowFrame extends JFrame {
 		this.setBackground(Color.white);
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+//		this.setUndecorated(true);
 	}
 }

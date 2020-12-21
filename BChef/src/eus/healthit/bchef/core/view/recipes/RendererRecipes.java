@@ -24,24 +24,38 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 	public Component getListCellRendererComponent(JList<? extends Recipe> list, Recipe value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
+		JPanel panelList = new JPanel(new BorderLayout());
+		JPanel textPanel = new JPanel(new GridLayout());
+		JPanel panelImage = new JPanel(new GridLayout(1,1,20,20));
+		JPanel dataPanel = new JPanel(new BorderLayout(20, 20));
+		JPanel southPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		
 		//--------------------------------------------------------------------------
 		//								The panel
 		//--------------------------------------------------------------------------
 
-		JPanel panelList = new JPanel(new BorderLayout());
 		panelList.setBorder(
 				BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
 						BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		panelList.setBackground(Color.white);
 		panelList.setOpaque(true);
+		
+		if (!isSelected) {
+			panelList.setBackground(Color.white);
+			textPanel.setBackground(Color.white);
+			panelImage.setBackground(Color.white);
+			dataPanel.setBackground(Color.white);
+			southPanel.setBackground(Color.white);
+		}else {
+			panelList.setBackground(new Color(232, 232, 232));			
+			textPanel.setBackground(new Color(232, 232, 232));			
+			panelImage.setBackground(new Color(232, 232, 232));			
+			dataPanel.setBackground(new Color(232, 232, 232));			
+			southPanel.setBackground(new Color(232, 232, 232));			
+		}
 		
 		//--------------------------------------------------------------------------
 		//								The Recipe name panel
 		//--------------------------------------------------------------------------
-
-		JPanel textPanel = new JPanel(new GridLayout());
-		textPanel.setBackground(Color.white);
-		textPanel.setOpaque(true);
 		
 		JLabel recipeName = new JLabel(value.getName());
 		recipeName.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -52,10 +66,6 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		//--------------------------------------------------------------------------
 		//								The Image panel
 		//--------------------------------------------------------------------------
-
-		JPanel panelImage = new JPanel(new GridLayout(1,1,20,20));
-		panelImage.setBackground(Color.white);
-		panelImage.setOpaque(true);
 		
 		panelImage.setBorder(BorderFactory.createEmptyBorder(10,10,10,30));
 		JLabel image = new JLabel(value.getImage());
@@ -65,11 +75,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		//--------------------------------------------------------------------------
 		//								The Recipe info panel
 		//--------------------------------------------------------------------------
-		
-		JPanel dataPanel = new JPanel(new BorderLayout(20, 20));
-		dataPanel.setBackground(Color.white);
-		dataPanel.setOpaque(true);
-		
+				
 		JLabel text = new JLabel("Pollo a la bielorrusa es un pollo a la Bielorrusa");
 		
 		
@@ -77,10 +83,6 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		//								The bottom part of the panel
 		//								(author + rating + button)
 		//--------------------------------------------------------------------------
-
-		JPanel southPanel = new JPanel(new GridLayout(1, 3, 5, 5));
-		southPanel.setBackground(Color.white);
-		southPanel.setOpaque(true);
 		
 		JLabel author = new JLabel("Author: " + value.getAuthor());
 		southPanel.add(author);
@@ -97,7 +99,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		dataPanel.add(southPanel, BorderLayout.SOUTH);
 		
 		//--------------------------------------------------------------------------
-		//								Add everithing to the main panel
+		//							Add everything to the main panel
 		//--------------------------------------------------------------------------
 		
 		panelList.add(textPanel, BorderLayout.NORTH);

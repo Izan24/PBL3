@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.view.panels;
+package eus.healthit.bchef.core.view.panels.center;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,6 +22,7 @@ public class CenterView extends JPanel {
 	CenterViewProfile profileView;
 	CenterViewRecipe recipeView;
 	CenterBchefView bchefView;
+	CenterShopListView shopListView;
 	
 
 	public CenterView(User user) {
@@ -30,12 +31,17 @@ public class CenterView extends JPanel {
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+		initViews(user);
+		
+		setView(CenterControllerAC.HOME);
+	}
+	
+	private void initViews(User user) {
 		listView = new CenterViewList();
 		profileView = new CenterViewProfile(user);
 		recipeView = new CenterViewRecipe();
 		bchefView = new CenterBchefView();
-
-		setView(CenterControllerAC.HOME);
+		shopListView = new CenterShopListView(user);
 	}
 
 	public void setView(String selection) {
@@ -48,7 +54,7 @@ public class CenterView extends JPanel {
 
 		case CenterControllerAC.LIST:
 			this.removeAll();
-			//this.add(listView);
+			this.add(shopListView);
 			break;
 
 		case CenterControllerAC.PROFILE:
