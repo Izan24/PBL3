@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers;
+package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +10,6 @@ public class CenterViewController implements ActionListener {
 	PrincipalView principalView;
 
 	public CenterViewController(PrincipalView principalView) {
-
 		this.principalView = principalView;
 	}
 

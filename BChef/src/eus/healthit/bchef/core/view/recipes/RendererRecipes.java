@@ -85,7 +85,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// The bottom part of the panel
 		// (author + rating + button)
 		// --------------------------------------------------------------------------
-				
+
 		JLabel author = new JLabel("Author: " + value.getAuthor());
 		southPanel.add(author);
 
@@ -103,7 +103,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		if (i == 1) {
 			starPanel.add(halfStar);
 		}
-		
+
 		southPanel.add(starPanel);
 
 		JButton buttonRecipe = ButtonFactory.createRoundedButton("Ver receta", value.getName(), null, null, Color.cyan,

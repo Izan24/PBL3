@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.html.ListView;
 
-import eus.healthit.bchef.core.controllers.CenterControllerAC;
+import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
@@ -23,7 +23,6 @@ public class CenterView extends JPanel {
 	CenterViewRecipe recipeView;
 	CenterBchefView bchefView;
 	CenterShopListView shopListView;
-	
 
 	public CenterView(User user) {
 		super(new GridLayout(1,1));

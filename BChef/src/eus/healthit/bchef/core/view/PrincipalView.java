@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;

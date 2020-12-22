@@ -9,6 +9,15 @@ import eus.healthit.bchef.core.Configuration;
 import eus.healthit.bchef.core.enums.VoiceCommand;
 
 public class CommandController {
+	
+	private static CommandController obj = new CommandController();
+	
+	private CommandController() {
+	}
+	
+	public static CommandController getCommandController() {
+		return obj;
+	}
 
 	public static VoiceCommand parseCommand(String command) {
 		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));

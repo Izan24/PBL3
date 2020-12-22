@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.CenterControllerAC;
+import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.view.components.ButtonFactory;
 
 public class LeftMenuView extends JPanel {

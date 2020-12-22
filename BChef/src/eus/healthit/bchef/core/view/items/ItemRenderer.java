@@ -6,19 +6,20 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import eus.healthit.bchef.core.controllers.ShopListController;
+import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.models.Item;
 
 public class ItemRenderer implements ListCellRenderer<Item> {
 
-	ShopListController controller;
+	ShopListButtonController controller;
 
-	public ItemRenderer(ShopListController controller) {
+	public ItemRenderer(ShopListButtonController controller) {
 		this.controller = controller;
 	}
 	
@@ -35,7 +36,6 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 
 		JPanel mainPanel = new JPanel(new GridLayout(1, 2, 20, 20));
 		JLabel boughtLabel = new JLabel();
-		boughtLabel.addMouseListener(controller);
 		JLabel labelName = new JLabel(value.getName());
 		labelName.setFont(new Font("Gill Sans MT", Font.PLAIN, 19));
 
@@ -58,5 +58,4 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 
 		return mainPanel;
 	}
-
 }

@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers;
+package eus.healthit.bchef.core.controllers.view;
 
 public class ShopListControllerAC {
 

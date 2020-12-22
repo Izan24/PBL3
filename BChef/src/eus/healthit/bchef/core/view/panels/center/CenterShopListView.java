@@ -5,19 +5,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.nio.channels.NonReadableChannelException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import eus.healthit.bchef.core.controllers.ShopListController;
-import eus.healthit.bchef.core.controllers.ShopListControllerAC;
+import eus.healthit.bchef.core.controllers.implementations.ShopListController;
+import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
+import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.items.ItemList;
@@ -32,13 +31,18 @@ public class CenterShopListView extends JPanel {
 	ItemList listModel;
 	ItemRenderer renderer;
 
-	ShopListController controller;
+	ShopListButtonController buttonController;
+	ShopListController listController;
 
 	public CenterShopListView(User user) {
 		super(new BorderLayout(10, 10));
 		this.setBackground(Color.white);
 		this.user = user;
-		controller = new ShopListController(this);
+
+		buttonController = new ShopListButtonController(this);
+
+		listController = ShopListController.getShopListController();
+		listController.setShopListView(this);
 
 		/*
 		 * AQUI TE TIENEN QUE PASAR EL USER E INICIAR LA LISTA DE ITEMS DE LA LISTA QUE
@@ -57,7 +61,7 @@ public class CenterShopListView extends JPanel {
 		listModel = new ItemList();
 		// listModel.setList(user.getShopList());
 
-		renderer = new ItemRenderer(controller);
+		renderer = new ItemRenderer(buttonController);
 
 		itemList.setModel(listModel);
 		itemList.setCellRenderer(renderer);
@@ -76,7 +80,7 @@ public class CenterShopListView extends JPanel {
 		JButton buttonAdd = new JButton();
 		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon.png"));
 		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
-		buttonAdd.addActionListener(controller);
+		buttonAdd.addActionListener(buttonController);
 		buttonAdd.setFocusable(false);
 		buttonAdd.setPreferredSize(new Dimension(40, 40));
 		buttonAdd.setBackground(new Color(224, 224, 224));
@@ -113,7 +117,7 @@ public class CenterShopListView extends JPanel {
 		JButton deleteButton = new JButton("Eliminar");
 		deleteButton.setBackground(new Color(202, 0, 0));
 		deleteButton.setActionCommand(ShopListControllerAC.REMOVE);
-		deleteButton.addActionListener(controller);
+		deleteButton.addActionListener(buttonController);
 		deleteButton.setForeground(Color.white);
 		deleteButton.setFocusable(false);
 
@@ -126,7 +130,7 @@ public class CenterShopListView extends JPanel {
 		String spaceless = newElementField.getText().trim();
 
 		if (!spaceless.equals("")) {
-			listModel.addElement(new Item(newElementField.getText()));
+			listController.addElement(newElementField.getText());
 			newElementField.setText("");
 		}
 	}
@@ -136,6 +140,10 @@ public class CenterShopListView extends JPanel {
 			listModel.deleteElement(itemList.getSelectedValue());
 		} catch (IndexOutOfBoundsException e) {
 		}
+	}
+
+	public ItemList getListModel() {
+		return listModel;
 	}
 
 }
