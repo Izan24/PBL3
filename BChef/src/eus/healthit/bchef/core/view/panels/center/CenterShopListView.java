@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import eus.healthit.bchef.core.controllers.ShopListController;
+import eus.healthit.bchef.core.controllers.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.items.ItemList;
@@ -30,10 +32,13 @@ public class CenterShopListView extends JPanel {
 	ItemList listModel;
 	ItemRenderer renderer;
 
+	ShopListController controller;
+
 	public CenterShopListView(User user) {
 		super(new BorderLayout(10, 10));
 		this.setBackground(Color.white);
 		this.user = user;
+		controller = new ShopListController(this);
 
 		/*
 		 * AQUI TE TIENEN QUE PASAR EL USER E INICIAR LA LISTA DE ITEMS DE LA LISTA QUE
@@ -52,7 +57,7 @@ public class CenterShopListView extends JPanel {
 		listModel = new ItemList();
 		// listModel.setList(user.getShopList());
 
-		renderer = new ItemRenderer();
+		renderer = new ItemRenderer(controller);
 
 		itemList.setModel(listModel);
 		itemList.setCellRenderer(renderer);
@@ -70,7 +75,9 @@ public class CenterShopListView extends JPanel {
 
 		JButton buttonAdd = new JButton();
 		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon.png"));
-		buttonAdd.setActionCommand("Add");
+		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
+		buttonAdd.addActionListener(controller);
+		buttonAdd.setFocusable(false);
 		buttonAdd.setPreferredSize(new Dimension(40, 40));
 		buttonAdd.setBackground(new Color(224, 224, 224));
 		/*
@@ -105,12 +112,30 @@ public class CenterShopListView extends JPanel {
 
 		JButton deleteButton = new JButton("Eliminar");
 		deleteButton.setBackground(new Color(202, 0, 0));
+		deleteButton.setActionCommand(ShopListControllerAC.REMOVE);
+		deleteButton.addActionListener(controller);
 		deleteButton.setForeground(Color.white);
-		
-		
+		deleteButton.setFocusable(false);
+
 		southPanel.add(deleteButton);
-		
+
 		return southPanel;
+	}
+
+	public void addElement() {
+		String spaceless = newElementField.getText().trim();
+
+		if (!spaceless.equals("")) {
+			listModel.addElement(new Item(newElementField.getText()));
+			newElementField.setText("");
+		}
+	}
+
+	public void removeElement() {
+		try {
+			listModel.deleteElement(itemList.getSelectedValue());
+		} catch (IndexOutOfBoundsException e) {
+		}
 	}
 
 }

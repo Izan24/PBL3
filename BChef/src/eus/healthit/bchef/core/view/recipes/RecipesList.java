@@ -20,8 +20,8 @@ public class RecipesList extends AbstractListModel<Recipe> {
 	private void initList() {
 
 		for (int i = 0; i < 20; i++) {
-			list.add(new Recipe("Pollo Sentao " + i, String.valueOf(i), 2, null, null, null, null,
-					new ImageIcon("resources/recipeIcons/pollo-sentao.jpg")));
+			list.add(new Recipe("Pollo Sentao " + i, String.valueOf(i), (int) (Math.random() * 10) + 1, null, null,
+					null, null, new ImageIcon("resources/recipeIcons/pollo-sentao.jpg")));
 		}
 
 	}
