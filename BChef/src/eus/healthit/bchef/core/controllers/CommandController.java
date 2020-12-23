@@ -1,6 +1,8 @@
 package eus.healthit.bchef.core.controllers;
 
+import java.util.List;
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
@@ -9,6 +11,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import eus.healthit.bchef.core.Configuration;
+import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
 
 public class CommandController {
@@ -27,7 +30,7 @@ public class CommandController {
 		
 	}
 	
-	public static VoiceCommand parseCommand(StringBuilder command) {
+	public static VoiceCommand parseCommand(String command) {
 		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));
 		c.setStrength(Collator.SECONDARY);
 		for (VoiceCommand cmd : VoiceCommand.values()) {
@@ -35,32 +38,28 @@ public class CommandController {
 				str = str.toLowerCase();
 				Pattern p = Pattern.compile("\\b" + str + "\\b", Pattern.CASE_INSENSITIVE);
 				Matcher m = p.matcher(command);
-				if (m.find()) {
-					if(str.equals("con")) {
-						int index1 = command.indexOf("con");
-						command.delete(index1, index1 + "con".length() + 1);
-						return parseCommand(command);
-					}
-					int index = command.indexOf(str);
-					command.delete(0, index + str.length() + 1);
-					
+				if (m.find()) {				
 					return cmd;
 				}
 			}
 		}
 
 		try {
-			System.out.println(parseInt(command.toString()));
 			return VoiceCommand.NUMBER;
 		} catch (Exception e) {
 			return VoiceCommand.MISUNDERSTOOD;
 		}
 	}
+	
+	
 
-	public static int parseInt(String string) throws NumberFormatException, IllegalStateException {
+	public static Integer [] parseInt(String string) throws NumberFormatException, IllegalStateException {
 		Matcher matcher = Pattern.compile("\\d+").matcher(string);
-		matcher.find();
-		return Integer.valueOf(matcher.group());
+		List<Integer> numsList = new ArrayList<>();
+		while(matcher.find()) {
+			numsList.add(Integer.valueOf(matcher.group()));
+		}
+		return numsList.toArray(new Integer [0]);
 	}
 
 	public boolean selectCommand(VoiceCommand command, String string) {
@@ -73,6 +72,7 @@ public class CommandController {
 			searchIngredient(string);
 			break;
 		case SWITCH_KITCHEN:
+			switchKitchen(string);
 			break;
 		case RECIPE_PREVIOUS:
 			break;
@@ -104,19 +104,41 @@ public class CommandController {
 	}
 	
 	private boolean searchIngredient(String string) {
-		Set<String> ingredients = parseIngredients(string);
-		ingredients.stream().forEach(System.out::println);
+		Set<String> ingredients = parseWords(string);
 		return true;
 	}
 	
-	private Set<String> parseIngredients(String string) {
+	private static Set<String> parseWords(String string) {
 		String numberless = string.replace("\\d", "");
 		Set<String> ingredients = Arrays.stream(numberless.split(" +")).collect(Collectors.toSet());
 		ingredients.removeIf(s -> Arrays.stream(PREPOSICIONES).anyMatch(m -> m.equals(s)));
-		//ingredients.stream().forEach(System.out::println);
 		ingredients.removeIf(s -> Arrays.stream(ARTICULOS).anyMatch(m -> m.equals(s)));
 		ingredients.removeIf(s -> Arrays.stream(PALABRAS).anyMatch(m -> m.equals(s)));
 		return ingredients;
+	}
+	
+	private void switchKitchen(String string) {
+		KitchenUtil util = getKitchenUtil(parseWords(string));
+		if(util != KitchenUtil.MISUNDERSTOOD) {
+			try {
+				Integer[] nums = parseInt(string);
+				controller.switchKitchen(util, nums);
+			} catch (Exception e) {
+				//TODO: preguntar numero
+			}
+		}
+		else controller.notifyMisunderstood();
+	}
+	
+	private KitchenUtil getKitchenUtil(Set<String> words) {
+		for(KitchenUtil util : KitchenUtil.values()) {
+			for(String keyword : util.getKeywords()) {
+				if(words.contains(keyword)) return util;
+			}
+		}
+		
+		return KitchenUtil.MISUNDERSTOOD;
+		
 	}
 
 }
