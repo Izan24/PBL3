@@ -15,6 +15,15 @@ import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
 
 public class CommandController {
+	
+	private static CommandController obj = new CommandController();
+	
+	private CommandController() {
+	}
+	
+	public static CommandController getCommandController() {
+		return obj;
+	}
 
 	private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe", "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta", "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus", "via"};
 	private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
