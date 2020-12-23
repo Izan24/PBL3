@@ -5,6 +5,7 @@ public class Kitchen {
 	Stove [] stoves;
 	Oven oven;
 	
+	
 	public boolean setFire(int index, int power) {
 		if(power < 0) return false;
 		stoves[index].setState((power) > 0 ? true : false);
