@@ -35,9 +35,6 @@ public class CommandController {
 	public CommandController(BChefController controller) {
 		this.controller = controller;
 	}
-	public CommandController() {
-		
-	}
 	
 	public static VoiceCommand parseCommand(String command) {
 		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));

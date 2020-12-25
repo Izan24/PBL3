@@ -23,7 +23,10 @@ public class RecipesList extends AbstractListModel<Recipe> {
 			list.add(new Recipe("Pollo Sentao " + i, String.valueOf(i), (int) (Math.random() * 10) + 1, null, null,
 					null, null, new ImageIcon("resources/recipeIcons/pollo-sentao.jpg")));
 		}
+	}
 
+	public void setList(List<Recipe> list) {
+		this.list = list;
 	}
 
 	public void addElement(Recipe elemento) {
