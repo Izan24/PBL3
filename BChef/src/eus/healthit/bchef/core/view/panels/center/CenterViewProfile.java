@@ -21,6 +21,11 @@ import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
 public class CenterViewProfile extends JPanel {
+	
+	/*
+	 * METELE EL SELECTIONLISTENER A LOS DOS JLIST Y HAZ QUE SE VAYA A LA MISMA VISTA QUE TIENES QUE 
+	 * CREAR DE UNA RECETA EN GRANDE
+	 */
 
 	User user;
 	JScrollPane scrollPane;
@@ -91,6 +96,9 @@ public class CenterViewProfile extends JPanel {
 		JLabel recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		JLabel following = new JLabel(String.valueOf(user.getFollowedNumber()));
 		JLabel followers = new JLabel(String.valueOf(user.getFollowersNumber()));
+		
+		// -------------------------------------------------------------
+
 		recipesText.setFont(textFont);
 		followingText.setFont(textFont);
 		followersText.setFont(textFont);
@@ -98,6 +106,8 @@ public class CenterViewProfile extends JPanel {
 		following.setFont(textFont);
 		followers.setFont(textFont);
 
+		// -------------------------------------------------------------
+		
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
@@ -162,7 +172,7 @@ public class CenterViewProfile extends JPanel {
 		return buttonPanel;
 	}
 
-	private Component createSlidePannel() {
+	private JScrollPane createSlidePannel() {
 
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
