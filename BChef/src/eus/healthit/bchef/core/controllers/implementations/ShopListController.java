@@ -2,11 +2,11 @@ package eus.healthit.bchef.core.controllers.implementations;
 
 import eus.healthit.bchef.core.controllers.interfaces.IShopListController;
 import eus.healthit.bchef.core.models.Item;
-import eus.healthit.bchef.core.view.panels.center.CenterShopListView;
+import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 
 public class ShopListController implements IShopListController {
 
-	CenterShopListView shopListView;
+	CenterViewShopList shopListView;
 
 	static ShopListController obj = new ShopListController();
 
@@ -17,7 +17,7 @@ public class ShopListController implements IShopListController {
 		return obj;
 	}
 
-	public void setShopListView(CenterShopListView shopListView) {
+	public void setShopListView(CenterViewShopList shopListView) {
 		this.shopListView = shopListView;
 	}
 

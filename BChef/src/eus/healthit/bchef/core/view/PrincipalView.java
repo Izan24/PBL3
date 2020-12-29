@@ -17,17 +17,17 @@ public class PrincipalView extends JPanel {
 	LeftMenuView leftMenuView;
 	NorthView northView;
 	CenterView centerView;
-	
+
 	CenterViewController centerController;
 
 	public PrincipalView(User user) {
 		super(new BorderLayout());
-		
+
 		centerView = new CenterView();
-		
-		centerController = new CenterViewController(this,centerView,user);
+
+		centerController = new CenterViewController(this, centerView, user);
 		centerController.setStartView();
-		
+
 		leftMenuView = new LeftMenuView(centerController);
 		northView = new NorthView();
 
@@ -39,7 +39,7 @@ public class PrincipalView extends JPanel {
 		this.add(northView, BorderLayout.NORTH);
 		this.add(centerView, BorderLayout.CENTER);
 	}
-	
+
 	public void changeCenterView(JComponent component) {
 		centerView.setView(component);
 	}

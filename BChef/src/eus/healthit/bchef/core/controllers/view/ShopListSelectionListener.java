@@ -3,13 +3,13 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import eus.healthit.bchef.core.view.panels.center.CenterShopListView;
+import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 
 public class ShopListSelectionListener extends MouseAdapter{
 	
-	CenterShopListView view;
+	CenterViewShopList view;
 	
-	public ShopListSelectionListener(CenterShopListView view) {
+	public ShopListSelectionListener(CenterViewShopList view) {
 		this.view = view;
 	}
 

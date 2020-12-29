@@ -23,11 +23,11 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
-public class CenterShopListView extends JPanel {
-	
+public class CenterViewShopList extends JPanel {
+
 	/*
-	 * PONLE UN SELECTIONLISTENERR Y HACES QUE ESTO TENGA UNA FUNCION QUE CAMBIE EL BOUGHT DEL OBJETO
-	 * Y ASI ARREGLAS LO DEL TIC
+	 * PONLE UN SELECTIONLISTENERR Y HACES QUE ESTO TENGA UNA FUNCION QUE CAMBIE EL
+	 * BOUGHT DEL OBJETO Y ASI ARREGLAS LO DEL TIC
 	 */
 
 	JTextField newElementField;
@@ -41,7 +41,7 @@ public class CenterShopListView extends JPanel {
 	ShopListController listController;
 	ShopListSelectionListener listener;
 
-	public CenterShopListView(User user) {
+	public CenterViewShopList(User user) {
 		super(new BorderLayout(10, 10));
 		this.setBackground(Color.white);
 		this.user = user;
@@ -150,7 +150,7 @@ public class CenterShopListView extends JPanel {
 		} catch (IndexOutOfBoundsException e) {
 		}
 	}
-	
+
 	public void checkItem() {
 		Item selectedItem = itemList.getSelectedValue();
 		selectedItem.flipBought();

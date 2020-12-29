@@ -11,4 +11,9 @@ public class Ingredient {
 		this.name = name;
 		this.replacements = replacements;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

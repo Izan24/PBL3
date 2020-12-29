@@ -3,13 +3,13 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import eus.healthit.bchef.core.view.panels.center.CenterShopListView;
+import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 
 public class ShopListButtonController implements ActionListener {
 
-	CenterShopListView listView;
+	CenterViewShopList listView;
 
-	public ShopListButtonController(CenterShopListView listView) {
+	public ShopListButtonController(CenterViewShopList listView) {
 		this.listView = listView;
 
 	}

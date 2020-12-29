@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
-import eus.healthit.bchef.core.view.panels.center.CenterBchefView;
-import eus.healthit.bchef.core.view.panels.center.CenterShopListView;
+import eus.healthit.bchef.core.view.panels.center.CenterViewBchef;
+import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
+import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
@@ -20,8 +21,9 @@ public class CenterViewController implements ActionListener {
 	CenterViewList listView;
 	CenterViewProfile profileView;
 	CenterViewRecipe recipeView;
-	CenterBchefView bchefView;
-	CenterShopListView shopListView;
+	CenterViewBchef bchefView;
+	CenterViewShopList shopListView;
+	CenterViewCreateRecipe createRecipeView;
 
 	CenterView centerView;
 	User user;
@@ -36,14 +38,15 @@ public class CenterViewController implements ActionListener {
 
 	private void initViews() {
 		listView = new CenterViewList();
-		profileView = new CenterViewProfile(user, centerView);
+		profileView = new CenterViewProfile(user);
 		recipeView = new CenterViewRecipe();
-		bchefView = new CenterBchefView();
-		shopListView = new CenterShopListView(user);
+		bchefView = new CenterViewBchef();
+		shopListView = new CenterViewShopList(user);
+		createRecipeView = new CenterViewCreateRecipe(user);
 	}
 	
 	public void setStartView() {
-		principalView.changeCenterView(listView);
+		principalView.changeCenterView(createRecipeView);
 	}
 
 	@Override

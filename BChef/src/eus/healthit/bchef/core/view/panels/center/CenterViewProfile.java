@@ -38,9 +38,8 @@ public class CenterViewProfile extends JPanel {
 	RecipesList savedModel, uploadedModel;
 	RendererRecipes renderer;
 
-	CenterView centerView;
 
-	public CenterViewProfile(User user, CenterView centerView) {
+	public CenterViewProfile(User user) {
 		super(new GridLayout(1, 1, 100, 100));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(Color.white);
@@ -48,7 +47,6 @@ public class CenterViewProfile extends JPanel {
 
 		controller = new ProfileController(this);
 
-		this.centerView = centerView;
 		this.user = user;
 
 		this.add(createContent());
