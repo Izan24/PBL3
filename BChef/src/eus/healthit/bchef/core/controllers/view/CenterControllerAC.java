@@ -10,4 +10,5 @@ public class CenterControllerAC {
 	public static final String PROFILE = "profile";
 	public static final String LIST = "list";
 	public static final String BCHEF = "bchef";
+	public static final String RECIPE = "recipe";
 }

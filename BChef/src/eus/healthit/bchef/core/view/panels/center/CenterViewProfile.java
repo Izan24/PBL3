@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
+import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.controllers.view.ProfileController;
 import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
@@ -21,10 +23,10 @@ import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
 public class CenterViewProfile extends JPanel {
-	
+
 	/*
-	 * METELE EL SELECTIONLISTENER A LOS DOS JLIST Y HAZ QUE SE VAYA A LA MISMA VISTA QUE TIENES QUE 
-	 * CREAR DE UNA RECETA EN GRANDE
+	 * METELE EL SELECTIONLISTENER A LOS DOS JLIST Y HAZ QUE SE VAYA A LA MISMA
+	 * VISTA QUE TIENES QUE CREAR DE UNA RECETA EN GRANDE
 	 */
 
 	User user;
@@ -36,7 +38,9 @@ public class CenterViewProfile extends JPanel {
 	RecipesList savedModel, uploadedModel;
 	RendererRecipes renderer;
 
-	public CenterViewProfile(User user) {
+	CenterView centerView;
+
+	public CenterViewProfile(User user, CenterView centerView) {
 		super(new GridLayout(1, 1, 100, 100));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(Color.white);
@@ -44,6 +48,7 @@ public class CenterViewProfile extends JPanel {
 
 		controller = new ProfileController(this);
 
+		this.centerView = centerView;
 		this.user = user;
 
 		this.add(createContent());
@@ -96,7 +101,7 @@ public class CenterViewProfile extends JPanel {
 		JLabel recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		JLabel following = new JLabel(String.valueOf(user.getFollowedNumber()));
 		JLabel followers = new JLabel(String.valueOf(user.getFollowersNumber()));
-		
+
 		// -------------------------------------------------------------
 
 		recipesText.setFont(textFont);
@@ -107,7 +112,7 @@ public class CenterViewProfile extends JPanel {
 		followers.setFont(textFont);
 
 		// -------------------------------------------------------------
-		
+
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
@@ -144,16 +149,16 @@ public class CenterViewProfile extends JPanel {
 		buttonPanel.setBackground(Color.white);
 
 		Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
-		
+
 		JButton uploadedButton = new JButton("Mis Recetas");
 		JButton savedButton = new JButton("Recetas Guardadas");
-		
+
 		uploadedButton.setFont(textFont);
 		savedButton.setFont(textFont);
 
 		uploadedButton.setBackground(Color.white);
 		savedButton.setBackground(Color.white);
-		
+
 		uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
 		savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
 
@@ -210,6 +215,16 @@ public class CenterViewProfile extends JPanel {
 			scrollPane.setViewportView(saved);
 			break;
 		}
+	}
+
+	public void openSelectedRecipe() {
+		JViewport viewport = scrollPane.getViewport();
+		JList<Recipe> tmp = (JList<Recipe>) viewport.getView();
+
+		tmp.getSelectedValue();
+		
+		
+		
 	}
 
 	public JPanel getPanel() {
