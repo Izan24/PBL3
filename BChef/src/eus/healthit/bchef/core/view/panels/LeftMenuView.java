@@ -18,7 +18,7 @@ import eus.healthit.bchef.core.view.components.ButtonFactory;
 
 public class LeftMenuView extends JPanel {
 
-	JButton buttonHome, buttonProfile, buttonList, buttonChef;
+	JButton buttonHome, buttonProfile, buttonList, buttonCreateRecipe, buttonChef;
 	ActionListener listener;
 
 	public LeftMenuView(ActionListener listener) {
@@ -27,7 +27,6 @@ public class LeftMenuView extends JPanel {
 		this.setOpaque(true);
 
 		this.setSize(new Dimension(90, 20));
-		
 
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY),
 				BorderFactory.createEmptyBorder(65, 100, 100, 20)));
@@ -56,17 +55,21 @@ public class LeftMenuView extends JPanel {
 		buttonList = ButtonFactory.createRoundedButton("Shopping List", CenterControllerAC.LIST, listener,
 				new ImageIcon("resources/menuIcons/list_icon.png"), Color.white, Color.black, font);
 
+		buttonCreateRecipe = ButtonFactory.createRoundedButton("Crear receta", CenterControllerAC.CREATE_RECIPE,
+				listener, new ImageIcon("resources/menuIcons/bchef_icon.png"), Color.white, Color.black, font);
+
 		buttonChef = ButtonFactory.createRoundedButton("B-Chef", CenterControllerAC.BCHEF, listener,
 				new ImageIcon("resources/menuIcons/bchef_icon.png"), Color.cyan, Color.white, font);
 	}
 
 	private JPanel createMenuBar() {
-		JPanel leftMenu = new JPanel(new GridLayout(4, 1, 10, 10));
+		JPanel leftMenu = new JPanel(new GridLayout(5, 1, 5, 5));
 		leftMenu.setSize(new Dimension(90, 20));
 
 		leftMenu.add(buttonHome);
 		leftMenu.add(buttonProfile);
 		leftMenu.add(buttonList);
+		leftMenu.add(buttonCreateRecipe);
 		leftMenu.add(buttonChef);
 
 		this.add(leftMenu, BorderLayout.NORTH);

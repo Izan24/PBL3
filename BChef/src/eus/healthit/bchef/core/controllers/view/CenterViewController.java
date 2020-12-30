@@ -44,9 +44,9 @@ public class CenterViewController implements ActionListener {
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);
 	}
-	
+
 	public void setStartView() {
-		principalView.changeCenterView(createRecipeView);
+		principalView.changeCenterView(listView);
 	}
 
 	@Override
@@ -56,21 +56,25 @@ public class CenterViewController implements ActionListener {
 		case CenterControllerAC.HOME:
 			principalView.changeCenterView(listView);
 			break;
-			
+
 		case CenterControllerAC.LIST:
 			principalView.changeCenterView(shopListView);
 			break;
-			
+
 		case CenterControllerAC.PROFILE:
 			principalView.changeCenterView(profileView);
 			break;
-			
+
 		case CenterControllerAC.BCHEF:
 			principalView.changeCenterView(bchefView);
 			break;
+
+		case CenterControllerAC.CREATE_RECIPE:
+			principalView.changeCenterView(createRecipeView);
+			break;
 		}
 	}
-	
+
 	public void setRecipeView(Recipe recipe) {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);

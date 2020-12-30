@@ -5,7 +5,7 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 public class RecipeStep {
 
 	String text;
-	int value;
+	int value, time;
 	RecipeStepActions action;
 	// Time time;
 
