@@ -92,46 +92,93 @@ public class CenterViewCreateRecipe extends JPanel {
 		stepsPanel.setBackground(Color.white);
 
 		stepsPanel.add(createInfoPanel());
-//		stepsPanel.add(createAddedPanel());
-		
+		stepsPanel.add(createAddedPanel());
+
 		return stepsPanel;
 	}
 
 	private Component createInfoPanel() {
 		JPanel infoPanel = new JPanel(new BorderLayout(10, 10));
 		infoPanel.setBackground(Color.white);
-		
+
 		JLabel titleLabel = new JLabel("Pasos");
 		titleLabel.setFont(textFont);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		instruction = new JTextField();
 		instruction.setFont(textFont);
-		
+
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);
 		infoPanel.add(titleLabel, BorderLayout.NORTH);
 
 		return infoPanel;
 	}
-	
+
 	private Component createComboBoxPanel() {
-		JPanel comboPanel = new JPanel(new GridLayout(3,1,5,5));
+		JPanel comboPanel = new JPanel(new GridLayout(3, 1, 5, 5));
 		comboPanel.setBackground(Color.white);
-		
+
 		actions = new JComboBox<>();
 		values = new JComboBox<>();
 		time = new JComboBox<>();
-		
+
 		comboPanel.add(actions);
 		comboPanel.add(values);
 		comboPanel.add(time);
-		
+
 		return comboPanel;
 	}
 
 	private Component createAddedPanel() {
-		return null;
+		JPanel addedPanel = new JPanel(new BorderLayout(5, 5));
+
+		addedPanel.add(createStepButtonPanel(), BorderLayout.NORTH);
+		addedPanel.add(createStepsScroll(), BorderLayout.CENTER);
+
+		return addedPanel;
+	}
+
+	private Component createStepsScroll() {
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBackground(Color.white);
+		scrollPane.setOpaque(true);
+
+		scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+		steps = new JList<>();
+//		ingredients = new RecipesList();
+//		ingredients.setModel(stepsModel);
+//		ingredients.setCellRenderer(renderer);
+
+		scrollPane.setViewportView(steps);
+
+		return scrollPane;
+	}
+
+	private Component createStepButtonPanel() {
+		JPanel stepButtonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+
+		JButton addButton = new JButton("Añadir");
+		addButton.setBackground(greenButtonColor);
+		addButton.setForeground(Color.white);
+		addButton.setFont(textFont);
+		addButton.setFocusable(false);
+//		addButton.setActionCommand(STEPLISTCONTROLERAC.ADD);
+//		addButton.addActionListener(STEPLISTCONTROLER);
+
+		JButton removeButton = new JButton("Eliminar");
+		removeButton.setBackground(redButtonColor);
+		removeButton.setForeground(Color.white);
+		removeButton.setFont(textFont);
+		removeButton.setFocusable(false);
+//		removeButton.setActionCommand(STEPLISTCONTROLERAC.ADD);
+
+		stepButtonPanel.add(addButton);
+		stepButtonPanel.add(removeButton);
+
+		return stepButtonPanel;
 	}
 
 	private Component createWestPanel() {
