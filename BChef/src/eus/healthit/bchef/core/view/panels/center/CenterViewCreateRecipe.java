@@ -25,6 +25,10 @@ import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
 
 public class CenterViewCreateRecipe extends JPanel {
+	
+	/*
+	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR RECETA
+	 */
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
 	User user;

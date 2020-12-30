@@ -46,7 +46,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(listView);
+		principalView.changeCenterView(recipeView);
 	}
 
 	@Override
@@ -78,7 +78,6 @@ public class CenterViewController implements ActionListener {
 	public void setRecipeView(Recipe recipe) {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);
-
 	}
 
 }
