@@ -59,23 +59,25 @@ public class CenterViewRecipe extends JPanel {
 	}
 
 	private Component createTitlePanel() {
-		JPanel principalPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		JPanel principalPanel = new JPanel(new GridLayout(3, 1, 5, 5));
 		principalPanel.setBackground(Color.white);
 
 		titleLabel = new JLabel();
 		titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 50));
 
-		JPanel authorratingPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+		JPanel authorratingPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 		authorratingPanel.setBackground(Color.white);
 		authorLabel = new JLabel();
-		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 10));
+		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 25));
 
 		starPanel = new JPanel();
+		starPanel.setBackground(Color.white);
 
 		authorratingPanel.add(authorLabel);
 		authorratingPanel.add(starPanel);
 
 		imageLabel = new JLabel();
+		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		principalPanel.add(titleLabel);
 		principalPanel.add(authorratingPanel);
@@ -94,7 +96,7 @@ public class CenterViewRecipe extends JPanel {
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		ingredientPanel = new JPanel(new GridLayout(1, 2));
+		ingredientPanel = new JPanel(new GridLayout(1,1));
 
 		fullIngredientPanel.add(ingredientTitleLabel, BorderLayout.NORTH);
 		fullIngredientPanel.add(ingredientPanel, BorderLayout.CENTER);
@@ -112,7 +114,6 @@ public class CenterViewRecipe extends JPanel {
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		elaborationTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-
 		fullElaborationPanel.add(elaborationTitleLabel, BorderLayout.NORTH);
 		return fullElaborationPanel;
 	}
@@ -125,10 +126,17 @@ public class CenterViewRecipe extends JPanel {
 
 	private void updateView() {
 		titleLabel.setText(recipe.getName());
-		authorLabel.setText("Author: " + recipe.getAuthor());
+		authorLabel.setText("Autor: " + recipe.getAuthor());
+		setImage();
 		setRating();
 		setIngredients();
 
+	}
+
+	private void setImage() {
+		imageLabel.removeAll();
+		imageLabel.revalidate();
+		imageLabel.setIcon(recipe.getImage());
 	}
 
 	private void setRating() {
@@ -156,19 +164,24 @@ public class CenterViewRecipe extends JPanel {
 		ingredientPanel.removeAll();
 		ingredientPanel.revalidate();
 
-		for (Ingredient ingr : recipe.getIngredients()) {
-			JPanel tmpIngPanel = new JPanel(new GridLayout(2, 1, 10, 10));
-
-			JLabel ingrName = new JLabel(ingr.getName());
-			JLabel ingrQuantity = new JLabel(ingr.getQuantity());
-			ingrName.setFont(textFont);
-			ingrQuantity.setFont(textFont);
-			ingrQuantity.setHorizontalAlignment(JLabel.RIGHT);
-
-			tmpIngPanel.add(ingrName);
-			tmpIngPanel.add(ingrQuantity);
-
-			ingredientPanel.add(tmpIngPanel);
+		try {
+			for (Ingredient ingr : recipe.getIngredients()) {
+				JPanel tmpIngPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+				tmpIngPanel.setBackground(Color.white);
+				
+				JLabel ingrName = new JLabel(ingr.getName());
+				JLabel ingrQuantity = new JLabel(ingr.getQuantity());
+				ingrName.setFont(textFont);
+				ingrQuantity.setFont(textFont);
+				ingrQuantity.setHorizontalAlignment(JLabel.RIGHT);
+				
+				tmpIngPanel.add(ingrName);
+				tmpIngPanel.add(ingrQuantity);
+				
+				ingredientPanel.add(tmpIngPanel);
+			}
+		} catch (NullPointerException e) {
+			
 		}
 	}
 

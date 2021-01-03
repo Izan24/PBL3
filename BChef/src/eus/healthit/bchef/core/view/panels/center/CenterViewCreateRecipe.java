@@ -25,9 +25,10 @@ import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
 
 public class CenterViewCreateRecipe extends JPanel {
-	
+
 	/*
-	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR RECETA
+	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR
+	 * RECETA
 	 */
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
@@ -71,13 +72,22 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private Component createContent() {
+		/*
+		 * NO VA EL SCROLL
+		 */
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBackground(Color.white);
+		
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(Color.white);
 
 		contentPanel.add(createCenterPanel(), BorderLayout.CENTER);
 		contentPanel.add(createWestPanel(), BorderLayout.WEST);
 
-		return contentPanel;
+		scrollPane.setViewportView(contentPanel);
+
+		return scrollPane;
 	}
 
 	private Component createCenterPanel() {

@@ -1,6 +1,5 @@
 package eus.healthit.bchef.core.models;
 
-import java.awt.Image;
 import java.sql.Time;
 import java.util.List;
 

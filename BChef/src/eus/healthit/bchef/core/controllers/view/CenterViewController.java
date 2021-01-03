@@ -2,17 +2,23 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.ImageIcon;
+
+import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
+import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewBchef;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
-import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
-import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
+import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 
 public class CenterViewController implements ActionListener {
 
@@ -47,6 +53,15 @@ public class CenterViewController implements ActionListener {
 
 	public void setStartView() {
 		principalView.changeCenterView(recipeView);
+
+		List<Ingredient> ingredients = new ArrayList<>();
+		ingredients.add(new Ingredient("Pan", "2 barras"));
+
+		List<RecipeStep> steps = new ArrayList<>();
+		steps.add(new RecipeStep("Prepara un pollo", 12, null));
+
+		recipeView.setRecipe(new Recipe("Pollo a la bielorrusia ", "Izan", (int) (Math.random() * 10) + 1, null, null,
+				ingredients, steps, new ImageIcon("resources/recipeIcons/pollo-asado.jpg")));
 	}
 
 	@Override
