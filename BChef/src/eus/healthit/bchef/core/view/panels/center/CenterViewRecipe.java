@@ -8,19 +8,26 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.ScrollPane;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.controllers.view.RecipeViewContoler;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 
 public class CenterViewRecipe extends JPanel {
 
+	RecipeViewContoler contoler;
+
+	JScrollPane scrollPane;
+	
 	JLabel titleLabel;
 	JLabel authorLabel;
 	JPanel starPanel;
@@ -28,23 +35,23 @@ public class CenterViewRecipe extends JPanel {
 
 	JPanel fullIngredientPanel;
 	JPanel ingredientPanel;
-	
+
 	JPanel fullStepPanel;
 	JPanel stepPanel;
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
 
-	Recipe recipe;
-
 	public CenterViewRecipe() {
 		super(new GridLayout());
 		this.setBackground(Color.white);
+
+		contoler = new RecipeViewContoler(this);
 
 		this.add(createContentPanel());
 	}
 
 	private Component createContentPanel() {
-		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.white);
 		scrollPane.setOpaque(true);
@@ -96,6 +103,7 @@ public class CenterViewRecipe extends JPanel {
 		authorLabel = new JLabel();
 		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 23));
 		authorLabel.setHorizontalAlignment(JLabel.CENTER);
+		authorLabel.addMouseListener(contoler);
 
 		starPanel = new JPanel();
 		starPanel.setBackground(Color.white);
@@ -145,38 +153,39 @@ public class CenterViewRecipe extends JPanel {
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		elaborationTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		
 		stepPanel = new JPanel(new GridLayout(2, 1, 0, 0));
 		stepPanel.setBackground(Color.white);
-		
+
 		fullStepPanel.add(elaborationTitleLabel, BorderLayout.NORTH);
 		fullStepPanel.add(stepPanel, BorderLayout.CENTER);
-		
+
 		return fullStepPanel;
 	}
 
 	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-		updateView();
+		updateView(recipe);
 		this.repaint();
 	}
 
-	private void updateView() {
+	private void updateView(Recipe recipe) {
 		titleLabel.setText(recipe.getName());
 		authorLabel.setText("Autor: " + recipe.getAuthor());
-		setImage();
-		setRating();
-		setIngredients();
-		setSteps();
+		setImage(recipe);
+		setRating(recipe);
+		setIngredients(recipe);
+		setSteps(recipe);
+		
+		JScrollBar vertical = scrollPane.getVerticalScrollBar();
+		vertical.setValue(vertical.getMinimum());		
 	}
 
-	private void setImage() {
+	private void setImage(Recipe recipe) {
 		imageLabel.removeAll();
 		imageLabel.revalidate();
 		imageLabel.setIcon(recipe.getImage());
 	}
 
-	private void setRating() {
+	private void setRating(Recipe recipe) {
 		starPanel.removeAll();
 		starPanel.revalidate();
 
@@ -197,9 +206,8 @@ public class CenterViewRecipe extends JPanel {
 
 	}
 
-	private void setIngredients() {
-		ingredientPanel.removeAll();
-		ingredientPanel.revalidate();
+	private void setIngredients(Recipe recipe) {
+
 		ingredientPanel = new JPanel(new GridLayout(recipe.getIngredientNumber(), 1, 20, 20));
 		ingredientPanel.setBackground(Color.white);
 		ingredientPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
@@ -215,7 +223,6 @@ public class CenterViewRecipe extends JPanel {
 				JLabel ingrQuantity = new JLabel(ingr.getQuantity());
 
 				ingrName.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
-//				ingrName.setHorizontalAlignment(JLabel.CENTER);
 
 				ingrQuantity.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
 				ingrQuantity.setHorizontalAlignment(JLabel.RIGHT);
@@ -226,13 +233,12 @@ public class CenterViewRecipe extends JPanel {
 				ingredientPanel.add(tmpIngPanel);
 			}
 		} catch (NullPointerException e) {
-
+			System.out.println(e.getMessage());
 		}
 	}
 
-	private void setSteps() {
-		stepPanel.removeAll();
-		stepPanel.revalidate();
+	private void setSteps(Recipe recipe) {
+
 		stepPanel = new JPanel(new GridLayout(recipe.getStepNumber(), 1, 20, 20));
 		stepPanel.setBackground(Color.white);
 		stepPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
@@ -248,7 +254,7 @@ public class CenterViewRecipe extends JPanel {
 
 				stepText.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
 				stepText.setHorizontalAlignment(JLabel.CENTER);
-				
+
 				stepPanel.add(stepText);
 			}
 		} catch (NullPointerException e) {

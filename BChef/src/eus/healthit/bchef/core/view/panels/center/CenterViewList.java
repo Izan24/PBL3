@@ -6,6 +6,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.RecipeSelectionListener;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
@@ -18,17 +20,22 @@ public class CenterViewList extends JScrollPane {
 	 * CONTROLADOR
 	 */
 
+	CenterViewController centerController;
+
 	JList<Recipe> recipes;
 	RecipesList listModel;
 	RendererRecipes renderer;
 	RecipeSelectionListener listener;
 
-	public CenterViewList() {
+	public CenterViewList(CenterViewController centerController) {
 
 		super(new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-		listener = new RecipeSelectionListener();
+
+		this.centerController = centerController;
+
+		listener = new RecipeSelectionListener(this);
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 
@@ -41,6 +48,10 @@ public class CenterViewList extends JScrollPane {
 		recipes.addMouseListener(listener);
 
 		this.setViewportView(recipes);
+	}
+
+	public void openRecipeView() {
+		centerController.setRecipeView(recipes.getSelectedValue());
 	}
 
 	public JScrollPane getScrollPane() {

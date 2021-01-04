@@ -72,9 +72,6 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private Component createContent() {
-		/*
-		 * NO VA EL SCROLL
-		 */
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.white);

@@ -43,7 +43,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	private void initViews() {
-		listView = new CenterViewList();
+		listView = new CenterViewList(this);
 		profileView = new CenterViewProfile(user);
 		recipeView = new CenterViewRecipe();
 		bchefView = new CenterViewBchef();
@@ -52,22 +52,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(recipeView);
-
-		List<Ingredient> ingredients = new ArrayList<>();
-		ingredients.add(new Ingredient("Pan", "2 barras"));
-		ingredients.add(new Ingredient("Cebolla", "2"));
-		ingredients.add(new Ingredient("Leche", "2 Litros"));
-
-		List<RecipeStep> steps = new ArrayList<>();
-		steps.add(new RecipeStep("Prepara un pollo", 12, null));
-		steps.add(new RecipeStep("Metelo al horno durante 30 minutos mm que rico", 12, null));
-		steps.add(new RecipeStep("Echale mayonesa al pollo", 12, null));
-		steps.add(new RecipeStep("Llevalo a bielorusia", 12, null));
-		steps.add(new RecipeStep("Comete el Pollo Lesgogogo", 12, null));
-
-		recipeView.setRecipe(new Recipe("Pollo a la bielorrusia ", "Izan", (int) (Math.random() * 10) + 1, null, null,
-				ingredients, steps, new ImageIcon("resources/recipeIcons/pollo-asado.jpg")));
+		principalView.changeCenterView(listView);
 	}
 
 	@Override

@@ -15,8 +15,8 @@ public class Recipe {
 	List<RecipeStep> steps;
 	ImageIcon image;
 
-	public Recipe(String name, String author, int rating, Time publishDate, Time duration,
-			List<Ingredient> ingredients, List<RecipeStep> steps, ImageIcon image) {
+	public Recipe(String name, String author, int rating, Time publishDate, Time duration, List<Ingredient> ingredients,
+			List<RecipeStep> steps, ImageIcon image) {
 
 		this.name = name;
 		this.author = author;
@@ -93,11 +93,19 @@ public class Recipe {
 	}
 
 	public int getIngredientNumber() {
-		return ingredients.size();
+		try {
+			return ingredients.size();
+		} catch (NullPointerException e) {
+			return 0;
+		}
 	}
-	
+
 	public int getStepNumber() {
-		return this.steps.size();
+		try {
+			return this.steps.size();						
+		} catch (NullPointerException e) {
+			return 0;
+		}
 	}
 
 }
