@@ -22,7 +22,7 @@ public class Principal {
 	WindowFrame windowFrame;
 
 	public Principal() {
-		 windowFrame = new WindowFrame();
+		windowFrame = new WindowFrame();
 		JFrame frame = new JFrame();
 		frame.setSize(new Dimension(1280, 720));
 		frame.setLocationRelativeTo(null);
@@ -35,30 +35,29 @@ public class Principal {
 		JPanel panelbobo = new JPanel(new GridLayout(1, 2, 30, 30));
 		panelbobo.setBorder(new EmptyBorder(50, 50, 50, 50));
 		panelbobo.setBackground(new Color(21, 32, 43));
-		
+
 		JPanel panelPrincipal = new JPanel(new GridLayout(2, 1, 20, 200));
 		panelPrincipal.setBackground(null);
-		
+
 		JButton boton1 = new JButton("Izanarcos");
 		boton1.setUI(new RoundTransparentButton(boton1));
 		boton1.setBackground(null);
 		boton1.setFont(new Font("Roboto", Font.BOLD, 48));
-		
+
 		JButton boton2 = new JButton("Jorgearcos");
 		boton2.setUI(new RoundTransparentButton(boton2));
 		boton2.setBackground(null);
 		boton2.setFont(new Font("Roboto", Font.BOLD, 48));
 		boton2.setSize(new Dimension(40, 40));
-		
+
 		JButton boton3 = new JButton();
-		
-		
+
 		panelPrincipal.add(boton1);
 		panelPrincipal.add(boton2);
-		
+
 		panelbobo.add(panelPrincipal);
 		panelbobo.add(new JPanel());
-		
+
 		return panelbobo;
 	}
 
