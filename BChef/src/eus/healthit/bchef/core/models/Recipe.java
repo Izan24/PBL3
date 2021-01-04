@@ -1,24 +1,24 @@
 package eus.healthit.bchef.core.models;
 
-import java.awt.Image;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
-
-import javax.swing.ImageIcon;
+import java.util.UUID;
 
 public class Recipe {
 
 	String name, author;
 	int rating; // 0 to 10 in 5 stars
-	// dayTime releasedate;
-	Time publishDate, duration;
+	Timestamp publishDate;
+	Time duration;
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
-	ImageIcon image;
+	String imageURL;
+	UUID uuid;
 
-	public Recipe(String name, String author, int rating, Time publishDate, Time duration,
-			List<Ingredient> ingredients, List<RecipeStep> steps, ImageIcon image) {
-
+	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
+			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+		this.uuid = uuid;
 		this.name = name;
 		this.author = author;
 		this.rating = rating;
@@ -26,7 +26,11 @@ public class Recipe {
 		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.image = image;
+		this.imageURL = imageUrl;
+	}
+
+	public UUID getUUID() {
+		return uuid;
 	}
 
 	public String getName() {
@@ -53,11 +57,11 @@ public class Recipe {
 		this.rating = rating;
 	}
 
-	public Time getPublishDate() {
+	public Timestamp getPublishDate() {
 		return publishDate;
 	}
 
-	public void setPublishDate(Time publishDate) {
+	public void setPublishDate(Timestamp publishDate) {
 		this.publishDate = publishDate;
 	}
 
@@ -85,12 +89,12 @@ public class Recipe {
 		this.steps = steps;
 	}
 
-	public ImageIcon getImage() {
-		return image;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setImage(ImageIcon image) {
-		this.image = image;
+	public void setImage(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
 }

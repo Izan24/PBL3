@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -72,14 +73,22 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// --------------------------------------------------------------------------
 
 		panelImage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
-		JLabel image = new JLabel(value.getImage());
+		JLabel image;
+		
+		try {
+			image = new JLabel(new ImageIcon(new URL(value.getImageURL())));
+			
+		} catch (Exception e) {
+			image = new JLabel("MalformedxD");
+		}
+		
 		panelImage.add(image);
 
 		// --------------------------------------------------------------------------
 		// The Recipe info panel
 		// --------------------------------------------------------------------------
 
-		JLabel text = new JLabel("Pollo a la bielorrusa es un pollo a la Bielorrusa");
+		JLabel text = new JLabel(value.getName());
 
 		// --------------------------------------------------------------------------
 		// The bottom part of the panel
