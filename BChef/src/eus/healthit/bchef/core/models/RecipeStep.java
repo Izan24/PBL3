@@ -19,6 +19,6 @@ public class RecipeStep {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return text;
 	}
 }

@@ -92,4 +92,12 @@ public class Recipe {
 		this.image = image;
 	}
 
+	public int getIngredientNumber() {
+		return ingredients.size();
+	}
+	
+	public int getStepNumber() {
+		return this.steps.size();
+	}
+
 }
