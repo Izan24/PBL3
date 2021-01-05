@@ -6,14 +6,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
-import eus.healthit.bchef.core.controllers.view.RecipeSelectionListener;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
-public class CenterViewList extends JScrollPane {
+public class CenterViewList extends JScrollPane implements IClickable{
 
 	/*
 	 * HAY QUE DARLE EL JLIST AL CONTROLADOR, DE MOMENTO ESTÁ AQUI PORQUE NO ESTA EL
@@ -25,7 +25,7 @@ public class CenterViewList extends JScrollPane {
 	JList<Recipe> recipes;
 	RecipesList listModel;
 	RendererRecipes renderer;
-	RecipeSelectionListener listener;
+	DoubleClickListener listener;
 
 	public CenterViewList(CenterViewController centerController) {
 
@@ -35,7 +35,7 @@ public class CenterViewList extends JScrollPane {
 
 		this.centerController = centerController;
 
-		listener = new RecipeSelectionListener(this);
+		listener = new DoubleClickListener(this);
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 
@@ -50,12 +50,13 @@ public class CenterViewList extends JScrollPane {
 		this.setViewportView(recipes);
 	}
 
-	public void openRecipeView() {
-		centerController.setRecipeView(recipes.getSelectedValue());
-	}
-
 	public JScrollPane getScrollPane() {
 		return this;
+	}
+
+	@Override
+	public void clicked() {
+		centerController.setRecipeView(recipes.getSelectedValue());
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.controllers.view.ProfileController;
 import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
@@ -22,7 +23,7 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
-public class CenterViewProfile extends JPanel {
+public class CenterViewProfile extends JPanel implements IClickable{
 
 	/*
 	 * METELE EL SELECTIONLISTENER A LOS DOS JLIST Y HAZ QUE SE VAYA A LA MISMA
@@ -227,6 +228,14 @@ public class CenterViewProfile extends JPanel {
 
 	public JPanel getPanel() {
 		return this;
+	}
+
+	@Override
+	public void clicked() {
+		/*
+		 * Comprobar de que jlist ha sido. Se me ocurre mirar el boton que está presionado o que cada vez que presiones un boton cambiar una referencia
+		 * a un JList y pillar de ahi el selectedValue
+		 */
 	}
 
 }

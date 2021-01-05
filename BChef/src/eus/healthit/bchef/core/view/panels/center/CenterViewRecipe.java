@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.ScrollPane;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,17 +16,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.RecipeViewContoler;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 
-public class CenterViewRecipe extends JPanel {
+public class CenterViewRecipe extends JPanel implements IClickable {
 
-	RecipeViewContoler contoler;
+	DoubleClickListener listener;
 
 	JScrollPane scrollPane;
-	
+
 	JLabel titleLabel;
 	JLabel authorLabel;
 	JPanel starPanel;
@@ -45,7 +46,7 @@ public class CenterViewRecipe extends JPanel {
 		super(new GridLayout());
 		this.setBackground(Color.white);
 
-		contoler = new RecipeViewContoler(this);
+		listener = new DoubleClickListener(this);
 
 		this.add(createContentPanel());
 	}
@@ -103,7 +104,7 @@ public class CenterViewRecipe extends JPanel {
 		authorLabel = new JLabel();
 		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 23));
 		authorLabel.setHorizontalAlignment(JLabel.CENTER);
-		authorLabel.addMouseListener(contoler);
+		authorLabel.addMouseListener(listener);
 
 		starPanel = new JPanel();
 		starPanel.setBackground(Color.white);
@@ -174,9 +175,9 @@ public class CenterViewRecipe extends JPanel {
 		setRating(recipe);
 		setIngredients(recipe);
 		setSteps(recipe);
-		
+
 		JScrollBar vertical = scrollPane.getVerticalScrollBar();
-		vertical.setValue(vertical.getMinimum());		
+		vertical.setValue(vertical.getMinimum());
 	}
 
 	private void setImage(Recipe recipe) {
@@ -260,5 +261,13 @@ public class CenterViewRecipe extends JPanel {
 		} catch (NullPointerException e) {
 
 		}
+	}
+
+	@Override
+	public void clicked() {
+		System.out.println(
+				"Tiene sque crear el profile view y llamar a un metodo del controlador que cambie a un perfil en concreto y "
+						+ "\n"
+						+ "le pases el perfil que ha seleccionado, en este caso seia buscar en la database el nombre del author");
 	}
 }
