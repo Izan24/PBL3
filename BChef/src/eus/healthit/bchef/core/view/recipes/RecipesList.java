@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
-import javax.swing.ImageIcon;
 
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.repository.implementations.RecipeRepository;
 
 public class RecipesList extends AbstractListModel<Recipe> {
 
@@ -21,10 +21,7 @@ public class RecipesList extends AbstractListModel<Recipe> {
 
 	private void initList() {
 
-		for (int i = 0; i < 2; i++) {
-			list.add(new Recipe("Pollo Sentao " + i, String.valueOf(i), (int) (Math.random() * 10) + 1, null, null,
-					null, null, new ImageIcon("resources/recipeIcons/pollo-sentao.jpg")));
-		}
+		list = RecipeRepository.getN(10);
 
 		for (int i = 0; i < 2; i++) {
 			List<Ingredient> ingredients = new ArrayList<>();

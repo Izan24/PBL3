@@ -21,6 +21,7 @@ public class User {
 	List<Item> shopList; // HACEMOS QUE SEA INGREDIENT O UN STRING SIN MAS??
 	List<Recipe> history;
 
+	
 	/**
 	 * Creates a new User with Profile pic
 	 */

@@ -5,20 +5,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
-import eus.healthit.bchef.core.view.components.ButtonFactory;
+import eus.healthit.bchef.core.view.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
 
-	JButton buttonHome, buttonProfile, buttonList, buttonCreateRecipe, buttonChef;
+
+	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe;
 	ActionListener listener;
 
 	public LeftMenuView(ActionListener listener) {
@@ -26,14 +25,12 @@ public class LeftMenuView extends JPanel {
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
-		this.setSize(new Dimension(90, 20));
-
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY),
-				BorderFactory.createEmptyBorder(65, 100, 100, 20)));
+				BorderFactory.createEmptyBorder(10, 10, 10, 1)));
 
 		this.listener = listener;
 		initButtons();
-
+		
 		this.add(createMenuBar());
 	}
 
@@ -44,35 +41,53 @@ public class LeftMenuView extends JPanel {
 	 */
 	private void initButtons() {
 
-		Font font = new Font("Arial", Font.BOLD, 12);
+		Font font = new Font("Segoe UI", Font.PLAIN, 18);
 
-		buttonHome = ButtonFactory.createRoundedButton("Home", CenterControllerAC.HOME, listener,
-				new ImageIcon("resources/menuIcons/home_icon.png"), Color.white, Color.black, font);
+		buttonHome = new CustomButton("Home", "resources\\menuIcons\\home_normal_64.png",
+				"resources\\menuIcons\\home_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonHome.setPreferredSize(new Dimension(180, 40));
 
-		buttonProfile = ButtonFactory.createRoundedButton("Profile", CenterControllerAC.PROFILE, listener,
-				new ImageIcon("resources/menuIcons/profile_icon.png"), Color.white, Color.black, font);
+		buttonProfile = new CustomButton("Perfil", "resources\\menuIcons\\profile_normal_642.png",
+				"resources\\menuIcons\\profile_active_642.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonProfile.setPreferredSize(new Dimension(180, 40));
 
-		buttonList = ButtonFactory.createRoundedButton("Shopping List", CenterControllerAC.LIST, listener,
-				new ImageIcon("resources/menuIcons/list_icon.png"), Color.white, Color.black, font);
+		buttonList = new CustomButton("Lista", "resources\\menuIcons\\list_normal_64.png",
+				"resources\\menuIcons\\list_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonList.setPreferredSize(new Dimension(180, 40));
 
-		buttonCreateRecipe = ButtonFactory.createRoundedButton("Crear receta", CenterControllerAC.CREATE_RECIPE,
-				listener, new ImageIcon("resources/menuIcons/bchef_icon.png"), Color.white, Color.black, font);
+		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\home_normal_32.png",
+				"resources\\menuIcons\\home_active_32.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonCreateRecipe.setPreferredSize(new Dimension(180, 40));
 
-		buttonChef = ButtonFactory.createRoundedButton("B-Chef", CenterControllerAC.BCHEF, listener,
-				new ImageIcon("resources/menuIcons/bchef_icon.png"), Color.cyan, Color.white, font);
+		buttonChef = new CustomButton("BChef", "resources\\menuIcons\\logo.png", "resources\\menuIcons\\logo.png",
+				Color.white, Color.white, new Color(30, 170, 255), new Color(29, 154, 231),  new Font("Segoe UI", Font.TYPE1_FONT, 18), CustomButton.CENTER_ALIGN);
+
+		buttonChef.setPreferredSize(new Dimension(200, 40));
+
 	}
 
 	private JPanel createMenuBar() {
-		JPanel leftMenu = new JPanel(new GridLayout(5, 1, 5, 5));
-		leftMenu.setSize(new Dimension(90, 20));
+		JPanel leftMenu = new JPanel();
+		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
+		leftMenu.setBackground(Color.white);
+		//leftMenu.setSize(new Dimension(4000, 800));
 
+		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonHome);
+		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonProfile);
+		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonList);
+		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonCreateRecipe);
+		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonChef);
 
-		this.add(leftMenu, BorderLayout.NORTH);
+		//this.add(leftMenu, BorderLayout.CENTER);
 
 		return leftMenu;
 	}

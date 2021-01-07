@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.view;
 
 import java.awt.BorderLayout;
 
+
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
