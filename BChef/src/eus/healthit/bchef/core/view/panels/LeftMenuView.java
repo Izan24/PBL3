@@ -1,6 +1,5 @@
 package eus.healthit.bchef.core.view.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,10 +11,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.view.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
-
 
 	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe;
 	ActionListener listener;
@@ -30,7 +29,7 @@ public class LeftMenuView extends JPanel {
 
 		this.listener = listener;
 		initButtons();
-		
+
 		this.add(createMenuBar());
 	}
 
@@ -47,26 +46,36 @@ public class LeftMenuView extends JPanel {
 				"resources\\menuIcons\\home_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonHome.setPreferredSize(new Dimension(180, 40));
+		buttonHome.addActionListener(listener);
+		buttonHome.setActionCommand(CenterControllerAC.HOME);
 
 		buttonProfile = new CustomButton("Perfil", "resources\\menuIcons\\profile_normal_642.png",
 				"resources\\menuIcons\\profile_active_642.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonProfile.setPreferredSize(new Dimension(180, 40));
+		buttonProfile.addActionListener(listener);
+		buttonProfile.setActionCommand(CenterControllerAC.PROFILE);
 
 		buttonList = new CustomButton("Lista", "resources\\menuIcons\\list_normal_64.png",
 				"resources\\menuIcons\\list_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonList.setPreferredSize(new Dimension(180, 40));
+		buttonList.addActionListener(listener);
+		buttonList.setActionCommand(CenterControllerAC.LIST);
 
 		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\home_normal_32.png",
 				"resources\\menuIcons\\home_active_32.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonCreateRecipe.setPreferredSize(new Dimension(180, 40));
+		buttonCreateRecipe.addActionListener(listener);
+		buttonCreateRecipe.setActionCommand(CenterControllerAC.CREATE_RECIPE);
 
 		buttonChef = new CustomButton("BChef", "resources\\menuIcons\\logo.png", "resources\\menuIcons\\logo.png",
-				Color.white, Color.white, new Color(30, 170, 255), new Color(29, 154, 231),  new Font("Segoe UI", Font.TYPE1_FONT, 18), CustomButton.CENTER_ALIGN);
-
+				Color.white, Color.white, new Color(30, 170, 255), new Color(29, 154, 231),
+				new Font("Segoe UI", Font.TYPE1_FONT, 18), CustomButton.CENTER_ALIGN);
 		buttonChef.setPreferredSize(new Dimension(200, 40));
+		buttonChef.addActionListener(listener);
+		buttonChef.setActionCommand(CenterControllerAC.BCHEF);
 
 	}
 
@@ -74,7 +83,7 @@ public class LeftMenuView extends JPanel {
 		JPanel leftMenu = new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
 		leftMenu.setBackground(Color.white);
-		//leftMenu.setSize(new Dimension(4000, 800));
+		// leftMenu.setSize(new Dimension(4000, 800));
 
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonHome);
@@ -87,7 +96,7 @@ public class LeftMenuView extends JPanel {
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonChef);
 
-		//this.add(leftMenu, BorderLayout.CENTER);
+		// this.add(leftMenu, BorderLayout.CENTER);
 
 		return leftMenu;
 	}

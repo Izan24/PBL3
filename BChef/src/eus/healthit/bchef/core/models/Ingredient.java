@@ -12,14 +12,14 @@ public class Ingredient {
 		this.id = id;
 		this.name = name;
 		this.type = type;
-		this.amount = amount;
+		this.quantity = amount;
 	}
 	
 	public Ingredient(String name, String type, String amount) {
 		this.id = null;
 		this.name = name;
 		this.type = type;
-		this.amount = amount;
+		this.quantity = amount;
 	}
 
 	public long getId() {
@@ -35,7 +35,7 @@ public class Ingredient {
 	}
 
 	public String getQuantity() {
-		return amount;
+		return quantity;
 	}
 
 	@Override

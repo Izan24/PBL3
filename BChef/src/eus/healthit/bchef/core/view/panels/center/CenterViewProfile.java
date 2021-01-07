@@ -2,7 +2,6 @@ package eus.healthit.bchef.core.view.panels.center;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -15,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
-import eus.healthit.bchef.core.controllers.view.CenterControllerAC;
 import eus.healthit.bchef.core.controllers.view.ProfileController;
 import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
 import eus.healthit.bchef.core.models.Recipe;

@@ -38,7 +38,7 @@ public class LoginView extends JPanel {
 
 	private JPanel createNorthPanel() {
 		JPanel panelLogo = new JPanel(new FlowLayout());
-		panelLogo.setPreferredSize(new Dimension(600, 600));
+		panelLogo.setPreferredSize(new Dimension(600, 300));
 		panelLogo.setBackground(Color.getHSBColor((float) 182 / 360, (float) 0.44, (float) 0.97));
 
 		ImageIcon logo = new ImageIcon("resources/viewIcons/BChefLogoWhite.png");
