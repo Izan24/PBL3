@@ -77,6 +77,7 @@ public class LeftMenuView extends JPanel {
 		buttonChef.addActionListener(listener);
 		buttonChef.setActionCommand(CenterControllerAC.BCHEF);
 
+
 	}
 
 	private JPanel createMenuBar() {
