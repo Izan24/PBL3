@@ -16,9 +16,12 @@ import eus.healthit.bchef.core.enums.VoiceCommand;
 
 public class CommandController {
 	
+	BChefController controller;
+	
 	private static CommandController obj = new CommandController();
 	
 	private CommandController() {
+		controller = BChefController.getBChefController();
 	}
 	
 	public static CommandController getCommandController() {
@@ -29,15 +32,6 @@ public class CommandController {
 	private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
 	private static final String[] PALABRAS = {"receta", "cocina", "y", "e", "recetas", "algo", ",", "poco", "mucho"};
 	
-	
-	BChefController controller;
-	
-	public CommandController(BChefController controller) {
-		this.controller = controller;
-	}
-	public CommandController() {
-		
-	}
 	
 	public static VoiceCommand parseCommand(String command) {
 		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));
@@ -84,8 +78,10 @@ public class CommandController {
 			switchKitchen(string);
 			break;
 		case RECIPE_PREVIOUS:
+			controller.previousStep();
 			break;
 		case RECIPE_NEXT:
+			controller.nextStep();
 			break;
 		case ALARM:
 			break;
