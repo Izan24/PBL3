@@ -8,7 +8,6 @@ import java.util.List;
 
 import eus.healthit.bchef.core.controllers.QueryCon;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
-import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
 
 public class InstructionsRepository {

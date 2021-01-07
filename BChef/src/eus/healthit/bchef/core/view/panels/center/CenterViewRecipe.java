@@ -8,7 +8,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.File;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,7 +21,6 @@ import javax.swing.JScrollPane;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.RecipeViewContoler;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -183,7 +185,10 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	private void setImage(Recipe recipe) {
 		imageLabel.removeAll();
 		imageLabel.revalidate();
-		imageLabel.setIcon(recipe.getImage());
+		try {
+			imageLabel.setIcon( new ImageIcon(ImageIO.read(new URL(recipe.getImageURL()))));
+		} catch (Exception e) {
+		}
 	}
 
 	private void setRating(Recipe recipe) {

@@ -34,6 +34,7 @@ public class CenterViewController implements ActionListener {
 		this.user = user;
 
 		initViews();
+		System.out.println("Initview");
 	}
 
 	private void initViews() {
@@ -47,11 +48,12 @@ public class CenterViewController implements ActionListener {
 
 	public void setStartView() {
 		principalView.changeCenterView(listView);
+		System.out.println("SetStartview");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		System.out.println(e.getActionCommand());
 		switch (e.getActionCommand()) {
 		case CenterControllerAC.HOME:
 			principalView.changeCenterView(listView);

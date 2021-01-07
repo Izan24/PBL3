@@ -47,7 +47,6 @@ public class TransparentRoundBackgroundBorder implements Border {
     	
     	g2.setColor(b.getBackgroundColor());
     	Dimension d = b.getSize();
-    	System.out.println(width);
     	String caption = b.getFrontText();
     	FontMetrics fm = g2.getFontMetrics();
     	int botonWidth = PADDING + IMAGEWIDTH + fm.stringWidth(caption);

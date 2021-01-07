@@ -40,13 +40,13 @@ public class RecipeCreationControler implements ActionListener {
 	}
 
 	public void addIngredient(String name, String quantity) {
-		Ingredient ingredient = new Ingredient(name, quantity);
+		Ingredient ingredient = new Ingredient(name, "uwu", quantity );
 
 		createRecipeView.getIngredientListModel().addElement(ingredient);
 	}
 
-	public void addStep(String text, int value, RecipeStepActions action) {
-		RecipeStep step = new RecipeStep(text, value, action);
+	public void addStep(String text, int value, RecipeStepActions action, String imageURL, int num) {
+		RecipeStep step = new RecipeStep(action, value, imageURL, text, num);
 
 		createRecipeView.getStepListModel().addElement(step);
 	}

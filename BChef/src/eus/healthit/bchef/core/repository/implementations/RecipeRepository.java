@@ -115,7 +115,7 @@ public class RecipeRepository {
 				if(ex == -1) {
 					IngredientRepository.insert(ingredient);
 				}
-				RelationRepository.recipeIngredientRel(recipe, IngredientRepository.getId(ingredient), ingredient.getAmount());
+				RelationRepository.recipeIngredientRel(recipe, IngredientRepository.getId(ingredient), ingredient.getQuantity());
 			}
 
 			List<RecipeStep> instructions = recipe.getSteps();

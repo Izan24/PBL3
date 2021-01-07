@@ -298,9 +298,9 @@ public class CenterViewCreateRecipe extends JPanel {
 		controler.addIngredient(ingredient.getText(), quantity.getText());
 	}
 
-	public void addStep() {
+	public void addStep(String imageURL, int num) {
 		controler.addStep(instruction.getText(), (int) values.getSelectedItem(),
-				(RecipeStepActions) actions.getSelectedItem());
+				(RecipeStepActions) actions.getSelectedItem(), imageURL, num);
 	}
 
 	public void removeIngredient() {
