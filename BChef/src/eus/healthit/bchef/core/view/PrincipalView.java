@@ -2,6 +2,8 @@ package eus.healthit.bchef.core.view;
 
 import java.awt.BorderLayout;
 
+
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
@@ -16,17 +18,19 @@ public class PrincipalView extends JPanel {
 	LeftMenuView leftMenuView;
 	NorthView northView;
 	CenterView centerView;
-	
+
 	CenterViewController centerController;
 
 	public PrincipalView(User user) {
 		super(new BorderLayout());
-		
-		centerController = new CenterViewController(this);
-		
+
+		centerView = new CenterView();
+
+		centerController = new CenterViewController(this, centerView, user);
+		centerController.setStartView();
+
 		leftMenuView = new LeftMenuView(centerController);
 		northView = new NorthView();
-		centerView = new CenterView(user);
 
 		setContent();
 	}
@@ -36,8 +40,8 @@ public class PrincipalView extends JPanel {
 		this.add(northView, BorderLayout.NORTH);
 		this.add(centerView, BorderLayout.CENTER);
 	}
-	
-	public void changeCenterView(String selection) {
-		centerView.setView(selection);
+
+	public void changeCenterView(JComponent component) {
+		centerView.setView(component);
 	}
 }

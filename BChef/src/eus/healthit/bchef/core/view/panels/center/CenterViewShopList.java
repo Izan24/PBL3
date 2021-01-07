@@ -17,12 +17,18 @@ import javax.swing.JTextField;
 import eus.healthit.bchef.core.controllers.implementations.ShopListController;
 import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
+import eus.healthit.bchef.core.controllers.view.ShopListSelectionListener;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
-public class CenterShopListView extends JPanel {
+public class CenterViewShopList extends JPanel {
+
+	/*
+	 * PONLE UN SELECTIONLISTENERR Y HACES QUE ESTO TENGA UNA FUNCION QUE CAMBIE EL
+	 * BOUGHT DEL OBJETO Y ASI ARREGLAS LO DEL TIC
+	 */
 
 	JTextField newElementField;
 	User user;
@@ -33,8 +39,9 @@ public class CenterShopListView extends JPanel {
 
 	ShopListButtonController buttonController;
 	ShopListController listController;
+	ShopListSelectionListener listener;
 
-	public CenterShopListView(User user) {
+	public CenterViewShopList(User user) {
 		super(new BorderLayout(10, 10));
 		this.setBackground(Color.white);
 		this.user = user;
@@ -62,9 +69,11 @@ public class CenterShopListView extends JPanel {
 		// listModel.setList(user.getShopList());
 
 		renderer = new ItemRenderer(buttonController);
+		listener = new ShopListSelectionListener(this);
 
 		itemList.setModel(listModel);
 		itemList.setCellRenderer(renderer);
+		itemList.addMouseListener(listener);
 	}
 
 	private JPanel createNorthPanel() {
@@ -140,6 +149,12 @@ public class CenterShopListView extends JPanel {
 			listModel.deleteElement(itemList.getSelectedValue());
 		} catch (IndexOutOfBoundsException e) {
 		}
+	}
+
+	public void checkItem() {
+		Item selectedItem = itemList.getSelectedValue();
+		selectedItem.flipBought();
+		this.repaint();
 	}
 
 	public ItemList getListModel() {

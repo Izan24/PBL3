@@ -4,8 +4,9 @@ public class Ingredient {
 
 	Long id;
 	String name;
+
 	String type;
-	String amount;
+	String quantity;
 
 	public Ingredient(long id, String name, String type, String amount) {
 		this.id = id;
@@ -33,7 +34,12 @@ public class Ingredient {
 		return type;
 	}
 
-	public String getAmount() {
+	public String getQuantity() {
 		return amount;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

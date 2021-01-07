@@ -13,6 +13,7 @@ public class Recipe {
 	Time duration;
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
+
 	String imageURL;
 	UUID uuid;
 
@@ -95,6 +96,22 @@ public class Recipe {
 
 	public void setImage(String imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	public int getIngredientNumber() {
+		try {
+			return ingredients.size();
+		} catch (NullPointerException e) {
+			return 0;
+		}
+	}
+
+	public int getStepNumber() {
+		try {
+			return this.steps.size();						
+		} catch (NullPointerException e) {
+			return 0;
+		}
 	}
 
 }

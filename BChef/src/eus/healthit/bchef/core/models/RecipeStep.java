@@ -4,6 +4,7 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
+
 	Long id;
 	RecipeStepActions action;
 	int value;
@@ -53,6 +54,8 @@ public class RecipeStep {
 		this.value = value;
 	}
 
+	
+
 	public String getImageURL() {
 		return imageURL;
 	}
@@ -77,8 +80,10 @@ public class RecipeStep {
         return text;
     }
 
-    @Override
-    public String toString() {
-        return "Numero de paso: "+ num+ ", Accion: "+ action + ", Value: "+ value + ", Text: " + text;
-    }
+
+  @Override
+	public String toString() {
+		return text;
+	}
+  
 }

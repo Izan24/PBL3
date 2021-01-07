@@ -17,6 +17,10 @@ public class Item {
 	public void setBought(boolean bought) {
 		this.bought = bought;
 	}
+	
+	public void flipBought() {
+		bought = !bought;
+	}
 
 	public String getName() {
 		return name;

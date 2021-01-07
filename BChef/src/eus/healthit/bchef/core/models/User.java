@@ -14,7 +14,7 @@ public class User {
 	String username;
 	String password;
 	List<User> followed;
-	// List<User> followers; METEMOS ESTO¿?¿?¿?¿?
+	List<User> followers; //METEMOS ESTO¿?¿?¿?¿?
 	List<Recipe> published;
 	List<Recipe> saved;
 	List<Recipe> pending;
@@ -36,6 +36,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		followed = new ArrayList<>();
+		followers = new ArrayList<>();
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
 		pending = new ArrayList<>();
@@ -57,6 +58,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		followed = new ArrayList<>();
+		followers = new ArrayList<>();
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
 		pending = new ArrayList<>();
@@ -68,7 +70,7 @@ public class User {
 	 * Load an existing user
 	 */
 	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
-			String password, List<User> followed, List<Recipe> published, List<Recipe> saved, List<Recipe> pending,
+			String password, List<User> followed,List<User> followers, List<Recipe> published, List<Recipe> saved, List<Recipe> pending,
 			List<Item> shopList, List<Recipe> history) {
 
 		this.id = id;
@@ -79,6 +81,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.followed = followed;
+		this.followers = followers;
 		this.published = published;
 		this.saved = saved;
 		this.pending = pending;
@@ -170,6 +173,24 @@ public class User {
 	
 	public int getFollowedNumber() {
 		return followed.size();
+	}
+	
+	//------------------------------------------------------------------------
+	
+	public List<User> getFollowers() {
+		return followers;
+	}
+	
+	public void addFollower(User user) {
+		followers.add(user);
+	}
+	
+	public void removeFollower(User user) {
+		followers.remove(user);
+	}
+	
+	public int getFollowersNumber() {
+		return followers.size();
 	}
 	
 	//------------------------------------------------------------------------

@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class CenterBchefView extends JPanel {
+public class CenterViewBchef extends JPanel {
 
-	public CenterBchefView() {
+	public CenterViewBchef() {
 		super(new GridLayout());
 
 		this.add(createLogoPanel(), BorderLayout.CENTER);

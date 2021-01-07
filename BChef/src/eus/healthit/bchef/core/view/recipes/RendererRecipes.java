@@ -30,7 +30,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		JPanel panelImage = new JPanel(new GridLayout(1, 1, 20, 20));
 		JPanel dataPanel = new JPanel(new BorderLayout(20, 20));
 		JPanel starPanel = new JPanel(new FlowLayout());
-		JPanel southPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+		JPanel southPanel = new JPanel(new GridLayout(1, 2, 5, 5));
 		starPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
 		// --------------------------------------------------------------------------
@@ -114,11 +114,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		}
 
 		southPanel.add(starPanel);
-
-		JButton buttonRecipe = ButtonFactory.createRoundedButton("Ver receta", value.getName(), null, null, Color.cyan,
-				Color.black, new Font("Arial", Font.BOLD, 12));
-		southPanel.add(buttonRecipe);
-
+		
 		dataPanel.add(text, BorderLayout.CENTER);
 		dataPanel.add(southPanel, BorderLayout.SOUTH);
 

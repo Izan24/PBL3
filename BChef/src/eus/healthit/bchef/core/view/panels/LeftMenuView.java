@@ -16,6 +16,7 @@ import eus.healthit.bchef.core.view.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
 
+
 	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe;
 	ActionListener listener;
 
@@ -23,8 +24,6 @@ public class LeftMenuView extends JPanel {
 		super(new FlowLayout(10, 10, 10));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-
-		//this.setSize(new Dimension(230, 20));
 
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY),
 				BorderFactory.createEmptyBorder(10, 10, 10, 1)));
