@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
+import eus.healthit.bchef.core.view.components.CustomButton;
 import eus.healthit.bchef.core.view.components.RoundTransparentButton;
 
 public class Principal {
@@ -23,34 +24,25 @@ public class Principal {
 
 	public Principal() {
 		windowFrame = new WindowFrame();
-		JFrame frame = new JFrame();
-		frame.setSize(new Dimension(1280, 720));
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setContentPane(crearPaneles());
-		frame.setVisible(true);
+//		JFrame frame = new JFrame();
+//		frame.setSize(new Dimension(1280, 720));
+//		frame.setLocationRelativeTo(null);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setContentPane(crearPaneles());
+//		frame.setVisible(true);
 	}
 
 	private Container crearPaneles() {
 		JPanel panelbobo = new JPanel(new GridLayout(1, 2, 30, 30));
 		panelbobo.setBorder(new EmptyBorder(50, 50, 50, 50));
-		panelbobo.setBackground(new Color(21, 32, 43));
+		panelbobo.setBackground(new Color(255, 255, 255));
 
 		JPanel panelPrincipal = new JPanel(new GridLayout(2, 1, 20, 200));
 		panelPrincipal.setBackground(null);
 
-		JButton boton1 = new JButton("Izanarcos");
-		boton1.setUI(new RoundTransparentButton(boton1));
-		boton1.setBackground(null);
-		boton1.setFont(new Font("Roboto", Font.BOLD, 48));
+		CustomButton boton1 = new CustomButton("Izanarcos", "resources\\menuIcons\\home_normal_32.png", "resources\\menuIcons\\home_active_32.png" , new Color(15, 20, 25), new Color(29,161,242), new Color(0,0,0,0), new Color(232,245,254), new Font("Roboto", Font.BOLD, 48));
 
-		JButton boton2 = new JButton("Jorgearcos");
-		boton2.setUI(new RoundTransparentButton(boton2));
-		boton2.setBackground(null);
-		boton2.setFont(new Font("Roboto", Font.BOLD, 48));
-		boton2.setSize(new Dimension(40, 40));
-
-		JButton boton3 = new JButton();
+		JButton boton2 = new CustomButton("Jorgearcos", Color.white, Color.white, new Color(30,170,255), new Color(29,154,231), new Font("Roboto", Font.BOLD, 48));
 
 		panelPrincipal.add(boton1);
 		panelPrincipal.add(boton2);
