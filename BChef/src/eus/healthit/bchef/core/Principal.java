@@ -2,12 +2,10 @@ package eus.healthit.bchef.core;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -15,7 +13,6 @@ import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.components.CustomButton;
-import eus.healthit.bchef.core.view.components.RoundTransparentButton;
 
 public class Principal {
 
