@@ -1,6 +1,5 @@
 package eus.healthit.bchef.core.controllers;
 
-import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IBoardController;
 import eus.healthit.bchef.core.controllers.interfaces.IInputController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
@@ -15,7 +14,6 @@ public class BChefController {
     static BChefController obj = new BChefController();
 
     private BChefController() {
-    	kitchenController = KitchenController.getKitchenController();
     }
 
     public static BChefController getBChefController() {
@@ -55,17 +53,6 @@ public class BChefController {
 		
 	}
 	
-	public void nextStep() {
-		
-	}
-	
-	public void previousStep() {
-		
-	}
-	
-	public void readStep() {
-		
-	}
 	
 	
 }
