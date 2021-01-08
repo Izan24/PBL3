@@ -106,7 +106,7 @@ public class Recipe {
 		}
 	}
 
-	public int getStepNumber() {
+	public int getStepCount() {
 		try {
 			return this.steps.size();						
 		} catch (NullPointerException e) {

@@ -81,10 +81,13 @@ public class CommandController {
 			switchKitchen(string);
 			break;
 		case RECIPE_PREVIOUS:
+			controller.prevStep();
 			break;
 		case RECIPE_NEXT:
+			controller.nextStep();
 			break;
 		case ALARM:
+			setAlarm(string);
 			break;
 		case LIST_ADD:
 			break;
@@ -109,6 +112,11 @@ public class CommandController {
 		return true;
 	}
 	
+	private void setAlarm(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private boolean searchIngredient(String string) {
 		Set<String> ingredients = parseWords(string);
 		return true;
@@ -128,7 +136,7 @@ public class CommandController {
 		if(util != KitchenUtil.MISUNDERSTOOD) {
 			try {
 				Integer[] nums = parseInt(string);
-				controller.switchKitchen(util, nums);
+				controller.switchKitchen(util, nums); 
 			} catch (Exception e) {
 				//TODO: preguntar numero
 			}
