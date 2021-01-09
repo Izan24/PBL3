@@ -4,12 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.view.borders.RoundedBorder;
+import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
 
 public class NorthView extends JPanel {
@@ -36,8 +35,7 @@ public class NorthView extends JPanel {
 		searchBar = new RoundedTextField("Busca una receta");
 		searchBar.setToolTipText("Search");
 		searchBar.setPreferredSize(new Dimension(550, 35));
-		searchBar.setMargin(new Insets(4, 8, 4, 8));
-		searchBar.setBorder(new RoundedBorder(30));
+		searchBar.setBorder(new SearchBorder(30, new Color(200,200,200)));
 
 		panelSearch.add(searchBar);
 

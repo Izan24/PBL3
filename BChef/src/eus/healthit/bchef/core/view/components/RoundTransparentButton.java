@@ -18,6 +18,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import eus.healthit.bchef.core.view.borders.TransparentRoundBackgroundBorder;
+
 public class RoundTransparentButton extends BasicButtonUI implements MouseListener, KeyListener {
 
 	

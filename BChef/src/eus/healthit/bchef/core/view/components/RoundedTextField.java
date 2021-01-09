@@ -1,6 +1,8 @@
 package eus.healthit.bchef.core.view.components;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -16,6 +18,7 @@ public class RoundedTextField extends JTextField implements FocusListener {
 		super(hint);
 		this.hint = hint;
 		this.showingHint = true;
+		super.setMargin(new Insets(4, 28, 4, 8));
 		super.addFocusListener(this);
 	}
 
@@ -41,4 +44,11 @@ public class RoundedTextField extends JTextField implements FocusListener {
 	public String getText() {
 		return showingHint ? "" : super.getText();
 	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+	}
+	
+	
 }

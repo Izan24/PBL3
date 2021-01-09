@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.view.components;
+package eus.healthit.bchef.core.view.borders;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +12,8 @@ import java.awt.RenderingHints;
 import javax.swing.JComponent;
 import javax.swing.border.Border;
 
+import eus.healthit.bchef.core.view.components.CustomButton;
+
 public class TransparentRoundBackgroundBorder implements Border {
 	
 	static final int PADDING = 40;
@@ -21,11 +23,11 @@ public class TransparentRoundBackgroundBorder implements Border {
     private int radius;
 
 
-    TransparentRoundBackgroundBorder(int radius) {
+    public TransparentRoundBackgroundBorder(int radius) {
         this.radius = radius;
     }
     
-    TransparentRoundBackgroundBorder(int radius, int align) {
+   public  TransparentRoundBackgroundBorder(int radius, int align) {
         this.radius = radius;
     }
 
