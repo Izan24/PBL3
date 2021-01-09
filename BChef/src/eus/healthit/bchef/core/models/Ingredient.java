@@ -15,6 +15,11 @@ public class Ingredient {
 		this.quantity = amount;
 	}
 	
+	public Ingredient(String name, String type) {
+		this.name = name;
+		this.type = type;
+	}
+	
 	public Ingredient(String name, String type, String amount) {
 		this.id = null;
 		this.name = name;

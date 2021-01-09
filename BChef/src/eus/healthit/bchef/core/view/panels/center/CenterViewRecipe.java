@@ -186,7 +186,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		imageLabel.removeAll();
 		imageLabel.revalidate();
 		try {
-			imageLabel.setIcon( new ImageIcon(ImageIO.read(new URL(recipe.getImageURL()))));
+			imageLabel.setIcon(new ImageIcon(ImageIO.read(new URL(recipe.getImageURL()))));
 		} catch (Exception e) {
 		}
 	}

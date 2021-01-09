@@ -12,4 +12,5 @@ public class CenterControllerAC {
 	public static final String CREATE_RECIPE = "create_recipe";
 	public static final String BCHEF = "bchef";
 	public static final String RECIPE = "recipe";
+	public static final String RECIPE_STEP = "recipe_step";
 }
