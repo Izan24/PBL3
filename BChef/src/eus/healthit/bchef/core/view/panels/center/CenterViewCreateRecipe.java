@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import eus.healthit.bchef.core.controllers.view.DefaultTextController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControler;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControlerAC;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
@@ -30,6 +33,12 @@ public class CenterViewCreateRecipe extends JPanel {
 	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR
 	 * RECETA
 	 */
+	
+	public final static String TITLE_DEFAULT_TEXT = "Introduzca titulo";
+	public final static String DESCRIPTION_DEFAULT_TEXT = "Descripcion de la receta";
+	public final static String INGREDIENT_DEFAULT_TEXT = "Ingrediente";
+	public final static String QUANTITY_DEFAULT_TEXT = "Cantidad";
+	public final static String STEP_DEFAULT_TEXT = "Instruccion del paso";
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
 	User user;
@@ -75,7 +84,8 @@ public class CenterViewCreateRecipe extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.white);
-		
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(Color.white);
 
@@ -102,9 +112,13 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		title = new JTextField();
 		title.setFont(textFont);
+		title.setText(TITLE_DEFAULT_TEXT);
+		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
 
 		description = new JTextField();
 		description.setFont(textFont);
+		description.setText(DESCRIPTION_DEFAULT_TEXT);
+		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
 
 		titlePanel.add(title);
 		titlePanel.add(description);
@@ -132,6 +146,8 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		instruction = new JTextField();
 		instruction.setFont(textFont);
+		instruction.setText(STEP_DEFAULT_TEXT);
+		instruction.addFocusListener(new DefaultTextController(instruction, STEP_DEFAULT_TEXT));
 
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);
@@ -240,9 +256,13 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		ingredient = new JTextField();
 		ingredient.setFont(textFont);
+		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
+		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
 
 		quantity = new JTextField();
 		quantity.setFont(textFont);
+		quantity.setText(QUANTITY_DEFAULT_TEXT);
+		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
 
 		JButton addButton = new JButton("Añadir");
 		addButton.setBackground(greenButtonColor);
