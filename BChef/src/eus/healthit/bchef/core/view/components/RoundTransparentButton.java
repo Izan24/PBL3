@@ -146,7 +146,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
 			JComponent c = (JComponent) e.getComponent();
-			c.setBorder(new EmptyBorder(0, 0, 0, 0));
+			//c.setBorder(new EmptyBorder(0, 0, 0, 0));
 			// c.setBackground(m_backgroundPressed);
 		}
 	}
@@ -155,7 +155,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
 			JComponent c = (JComponent) e.getComponent();
-			c.setBorder(border);
+			//c.setBorder(border);
 			// c.setBackground(m_backgroundNormal);
 		}
 	}
