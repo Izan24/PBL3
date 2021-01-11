@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -35,6 +36,8 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 			boolean cellHasFocus) {
 
 		JPanel mainPanel = new JPanel(new GridLayout(1, 2, 20, 20));
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 250, 5, 350));
+
 		JLabel boughtLabel = new JLabel();
 		JLabel labelName = new JLabel(value.getName());
 		labelName.setFont(new Font("Gill Sans MT", Font.PLAIN, 19));

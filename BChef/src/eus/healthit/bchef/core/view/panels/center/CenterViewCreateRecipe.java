@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,8 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControler;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControlerAC;
@@ -33,7 +33,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR
 	 * RECETA
 	 */
-	
+
 	public final static String TITLE_DEFAULT_TEXT = "Introduzca titulo";
 	public final static String DESCRIPTION_DEFAULT_TEXT = "Descripcion de la receta";
 	public final static String INGREDIENT_DEFAULT_TEXT = "Ingrediente";
@@ -50,7 +50,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	JTextField title, description;
 	JTextField ingredient, quantity;
-	JTextField instruction;
+	JTextArea instruction;
 
 	JComboBox<RecipeStepActions> actions;
 	JComboBox<Integer> values;
@@ -144,10 +144,10 @@ public class CenterViewCreateRecipe extends JPanel {
 		titleLabel.setFont(textFont);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		instruction = new JTextField();
+		instruction = new JTextArea();
 		instruction.setFont(textFont);
 		instruction.setText(STEP_DEFAULT_TEXT);
-		instruction.addFocusListener(new DefaultTextController(instruction, STEP_DEFAULT_TEXT));
+		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);

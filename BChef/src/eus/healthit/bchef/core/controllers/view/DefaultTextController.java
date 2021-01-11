@@ -15,6 +15,7 @@ public class DefaultTextController implements FocusListener {
 		this.defaultText = defaultText;
 	}
 
+
 	public void focusGained(FocusEvent e) {
 		if (field.getText().equals(defaultText))
 			field.setText("");
