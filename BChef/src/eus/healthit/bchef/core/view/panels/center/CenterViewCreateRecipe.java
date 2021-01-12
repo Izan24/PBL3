@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -143,6 +144,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
+		instruction.setMargin(new Insets(20, 20, 20, 20));
 
 		ingredient = new JTextField();
 		ingredient.setFont(textFont);

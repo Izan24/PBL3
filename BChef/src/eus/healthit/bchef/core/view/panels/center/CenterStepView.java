@@ -58,7 +58,7 @@ public class CenterStepView extends JPanel {
 
 	private Component createSouthPanel() {
 		JPanel southPanel = new JPanel(new GridLayout());
-		
+
 		return southPanel;
 	}
 
