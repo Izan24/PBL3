@@ -27,7 +27,8 @@ public class CenterViewVisitProfile extends JPanel {
 	User user;
 	JScrollPane scrollPane;
 
-	JLabel profilePicture, username, recipesText, followingText, followersText, recipes, following, followers, recipesTextList;
+	JLabel profilePicture, username, recipesText, followingText, followersText, recipes, following, followers,
+			recipesTextList;
 
 	JButton followButton;
 
@@ -214,5 +215,12 @@ public class CenterViewVisitProfile extends JPanel {
 
 	public JPanel getPanel() {
 		return this;
+	}
+
+	public void setVisitUser(User visitUser) {
+		/*
+		 * CAMBIA EL USUARIO QUE TIENE QUE MOSTRAR Y ACTUALIZA TODOS LOS DATOS COMO EN
+		 * EL RECIPEVIEW Y HACES REPAINT Y REVALIDATE
+		 */
 	}
 }
