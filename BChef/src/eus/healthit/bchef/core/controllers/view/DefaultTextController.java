@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core.controllers.view;
 
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -17,12 +18,16 @@ public class DefaultTextController implements FocusListener {
 
 
 	public void focusGained(FocusEvent e) {
-		if (field.getText().equals(defaultText))
+		if (field.getText().equals(defaultText)) {
 			field.setText("");
+			field.setForeground(Color.BLACK);			
+		}
 	}
 
 	public void focusLost(FocusEvent e) {
-		if (field.getText().equals(""))
+		if (field.getText().equals("")) {
 			field.setText(defaultText);
+			field.setForeground(Color.gray);			
+		}
 	}
 }

@@ -114,11 +114,13 @@ public class CenterViewCreateRecipe extends JPanel {
 		title.setFont(textFont);
 		title.setText(TITLE_DEFAULT_TEXT);
 		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
+		title.setForeground(Color.gray);			
 
 		description = new JTextField();
 		description.setFont(textFont);
 		description.setText(DESCRIPTION_DEFAULT_TEXT);
 		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
+		description.setForeground(Color.gray);			
 
 		titlePanel.add(title);
 		titlePanel.add(description);
@@ -145,9 +147,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		instruction = new JTextArea();
+		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
 		instruction.setFont(textFont);
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
+		instruction.setForeground(Color.gray);			
 
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);
@@ -258,11 +262,14 @@ public class CenterViewCreateRecipe extends JPanel {
 		ingredient.setFont(textFont);
 		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
 		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
+		ingredient.setForeground(Color.gray);			
+
 
 		quantity = new JTextField();
 		quantity.setFont(textFont);
 		quantity.setText(QUANTITY_DEFAULT_TEXT);
 		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
+		quantity.setForeground(Color.gray);			
 
 		JButton addButton = new JButton("Añadir");
 		addButton.setBackground(greenButtonColor);
