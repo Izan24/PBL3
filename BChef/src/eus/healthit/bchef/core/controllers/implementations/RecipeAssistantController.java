@@ -1,7 +1,13 @@
 package eus.healthit.bchef.core.controllers.implementations;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.interfaces.IRecipeAssistantController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
+import eus.healthit.bchef.core.models.KitchenAlarm;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 
@@ -9,9 +15,11 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	Recipe recipe;
 	int currentStep;
+	List<KitchenAlarm> alarms;
 	
 	public RecipeAssistantController() {
 		recipe = null;
+		alarms = new ArrayList<>();
 	}
 	
 	@Override
@@ -35,8 +43,8 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	}
 
 	@Override
-	public void setAlarm(KitchenUtil util, int index, int time) {
-		// TODO Auto-generated method stub
+	public void setAlarm(KitchenUtil util, int index, Time time) {
+		alarms.add(new KitchenAlarm(util, index, time, BChefController.getBChefController()));
 		
 	}
 

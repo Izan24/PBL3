@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
-public class KitchenUtilAlarm implements ActionListener {
+public class KitchenAlarm implements ActionListener {
 
 	Time time;
 	
@@ -25,7 +25,7 @@ public class KitchenUtilAlarm implements ActionListener {
 	PropertyChangeSupport connector;
 	Timer timer;
 	
-	public KitchenUtilAlarm(KitchenUtil util, int utilId, Time time, PropertyChangeListener listener) {
+	public KitchenAlarm(KitchenUtil util, int utilId, Time time, PropertyChangeListener listener) {
 		this.util = util;
 		this.utilId = utilId;
 		this.time = time;

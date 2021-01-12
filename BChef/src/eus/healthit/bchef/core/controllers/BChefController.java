@@ -1,5 +1,10 @@
 package eus.healthit.bchef.core.controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import eus.healthit.bchef.core.controllers.interfaces.IBoardController;
 import eus.healthit.bchef.core.controllers.interfaces.IInputController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
@@ -9,7 +14,7 @@ import eus.healthit.bchef.core.controllers.interfaces.IViewController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.models.RecipeStep;
 
-public class BChefController {
+public class BChefController implements PropertyChangeListener {
 
 	BChefController bChefController;
 
@@ -32,9 +37,11 @@ public class BChefController {
 	CommandController commandController;
 	IRecipeAssistantController recipeAssitantController;
 	
+	
+	
 	public void notifyMisunderstood() {
 		//TODO: Selector random de mensajes (Evitar repetir la misma frase)
-		outputController.send("No se ha entendido");
+		outputController.send("Perdona, no te he entendido.");
 	}
 
 	public void switchKitchen(KitchenUtil util, Integer[] nums) {
@@ -66,11 +73,26 @@ public class BChefController {
 
 	public void nextStep() {
 		RecipeStep nextStep = recipeAssitantController.nextStep();
-		
+		outputController.send(nextStep.getText());
+		switch(nextStep.getAction()) {
+		case FURNACE:
+			
+			break;
+		case SET_FIRE:
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public void prevStep() {
 		recipeAssitantController.prevStep();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

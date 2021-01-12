@@ -1,7 +1,5 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.implementations.KitchenController;
-import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -15,7 +13,6 @@ public class Principal {
 
 
 	public static void main(String[] args) {
-		IKitchenController kitchenController = new KitchenController();
 		Principal principal = new Principal();
 		// QueryCon con = new QueryCon();
 //		List<Ingredient> ings = new ArrayList<>();
