@@ -97,6 +97,11 @@ public class CenterViewController implements ActionListener {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);
 	}
+	
+	public void setVisitProfileView(User visitUser) {
+		visitProfile.setVisitUser(visitUser);
+		principalView.changeCenterView(visitProfile);
+	}
 
 	public void setStepView(RecipeStep step) {
 		stepView.setStep(step);
