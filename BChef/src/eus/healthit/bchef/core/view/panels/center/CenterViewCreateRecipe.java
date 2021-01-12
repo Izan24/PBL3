@@ -48,6 +48,10 @@ public class CenterViewCreateRecipe extends JPanel {
 	Color greenButtonColor = new Color(51, 212, 51);
 	Color redButtonColor = new Color(240, 71, 55);
 
+	JButton addImageButton;
+	JButton addStepButton, removeStepButton;
+	JButton addIngredientButton, removeIngredientButton;
+
 	JTextField title, description;
 	JTextField ingredient, quantity;
 	JTextArea instruction;
@@ -72,9 +76,86 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		controler = new RecipeCreationControler(this);
 
+		initButtons();
+		initTextFields();
 		addComboData();
 
 		this.add(createContent());
+	}
+
+	private void initButtons() {
+
+		addStepButton = new JButton("Añadir");
+		addStepButton.setBackground(greenButtonColor);
+		addStepButton.setForeground(Color.white);
+		addStepButton.setFont(textFont);
+		addStepButton.setFocusable(false);
+		addStepButton.setActionCommand(RecipeCreationControlerAC.ADD_STEP);
+		addStepButton.addActionListener(controler);
+
+		removeStepButton = new JButton("Eliminar");
+		removeStepButton.setBackground(redButtonColor);
+		removeStepButton.setForeground(Color.white);
+		removeStepButton.setFont(textFont);
+		removeStepButton.setFocusable(false);
+		removeStepButton.setActionCommand(RecipeCreationControlerAC.REMOVE_STEP);
+		removeStepButton.addActionListener(controler);
+
+		addImageButton = new JButton("Añadir imagen");
+		addImageButton.setBackground(Color.white);
+		addImageButton.setForeground(Color.DARK_GRAY);
+		addImageButton.setFocusable(false);
+
+		addIngredientButton = new JButton("Añadir");
+		addIngredientButton.setBackground(greenButtonColor);
+		addIngredientButton.setForeground(Color.white);
+		addIngredientButton.setFont(textFont);
+		addIngredientButton.setFocusable(false);
+		addIngredientButton.setActionCommand(RecipeCreationControlerAC.ADD_INGREDIENT);
+		addIngredientButton.addActionListener(controler);
+
+		removeIngredientButton = new JButton("Eliminar");
+		removeIngredientButton.setBackground(redButtonColor);
+		removeIngredientButton.setForeground(Color.white);
+		removeIngredientButton.setFont(textFont);
+		removeIngredientButton.setFocusable(false);
+		removeIngredientButton.setActionCommand(RecipeCreationControlerAC.REMOVE_INGREDIENT);
+		removeIngredientButton.addActionListener(controler);
+	}
+
+	private void initTextFields() {
+
+		title = new JTextField();
+		title.setFont(textFont);
+		title.setText(TITLE_DEFAULT_TEXT);
+		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
+		title.setForeground(Color.gray);
+
+		description = new JTextField();
+		description.setFont(textFont);
+		description.setText(DESCRIPTION_DEFAULT_TEXT);
+		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
+		description.setForeground(Color.gray);
+
+		instruction = new JTextArea();
+		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+		instruction.setFont(textFont);
+		instruction.setText(STEP_DEFAULT_TEXT);
+		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
+		instruction.setForeground(Color.gray);
+
+		ingredient = new JTextField();
+		ingredient.setFont(textFont);
+		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
+		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
+		ingredient.setForeground(Color.gray);
+
+		quantity = new JTextField();
+		quantity.setFont(textFont);
+		quantity.setText(QUANTITY_DEFAULT_TEXT);
+		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
+		quantity.setForeground(Color.gray);
+
 	}
 
 	private void addComboData() {
@@ -110,18 +191,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		JPanel titlePanel = new JPanel(new GridLayout(2, 1, 15, 15));
 		titlePanel.setBackground(Color.white);
 
-		title = new JTextField();
-		title.setFont(textFont);
-		title.setText(TITLE_DEFAULT_TEXT);
-		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
-		title.setForeground(Color.gray);			
-
-		description = new JTextField();
-		description.setFont(textFont);
-		description.setText(DESCRIPTION_DEFAULT_TEXT);
-		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
-		description.setForeground(Color.gray);			
-
 		titlePanel.add(title);
 		titlePanel.add(description);
 
@@ -145,13 +214,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		JLabel titleLabel = new JLabel("Pasos");
 		titleLabel.setFont(textFont);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
-		instruction = new JTextArea();
-		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
-		instruction.setFont(textFont);
-		instruction.setText(STEP_DEFAULT_TEXT);
-		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
-		instruction.setForeground(Color.gray);			
 
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);
@@ -204,24 +266,8 @@ public class CenterViewCreateRecipe extends JPanel {
 	private Component createStepButtonPanel() {
 		JPanel stepButtonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
 
-		JButton addButton = new JButton("Añadir");
-		addButton.setBackground(greenButtonColor);
-		addButton.setForeground(Color.white);
-		addButton.setFont(textFont);
-		addButton.setFocusable(false);
-		addButton.setActionCommand(RecipeCreationControlerAC.ADD_STEP);
-		addButton.addActionListener(controler);
-
-		JButton removeButton = new JButton("Eliminar");
-		removeButton.setBackground(redButtonColor);
-		removeButton.setForeground(Color.white);
-		removeButton.setFont(textFont);
-		removeButton.setFocusable(false);
-		removeButton.setActionCommand(RecipeCreationControlerAC.REMOVE_STEP);
-		removeButton.addActionListener(controler);
-
-		stepButtonPanel.add(addButton);
-		stepButtonPanel.add(removeButton);
+		stepButtonPanel.add(addStepButton);
+		stepButtonPanel.add(removeStepButton);
 
 		return stepButtonPanel;
 	}
@@ -231,13 +277,8 @@ public class CenterViewCreateRecipe extends JPanel {
 		westPanel.setBackground(Color.white);
 		westPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 50, Color.white));
 
-		JButton addButton = new JButton("Añadir imagen");
-		addButton.setBackground(Color.white);
-		addButton.setForeground(Color.DARK_GRAY);
-		addButton.setFocusable(false);
-
 		westPanel.add(createIngredientPanel(), BorderLayout.CENTER);
-		westPanel.add(addButton, BorderLayout.NORTH);
+		westPanel.add(addImageButton, BorderLayout.NORTH);
 		return westPanel;
 	}
 
@@ -258,40 +299,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		JLabel titleLabel = new JLabel("Ingredientes");
 		titleLabel.setFont(textFont);
 
-		ingredient = new JTextField();
-		ingredient.setFont(textFont);
-		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
-		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
-		ingredient.setForeground(Color.gray);			
-
-
-		quantity = new JTextField();
-		quantity.setFont(textFont);
-		quantity.setText(QUANTITY_DEFAULT_TEXT);
-		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
-		quantity.setForeground(Color.gray);			
-
-		JButton addButton = new JButton("Añadir");
-		addButton.setBackground(greenButtonColor);
-		addButton.setForeground(Color.white);
-		addButton.setFont(textFont);
-		addButton.setFocusable(false);
-		addButton.setActionCommand(RecipeCreationControlerAC.ADD_INGREDIENT);
-		addButton.addActionListener(controler);
-
-		JButton removeButton = new JButton("Eliminar");
-		removeButton.setBackground(redButtonColor);
-		removeButton.setForeground(Color.white);
-		removeButton.setFont(textFont);
-		removeButton.setFocusable(false);
-		removeButton.setActionCommand(RecipeCreationControlerAC.REMOVE_INGREDIENT);
-		removeButton.addActionListener(controler);
-
 		northPanel.add(titleLabel);
 		northPanel.add(ingredient);
 		northPanel.add(quantity);
-		northPanel.add(addButton);
-		northPanel.add(removeButton);
+		northPanel.add(addIngredientButton);
+		northPanel.add(removeIngredientButton);
 
 		return northPanel;
 	}
