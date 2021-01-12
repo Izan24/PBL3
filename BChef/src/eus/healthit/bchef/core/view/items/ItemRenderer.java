@@ -23,10 +23,11 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 	public ItemRenderer(ShopListButtonController controller) {
 		this.controller = controller;
 	}
-	
+
 	/*
-	 * QUIERO QUE ME DETECTE SI LE DOY AL JLABEL DE LA IMAGENB PERO NO ME LO DETECTA, HE PROBADO A PONER UN BOTON Y NO VA
-	 * Y TAMBIEN HE PROBADO A PONER UN MOUSELISTENER PERO NO VA (LO HE PUESTO DENTRO Y FUERA PERO NO LO DETECTA).
+	 * QUIERO QUE ME DETECTE SI LE DOY AL JLABEL DE LA IMAGENB PERO NO ME LO
+	 * DETECTA, HE PROBADO A PONER UN BOTON Y NO VA Y TAMBIEN HE PROBADO A PONER UN
+	 * MOUSELISTENER PERO NO VA (LO HE PUESTO DENTRO Y FUERA PERO NO LO DETECTA).
 	 * 
 	 * TENEMOS QUE PENSAR ALGO PARA HACER QUE FUNCIONES PORQUE ESTO NO VA
 	 */
@@ -43,8 +44,8 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 		labelName.setFont(new Font("Gill Sans MT", Font.PLAIN, 19));
 
 		if (isSelected) {
-			mainPanel.setBackground(Color.lightGray);
-			boughtLabel.setBackground(Color.lightGray);
+			mainPanel.setBackground(new Color(225, 252, 254));
+			boughtLabel.setBackground(new Color(225, 252, 254));
 		} else {
 			mainPanel.setBackground(Color.white);
 			boughtLabel.setBackground(Color.white);
