@@ -15,6 +15,7 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
+import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 
 public class CenterViewController implements ActionListener {
@@ -28,6 +29,7 @@ public class CenterViewController implements ActionListener {
 	CenterViewShopList shopListView;
 	CenterViewCreateRecipe createRecipeView;
 	CenterStepView stepView;
+	CenterViewVisitProfile visitProfile;
 
 	CenterView centerView;
 	User user;
@@ -49,6 +51,7 @@ public class CenterViewController implements ActionListener {
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);
 		stepView = new CenterStepView();
+		visitProfile = new CenterViewVisitProfile(user);
 	}
 
 	public void setStartView() {
@@ -72,6 +75,10 @@ public class CenterViewController implements ActionListener {
 			principalView.changeCenterView(profileView);
 			break;
 
+		case CenterControllerAC.PROFILE_VISIT:
+			principalView.changeCenterView(visitProfile);
+			break;
+
 		case CenterControllerAC.BCHEF:
 			principalView.changeCenterView(bchefView);
 			break;
@@ -79,7 +86,7 @@ public class CenterViewController implements ActionListener {
 		case CenterControllerAC.CREATE_RECIPE:
 			principalView.changeCenterView(createRecipeView);
 			break;
-			
+
 		case CenterControllerAC.RECIPE_STEP:
 			principalView.changeCenterView(stepView);
 			break;
@@ -90,7 +97,7 @@ public class CenterViewController implements ActionListener {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);
 	}
-	
+
 	public void setStepView(RecipeStep step) {
 		stepView.setStep(step);
 		principalView.changeCenterView(stepView);

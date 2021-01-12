@@ -243,5 +243,4 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		 * JList y pillar de ahi el selectedValue
 		 */
 	}
-
 }
