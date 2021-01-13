@@ -18,12 +18,12 @@ public class Recipe {
 	String imageURL;
 	UUID uuid;
 
-	public Recipe(UUID uuid, String name, String author, User fullAuthor, int rating, Timestamp publishDate,
+	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate,
 			Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
 		this.uuid = uuid;
 		this.name = name;
 		this.author = author;
-		this.fullAuthor = fullAuthor;
+		//this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
 		this.duration = duration;
