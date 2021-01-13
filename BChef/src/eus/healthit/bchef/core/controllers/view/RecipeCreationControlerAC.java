@@ -7,4 +7,7 @@ public class RecipeCreationControlerAC {
 	
 	public static final String ADD_STEP = "add_step"; 
 	public static final String REMOVE_STEP = "remove_step"; 
+	
+	public static final String CREATE_RECIPE = "create_recipe"; 
+	public static final String PREVIEW = "preview"; 
 }

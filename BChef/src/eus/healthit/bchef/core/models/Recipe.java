@@ -18,18 +18,29 @@ public class Recipe {
 	String imageURL;
 	UUID uuid;
 
-	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate,
-			Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
+			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
 		this.uuid = uuid;
 		this.name = name;
 		this.author = author;
-		//this.fullAuthor = fullAuthor;
+		// this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
 		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
 		this.imageURL = imageUrl;
+	}
+
+	public Recipe(String name, String author, int rating, List<Ingredient> ingredients, List<RecipeStep> steps,
+			String imageUrl) {
+		this.name = name;
+		this.author = author;
+		this.rating = rating;
+		this.ingredients = ingredients;
+		this.steps = steps;
+		this.imageURL = imageUrl;
+
 	}
 
 	public UUID getUUID() {

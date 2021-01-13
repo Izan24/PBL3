@@ -16,7 +16,6 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
-import eus.healthit.bchef.core.view.recipes.RecipesList;
 
 public class CenterViewController implements ActionListener {
 
@@ -40,7 +39,6 @@ public class CenterViewController implements ActionListener {
 		this.user = user;
 
 		initViews();
-		System.out.println("Initview");
 	}
 
 	private void initViews() {
@@ -55,7 +53,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(visitProfile);
+		principalView.changeCenterView(listView);
 	}
 
 	@Override
@@ -96,9 +94,10 @@ public class CenterViewController implements ActionListener {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);
 	}
-	
+
 	public void setVisitProfileView(User visitUser) {
 		visitProfile.setVisitUser(visitUser);
+		System.out.println("Tienes que usar el metodo setVIsitUser para setear todas las cosas que te pasa con el ");
 		principalView.changeCenterView(visitProfile);
 	}
 

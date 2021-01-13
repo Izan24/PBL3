@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -52,6 +53,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	JButton addImageButton;
 	JButton addStepButton, removeStepButton;
 	JButton addIngredientButton, removeIngredientButton;
+	JButton createButton, previewButton;
 
 	JTextField title, description;
 	JTextField ingredient, quantity;
@@ -68,7 +70,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	RecipeStepList stepModel;
 
 	public CenterViewCreateRecipe(User user) {
-		super(new GridLayout(1, 1, 100, 100));
+		super(new BorderLayout(100, 100));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
@@ -81,7 +83,8 @@ public class CenterViewCreateRecipe extends JPanel {
 		initTextFields();
 		addComboData();
 
-		this.add(createContent());
+		this.add(createContent(), BorderLayout.CENTER);
+//		this.add(createButtonPannel(), BorderLayout.SOUTH);
 	}
 
 	private void initButtons() {
@@ -122,6 +125,22 @@ public class CenterViewCreateRecipe extends JPanel {
 		removeIngredientButton.setFocusable(false);
 		removeIngredientButton.setActionCommand(RecipeCreationControlerAC.REMOVE_INGREDIENT);
 		removeIngredientButton.addActionListener(controler);
+
+		createButton = new JButton("Crear receta");
+		createButton.setBackground(greenButtonColor);
+		createButton.setForeground(Color.white);
+		createButton.setFont(textFont);
+		createButton.setFocusable(false);
+		createButton.setActionCommand(RecipeCreationControlerAC.CREATE_RECIPE);
+		createButton.addActionListener(controler);
+
+		previewButton = new JButton("Vista previa");
+		previewButton.setBackground(greenButtonColor);
+		previewButton.setForeground(Color.white);
+		previewButton.setFont(textFont);
+		previewButton.setFocusable(false);
+		previewButton.setActionCommand(RecipeCreationControlerAC.PREVIEW);
+		previewButton.addActionListener(controler);
 	}
 
 	private void initTextFields() {
@@ -163,6 +182,18 @@ public class CenterViewCreateRecipe extends JPanel {
 	private void addComboData() {
 	}
 
+	private Component createButtonPannel() {
+		JPanel buttonPanel = new JPanel(new BorderLayout(20, 20));
+		buttonPanel.setBackground(Color.white);
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+//		buttonPanel.setPreferredSize(new Dimension(30,20));
+
+		buttonPanel.add(previewButton, BorderLayout.WEST);
+		buttonPanel.add(createButton, BorderLayout.EAST);
+
+		return buttonPanel;
+	}
+
 	private Component createContent() {
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -174,6 +205,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		contentPanel.add(createCenterPanel(), BorderLayout.CENTER);
 		contentPanel.add(createWestPanel(), BorderLayout.WEST);
+		contentPanel.add(createButtonPannel(), BorderLayout.SOUTH);
 
 		scrollPane.setViewportView(contentPanel);
 
@@ -181,7 +213,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private Component createCenterPanel() {
-		JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+		JPanel centerPanel = new JPanel(new BorderLayout(20, 20));
 		centerPanel.setBackground(Color.white);
 
 		centerPanel.add(createTitlePanel(), BorderLayout.NORTH);
@@ -360,5 +392,24 @@ public class CenterViewCreateRecipe extends JPanel {
 			}
 		}
 	}
+
+	public String getAuthor() {
+		return user.getName();
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredientModel.getList();
+	}
+
+	public List<RecipeStep> getSteps() {
+		return stepModel.getList();
+	}
+
+//	public String getImage() {
+//		/*
+//		 * Returnear la imagen cuando la tengamos
+//		 */
+////		return ima;
+//	}
 
 }

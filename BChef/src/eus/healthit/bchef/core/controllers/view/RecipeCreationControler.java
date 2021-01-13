@@ -1,7 +1,10 @@
 package eus.healthit.bchef.core.controllers.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
 
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
@@ -10,10 +13,13 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
 public class RecipeCreationControler implements ActionListener {
 
+	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
 
 	public RecipeCreationControler(CenterViewCreateRecipe createRecipeView) {
 		this.createRecipeView = createRecipeView;
+
+		createPreviewWindow();
 	}
 
 	@Override
@@ -36,13 +42,43 @@ public class RecipeCreationControler implements ActionListener {
 		case RecipeCreationControlerAC.REMOVE_STEP:
 			System.out.println("REMOVE_STEP:");
 			break;
+
+		case RecipeCreationControlerAC.CREATE_RECIPE:
+			System.out.println(
+					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
+			break;
+
+		case RecipeCreationControlerAC.PREVIEW:
+			openPreviewWindow();
+			break;
 		}
 	}
 
+	private void openPreviewWindow() {
+		framePreview.setVisible(true);
+	}
+
+	private void createRecipe() {
+//		Recipe recipe = new Recipe(createRecipeView.getName(), createRecipeView.getAuthor(), 5,
+//				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
+		System.out.println("Crear receta");
+	}
+
+	private void createPreviewWindow() {
+		framePreview = new JFrame("Preview de receta");
+		framePreview.setSize(1250, 750);
+		framePreview.setLocation(400, 75);
+		framePreview.setResizable(true);
+		framePreview.setBackground(Color.white);
+
+		framePreview.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
 	public void addIngredient(String name, String quantity) {
-		
-		if (!name.equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT) && !quantity.equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
-			Ingredient ingredient = new Ingredient(name, "uwu", quantity );			
+
+		if (!name.equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT)
+				&& !quantity.equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
+			Ingredient ingredient = new Ingredient(name, "uwu", quantity);
 			createRecipeView.getIngredientListModel().addElement(ingredient);
 		}
 
