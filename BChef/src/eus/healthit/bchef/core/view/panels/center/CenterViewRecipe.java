@@ -30,15 +30,18 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	DoubleClickListener listener;
 
 	CenterViewController centerController;
-	
+
 	Recipe recipe;
-	
+
 	JScrollPane scrollPane;
 
 	JLabel titleLabel;
 	JLabel authorLabel;
 	JPanel starPanel;
 	JLabel imageLabel;
+
+	JLabel ingredientTitleLabel;
+	JLabel elaborationTitleLabel;
 
 	JPanel fullIngredientPanel;
 	JPanel ingredientPanel;
@@ -55,7 +58,43 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 		listener = new DoubleClickListener(this);
 
+		initJlabels();
+		initJPanels();
+
 		this.add(createContentPanel());
+	}
+
+	private void initJlabels() {
+
+		titleLabel = new JLabel();
+		titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 50));
+		titleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		authorLabel = new JLabel();
+		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 23));
+		authorLabel.setHorizontalAlignment(JLabel.CENTER);
+		authorLabel.addMouseListener(listener);
+
+		imageLabel = new JLabel();
+		imageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		ingredientTitleLabel = new JLabel("Ingredientes");
+		ingredientTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
+		ingredientTitleLabel.setForeground(Color.darkGray);
+		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
+		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		elaborationTitleLabel = new JLabel("Elaboración");
+		elaborationTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
+		elaborationTitleLabel.setForeground(Color.darkGray);
+		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
+		elaborationTitleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+	}
+
+	private void initJPanels() {
+		starPanel = new JPanel();
+		starPanel.setBackground(Color.white);
 	}
 
 	private Component createContentPanel() {
@@ -102,25 +141,10 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		JPanel northPanel = new JPanel(new GridLayout(2, 1, 5, 5));
 		northPanel.setBackground(Color.white);
 
-		titleLabel = new JLabel();
-		titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 50));
-		titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
 		JPanel authorratingPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 		authorratingPanel.setBackground(Color.white);
-		authorLabel = new JLabel();
-		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 23));
-		authorLabel.setHorizontalAlignment(JLabel.CENTER);
-		authorLabel.addMouseListener(listener);
-
-		starPanel = new JPanel();
-		starPanel.setBackground(Color.white);
-
 		authorratingPanel.add(authorLabel);
 		authorratingPanel.add(starPanel);
-
-		imageLabel = new JLabel();
-		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		northPanel.add(titleLabel);
 		northPanel.add(authorratingPanel);
@@ -136,12 +160,6 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		fullIngredientPanel.setBackground(Color.white);
 		fullIngredientPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 
-		JLabel ingredientTitleLabel = new JLabel("Ingredientes");
-		ingredientTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
-		ingredientTitleLabel.setForeground(Color.darkGray);
-		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
-		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
-
 		ingredientPanel = new JPanel(new GridLayout(2, 1, 0, 0));
 		ingredientPanel.setBackground(Color.white);
 
@@ -154,12 +172,6 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	private Component createElaborationPanel() {
 		fullStepPanel = new JPanel(new BorderLayout(10, 10));
 		fullStepPanel.setBackground(Color.white);
-
-		JLabel elaborationTitleLabel = new JLabel("Elaboración");
-		elaborationTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
-		elaborationTitleLabel.setForeground(Color.darkGray);
-		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
-		elaborationTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		stepPanel = new JPanel(new GridLayout(2, 1, 0, 0));
 		stepPanel.setBackground(Color.white);
@@ -219,7 +231,6 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	}
 
 	private void setIngredients(Recipe recipe) {
-
 		ingredientPanel = new JPanel(new GridLayout(recipe.getIngredientNumber(), 1, 20, 20));
 		ingredientPanel.setBackground(Color.white);
 		ingredientPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));

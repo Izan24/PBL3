@@ -14,7 +14,7 @@ public class User {
 	String username;
 	String password;
 	List<User> followed;
-	List<User> followers; //METEMOS ESTO¿?¿?¿?¿?
+	List<User> followers;
 	List<Recipe> published;
 	List<Recipe> saved;
 	List<Recipe> pending;
