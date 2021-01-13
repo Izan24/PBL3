@@ -20,6 +20,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
@@ -29,6 +30,10 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	DoubleClickListener listener;
 
+	CenterViewController centerController;
+	
+	Recipe recipe;
+	
 	JScrollPane scrollPane;
 
 	JLabel titleLabel;
@@ -44,9 +49,10 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
 
-	public CenterViewRecipe() {
+	public CenterViewRecipe(CenterViewController centerController) {
 		super(new GridLayout());
 		this.setBackground(Color.white);
+		this.centerController = centerController;
 
 		listener = new DoubleClickListener(this);
 
@@ -166,6 +172,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	}
 
 	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 		updateView(recipe);
 		this.repaint();
 	}
@@ -270,6 +277,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	@Override
 	public void clicked() {
+		centerController.setVisitProfileView(recipe.getFullAuthor());
 		System.out.println(
 				"Tiene sque crear el profile view y llamar a un metodo del controlador que cambie a un perfil en concreto y "
 						+ "\n"

@@ -45,8 +45,8 @@ public class CenterViewController implements ActionListener {
 
 	private void initViews() {
 		listView = new CenterViewList(this);
-		profileView = new CenterViewProfile(user);
-		recipeView = new CenterViewRecipe();
+		profileView = new CenterViewProfile(user, this);
+		recipeView = new CenterViewRecipe(this);
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);
@@ -55,8 +55,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(listView);
-		System.out.println("SetStartview");
+		principalView.changeCenterView(visitProfile);
 	}
 
 	@Override

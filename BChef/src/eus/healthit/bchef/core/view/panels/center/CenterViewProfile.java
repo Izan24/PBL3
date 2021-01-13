@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.ProfileController;
 import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
@@ -30,6 +32,8 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
 
+	CenterViewController centerController;
+
 	User user;
 	JScrollPane scrollPane;
 
@@ -43,15 +47,16 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	RecipesList savedModel, uploadedModel;
 	RendererRecipes renderer;
 
-	public CenterViewProfile(User user) {
+	public CenterViewProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
-		controller = new ProfileController(this);
-
 		this.user = user;
+		this.centerController = centerController;
+
+		controller = new ProfileController(this);
 
 		initJlabels();
 		initJButtons();
@@ -115,6 +120,8 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private void initJlist() {
 
+		DoubleClickListener clickListener = new DoubleClickListener(this);
+
 		uploadedModel = new RecipesList();
 		uploadedModel.setList(user.getPublished());
 
@@ -126,10 +133,12 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		saved = new JList<>();
 		saved.setModel(savedModel);
 		saved.setCellRenderer(renderer);
+		saved.addMouseListener(clickListener);
 
 		uploaded = new JList<>();
 		uploaded.setModel(uploadedModel);
 		uploaded.setCellRenderer(renderer);
+		uploaded.addMouseListener(clickListener);
 
 	}
 
@@ -158,9 +167,19 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		JPanel infoPanel = new JPanel(new GridLayout(2, 1, 5, 5));
 		infoPanel.setBackground(Color.white);
 		infoPanel.setOpaque(true);
-		infoPanel.add(username);
 
+		infoPanel.add(username);
+		infoPanel.add(createFollowerPanel());
+
+		northPanel.add(imagePanel, BorderLayout.WEST);
+		northPanel.add(infoPanel, BorderLayout.CENTER);
+
+		return northPanel;
+	}
+
+	private JPanel createFollowerPanel() {
 		JPanel followerPanel = new JPanel(new GridLayout(2, 3));
+		followerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 50, 0));
 		followerPanel.setBackground(Color.white);
 		followerPanel.setOpaque(true);
 		followerPanel.add(recipesText);
@@ -170,12 +189,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		followerPanel.add(following);
 		followerPanel.add(followers);
 
-		infoPanel.add(followerPanel);
-
-		northPanel.add(imagePanel, BorderLayout.WEST);
-		northPanel.add(infoPanel, BorderLayout.CENTER);
-
-		return northPanel;
+		return followerPanel;
 	}
 
 	private JPanel createCenterPanel() {
@@ -227,8 +241,11 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		JViewport viewport = scrollPane.getViewport();
 		JList<Recipe> tmp = (JList<Recipe>) viewport.getView();
 
-		tmp.getSelectedValue();
-
+		try {
+			centerController.setRecipeView(tmp.getSelectedValue());
+		} catch (Exception e) {
+			System.out.println("Exception en openSelectedRecipe en CenterViewProfile");
+		}
 	}
 
 	public JPanel getPanel() {
@@ -242,5 +259,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		 * presionado o que cada vez que presiones un boton cambiar una referencia a un
 		 * JList y pillar de ahi el selectedValue
 		 */
+		openSelectedRecipe();
 	}
 }

@@ -36,7 +36,7 @@ public class RecipeRepository {
 			return null;
 		}
 	}
-	
+
 	public static List<Recipe> getN(int number) {
 		try {
 			List<Recipe> recipes = new ArrayList<>();
@@ -59,8 +59,6 @@ public class RecipeRepository {
 			return null;
 		}
 	}
-	
-	
 
 	public static List<Recipe> search(String keyword) {
 		try {
@@ -98,8 +96,6 @@ public class RecipeRepository {
 			Timestamp publishdate = recipe.getPublishDate();
 			Time duration = recipe.getDuration();
 
-			
-
 			String imgurl = recipe.getImageURL();
 
 			String q = "INSERT INTO public.recipes (uuid, name, author, rating, publish_date, duration, img) "
@@ -108,14 +104,15 @@ public class RecipeRepository {
 			System.out.println(q);
 			stmt.execute(q);
 			stmt.close();
-			
+
 			List<Ingredient> ingredients = recipe.getIngredients();
 			for (Ingredient ingredient : ingredients) {
 				long ex = IngredientRepository.getId(ingredient);
-				if(ex == -1) {
+				if (ex == -1) {
 					IngredientRepository.insert(ingredient);
 				}
-				RelationRepository.recipeIngredientRel(recipe, IngredientRepository.getId(ingredient), ingredient.getQuantity());
+				RelationRepository.recipeIngredientRel(recipe, IngredientRepository.getId(ingredient),
+						ingredient.getQuantity());
 			}
 
 			List<RecipeStep> instructions = recipe.getSteps();
@@ -123,8 +120,7 @@ public class RecipeRepository {
 				InstructionsRepository.insert(instruction);
 				RelationRepository.recipeInstructionRel(recipe, InstructionsRepository.getId(instruction));
 			}
-			
-			
+
 			System.out.println("DONE");
 			return true;
 		} catch (Exception e) {

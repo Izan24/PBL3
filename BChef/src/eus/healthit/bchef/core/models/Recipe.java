@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Recipe {
 
 	String name, author;
+	User fullAuthor;
 	int rating; // 0 to 10 in 5 stars
 	Timestamp publishDate;
 	Time duration;
@@ -17,11 +18,12 @@ public class Recipe {
 	String imageURL;
 	UUID uuid;
 
-	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
-			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+	public Recipe(UUID uuid, String name, String author, User fullAuthor, int rating, Timestamp publishDate,
+			Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
 		this.uuid = uuid;
 		this.name = name;
 		this.author = author;
+		this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
 		this.duration = duration;
@@ -108,10 +110,14 @@ public class Recipe {
 
 	public int getStepNumber() {
 		try {
-			return this.steps.size();						
+			return this.steps.size();
 		} catch (NullPointerException e) {
 			return 0;
 		}
+	}
+
+	public User getFullAuthor() {
+		return fullAuthor;
 	}
 
 }
