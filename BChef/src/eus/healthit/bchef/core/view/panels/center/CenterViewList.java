@@ -13,7 +13,7 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
-public class CenterViewList extends JScrollPane implements IClickable{
+public class CenterViewList extends JScrollPane implements IClickable {
 
 	/*
 	 * HAY QUE DARLE EL JLIST AL CONTROLADOR, DE MOMENTO ESTÁ AQUI PORQUE NO ESTA EL

@@ -23,7 +23,12 @@ public class ShopListController implements IShopListController {
 
 	@Override
 	public void addElement(String name) {
-		shopListView.getListModel().addElement(new Item(name));
-		//aqui falta mandar la info a la DB
+
+		String spaceless = name.trim();
+
+		if (!spaceless.equals("") && !name.equals("Nuevo elemento")) {
+			shopListView.getListModel().addElement(new Item(name));
+		}
+		// aqui falta mandar la info a la DB
 	}
 }

@@ -40,9 +40,12 @@ public class RecipeCreationControler implements ActionListener {
 	}
 
 	public void addIngredient(String name, String quantity) {
-		Ingredient ingredient = new Ingredient(name, "uwu", quantity );
+		
+		if (!name.equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT) && !quantity.equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
+			Ingredient ingredient = new Ingredient(name, "uwu", quantity );			
+			createRecipeView.getIngredientListModel().addElement(ingredient);
+		}
 
-		createRecipeView.getIngredientListModel().addElement(ingredient);
 	}
 
 	public void addStep(String text, int value, RecipeStepActions action, String imageURL, int num) {

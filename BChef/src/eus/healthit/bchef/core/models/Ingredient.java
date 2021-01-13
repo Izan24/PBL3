@@ -14,7 +14,12 @@ public class Ingredient {
 		this.type = type;
 		this.quantity = amount;
 	}
-	
+
+	public Ingredient(String name, String type) {
+		this.name = name;
+		this.type = type;
+	}
+
 	public Ingredient(String name, String type, String amount) {
 		this.id = null;
 		this.name = name;
@@ -40,6 +45,6 @@ public class Ingredient {
 
 	@Override
 	public String toString() {
-		return name;
+		return name + " " + quantity;
 	}
 }
