@@ -1,10 +1,11 @@
 package eus.healthit.bchef.core.controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import eus.healthit.bchef.core.controllers.implementations.KitchenController;
+import eus.healthit.bchef.core.controllers.implementations.OutputController;
+import eus.healthit.bchef.core.controllers.implementations.RecipeAssistantController;
 import eus.healthit.bchef.core.controllers.interfaces.IBoardController;
 import eus.healthit.bchef.core.controllers.interfaces.IInputController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
@@ -21,7 +22,9 @@ public class BChefController implements PropertyChangeListener {
     static BChefController obj = new BChefController();
 
     private BChefController() {
-    	
+    	outputController = OutputController.getOutputController();
+    	recipeAssitantController = new RecipeAssistantController();
+    	kitchenController = new KitchenController();
     }
 
     public static BChefController getBChefController() {
@@ -72,7 +75,17 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void nextStep() {
+		if(recipeAssitantController.getRecipe() == null) {
+			outputController.send("Lo siento, aún no has empezado una receta.");
+			return;
+		}
+		
 		RecipeStep nextStep = recipeAssitantController.nextStep();
+		if(nextStep == null) {
+			outputController.send("Ya has completado la receta.");
+			return;
+		}
+		
 		outputController.send(nextStep.getText());
 		switch(nextStep.getAction()) {
 		case FURNACE:
@@ -86,7 +99,16 @@ public class BChefController implements PropertyChangeListener {
 	}
 	
 	public void prevStep() {
-		recipeAssitantController.prevStep();
+		if(recipeAssitantController.getRecipe() == null) {
+			outputController.send("Lo siento, aun no has empezado una receta.");
+			return;
+		}
+		
+		RecipeStep prevStep = recipeAssitantController.prevStep();
+		if(prevStep == null) {
+			outputController.send("Estas en el primer paso.");
+			return;
+		}
 	}
 
 	@Override

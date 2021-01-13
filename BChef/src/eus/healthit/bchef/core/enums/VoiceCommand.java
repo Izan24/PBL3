@@ -13,7 +13,7 @@ public enum VoiceCommand {
 	YES("Si", "Afirmativo", "Correcto", "Bien", "Vale", "Ok", "Okay", "Dale"),
 	NO("No", "Negativo", "Que va", "Cancela", "Cancelar", "Calla", "Silencio", "Para"),
 	NUMBER,
-	MISUNDERSTOOD;	
+	MISUNDERSTOOD;
 
 	private String[] commands;
 	

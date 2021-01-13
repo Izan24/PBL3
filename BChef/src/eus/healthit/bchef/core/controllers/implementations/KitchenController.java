@@ -7,6 +7,10 @@ public class KitchenController implements IKitchenController {
 
 	Kitchen kitchen;
 	
+	public KitchenController() {
+		kitchen = new Kitchen();
+	}
+	
 	@Override
 	public void setFire(int index, int power) {
 		kitchen.setFire(index, power);

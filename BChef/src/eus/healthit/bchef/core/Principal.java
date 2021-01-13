@@ -1,5 +1,8 @@
 package eus.healthit.bchef.core;
 
+import eus.healthit.bchef.core.controllers.CommandController;
+import eus.healthit.bchef.core.controllers.implementations.OutputController;
+import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -13,7 +16,19 @@ public class Principal {
 
 
 	public static void main(String[] args) {
-		Principal principal = new Principal();
+		//OutputController.getOutputController().send("1 2 y luego 3");
+		
+		CommandController commandController = CommandController.getCommandController();
+		String cmdString = "BChef enciende el fuego 3 al 10".toLowerCase();
+		VoiceCommand command = CommandController.parseCommand(cmdString);
+		//cmdString = CommandController.deleteCommandWords(cmdString, command);
+		commandController.selectCommand(command, cmdString);
+		
+		//Separador
+		
+		
+		
+		//Principal principal = new Principal();
 		// QueryCon con = new QueryCon();
 //		List<Ingredient> ings = new ArrayList<>();
 //		ings.add(new Ingredient("Zanahoria", "Carb", "3 3 YUJU"));

@@ -12,6 +12,8 @@ public interface IRecipeAssistantController {
 	
 	public RecipeStep prevStep();
 	
+	public Recipe getRecipe();
+	
 	public void setRecipe(Recipe recipe);
 	
 	public void setAlarm(KitchenUtil util, int index, Time time);

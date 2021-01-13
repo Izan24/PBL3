@@ -24,8 +24,9 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	
 	@Override
 	public RecipeStep nextStep() {
-		currentStep++;
+		if(recipe == null) return null;
 		RecipeStep current = recipe.getSteps().get(currentStep);
+		currentStep++;
 		if(current.getAction() != null) {
 			
 		}
@@ -57,6 +58,11 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	@Override
 	public int getCurrentStep() {
 		return currentStep;
+	}
+
+	@Override
+	public Recipe getRecipe() {
+		return recipe;
 	}
 
 }
