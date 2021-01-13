@@ -23,6 +23,7 @@ import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
@@ -109,6 +110,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		newElementField.setToolTipText("Nuevo elemento");
 		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
 		newElementField.setPreferredSize(new Dimension(300, 40));
+		newElementField.setBorder(new SearchBorder(20, Color.GRAY));
 		newElementField.setFont(new Font("Gill Sans MT", Font.PLAIN, 20));
 
 		northPanel.add(newElementField);
