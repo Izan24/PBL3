@@ -1,7 +1,12 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.implementations.KitchenController;
-import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import eus.healthit.bchef.core.api.Client;
+import eus.healthit.bchef.core.api.ImageCoder;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -14,23 +19,17 @@ public class Principal {
 	}
 
 
-	public static void main(String[] args) {
-		IKitchenController kitchenController = new KitchenController();
-		Principal principal = new Principal();
-		// QueryCon con = new QueryCon();
-//		List<Ingredient> ings = new ArrayList<>();
-//		ings.add(new Ingredient("Zanahoria", "Carb", "3 3 YUJU"));
-//		List<RecipeStep> steps = new ArrayList<>();
-//		steps.add(new RecipeStep(RecipeStepActions.FURNACE, 5,
-//				"https://pbs.twimg.com/media/EqbU529XMAEl8xm?format=png&name=240x240", "xD", 0l));
-//		RecipeRepository.insert(
-//				new Recipe(UUID.randomUUID(), "Test", "Urko", 10, new Timestamp(2198312312412l), new Time(23123421424l),
-//						ings, steps, "https://i1.wp.com/img.pixfans.com/2010/04/silbar.gif?resize=240%2C195"));
-
-		// RecipeRepository.search("Test");
-		// Recipe rep = RecipeRepository.get("2a961214-ae24-49ec-a350-f0582c8a1e9e");
-		// RecipeRepository.delete(rep);
-		// QueryCon.closeConn();
-
+	public static void main(String[] args) throws MalformedURLException {
+		//IKitchenController kitchenController = new KitchenController();
+		//Principal principal = new Principal();
+		Map<String, String> map = new HashMap<>();
+		map.put("name", "Urko");
+		map.put("surname", "Agirregomezkorta");
+		map.put("profilepic", ImageCoder.encodeImage("proba2.png"));
+		map.put("email","u.agirregomezkort@alumni.mondragon.edu");
+		map.put("username", "Rkolay");
+		map.put("password", "mutriku123");
+		Client cliente = new Client(new URL("http://localhost/api/user"));
+		cliente.postUser(map);
 	}
 }
