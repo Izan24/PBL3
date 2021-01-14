@@ -27,9 +27,9 @@ public class WindowFrame extends JFrame {
 
 		setWindow();
 
-		//loginWindow();
+		loginWindow();
 
-		appWindow();
+//		appWindow();
 	}
 
 	private void loginWindow() {

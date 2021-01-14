@@ -7,6 +7,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Recipe;
@@ -21,6 +22,7 @@ public class CenterViewList extends JScrollPane implements IClickable {
 	 */
 
 	CenterViewController centerController;
+	CenterListController listController;
 
 	JList<Recipe> recipes;
 	RecipesList listModel;
@@ -36,6 +38,7 @@ public class CenterViewList extends JScrollPane implements IClickable {
 		this.centerController = centerController;
 
 		listener = new DoubleClickListener(this);
+		listController = new CenterListController(this);
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 
@@ -52,6 +55,10 @@ public class CenterViewList extends JScrollPane implements IClickable {
 
 	public JScrollPane getScrollPane() {
 		return this;
+	}
+
+	public RecipesList getListModel() {
+		return listModel;
 	}
 
 	@Override

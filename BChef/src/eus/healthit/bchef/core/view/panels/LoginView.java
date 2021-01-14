@@ -24,7 +24,7 @@ public class LoginView extends JPanel {
 
 	public LoginView() {
 		super(new BorderLayout(50, 50));
-//		this.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+		this.setBorder(BorderFactory.createEmptyBorder(150,50,50,50));
 		this.setBackground(Color.getHSBColor((float) 182 / 360, (float) 0.44, (float) 0.97));
 		this.setOpaque(true);
 
