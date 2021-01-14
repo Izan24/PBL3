@@ -18,17 +18,32 @@ import eus.healthit.bchef.core.models.User;
 
 public class LoginView extends JPanel {
 
+	public static final String DEFAULT_USERNAME_TEXT = 	"Nombre de usuario";
+	public static final String DEFAULT_PASSWORD_TEXT = 	"Contraseña";
+	
 	JTextField username;
 	JPasswordField password;
 	User user;
 
 	public LoginView() {
 		super(new BorderLayout(50, 50));
-		this.setBorder(BorderFactory.createEmptyBorder(150,50,50,50));
+		this.setBorder(BorderFactory.createEmptyBorder(150, 50, 50, 50));
 		this.setBackground(Color.getHSBColor((float) 182 / 360, (float) 0.44, (float) 0.97));
 		this.setOpaque(true);
 
 		addComponents();
+	}
+
+	private void initTextFields() {
+		username = new JTextField("");
+		username.setFont(new Font("Gill Sans MT", Font.PLAIN, 15));
+		username.setPreferredSize(new Dimension(500, 20));
+		username.setToolTipText("Username");
+
+		password = new JPasswordField("");
+		password.setFont(new Font("Gill Sans MT", Font.PLAIN, 15));
+		password.setPreferredSize(new Dimension(500, 20));
+		password.setToolTipText("Password");
 	}
 
 	private void addComponents() {
@@ -60,15 +75,6 @@ public class LoginView extends JPanel {
 
 		panelUsername.setBackground(Color.getHSBColor((float) 182 / 360, (float) 0.44, (float) 0.97));
 		panelPassword.setBackground(Color.getHSBColor((float) 182 / 360, (float) 0.44, (float) 0.97));
-
-		username = new JTextField("");
-		password = new JPasswordField("");
-		username.setFont(new Font("Gill Sans MT", Font.PLAIN, 15));
-		password.setFont(new Font("Gill Sans MT", Font.PLAIN, 15));
-		username.setPreferredSize(new Dimension(500, 20));
-		password.setPreferredSize(new Dimension(500, 20));
-		username.setToolTipText("Username");
-		password.setToolTipText("Password");
 
 		panelUsername.add(username);
 		panelPassword.add(password);
