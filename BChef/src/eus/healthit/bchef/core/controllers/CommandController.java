@@ -16,12 +16,17 @@ import eus.healthit.bchef.core.Configuration;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
+import io.grpc.netty.shaded.io.netty.channel.nio.AbstractNioChannel.NioUnsafe;
 
 public class CommandController {
 	
 	private static CommandController obj = new CommandController();
 	
 	private BChefController bChefController;
+	
+	private VoiceCommand prevCommand;
+	Integer prevIndexInteger;
+	Integer prevValue;
 	
 	private CommandController() {
 		bChefController = BChefController.getBChefController();
@@ -31,9 +36,9 @@ public class CommandController {
 		return obj;
 	}
 
-	private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe", "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta", "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus", "via"};
-	private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
-	private static final String[] PALABRAS = {"bchef", "receta", "cocina", "y", "e", "recetas", "algo", ",", "poco", "mucho"};
+	//private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe", "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta", "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus", "via"};
+	//private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
+	//private static final String[] PALABRAS = {"bchef", "receta", "cocina", "y", "e", "recetas", "algo", ",", "poco", "mucho"};
 	private static final String SEPARATOR = "y";
 	
 	
@@ -88,10 +93,13 @@ public class CommandController {
 			setAlarm(string);
 			break;
 		case LIST_ADD:
+			OutputController.getOutputController().send("He añadido " + string + " a la lista.");
 			break;
 		case LIST_REMOVE:
+			OutputController.getOutputController().send("He quitado " + string + " de la lista.");
 			break;
 		case POWER_OFF:
+			
 			break;
 		case YES:
 			break;
@@ -166,6 +174,32 @@ public class CommandController {
 		if(util != KitchenUtil.MISUNDERSTOOD) {
 			try {
 				Integer[] nums = parseInt(string);
+				Integer value = null;
+				Integer index = null;
+				if(nums.length == 0) {
+					bChefController.notifyMisunderstood();
+					return;
+				}
+				if(nums.length == 1) value = nums[0];
+				else {
+					index = nums[0];
+					value = nums[1];
+				}
+				bChefController.switchKitchen(util, index, value);
+				OutputController.getOutputController().send("He puesto " + util.getKeywords()[0] + " a " + nums[0]);
+			} catch (Exception e) {
+				//TODO: preguntar numero
+				e.printStackTrace();
+			}
+		}
+		else bChefController.notifyMisunderstood();
+	}
+	
+	private void switchOffKitchen(String string) {
+		KitchenUtil util = getKitchenUtil(string);
+		if(util != KitchenUtil.MISUNDERSTOOD) {
+			try {
+				Integer[] nums = parseInt(string);
 				bChefController.switchKitchen(util, nums);
 				OutputController.getOutputController().send("He puesto " + util.getKeywords()[0] + " a " + nums[0]);
 			} catch (Exception e) {
@@ -175,6 +209,8 @@ public class CommandController {
 		}
 		else bChefController.notifyMisunderstood();
 	}
+	
+	
 	
 	private KitchenUtil getKitchenUtil(String string) {
 		for(KitchenUtil util : KitchenUtil.values()) {
@@ -194,6 +230,7 @@ public class CommandController {
 	private void setAlarm(String string) {
 		KitchenUtil util = getKitchenUtil(string);
 		if(util.equals(KitchenUtil.MISUNDERSTOOD)) util = null;
+		
 		Duration time = parseTime(string);
 		
 		if(time.isZero() || time.isNegative()) {
@@ -206,7 +243,11 @@ public class CommandController {
 		if(time.toMinutesPart() != 0) 
 			texto = texto + time.toMinutesPart() + " minutos ";
 		if(time.toSecondsPart() != 0) 
-			texto = texto + time.toSecondsPart() + " segundos";
+			texto = texto + time.toSecondsPart() + " segundos ";
+		if(util != null)
+			texto = texto + "para " + util.getKeywords()[0];
+		
+		
 		
 		bChefController.setAlarm(util, 0, time);
 		

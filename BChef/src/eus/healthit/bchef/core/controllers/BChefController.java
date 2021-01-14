@@ -49,31 +49,28 @@ public class BChefController implements PropertyChangeListener {
 		outputController.send("Perdona, no te he entendido.");
 	}
 
-	public void switchKitchen(KitchenUtil util, Integer[] nums) {
-		//
-		
+	public void switchKitchen(KitchenUtil util, Integer index, Integer value) {
 		switch(util) {
 		case OVEN:
-			if(nums.length == 0) {
+			if(value == null) {
 				notifyMisunderstood();
 				break;
 			}
-			if(nums.length > 1) kitchenController.setOven(nums[0], nums[1]);
-			else kitchenController.setOven(0, nums[0]);
+			if(index == null) kitchenController.setOven(0, value);
+			else kitchenController.setOven(index, value);
 			break;
 		case STOVE:
-			if(nums.length == 0) {
+			if(value == null) {
 				notifyMisunderstood();
-				break; 
+				break;
 			}
-			if(nums.length > 1) kitchenController.setFire(nums[0], nums[1]);
-			else kitchenController.setFire(0, nums[1]);
+			if(index == null) kitchenController.setFire(0, value);
+			else kitchenController.setFire(index, value);
 			break;
 		case MISUNDERSTOOD:
 			notifyMisunderstood();
 			break;
-		}
-		
+		}	
 	}
 
 	public void nextStep() {

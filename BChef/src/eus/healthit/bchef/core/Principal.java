@@ -22,7 +22,7 @@ public class Principal {
 		//OutputController.getOutputController().send("1 2 y luego 3");
 		
 		CommandController commandController = CommandController.getCommandController();
-		String cmdString = "BChef haz que dentro de 10 segundos suene la alarma".toLowerCase();
+		String cmdString = "BChef haz que dentro de 10 segundos suene la alarma para que apague el horno".toLowerCase();
 		VoiceCommand command = CommandController.parseCommand(cmdString);
 		//cmdString = CommandController.deleteCommandWords(cmdString, command);
 		commandController.selectCommand(command, cmdString);

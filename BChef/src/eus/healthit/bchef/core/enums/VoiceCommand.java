@@ -8,7 +8,7 @@ public enum VoiceCommand {
 	RECIPE_PREVIOUS("Anterior", "Antes", "Repite", "Repeticion", "Olvidado"),
 	RECIPE_NEXT("Siguiente", "Ahora que", "Tengo que hacer", "Continua"),
 	LIST_ADD("Añade", "Añadir", "Escribe", "Escribir", "Anota", "Anotar", "Apunta", "Apuntar", "Agrega", "Agregar", "A la lista", "En la lista"),
-	LIST_REMOVE("Elimina", "Eliminar", "Eliminame", "Borrar", "Borra", "Borrame", "Quitar", "Quita", "Quitame", "Desapunta", "Desapuntar", "Desapuntame"),
+	LIST_REMOVE("Elimina", "Eliminar", "Eliminame", "Borrar", "Borra", "Borrame", "Quitar", "Quita", "Quitame", "Desapunta", "Desapuntar", "Desapuntame", "De la lista"),
 	POWER_OFF("Apagate", "Adios", "Desconecta", "Desconectate"),
 	YES("Si", "Afirmativo", "Correcto", "Bien", "Vale", "Ok", "Okay", "Dale"),
 	NO("No", "Negativo", "Que va", "Cancela", "Cancelar", "Calla", "Silencio", "Para"),
