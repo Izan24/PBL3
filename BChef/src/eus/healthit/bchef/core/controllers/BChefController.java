@@ -2,6 +2,8 @@ package eus.healthit.bchef.core.controllers;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.Duration;
+import java.time.LocalTime;
 
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
@@ -117,6 +119,10 @@ public class BChefController implements PropertyChangeListener {
 		
 	}
 	
+	
+	public void setAlarm(KitchenUtil util, int index, Duration time) {
+		recipeAssitantController.setAlarm(util, index, time);
+	}
 	
 	
 }

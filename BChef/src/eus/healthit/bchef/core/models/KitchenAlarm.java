@@ -10,11 +10,12 @@ import java.time.LocalTime;
 
 import javax.swing.Timer;
 
+import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
 public class KitchenAlarm implements ActionListener {
 
-	Time time;
+	Duration time;
 	
 	KitchenUtil util;
 	int utilId;
@@ -25,7 +26,7 @@ public class KitchenAlarm implements ActionListener {
 	PropertyChangeSupport connector;
 	Timer timer;
 	
-	public KitchenAlarm(KitchenUtil util, int utilId, Time time, PropertyChangeListener listener) {
+	public KitchenAlarm(KitchenUtil util, int utilId, Duration time, PropertyChangeListener listener) {
 		this.util = util;
 		this.utilId = utilId;
 		this.time = time;
@@ -39,18 +40,20 @@ public class KitchenAlarm implements ActionListener {
 	public void start() {
 		if(!finished && startTime == null) {
 			startTime = LocalTime.now();
-			endTime = startTime.plusSeconds((time.getTime() / 1000));
+			endTime = startTime.plus(time);
 			timer = new Timer(1000, this);
+			timer.start();
 		}
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent evt) {
 		if(endTime.isAfter(LocalTime.now())) {
 			Duration res = Duration.between(LocalTime.now(), endTime);
 			connector.firePropertyChange("time", null, res);
 		}
 		else{
+			OutputController.getOutputController().soundAlarm();
 			timer.stop();
 			finished = true;
 			connector.firePropertyChange("finish", null, this);

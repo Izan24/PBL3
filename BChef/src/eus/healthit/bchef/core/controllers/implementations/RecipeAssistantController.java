@@ -1,6 +1,6 @@
 package eus.healthit.bchef.core.controllers.implementations;
 
-import java.sql.Time;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +44,10 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	}
 
 	@Override
-	public void setAlarm(KitchenUtil util, int index, Time time) {
-		alarms.add(new KitchenAlarm(util, index, time, BChefController.getBChefController()));
-		
+	public void setAlarm(KitchenUtil util, int index, Duration time) {
+		KitchenAlarm alarm = new KitchenAlarm(util, index, time, BChefController.getBChefController());
+		alarms.add(alarm);
+		alarm.start();
 	}
 
 	@Override

@@ -1,22 +1,21 @@
 package eus.healthit.bchef.core.controllers;
 
 import java.text.Collator;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.google.common.io.PatternFilenameFilter;
-
 import eus.healthit.bchef.core.Configuration;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
-import io.grpc.internal.Stream;
 
 public class CommandController {
 	
@@ -112,10 +111,6 @@ public class CommandController {
 		return true;
 	}
 	
-	private void setAlarm(String string) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private boolean searchIngredient(String string) {
 		Set<String> ingredients = parseIngredients(string);
@@ -195,5 +190,78 @@ public class CommandController {
 		return KitchenUtil.MISUNDERSTOOD;
 		
 	}
+	
+	private void setAlarm(String string) {
+		KitchenUtil util = getKitchenUtil(string);
+		if(util.equals(KitchenUtil.MISUNDERSTOOD)) util = null;
+		Duration time = parseTime(string);
+		
+		if(time.isZero() || time.isNegative()) {
+			OutputController.getOutputController().send("Hora no válida");
+			return;
+		}
+		String texto = "He puesto una alarma para dentro de: ";
+		if(time.toHoursPart() != 0)
+			texto = texto + time.toHoursPart() + " horas ";
+		if(time.toMinutesPart() != 0) 
+			texto = texto + time.toMinutesPart() + " minutos ";
+		if(time.toSecondsPart() != 0) 
+			texto = texto + time.toSecondsPart() + " segundos";
+		
+		bChefController.setAlarm(util, 0, time);
+		
+		OutputController.getOutputController().send(texto);
+				
+				
+		
+	}
+	
+	static final String[] HOUR = {"hora", "horas"};
+	static final String[] MINUTE = {"minuto", "minutos"};
+	static final String[] SECOND = {"segundo", "segundos"};
+	private Duration parseTime(String string) {
+		Duration time = Duration.ZERO;
+		for(String keyword : HOUR) {
+			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
+			Pattern pattern = Pattern.compile(reg);
+		    Matcher matcher = pattern.matcher(string);
+		    if(matcher.find()) {
+				try (Scanner scanner = new Scanner(matcher.group(0))){
+					time = time.plusHours(scanner.nextInt());				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		for(String keyword : MINUTE) {
+			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
+			Pattern pattern = Pattern.compile(reg);
+		    Matcher matcher = pattern.matcher(string);
+		    if(matcher.find()) {
+				try (Scanner scanner = new Scanner(matcher.group(0))){
+					time = time.plusMinutes(scanner.nextInt());				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		for(String keyword : SECOND) {
+			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
+			Pattern pattern = Pattern.compile(reg);
+		    Matcher matcher = pattern.matcher(string);
+			if(matcher.find()) {
+				try (Scanner scanner = new Scanner(matcher.group(0))){
+					time = time.plusSeconds(scanner.nextInt());				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return time;
+		
+	}
+	
 
 }
