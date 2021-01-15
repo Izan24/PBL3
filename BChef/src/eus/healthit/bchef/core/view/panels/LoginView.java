@@ -9,9 +9,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,10 +22,10 @@ import javax.swing.border.LineBorder;
 
 import eus.healthit.bchef.core.controllers.view.LoginViewController;
 import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
-import eus.healthit.bchef.core.controllers.view.NorthViewControllerAC;
-import eus.healthit.bchef.core.controllers.view.ProfileVisitControllerAC;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordField;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
 
@@ -46,8 +46,9 @@ public class LoginView extends JPanel {
 	User user;
 
 	public LoginView() {
-		super(new GridLayout(1, 1));
-//		this.setBorder(BorderFactory.createEmptyBorder(150, 50, 50, 50));
+		super(new GridLayout());
+		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		this.setPreferredSize(new Dimension(480, 640));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
 
@@ -56,7 +57,7 @@ public class LoginView extends JPanel {
 		initTextFields();
 		initButtons();
 
-		this.add(createPanel());
+		this.add(createBoxPanel());
 	}
 
 	private void initButtons() {
@@ -69,45 +70,68 @@ public class LoginView extends JPanel {
 		loginButton.setFocusable(false);
 		loginButton.addActionListener(controller);
 		loginButton.setActionCommand(LoginViewControllerAC.LOGIN);
+		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
+				new Font("Roboto", Font.PLAIN, 15)));
 
 		createAccButton = new JButton("Crear cuenta");
 		createAccButton.setPreferredSize(new Dimension(150, 40));
 		createAccButton.setBackground(bgColor);
 		createAccButton.setForeground(new Color(28, 162, 243));
-		createAccButton.setBorder(new LineBorder(new Color(28, 162, 243), 1));
 		createAccButton.setFont(textFont);
 		createAccButton.setFocusable(false);
 		createAccButton.addActionListener(controller);
 		createAccButton.setActionCommand(LoginViewControllerAC.CREATE_ACCOUNT);
+		createAccButton.setUI(new UIRoundButton(createAccButton, 30, bgColor, new Color(28, 162, 243),
+				new Font("Roboto", Font.PLAIN, 15)));
+		createAccButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
 	private void initTextFields() {
 		username = new RoundedTextField(DEFAULT_USERNAME_TEXT);
-		username.setPreferredSize(new Dimension(350, 20));
+		username.setPreferredSize(new Dimension(350, 40));	
 		username.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
 		username.setText(DEFAULT_USERNAME_TEXT);
 		username.setForeground(Color.lightGray);
+		username.setOpaque(false);
 
 		password = new RoundedJPasswordField(DEFAULT_PASSWORD_TEXT);
-		password.setPreferredSize(new Dimension(350, 20));
+		password.setPreferredSize(new Dimension(350, 40));
 		password.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
 		password.setText(DEFAULT_PASSWORD_TEXT);
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.lightGray);
 	}
 
+	private Component createBoxPanel() {
+
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.add(Box.createVerticalGlue());
+		verticalBox.add(createPanel());
+		verticalBox.add(Box.createVerticalGlue());
+
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.add(Box.createHorizontalGlue());
+		horizontalBox.add(verticalBox);
+		horizontalBox.add(Box.createHorizontalGlue());
+
+		return horizontalBox;
+	}
+
 	private JPanel createPanel() {
+		JPanel flowPanel = new JPanel(new FlowLayout());
+		flowPanel.setBackground(bgColor);
 
 		JPanel loginPanel = new JPanel(new GridBagLayout());
 
 		loginPanel.setBackground(bgColor);
-		loginPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
+		loginPanel.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weighty = 1;
 		constraints.weightx = 1;
-		constraints.insets = new Insets(0, 100, 0, 50);
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
@@ -117,7 +141,9 @@ public class LoginView extends JPanel {
 		constraints.gridy = 2;
 		loginPanel.add(createSouthPanel(), constraints);
 
-		return loginPanel;
+		flowPanel.add(loginPanel);
+
+		return flowPanel;
 	}
 
 	private JPanel createNorthPanel() {
@@ -136,7 +162,7 @@ public class LoginView extends JPanel {
 
 		JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
 
-		centerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		centerPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 		centerPanel.setBackground(bgColor);
 
 		JPanel panelUsername = new JPanel(new FlowLayout());
@@ -156,7 +182,6 @@ public class LoginView extends JPanel {
 
 	private Component createSouthPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout(30, 30));
-		southPanel.setBorder(BorderFactory.createEmptyBorder(0, 225, 0, 225));
 		southPanel.setBackground(bgColor);
 
 		southPanel.add(createAccButton, BorderLayout.WEST);

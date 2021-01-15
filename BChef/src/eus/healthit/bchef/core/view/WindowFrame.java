@@ -27,10 +27,15 @@ public class WindowFrame extends JFrame {
 
 		setWindow();
 
-		loginWindow();
-
-//		appWindow();
+		
+		/*
+		 * CREA UN CONTROLADOR DE ESTA VENTANA PARA PODER SWAPEAR ENTRE LOGIN Y CREATEUSER
+		 */
+//		loginWindow();
+		createUserWIndow();
+		appWindow();
 	}
+
 
 	private void loginWindow() {
 		loginView = new LoginView();
@@ -38,6 +43,10 @@ public class WindowFrame extends JFrame {
 		this.setVisible(true);
 	}
 
+	private void createUserWIndow() {
+		// TODO Auto-generated method stub
+		
+	}
 	private void appWindow() {
 		principalView = new PrincipalView(user);
 		this.setContentPane(principalView);
