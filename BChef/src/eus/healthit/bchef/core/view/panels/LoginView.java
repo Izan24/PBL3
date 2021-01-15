@@ -18,16 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 import eus.healthit.bchef.core.controllers.view.LoginViewController;
 import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
-import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordField;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
+import eus.healthit.bchef.core.view.components.UIRoundButton;
 
 public class LoginView extends JPanel {
 
@@ -89,7 +88,7 @@ public class LoginView extends JPanel {
 
 	private void initTextFields() {
 		username = new RoundedTextField(DEFAULT_USERNAME_TEXT);
-		username.setPreferredSize(new Dimension(350, 40));	
+		username.setPreferredSize(new Dimension(350, 40));
 		username.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
 		username.setText(DEFAULT_USERNAME_TEXT);
 		username.setForeground(Color.lightGray);
