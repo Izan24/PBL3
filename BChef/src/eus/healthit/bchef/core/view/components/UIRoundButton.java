@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.ButtonUI;
 
+import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+
 public class UIRoundButton extends ButtonUI implements MouseListener {
 
 	int radius;
@@ -21,14 +23,30 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 	Color backGroundColorPressed;
 	Color foreGroundColor;
 	Font font;
+	IRoundButtonListener listener;
+	String actionCommand;
 
-	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font) {
+//	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font) {
+//		this.radius = radius;
+//		this.backGroundColor = backGroundColor;
+//		this.backGroundColorActive = backGroundColor.darker();
+//		this.backGroundColorPressed = backGroundColorActive.darker();
+//		this.foreGroundColor = foreGroundColor;
+//		this.font = font;
+//		j.addMouseListener(this);
+//		j.setBackground(backGroundColor);
+//		j.setOpaque(false);
+//	}
+	
+	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font, IRoundButtonListener listener, String actionCommand) {
 		this.radius = radius;
 		this.backGroundColor = backGroundColor;
 		this.backGroundColorActive = backGroundColor.darker();
 		this.backGroundColorPressed = backGroundColorActive.darker();
 		this.foreGroundColor = foreGroundColor;
 		this.font = font;
+		this.listener = listener;
+		this.actionCommand = actionCommand;
 		j.addMouseListener(this);
 		j.setBackground(backGroundColor);
 		j.setOpaque(false);
@@ -68,7 +86,6 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		JButton c = (JButton) e.getComponent();
 		c.setBackground(backGroundColorActive);
-
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -78,8 +95,7 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("Uwu");
-
+		listener.actionPerformed(actionCommand);
 	}
 
 }

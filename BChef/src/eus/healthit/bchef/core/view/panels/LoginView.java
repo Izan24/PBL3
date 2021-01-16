@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.controllers.view.LoginViewController;
 import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
+import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
@@ -44,14 +45,14 @@ public class LoginView extends JPanel {
 	JButton loginButton, createAccButton;
 	User user;
 
-	public LoginView() {
+	public LoginView(WindowFrameController windowFrameController) {
 		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setPreferredSize(new Dimension(480, 640));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
 
-		controller = new LoginViewController(this);
+		controller = new LoginViewController(this, windowFrameController);
 
 		initTextFields();
 		initButtons();
@@ -67,10 +68,8 @@ public class LoginView extends JPanel {
 		loginButton.setFont(textFont);
 		loginButton.setBorder(BorderFactory.createEmptyBorder());
 		loginButton.setFocusable(false);
-		loginButton.addActionListener(controller);
-		loginButton.setActionCommand(LoginViewControllerAC.LOGIN);
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
-				new Font("Roboto", Font.PLAIN, 15)));
+				new Font("Roboto", Font.PLAIN, 15), controller, LoginViewControllerAC.LOGIN));
 
 		createAccButton = new JButton("Crear cuenta");
 		createAccButton.setPreferredSize(new Dimension(150, 40));
@@ -78,10 +77,8 @@ public class LoginView extends JPanel {
 		createAccButton.setForeground(new Color(28, 162, 243));
 		createAccButton.setFont(textFont);
 		createAccButton.setFocusable(false);
-		createAccButton.addActionListener(controller);
-		createAccButton.setActionCommand(LoginViewControllerAC.CREATE_ACCOUNT);
 		createAccButton.setUI(new UIRoundButton(createAccButton, 30, bgColor, new Color(28, 162, 243),
-				new Font("Roboto", Font.PLAIN, 15)));
+				new Font("Roboto", Font.PLAIN, 15), controller, LoginViewControllerAC.CREATE_ACCOUNT));
 		createAccButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -91,7 +88,7 @@ public class LoginView extends JPanel {
 		username.setPreferredSize(new Dimension(350, 40));
 		username.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
 		username.setText(DEFAULT_USERNAME_TEXT);
-		username.setForeground(Color.lightGray);
+		username.setForeground(Color.gray);
 		username.setOpaque(false);
 
 		password = new RoundedJPasswordField(DEFAULT_PASSWORD_TEXT);
@@ -99,7 +96,7 @@ public class LoginView extends JPanel {
 		password.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
 		password.setText(DEFAULT_PASSWORD_TEXT);
 		password.setEchoChar((char) 0);
-		password.setForeground(Color.lightGray);
+		password.setForeground(Color.gray);
 	}
 
 	private Component createBoxPanel() {
@@ -187,5 +184,9 @@ public class LoginView extends JPanel {
 		southPanel.add(loginButton, BorderLayout.EAST);
 		return southPanel;
 	}
+
+//	public void resetAllFields() {
+//		initTextFields();
+//	}
 
 }

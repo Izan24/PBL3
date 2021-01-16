@@ -6,18 +6,21 @@ import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 
-public class RoundedJPasswordField extends JPasswordField implements FocusListener {
+public class RoundedJPasswordFieldShow extends JPasswordField implements FocusListener {
 
 	private static final long serialVersionUID = -5175905329740849910L;
 	private final String hint;
 	private boolean showingHint;
+	private JCheckBox showPassword;
 
-	public RoundedJPasswordField(String hint) {
+	public RoundedJPasswordFieldShow(String hint, JCheckBox showPassword) {
 		super(hint);
 		this.hint = hint;
 		this.showingHint = true;
+		this.showPassword = showPassword;
 		super.setMargin(new Insets(4, 28, 4, 8));
 		super.addFocusListener(this);
 	}
@@ -26,7 +29,11 @@ public class RoundedJPasswordField extends JPasswordField implements FocusListen
 	public void focusGained(FocusEvent e) {
 		if (this.getText().isEmpty()) {
 			super.setText("");
-			super.setEchoChar('*');
+			if (!showPassword.isSelected()) {
+				super.setEchoChar('*');
+			} else if (showPassword.isSelected()) {
+				super.setEchoChar((char) 0);
+			}
 			super.setForeground(Color.black);
 			showingHint = false;
 		}
