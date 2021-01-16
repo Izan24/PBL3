@@ -43,6 +43,7 @@ public class LoginView extends JPanel {
 	JTextField username;
 	JPasswordField password;
 	JButton loginButton, createAccButton;
+	JLabel textLabel;
 	User user;
 
 	public LoginView(WindowFrameController windowFrameController) {
@@ -56,6 +57,7 @@ public class LoginView extends JPanel {
 
 		initTextFields();
 		initButtons();
+		initJLabels();
 
 		this.add(createBoxPanel());
 	}
@@ -98,6 +100,13 @@ public class LoginView extends JPanel {
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.gray);
 	}
+	
+	private void initJLabels() {
+		textLabel = new JLabel("Iniciar sesión");
+		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 32));
+		textLabel.setBackground(Color.white);
+		textLabel.setForeground(Color.gray);
+	}
 
 	private Component createBoxPanel() {
 
@@ -133,15 +142,17 @@ public class LoginView extends JPanel {
 
 		loginPanel.add(createNorthPanel(), constraints);
 		constraints.gridy = 1;
-		loginPanel.add(createCenterPanel(), constraints);
+		loginPanel.add(createTextPanel(), constraints);
 		constraints.gridy = 2;
+		loginPanel.add(createCenterPanel(), constraints);
+		constraints.gridy = 3;
 		loginPanel.add(createSouthPanel(), constraints);
 
 		flowPanel.add(loginPanel);
 
 		return flowPanel;
 	}
-
+	
 	private JPanel createNorthPanel() {
 		JPanel panelLogo = new JPanel(new FlowLayout());
 //		panelLogo.setPreferredSize(new Dimension(600, 300));
@@ -153,12 +164,22 @@ public class LoginView extends JPanel {
 
 		return panelLogo;
 	}
+	
+	private JPanel createTextPanel() {
+		JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		textPanel.setBackground(bgColor);
+		
+		textPanel.add(textLabel);
+		
+		return textPanel;
+	}
+
 
 	private JPanel createCenterPanel() {
 
 		JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
 
-		centerPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
+		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
 		centerPanel.setBackground(bgColor);
 
 		JPanel panelUsername = new JPanel(new FlowLayout());

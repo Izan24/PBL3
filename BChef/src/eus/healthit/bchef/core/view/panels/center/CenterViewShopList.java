@@ -41,6 +41,8 @@ public class CenterViewShopList extends JPanel implements IClickable {
 	ShopListButtonController buttonController;
 	ShopListController listController;
 	DoubleClickListener listener;
+	
+	Font textFont = new Font("Roboto", Font.PLAIN, 20);
 
 	public CenterViewShopList(User user) {
 		super(new BorderLayout(10, 10));
@@ -111,7 +113,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
 		newElementField.setPreferredSize(new Dimension(300, 40));
 		newElementField.setBorder(new SearchBorder(20, Color.GRAY));
-		newElementField.setFont(new Font("Gill Sans MT", Font.PLAIN, 20));
+		newElementField.setFont(textFont);
 
 		northPanel.add(newElementField);
 		northPanel.add(buttonAdd);

@@ -60,7 +60,7 @@ public class CreateAccountView extends JPanel {
 		this.setBackground(bgColor);
 		this.setOpaque(true);
 
-		controller = new CreateAccountController(this, windowFrameController,window);
+		controller = new CreateAccountController(this, windowFrameController, window);
 
 		initCheckBoxes();
 		initButtons();
@@ -143,6 +143,7 @@ public class CreateAccountView extends JPanel {
 		logoLabel.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
 
 		textLabel = new JLabel("Crea una cuenta de BChef");
+		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
 	}
@@ -215,15 +216,14 @@ public class CreateAccountView extends JPanel {
 		return contentPanel;
 	}
 
-	private Component createTittlePanel() {
-		JPanel titlePanel = new JPanel(new GridLayout(2, 1, 5, 5));
-		titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-		titlePanel.setBackground(bgColor);
+	private Box createTittlePanel() {
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+		horizontalBox.add(logoLabel);
+		horizontalBox.add(Box.createRigidArea(new Dimension(6, 0)));
+		horizontalBox.add(textLabel);
 
-		titlePanel.add(logoLabel);
-		titlePanel.add(textLabel);
-
-		return titlePanel;
+		return horizontalBox;
 	}
 
 	private Component createNameSurnamePanel() {

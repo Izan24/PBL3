@@ -34,7 +34,7 @@ public class ItemRenderer implements ListCellRenderer<Item> {
 
 		JLabel boughtLabel = new JLabel();
 		JLabel labelName = new JLabel(value.getName());
-		labelName.setFont(new Font("Gill Sans MT", Font.PLAIN, 24));
+		labelName.setFont(new Font("Roboto", Font.PLAIN, 24));
 		labelName.setForeground(Color.gray);
 		labelName.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
 
