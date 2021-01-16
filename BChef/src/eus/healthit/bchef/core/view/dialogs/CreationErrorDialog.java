@@ -51,7 +51,7 @@ public class CreationErrorDialog extends JDialog implements IRoundButtonListener
 
 	private void initJbuttons() {
 		confirmButton = new JButton("Aceptar");
-		confirmButton.setPreferredSize(new Dimension(80, 20));
+		confirmButton.setPreferredSize(new Dimension(80, 30));
 		confirmButton.setBackground(new Color(28, 162, 243));
 		confirmButton.setForeground(Color.white);
 		confirmButton.setBorder(BorderFactory.createEmptyBorder());

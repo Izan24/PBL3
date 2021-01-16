@@ -3,11 +3,12 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.panels.CreateAccountView;
-
 
 public class CreateAccountController implements IRoundButtonListener, ActionListener {
 
@@ -64,30 +65,41 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 		}
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access" })
 	private boolean verifyParams() {
-		/*
-		 * Mira que todos los textfields esten rellenos, que las dos passwords sean
-		 * iguales y que el email tenga un @ y despues del @ minimo un .
-		 * 
-		 * true si valid, false si null
-		 */
-		if (createAccountView.getName().trim().equals("") || createAccountView.getName().equals(createAccountView.DEFAULT_NAME_TEXT)) {
+		EmailValidator validator = EmailValidator.getInstance();
+		if (createAccountView.getName().trim().equals("")
+				|| createAccountView.getName().equals(createAccountView.DEFAULT_NAME_TEXT)) {
 			new CreationErrorDialog(window, "Invalid name", true, "El nombre introducido no es valido");
 			return false;
-		} else if (createAccountView.getSurname().trim().equals("") || createAccountView.getSurname().equals(createAccountView.DEFAULT_SURNAME_TEXT)) {
+		} else if (createAccountView.getSurname().trim().equals("")
+				|| createAccountView.getSurname().equals(createAccountView.DEFAULT_SURNAME_TEXT)) {
 			new CreationErrorDialog(window, "Invalid surname", true, "El apellido introducido no es valido");
 			return false;
-		}else if (createAccountView.getEmail().trim().equals("") || createAccountView.getEmail().equals(createAccountView.DEFAULT_EMAIL_TEXT) || !emailValid(createAccountView.getEmail())) {
+		} else if (createAccountView.getEmail().trim().equals("")
+				|| createAccountView.getEmail().equals(createAccountView.DEFAULT_EMAIL_TEXT)
+				|| !validator.isValid(createAccountView.getEmail())) {
 			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
 			return false;
-		}	
-
+		}
+//		else if (checkUsername(createAccountView.getUsername())) {
+//			new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
+//			return false;
+//		}
+		else if (!passwordVerify()) {
+			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");
+			return false;
+		}
 		return true;
 	}
 
-	private boolean emailValid(String email) {
-		return false;
+	private boolean passwordVerify() {
+		if (!createAccountView.getPwd().equals(createAccountView.DEFAULT_PWD_TEXT)
+				&& !createAccountView.getPwdConfirm().equals(createAccountView.DEFAULT_CONFPWD_TEXT)
+				&& createAccountView.getPwd().equals(createAccountView.getPwdConfirm())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-
 }
