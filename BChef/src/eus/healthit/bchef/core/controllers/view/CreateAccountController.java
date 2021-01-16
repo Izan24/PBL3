@@ -3,13 +3,11 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.activation.FileDataSource;
-import javax.swing.JOptionPane;
-
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.panels.CreateAccountView;
+
 
 public class CreateAccountController implements IRoundButtonListener, ActionListener {
 
@@ -83,7 +81,7 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 		}else if (createAccountView.getEmail().trim().equals("") || createAccountView.getEmail().equals(createAccountView.DEFAULT_EMAIL_TEXT) || !emailValid(createAccountView.getEmail())) {
 			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
 			return false;
-		}
+		}	
 
 		return true;
 	}

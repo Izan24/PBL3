@@ -56,18 +56,6 @@
 
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/javazoom/jlayer -->
-
-		<dependency>
-
-			<groupId>javazoom</groupId>
-
-			<artifactId>jlayer</artifactId>
-
-			<version>1.0.1</version>
-
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
 		<dependency>
 			<groupId>commons-validator</groupId>
@@ -75,27 +63,5 @@
 			<version>1.7</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>google-cloud-speech</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>google-cloud-texttospeech</artifactId>
-		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.google.cloud</groupId>
-				<artifactId>libraries-bom</artifactId>
-				<type>pom</type>
-				<scope>import</scope>
-				<version>16.2.1</version>
-			</dependency>
-
-
-		</dependencies>
-	</dependencyManagement>
 </project>
