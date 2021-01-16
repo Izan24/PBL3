@@ -50,8 +50,10 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	RecipesList savedModel, uploadedModel;
 	RendererRecipes renderer;
 
+//	Color bgColor = new Color(244, 249, 255);
 	Color bgColor = Color.white;
 	Color textColor = new Color(129, 145, 160);
+	Color selectedColor = new Color(30, 170, 255);
 
 	public CenterViewProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
@@ -113,7 +115,8 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		uploadedButton = new JButton("Mis Recetas");
 		uploadedButton.setFont(textFont);
 		uploadedButton.setBackground(bgColor);
-		uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
+		uploadedButton.setForeground(selectedColor);
+		uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
 		uploadedButton.setActionCommand(ProfileControllerAC.UPLOADED);
 		uploadedButton.addActionListener(controller);
 		uploadedButton.setFocusable(false);
@@ -121,7 +124,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		savedButton = new JButton("Recetas Guardadas");
 		savedButton.setFont(textFont);
 		savedButton.setBackground(bgColor);
-		savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
+		savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
 		savedButton.setActionCommand(ProfileControllerAC.SAVED);
 		savedButton.addActionListener(controller);
 		savedButton.setFocusable(false);
@@ -153,7 +156,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	private JPanel createContent() {
-		JPanel contentPanel = new JPanel(new BorderLayout(20, 20));
+		JPanel contentPanel = new JPanel(new BorderLayout(20, 0));
 		contentPanel.setBackground(bgColor);
 		contentPanel.setOpaque(true);
 
@@ -166,10 +169,12 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	private JPanel createNorthPanel() {
 
 		JPanel northPanel = new JPanel(new BorderLayout(20, 20));
+		northPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.lightGray));
 		northPanel.setBackground(bgColor);
 		northPanel.setOpaque(true);
 
 		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 10, 10));
+		imagePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 0));
 		imagePanel.setBackground(bgColor);
 		imagePanel.setOpaque(true);
 		imagePanel.add(profilePicture);
@@ -232,6 +237,8 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
+		centerPanel.setBackground(bgColor);
+		centerPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.LIGHT_GRAY));
 
 		centerPanel.add(createButtonPannel(), BorderLayout.NORTH);
 		centerPanel.add(createSlidePannel(), BorderLayout.CENTER);
@@ -241,6 +248,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private JPanel createButtonPannel() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 		buttonPanel.setBackground(bgColor);
 
 		buttonPanel.add(uploadedButton);
@@ -249,27 +257,42 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		return buttonPanel;
 	}
 
-	private JScrollPane createSlidePannel() {
+	private JPanel createSlidePannel() {
+		JPanel scrollPanel = new JPanel(new GridLayout());
+		scrollPanel.setBackground(bgColor);
 
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBackground(Color.white);
-		scrollPane.setOpaque(true);
-
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setBackground(bgColor);
+		scrollPane.setOpaque(false);
 
 		scrollPane.setViewportView(uploaded);
 
-		return scrollPane;
+		scrollPanel.add(scrollPane);
+
+		return scrollPanel;
 	}
 
 	public void changeListView(String selection) {
 		switch (selection) {
 		case ProfileControllerAC.UPLOADED:
+			uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
+			savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
+
+			uploadedButton.setForeground(selectedColor);
+			savedButton.setForeground(Color.black);
+
 			scrollPane.setViewportView(uploaded);
 			break;
 
 		case ProfileControllerAC.SAVED:
+			uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
+			savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
+
+			uploadedButton.setForeground(Color.black);
+			savedButton.setForeground(selectedColor);
+
 			scrollPane.setViewportView(saved);
 			break;
 		}

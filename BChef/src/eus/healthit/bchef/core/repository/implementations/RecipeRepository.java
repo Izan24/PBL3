@@ -25,9 +25,8 @@ public class RecipeRepository {
 			stmt.close();
 			rSet.next();
 			Recipe recipe = new Recipe(UUID.fromString(rSet.getString("uuid")), rSet.getString("name"),
-					UserRepository.getName(rSet.getLong("author")), rSet.getInt("rating"),
-					rSet.getTimestamp("publish_date"), rSet.getTime("duration"),
-					IngredientRepository.get(rSet.getString("uuid")),
+					UserRepository.getName(rSet.getLong("author")), 10, rSet.getTimestamp("publish_date"),
+					rSet.getTime("duration"), IngredientRepository.get(rSet.getString("uuid")),
 					InstructionsRepository.get(rSet.getString("uuid")), rSet.getString("img"));
 			System.out.println(query);
 			return recipe;
@@ -47,9 +46,8 @@ public class RecipeRepository {
 			stmt.close();
 			while (rSet.next()) {
 				recipes.add(new Recipe(UUID.fromString(rSet.getString("uuid")), rSet.getString("name"),
-						UserRepository.getName(rSet.getLong("author")), rSet.getInt("rating"),
-						rSet.getTimestamp("publish_date"), rSet.getTime("duration"),
-						IngredientRepository.get(rSet.getString("uuid")),
+						UserRepository.getName(rSet.getLong("author")), 10, rSet.getTimestamp("publish_date"),
+						rSet.getTime("duration"), IngredientRepository.get(rSet.getString("uuid")),
 						InstructionsRepository.get(rSet.getString("uuid")), rSet.getString("img")));
 			}
 			System.out.println(query);
@@ -70,9 +68,8 @@ public class RecipeRepository {
 			stmt.close();
 			while (rSet.next()) {
 				recipes.add(new Recipe(UUID.fromString(rSet.getString("uuid")), rSet.getString("name"),
-						UserRepository.getName(rSet.getLong("author")), rSet.getInt("rating"),
-						rSet.getTimestamp("publish_date"), rSet.getTime("duration"),
-						IngredientRepository.get(rSet.getString("uuid")),
+						UserRepository.getName(rSet.getLong("author")), 10, rSet.getTimestamp("publish_date"),
+						rSet.getTime("duration"), IngredientRepository.get(rSet.getString("uuid")),
 						InstructionsRepository.get(rSet.getString("uuid")), rSet.getString("img")));
 			}
 			System.out.println(query);

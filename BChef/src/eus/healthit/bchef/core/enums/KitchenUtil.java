@@ -17,7 +17,4 @@ public enum KitchenUtil {
 	public String[] getKeywords() {
 		return keywords;
 	}
-	
-	
-	
 }
