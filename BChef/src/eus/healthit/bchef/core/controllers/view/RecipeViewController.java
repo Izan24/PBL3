@@ -28,6 +28,13 @@ public class RecipeViewController implements IRoundButtonListener {
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 			}
 			break;
+		case RecipeViewControllerAC.START:
+			System.out.println("Start recipe");
+			/*
+			 * TIENES QUE LLAMAR A UN METODO ESTATICO DE CENTERCONTROLLER O TENER AQUI AL CENTERCONTROLLER PARA CAMBIAR LA VISTA
+			 *  A EMPEZAR RECETA
+			 */
+			break;
 		}
 	}
 

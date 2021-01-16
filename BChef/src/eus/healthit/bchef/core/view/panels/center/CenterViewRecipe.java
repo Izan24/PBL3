@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,12 +23,14 @@ import javax.swing.JScrollPane;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
+import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.RecipeViewController;
 import eus.healthit.bchef.core.controllers.view.RecipeViewControllerAC;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 
 public class CenterViewRecipe extends JPanel implements IClickable {
@@ -57,7 +58,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	JPanel fullStepPanel;
 	JPanel stepPanel;
 
-	JButton saveRecipe;
+	JButton saveRecipe, startRecipe;
 	User user;
 
 	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
@@ -114,14 +115,25 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private void initJbuttons() {
 		saveRecipe = new JButton("Guardar Receta");
-		saveRecipe.setPreferredSize(new Dimension(150, 35));
-		saveRecipe.setBackground(new Color(28, 162, 243));
-		saveRecipe.setForeground(bgColor);
+		saveRecipe.setPreferredSize(new Dimension(150, 40));
+		saveRecipe.setBackground(bgColor);
+		saveRecipe.setForeground(new Color(28, 162, 243));
 		saveRecipe.setFont(textFont);
-		saveRecipe.setBorder(BorderFactory.createEmptyBorder());
 		saveRecipe.setFocusable(false);
-		saveRecipe.setUI(new UIRoundButton(saveRecipe, 30, new Color(28, 162, 243), Color.white,
+		saveRecipe.setUI(new UIRoundButton(saveRecipe, 30, bgColor, new Color(28, 162, 243),
 				new Font("Roboto", Font.PLAIN, 15), controller, RecipeViewControllerAC.SAVE));
+		saveRecipe.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
+
+		startRecipe = new JButton("Empezar receta");
+		startRecipe.setPreferredSize(new Dimension(150, 35));
+		startRecipe.setBackground(new Color(28, 162, 243));
+		startRecipe.setForeground(bgColor);
+		startRecipe.setFont(textFont);
+		startRecipe.setBorder(BorderFactory.createEmptyBorder());
+		startRecipe.setFocusable(false);
+		startRecipe.setUI(new UIRoundButton(startRecipe, 30, new Color(28, 162, 243), Color.white,
+				new Font("Roboto", Font.PLAIN, 15), controller, RecipeViewControllerAC.START));
 	}
 
 	private Component createContentPanel() {
@@ -212,11 +224,12 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	}
 
 	private JPanel createButtonPanel() {
-		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		JPanel buttonPanel = new JPanel(new BorderLayout());
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		buttonPanel.setBackground(bgColor);
 
-		buttonPanel.add(saveRecipe);
+		buttonPanel.add(startRecipe, BorderLayout.EAST);
+		buttonPanel.add(saveRecipe, BorderLayout.WEST);
 
 		return buttonPanel;
 
