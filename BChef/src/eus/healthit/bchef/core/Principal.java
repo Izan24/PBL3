@@ -16,5 +16,12 @@ public class Principal {
 	public static void main(String[] args) {
 		IKitchenController kitchenController = new KitchenController();
 		Principal principal = new Principal();
+
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+//				| UnsupportedLookAndFeelException e) {
+//			e.printStackTrace();
+//		}
 	}
 }
