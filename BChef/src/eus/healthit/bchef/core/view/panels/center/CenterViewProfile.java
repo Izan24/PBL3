@@ -290,6 +290,15 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		return this;
 	}
 
+	public void updateView() {
+		savedModel.setList(user.getSaved());
+		uploadedModel.setList(user.getPublished());
+
+		recipes.setText(String.valueOf(user.getPublishedNumber()));
+		following.setText(String.valueOf(user.getFollowedNumber()));
+		followers.setText(String.valueOf(user.getFollowersNumber()));
+	}
+
 	@Override
 	public void clicked() {
 		/*

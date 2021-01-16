@@ -69,6 +69,7 @@ public class CenterViewController implements ActionListener {
 			break;
 
 		case CenterControllerAC.PROFILE:
+			profileView.updateView();
 			principalView.changeCenterView(profileView);
 			break;
 
