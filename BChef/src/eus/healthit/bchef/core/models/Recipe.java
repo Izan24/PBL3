@@ -131,4 +131,9 @@ public class Recipe {
 		return fullAuthor;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Recipe o = (Recipe) obj;
+		return uuid.equals(o.getUUID());
+	}
 }

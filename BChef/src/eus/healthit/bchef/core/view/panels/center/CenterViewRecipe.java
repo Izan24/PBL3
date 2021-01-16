@@ -3,6 +3,8 @@ package eus.healthit.bchef.core.view.panels.center;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,6 +15,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -21,15 +24,20 @@ import javax.swing.JScrollPane;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
+import eus.healthit.bchef.core.controllers.view.RecipeViewController;
+import eus.healthit.bchef.core.controllers.view.RecipeViewControllerAC;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.components.UIRoundButton;
 
 public class CenterViewRecipe extends JPanel implements IClickable {
 
 	DoubleClickListener listener;
 
 	CenterViewController centerController;
+	RecipeViewController controller;
 
 	Recipe recipe;
 
@@ -49,17 +57,24 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	JPanel fullStepPanel;
 	JPanel stepPanel;
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	JButton saveRecipe;
+	User user;
 
-	public CenterViewRecipe(CenterViewController centerController) {
+	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	Color bgColor = Color.white;
+
+	public CenterViewRecipe(CenterViewController centerController, User user) {
 		super(new GridLayout());
-		this.setBackground(Color.white);
+		this.setBackground(bgColor);
 		this.centerController = centerController;
+		this.user = user;
 
 		listener = new DoubleClickListener(this);
+		controller = new RecipeViewController(this, user);
 
 		initJlabels();
 		initJPanels();
+		initJbuttons();
 
 		this.add(createContentPanel());
 	}
@@ -94,13 +109,25 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private void initJPanels() {
 		starPanel = new JPanel();
-		starPanel.setBackground(Color.white);
+		starPanel.setBackground(bgColor);
+	}
+
+	private void initJbuttons() {
+		saveRecipe = new JButton("Guardar Receta");
+		saveRecipe.setPreferredSize(new Dimension(150, 35));
+		saveRecipe.setBackground(new Color(28, 162, 243));
+		saveRecipe.setForeground(bgColor);
+		saveRecipe.setFont(textFont);
+		saveRecipe.setBorder(BorderFactory.createEmptyBorder());
+		saveRecipe.setFocusable(false);
+		saveRecipe.setUI(new UIRoundButton(saveRecipe, 30, new Color(28, 162, 243), Color.white,
+				new Font("Roboto", Font.PLAIN, 15), controller, RecipeViewControllerAC.SAVE));
 	}
 
 	private Component createContentPanel() {
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBackground(Color.white);
+		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
 
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -121,7 +148,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
-		dataPanel.setBackground(Color.white);
+		dataPanel.setBackground(bgColor);
 		dataPanel.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
 
 		dataPanel.add(createTitlePanel(), constraints);
@@ -129,6 +156,8 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		dataPanel.add(createIngredientsPanel(), constraints);
 		constraints.gridy = 2;
 		dataPanel.add(createElaborationPanel(), constraints);
+		constraints.gridy = 3;
+		dataPanel.add(createButtonPanel(), constraints);
 
 		return dataPanel;
 	}
@@ -136,13 +165,13 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	private Component createTitlePanel() {
 		JPanel principalPanel = new JPanel(new BorderLayout(5, 5));
 		principalPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-		principalPanel.setBackground(Color.white);
+		principalPanel.setBackground(bgColor);
 
 		JPanel northPanel = new JPanel(new GridLayout(2, 1, 5, 5));
-		northPanel.setBackground(Color.white);
+		northPanel.setBackground(bgColor);
 
 		JPanel authorratingPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-		authorratingPanel.setBackground(Color.white);
+		authorratingPanel.setBackground(bgColor);
 		authorratingPanel.add(authorLabel);
 		authorratingPanel.add(starPanel);
 
@@ -157,11 +186,11 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private Component createIngredientsPanel() {
 		fullIngredientPanel = new JPanel(new BorderLayout(10, 10));
-		fullIngredientPanel.setBackground(Color.white);
+		fullIngredientPanel.setBackground(bgColor);
 		fullIngredientPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 
 		ingredientPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-		ingredientPanel.setBackground(Color.white);
+		ingredientPanel.setBackground(bgColor);
 
 		fullIngredientPanel.add(ingredientTitleLabel, BorderLayout.NORTH);
 		fullIngredientPanel.add(ingredientPanel, BorderLayout.CENTER);
@@ -171,15 +200,26 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private Component createElaborationPanel() {
 		fullStepPanel = new JPanel(new BorderLayout(10, 10));
-		fullStepPanel.setBackground(Color.white);
+		fullStepPanel.setBackground(bgColor);
 
 		stepPanel = new JPanel(new GridLayout(2, 1, 0, 0));
-		stepPanel.setBackground(Color.white);
+		stepPanel.setBackground(bgColor);
 
 		fullStepPanel.add(elaborationTitleLabel, BorderLayout.NORTH);
 		fullStepPanel.add(stepPanel, BorderLayout.CENTER);
 
 		return fullStepPanel;
+	}
+
+	private JPanel createButtonPanel() {
+		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		buttonPanel.setBackground(bgColor);
+
+		buttonPanel.add(saveRecipe);
+
+		return buttonPanel;
+
 	}
 
 	public void setRecipe(Recipe recipe) {
@@ -188,13 +228,14 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		this.repaint();
 	}
 
-	private void updateView(Recipe recipe) {
+	public void updateView(Recipe recipe) {
 		titleLabel.setText(recipe.getName());
 		authorLabel.setText("Autor: " + recipe.getAuthor());
 		setImage(recipe);
 		setRating(recipe);
 		setIngredients(recipe);
 		setSteps(recipe);
+		setSaveButton(recipe);
 
 		JScrollBar vertical = scrollPane.getVerticalScrollBar();
 		vertical.setValue(vertical.getMinimum());
@@ -232,7 +273,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private void setIngredients(Recipe recipe) {
 		ingredientPanel = new JPanel(new GridLayout(recipe.getIngredientNumber(), 1, 20, 20));
-		ingredientPanel.setBackground(Color.white);
+		ingredientPanel.setBackground(bgColor);
 		ingredientPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
 
 		fullIngredientPanel.add(ingredientPanel, BorderLayout.CENTER);
@@ -240,7 +281,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		try {
 			for (Ingredient ingr : recipe.getIngredients()) {
 				JPanel tmpIngPanel = new JPanel(new GridLayout(1, 2, 0, 0));
-				tmpIngPanel.setBackground(Color.white);
+				tmpIngPanel.setBackground(bgColor);
 
 				JLabel ingrName = new JLabel(ingr.getName());
 				JLabel ingrQuantity = new JLabel(ingr.getQuantity());
@@ -263,7 +304,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	private void setSteps(Recipe recipe) {
 
 		stepPanel = new JPanel(new GridLayout(recipe.getStepNumber(), 1, 20, 20));
-		stepPanel.setBackground(Color.white);
+		stepPanel.setBackground(bgColor);
 		stepPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
 
 		fullStepPanel.add(stepPanel, BorderLayout.CENTER);
@@ -271,7 +312,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		try {
 			for (RecipeStep step : recipe.getSteps()) {
 				JPanel tmpStepPanel = new JPanel(new GridLayout(1, 1, 0, 0));
-				tmpStepPanel.setBackground(Color.white);
+				tmpStepPanel.setBackground(bgColor);
 
 				JLabel stepText = new JLabel(step.getText());
 
@@ -285,6 +326,18 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		}
 	}
 
+	private void setSaveButton(Recipe recipe) {
+		if (user.getSaved().contains(recipe)) {
+			saveRecipe.setText("Quitar");
+		} else {
+			saveRecipe.setText("Guardar");
+		}
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
 	@Override
 	public void clicked() {
 		centerController.setVisitProfileView(recipe.getFullAuthor());
@@ -293,4 +346,5 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 						+ "\n"
 						+ "le pases el perfil que ha seleccionado, en este caso seia buscar en la database el nombre del author");
 	}
+
 }

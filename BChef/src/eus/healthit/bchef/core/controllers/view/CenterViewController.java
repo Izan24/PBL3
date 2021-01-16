@@ -44,7 +44,7 @@ public class CenterViewController implements ActionListener {
 	private void initViews() {
 		listView = new CenterViewList(this);
 		profileView = new CenterViewProfile(user, this);
-		recipeView = new CenterViewRecipe(this);
+		recipeView = new CenterViewRecipe(this, user);
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);

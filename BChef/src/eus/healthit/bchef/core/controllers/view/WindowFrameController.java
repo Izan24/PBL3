@@ -26,9 +26,10 @@ public class WindowFrameController {
 		loginView = new LoginView(this);
 		createAccountView = new CreateAccountView(this, window);
 	}
-	
+
 	private void setStartView() {
-		setLoginView();
+//		setLoginView();
+		setAppView(new User(0, "Test", "TestUser777", "test.user@gmail.com", "User", "User"));
 		window.setVisible(true);
 	}
 

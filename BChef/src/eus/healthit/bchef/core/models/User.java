@@ -17,7 +17,6 @@ public class User {
 	List<User> followers;
 	List<Recipe> published;
 	List<Recipe> saved;
-	List<Recipe> pending;
 	List<Item> shopList; // HACEMOS QUE SEA INGREDIENT O UN STRING SIN MAS??
 	List<Recipe> history;
 
@@ -27,7 +26,6 @@ public class User {
 	 */
 	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
 			String password) {
-
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -39,7 +37,6 @@ public class User {
 		followers = new ArrayList<>();
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
-		pending = new ArrayList<>();
 		shopList = new ArrayList<>();
 		history = new ArrayList<>();
 	}
@@ -61,7 +58,6 @@ public class User {
 		followers = new ArrayList<>();
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
-		pending = new ArrayList<>();
 		shopList = new ArrayList<>();
 		history = new ArrayList<>();
 	}
@@ -70,7 +66,7 @@ public class User {
 	 * Load an existing user
 	 */
 	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
-			String password, List<User> followed,List<User> followers, List<Recipe> published, List<Recipe> saved, List<Recipe> pending,
+			String password, List<User> followed,List<User> followers, List<Recipe> published, List<Recipe> saved,
 			List<Item> shopList, List<Recipe> history) {
 
 		this.id = id;
@@ -84,7 +80,6 @@ public class User {
 		this.followers = followers;
 		this.published = published;
 		this.saved = saved;
-		this.pending = pending;
 		this.shopList = shopList;
 		this.history = history;
 	}
@@ -225,20 +220,6 @@ public class User {
 	
 	public void removeSaved(Recipe recipe) {
 		saved.remove(recipe);
-	}
-
-	//------------------------------------------------------------------------
-	
-	public List<Recipe> getPending() {
-		return pending;
-	}
-	
-	public void addPending(Recipe recipe) {
-		pending.add(recipe);
-	}
-	
-	public void removePending(Recipe recipe) {
-		pending.remove(recipe);
 	}
 	
 	//------------------------------------------------------------------------

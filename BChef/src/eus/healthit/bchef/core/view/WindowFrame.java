@@ -13,8 +13,6 @@ public class WindowFrame extends JFrame {
 	public WindowFrame() {
 		super("B-Chef");
 
-//		user = new User(0, "Test", "TestUser777", "test.user@gmail.com", "User", "User");
-
 		setWindow();
 
 		windowController = new WindowFrameController(this);
