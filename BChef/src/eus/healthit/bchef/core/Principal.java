@@ -1,11 +1,8 @@
 package eus.healthit.bchef.core;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.time.Duration;
 
-import eus.healthit.bchef.core.controllers.CommandController;
-import eus.healthit.bchef.core.enums.VoiceCommand;
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -20,19 +17,16 @@ public class Principal {
 
 	public static void main(String[] args) {
 		//OutputController.getOutputController().send("1 2 y luego 3");
-		
-		CommandController commandController = CommandController.getCommandController();
-		String cmdString = "BChef haz que dentro de 10 segundos suene la alarma para que apague el horno".toLowerCase();
-		VoiceCommand command = CommandController.parseCommand(cmdString);
-		//cmdString = CommandController.deleteCommandWords(cmdString, command);
-		commandController.selectCommand(command, cmdString);
+//		CommandController commandController = CommandController.getInstance();
+//		String cmdString = "BChef alarma para dentro de 10 minutos".toLowerCase();
+//		VoiceCommand command = StringParser.parseCommand(cmdString);
+//		//cmdString = CommandController.deleteCommandWords(cmdString, command);
+//		commandController.selectCommand(command, cmdString);
 		
 		//Separador
 		
 		
-		
 		Principal principal = new Principal();
-		// QueryCon con = new QueryCon();
 //		List<Ingredient> ings = new ArrayList<>();
 //		ings.add(new Ingredient("Zanahoria", "Carb", "3 3 YUJU"));
 //		List<RecipeStep> steps = new ArrayList<>();

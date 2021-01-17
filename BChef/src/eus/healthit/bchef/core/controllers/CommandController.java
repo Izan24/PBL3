@@ -1,65 +1,37 @@
 package eus.healthit.bchef.core.controllers;
 
-import java.text.Collator;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import eus.healthit.bchef.core.Configuration;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
-import io.grpc.netty.shaded.io.netty.channel.nio.AbstractNioChannel.NioUnsafe;
+import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.util.StringParser;
 
 public class CommandController {
 	
-	private static CommandController obj = new CommandController();
+	private static CommandController instance = new CommandController();
 	
 	private BChefController bChefController;
 	
-	private VoiceCommand prevCommand;
-	Integer prevIndexInteger;
-	Integer prevValue;
+	//Variables para guardar el comando anterior
+	boolean expectingConfirmation;
+	boolean expectingNumber;
+	int searchIndex;
+	List<Recipe> foundRecipes;
 	
 	private CommandController() {
-		bChefController = BChefController.getBChefController();
+		bChefController = BChefController.getInstance();
 	}
 	
-	public static CommandController getCommandController() {
-		return obj;
+	public static CommandController getInstance() {
+		return instance;
 	}
-
-	//private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe", "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta", "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus", "via"};
-	//private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
-	//private static final String[] PALABRAS = {"bchef", "receta", "cocina", "y", "e", "recetas", "algo", ",", "poco", "mucho"};
-	private static final String SEPARATOR = "y";
-	
-	
-	public static VoiceCommand parseCommand(String command) {
-		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));
-		c.setStrength(Collator.SECONDARY);
-		for (VoiceCommand cmd : VoiceCommand.values()) {
-			for (String str : cmd.getCommands()) {
-				str = str.toLowerCase();
-				Pattern p = Pattern.compile("\\b" + str + "\\b", Pattern.CASE_INSENSITIVE);
-				Matcher m = p.matcher(command);
-				if (m.find()) {				
-					return cmd;
-				}
-			}
-		}
-		
-		if(command.matches(".*\\d.*")) return VoiceCommand.NUMBER;
-		else return VoiceCommand.MISUNDERSTOOD;
-	}
-	
 	
 	public static Integer [] parseInt(String string) throws NumberFormatException, IllegalStateException {
 		Matcher matcher = Pattern.compile("\\d+").matcher(string);
@@ -77,10 +49,11 @@ public class CommandController {
 			searchIngredient(string);
 			break;
 		case SEARCH_RECIPE:
-			//TODO: 
-			OutputController.getOutputController().send("Buscando receta de: " + string);
+			//TODO: Queryes
+			OutputController.getInstance().send("Buscando receta de: " + string);
 			break;
 		case SWITCH_KITCHEN:
+		case POWER_OFF:
 			switchKitchen(string);
 			break;
 		case RECIPE_PREVIOUS:
@@ -93,216 +66,78 @@ public class CommandController {
 			setAlarm(string);
 			break;
 		case LIST_ADD:
-			OutputController.getOutputController().send("He añadido " + string + " a la lista.");
+			OutputController.getInstance().send("He añadido " + string + " a la lista.");
 			break;
 		case LIST_REMOVE:
-			OutputController.getOutputController().send("He quitado " + string + " de la lista.");
-			break;
-		case POWER_OFF:
-			
+			OutputController.getInstance().send("He quitado " + string + " de la lista.");
 			break;
 		case YES:
+			bChefController.confirmCall();
 			break;
 		case NO:
+			bChefController.cancellCall();
 			break;
 		case NUMBER:
-			break;
-		case MISUNDERSTOOD:
-			bChefController.notifyMisunderstood();
+			if(expectingNumber) {
+				
+				expectingNumber = false;
+			}
+			else bChefController.errorMessage("MISSUNDERSTOOD");
 			break;
 		default:
-			System.out.println("La vdd que no se como he acabado aqui");
-			bChefController.notifyMisunderstood();
+			bChefController.errorMessage("MISSUNDERSTOOD");
 			break;
 		}
-
 		return true;
 	}
 	
 
 	private boolean searchIngredient(String string) {
-		Set<String> ingredients = parseIngredients(string);
-		OutputController outputController = OutputController.getOutputController();
+		Set<String> ingredients = StringParser.parseIngredients(string);
+		OutputController outputController = OutputController.getInstance();
 		outputController.send("Buscando recetas con: " + String.join(", ", ingredients));
 		System.out.println("Ingres: ");
 		ingredients.stream().forEach(System.out::println);
 		return true;
 	}
 	
-	private static Set<String> parseIngredients(String string) {
-		
-		String numberless = string.replace("\\d", "");
-		String reg = "\\s*\\b" + SEPARATOR + "\\b\\s*";
-
-		//numberless = deleteFromArray(numberless, PREPOSICIONES);
-		//numberless = deleteFromArray(numberless, ARTICULOS);
-		//numberless = deleteFromArray(numberless, PALABRAS);
-		
-		
-		Set<String> ingredients = Arrays.stream(numberless.split(reg)).collect(Collectors.toSet());
-		return ingredients;
-	}
-	
-	private static String deleteFromArray(String text, String[] array) {
-		for(String word : array) {
-			String reg = "\\s*\\b" + word + "\\b\\s*";
-		    text = text.replaceAll(reg, " ");
-		}
-		//text.trim().replaceAll(" +", " ");
-		return text;
-	}
-	
-	public static String deleteCommandWords(String text, VoiceCommand command) {
-		for(String cmd : command.getCommands()) {
-			String reg = "\\s*\\b" + cmd.toLowerCase() + "\\b\\s*";
-			//System.out.println(cmd);
-			Pattern pattern = Pattern.compile(reg);
-		    Matcher matcher = pattern.matcher(text);
-			if(matcher.find()) {
-				String[] subStrings = text.split(reg);
-				text = subStrings[subStrings.length-1];
-			}
-		}
-		//text.trim().replaceAll(" +", " ");
-		//Arrays.stream(command.getCommands()).forEach(System.out::println);
-		return text;
-		
-	}
-	
 	private void switchKitchen(String string) {
-		KitchenUtil util = getKitchenUtil(string);
+		KitchenUtil util = StringParser.parseKitchenUtil(string);
+		Integer value = null;
+		Integer index = null;
 		if(util != KitchenUtil.MISUNDERSTOOD) {
-			try {
-				Integer[] nums = parseInt(string);
-				Integer value = null;
-				Integer index = null;
-				if(nums.length == 0) {
-					bChefController.notifyMisunderstood();
-					return;
-				}
-				if(nums.length == 1) value = nums[0];
-				else {
-					index = nums[0];
-					value = nums[1];
-				}
-				bChefController.switchKitchen(util, index, value);
-				OutputController.getOutputController().send("He puesto " + util.getKeywords()[0] + " a " + nums[0]);
-			} catch (Exception e) {
-				//TODO: preguntar numero
-				e.printStackTrace();
+			Integer[] nums = parseInt(string);
+			if(nums.length == 0) {
+				bChefController.errorMessage("MISSUNDERSTOOD");
+				return;
 			}
-		}
-		else bChefController.notifyMisunderstood();
-	}
-	
-	private void switchOffKitchen(String string) {
-		KitchenUtil util = getKitchenUtil(string);
-		if(util != KitchenUtil.MISUNDERSTOOD) {
-			try {
-				Integer[] nums = parseInt(string);
-				bChefController.switchKitchen(util, nums);
-				OutputController.getOutputController().send("He puesto " + util.getKeywords()[0] + " a " + nums[0]);
-			} catch (Exception e) {
-				//TODO: preguntar numero
-				e.printStackTrace();
+			if(nums.length == 1) value = nums[0];
+			else {
+				index = nums[0];
+				value = nums[1];
 			}
+			bChefController.switchKitchen(util, index, value);
+			OutputController.getInstance().send("He puesto " + util.getKeywords()[0] + " a " + nums[0]);
+
 		}
-		else bChefController.notifyMisunderstood();
-	}
-	
-	
-	
-	private KitchenUtil getKitchenUtil(String string) {
-		for(KitchenUtil util : KitchenUtil.values()) {
-			for(String keyword : util.getKeywords()) {
-				String reg = "\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
-				//System.out.println(cmd);
-				Pattern pattern = Pattern.compile(reg);
-			    Matcher matcher = pattern.matcher(string);
-				if(matcher.find()) return util;
-			}
-		}
-		
-		return KitchenUtil.MISUNDERSTOOD;
-		
+		else bChefController.errorMessage("MISSUNDERSTOOD");
 	}
 	
 	private void setAlarm(String string) {
-		KitchenUtil util = getKitchenUtil(string);
-		if(util.equals(KitchenUtil.MISUNDERSTOOD)) util = null;
+		KitchenUtil util = StringParser.parseKitchenUtil(string);
+		int index = 0;
+		if(util.equals(KitchenUtil.MISUNDERSTOOD)) {
+			util = null;
+			index = -1;
+		}
 		
-		Duration time = parseTime(string);
-		
+		Duration time = StringParser.parseTime(string);
 		if(time.isZero() || time.isNegative()) {
-			OutputController.getOutputController().send("Hora no válida");
+			bChefController.errorMessage("INVALID_TIME");
 			return;
 		}
-		String texto = "He puesto una alarma para dentro de: ";
-		if(time.toHoursPart() != 0)
-			texto = texto + time.toHoursPart() + " horas ";
-		if(time.toMinutesPart() != 0) 
-			texto = texto + time.toMinutesPart() + " minutos ";
-		if(time.toSecondsPart() != 0) 
-			texto = texto + time.toSecondsPart() + " segundos ";
-		if(util != null)
-			texto = texto + "para " + util.getKeywords()[0];
 		
-		
-		
-		bChefController.setAlarm(util, 0, time);
-		
-		OutputController.getOutputController().send(texto);
-				
-				
-		
+		bChefController.setAlarm(util, index, time);	
 	}
-	
-	static final String[] HOUR = {"hora", "horas"};
-	static final String[] MINUTE = {"minuto", "minutos"};
-	static final String[] SECOND = {"segundo", "segundos"};
-	private Duration parseTime(String string) {
-		Duration time = Duration.ZERO;
-		for(String keyword : HOUR) {
-			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
-			Pattern pattern = Pattern.compile(reg);
-		    Matcher matcher = pattern.matcher(string);
-		    if(matcher.find()) {
-				try (Scanner scanner = new Scanner(matcher.group(0))){
-					time = time.plusHours(scanner.nextInt());				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		
-		for(String keyword : MINUTE) {
-			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
-			Pattern pattern = Pattern.compile(reg);
-		    Matcher matcher = pattern.matcher(string);
-		    if(matcher.find()) {
-				try (Scanner scanner = new Scanner(matcher.group(0))){
-					time = time.plusMinutes(scanner.nextInt());				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		for(String keyword : SECOND) {
-			String reg = "\\w+\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
-			Pattern pattern = Pattern.compile(reg);
-		    Matcher matcher = pattern.matcher(string);
-			if(matcher.find()) {
-				try (Scanner scanner = new Scanner(matcher.group(0))){
-					time = time.plusSeconds(scanner.nextInt());				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return time;
-		
-	}
-	
-
 }

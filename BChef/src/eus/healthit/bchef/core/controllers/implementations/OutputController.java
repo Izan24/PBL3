@@ -20,16 +20,14 @@ import javazoom.jl.player.Player;
 
 public class OutputController implements IOutputController {
 
-	OutputController outputController;
-
-    static OutputController obj = new OutputController();
+    private static OutputController instance = new OutputController();
 
     private OutputController() {
     	
     }
 
-    public static OutputController getOutputController() {
-        return obj;
+    public static OutputController getInstance() {
+        return instance;
     }
 	
 	

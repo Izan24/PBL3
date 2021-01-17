@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.enums;
+ package eus.healthit.bchef.core.enums;
 
 public enum VoiceCommand {
 	SEARCH_INGREDIENT("Que tenga", "Que contenga", "Usando", "Receta con", "Con", "Contenga", "Tenga", "Posea", "Use", "Utilice", "Receta con"),

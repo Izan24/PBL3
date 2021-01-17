@@ -10,6 +10,7 @@ import java.time.LocalTime;
 
 import javax.swing.Timer;
 
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
@@ -18,8 +19,8 @@ public class KitchenAlarm implements ActionListener {
 	Duration time;
 	
 	KitchenUtil util;
-	int utilId;
-	boolean finished = false;
+	int utilIndex;
+	boolean rung = false;
 	
 	LocalTime startTime;
 	LocalTime endTime;
@@ -28,17 +29,18 @@ public class KitchenAlarm implements ActionListener {
 	
 	public KitchenAlarm(KitchenUtil util, int utilId, Duration time, PropertyChangeListener listener) {
 		this.util = util;
-		this.utilId = utilId;
+		this.utilIndex = utilId;
 		this.time = time;
 		this.timer = null;
 		connector = new PropertyChangeSupport(this);
-		connector.addPropertyChangeListener(listener);
+		//connector.addPropertyChangeListener(listener);
+		connector.addPropertyChangeListener(BChefController.getInstance());
 		startTime = null;
 		endTime = null;
 	}
 	
 	public void start() {
-		if(!finished && startTime == null) {
+		if(!rung && startTime == null) {
 			startTime = LocalTime.now();
 			endTime = startTime.plus(time);
 			timer = new Timer(1000, this);
@@ -48,16 +50,25 @@ public class KitchenAlarm implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if(endTime.isAfter(LocalTime.now())) {
+		if(endTime.isAfter(LocalTime.now()) && !rung) {
 			Duration res = Duration.between(LocalTime.now(), endTime);
-			connector.firePropertyChange("time", null, res);
+			connector.firePropertyChange("ALARM_UPDATE", null, res);
 		}
-		else{
-			OutputController.getOutputController().soundAlarm();
+		else if (!rung && timer != null) {
 			timer.stop();
-			finished = true;
-			connector.firePropertyChange("finish", null, this);
+			timer = null;
+			rung = true;
+			connector.firePropertyChange("ALARM_FINISH", null, this);
 		}
 	}
+
+	public KitchenUtil getUtil() {
+		return util;
+	}
+
+	public int getUtilIndex() {
+		return utilIndex;
+	}
+	
 	
 }
