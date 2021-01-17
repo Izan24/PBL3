@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.controllers.view.CreateAccountController;
 import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
+import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
@@ -39,7 +40,7 @@ public class CreateAccountView extends JPanel {
 	public static final String DEFAULT_PWD_TEXT = "Contraseña";
 	public static final String DEFAULT_CONFPWD_TEXT = "Confirma la contraseña";
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 
 	Color bgColor = Color.white;
 	JTextField name, surname, email, username;
@@ -79,7 +80,7 @@ public class CreateAccountView extends JPanel {
 		createAcc.setBorder(BorderFactory.createEmptyBorder());
 		createAcc.setFocusable(false);
 		createAcc.setUI(new UIRoundButton(createAcc, 30, new Color(28, 162, 243), Color.white,
-				new Font("Roboto", Font.PLAIN, 15), controller, CreateAccountControllerAC.CREATEACC));
+				new Font("Segoe UI", Font.BOLD, 13), controller, CreateAccountControllerAC.CREATEACC));
 
 		gotoLogin = new JButton("Ya tengo una cuenta");
 		gotoLogin.setPreferredSize(new Dimension(150, 40));
@@ -87,8 +88,9 @@ public class CreateAccountView extends JPanel {
 		gotoLogin.setForeground(new Color(28, 162, 243));
 		gotoLogin.setFont(textFont);
 		gotoLogin.setFocusable(false);
-		gotoLogin.setUI(new UIRoundButton(gotoLogin, 30, bgColor, new Color(28, 162, 243),
-				new Font("Roboto", Font.PLAIN, 15), controller, CreateAccountControllerAC.GOTO_LOGIN));
+		gotoLogin.setUI(new UIRoundButton(gotoLogin, 30, bgColor, new Color(234, 246, 254), new Color(210, 236, 252),
+				new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 13), controller,
+				CreateAccountControllerAC.GOTO_LOGIN, "Ya tengo una cuenta", "Ya tengo una cuenta"));
 		gotoLogin.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}

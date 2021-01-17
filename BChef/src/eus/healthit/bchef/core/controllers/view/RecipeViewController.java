@@ -19,11 +19,9 @@ public class RecipeViewController implements IRoundButtonListener {
 		switch (command) {
 		case RecipeViewControllerAC.SAVE:
 			if (user.getSaved().contains(centerViewRecipe.getRecipe())) {
-				System.out.println("borrando");
 				user.getSaved().remove(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 			} else {
-				System.out.println("añadiendo");
 				user.getSaved().add(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 			}

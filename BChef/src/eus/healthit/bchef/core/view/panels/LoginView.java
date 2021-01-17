@@ -34,7 +34,7 @@ public class LoginView extends JPanel {
 	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
 	public static final String DEFAULT_PASSWORD_TEXT = "Contraseña";
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Color bgColor = Color.white;
 //	Color bgColor = new Color(145, 238, 255);
 
@@ -71,7 +71,7 @@ public class LoginView extends JPanel {
 		loginButton.setBorder(BorderFactory.createEmptyBorder());
 		loginButton.setFocusable(false);
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
-				new Font("Roboto", Font.PLAIN, 15), controller, LoginViewControllerAC.LOGIN));
+				new Font("Segoe UI", Font.BOLD, 15), controller, LoginViewControllerAC.LOGIN));
 
 		createAccButton = new JButton("Crear cuenta");
 		createAccButton.setPreferredSize(new Dimension(150, 40));
@@ -79,8 +79,9 @@ public class LoginView extends JPanel {
 		createAccButton.setForeground(new Color(28, 162, 243));
 		createAccButton.setFont(textFont);
 		createAccButton.setFocusable(false);
-		createAccButton.setUI(new UIRoundButton(createAccButton, 30, bgColor, new Color(28, 162, 243),
-				new Font("Roboto", Font.PLAIN, 15), controller, LoginViewControllerAC.CREATE_ACCOUNT));
+		createAccButton.setUI(new UIRoundButton(createAccButton, 30, bgColor, new Color(234, 246, 254),
+				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
+				LoginViewControllerAC.CREATE_ACCOUNT, "Crear cuenta", "Crear cuenta"));
 		createAccButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -100,7 +101,7 @@ public class LoginView extends JPanel {
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.gray);
 	}
-	
+
 	private void initJLabels() {
 		textLabel = new JLabel("Iniciar sesión");
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 32));
@@ -152,7 +153,7 @@ public class LoginView extends JPanel {
 
 		return flowPanel;
 	}
-	
+
 	private JPanel createNorthPanel() {
 		JPanel panelLogo = new JPanel(new FlowLayout());
 //		panelLogo.setPreferredSize(new Dimension(600, 300));
@@ -164,16 +165,15 @@ public class LoginView extends JPanel {
 
 		return panelLogo;
 	}
-	
+
 	private JPanel createTextPanel() {
 		JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		textPanel.setBackground(bgColor);
-		
+
 		textPanel.add(textLabel);
-		
+
 		return textPanel;
 	}
-
 
 	private JPanel createCenterPanel() {
 

@@ -25,6 +25,7 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 	Font font;
 	IRoundButtonListener listener;
 	String actionCommand;
+	String primaryText, secondaryText;
 
 //	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font) {
 //		this.radius = radius;
@@ -37,8 +38,9 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 //		j.setBackground(backGroundColor);
 //		j.setOpaque(false);
 //	}
-	
-	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font, IRoundButtonListener listener, String actionCommand) {
+
+	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font,
+			IRoundButtonListener listener, String actionCommand) {
 		this.radius = radius;
 		this.backGroundColor = backGroundColor;
 		this.backGroundColorActive = backGroundColor.darker();
@@ -47,6 +49,42 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 		this.font = font;
 		this.listener = listener;
 		this.actionCommand = actionCommand;
+		j.addMouseListener(this);
+		j.setBackground(backGroundColor);
+		j.setOpaque(false);
+	}
+
+	public UIRoundButton(JButton j, int radius, Color backGroundColorPrimary, Color backGroundColorSecondary,
+			Color foreGroundColor, Font font, IRoundButtonListener listener, String actionCommand, String primaryText,
+			String secondaryText) {
+		this.radius = radius;
+		this.backGroundColor = backGroundColorPrimary;
+		this.backGroundColorActive = backGroundColorSecondary;
+		this.backGroundColorPressed = backGroundColorSecondary.darker();
+		this.foreGroundColor = foreGroundColor;
+		this.font = font;
+		this.listener = listener;
+		this.actionCommand = actionCommand;
+		this.primaryText = primaryText;
+		this.secondaryText = secondaryText;
+		j.addMouseListener(this);
+		j.setBackground(backGroundColor);
+		j.setOpaque(false);
+	}
+
+	public UIRoundButton(JButton j, int radius, Color backGroundColorPrimary, Color backGroundColorSecondary,
+			Color backGroundColorTerciary, Color foreGroundColor, Font font, IRoundButtonListener listener,
+			String actionCommand, String primaryText, String secondaryText) {
+		this.radius = radius;
+		this.backGroundColor = backGroundColorPrimary;
+		this.backGroundColorActive = backGroundColorSecondary;
+		this.backGroundColorPressed = backGroundColorTerciary;
+		this.foreGroundColor = foreGroundColor;
+		this.font = font;
+		this.listener = listener;
+		this.actionCommand = actionCommand;
+		this.primaryText = primaryText;
+		this.secondaryText = secondaryText;
 		j.addMouseListener(this);
 		j.setBackground(backGroundColor);
 		j.setOpaque(false);
@@ -86,11 +124,17 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		JButton c = (JButton) e.getComponent();
 		c.setBackground(backGroundColorActive);
+		if (secondaryText != null && primaryText != null) {
+			c.setText(secondaryText);
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {
 		JButton c = (JButton) e.getComponent();
 		c.setBackground(backGroundColor);
+		if (secondaryText != null && primaryText != null) {
+			c.setText(primaryText);
+		}
 	}
 
 	@Override

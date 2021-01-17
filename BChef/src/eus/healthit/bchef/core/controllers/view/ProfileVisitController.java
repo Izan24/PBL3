@@ -16,7 +16,7 @@ public class ProfileVisitController implements IRoundButtonListener {
 	public void actionPerformed(String command) {
 		switch (command) {
 		case ProfileVisitControllerAC.FOLLOW:
-			System.out.println("Follow owo");
+			
 			break;
 		}
 	}

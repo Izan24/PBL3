@@ -246,4 +246,11 @@ public class User {
 	public void addHistory(Recipe recipe) {
 		history.add(recipe);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		User o = (User) obj;
+		
+		return id == o.getId();
+	}
 }

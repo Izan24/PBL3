@@ -49,6 +49,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
+	Font buttonFont = new Font("Segoe UI", Font.BOLD, 20);
 
 	public CenterViewVisitProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
@@ -304,9 +305,22 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 		recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		following = new JLabel(String.valueOf(user.getFollowedNumber()));
 		followers = new JLabel(String.valueOf(user.getFollowersNumber()));
+		changeButtonStatus();
 
 		this.revalidate();
 		this.repaint();
+	}
+
+	public void changeButtonStatus() {
+
+		if (!user.getFollowers().contains(visiUser)) {
+			followButton.setUI(
+					new UIRoundButton(followButton, 30, new Color(28, 162, 243), new Color(196, 35, 93), Color.white,
+							buttonFont, controller, ProfileVisitControllerAC.FOLLOW, "Siguiendo", "Dejar de seguir"));
+		} else {
+			followButton.setUI(new UIRoundButton(followButton, 30, new Color(28, 162, 243), Color.white, buttonFont,
+					controller, ProfileVisitControllerAC.FOLLOW));
+		}
 	}
 
 	@Override
