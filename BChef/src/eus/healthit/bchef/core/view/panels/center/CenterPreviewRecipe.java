@@ -8,9 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -64,7 +62,7 @@ public class CenterPreviewRecipe extends JPanel {
 		authorLabel = new JLabel();
 		authorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 23));
 		authorLabel.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		imageLabel = new JLabel();
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -194,7 +192,7 @@ public class CenterPreviewRecipe extends JPanel {
 		imageLabel.removeAll();
 		imageLabel.revalidate();
 		try {
-			imageLabel.setIcon(new ImageIcon(ImageIO.read(new URL(recipe.getImageURL()))));
+			imageLabel.setIcon(new ImageIcon(recipe.getImage()));
 		} catch (Exception e) {
 		}
 	}

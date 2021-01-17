@@ -1,9 +1,12 @@
 package eus.healthit.bchef.core.models;
 
+import java.awt.Image;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 public class Recipe {
 
@@ -16,12 +19,12 @@ public class Recipe {
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
 
-	String imageURL;
+	Image image;
 	UUID uuid;
 
 	@SuppressWarnings("deprecation")
 	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
-			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
 //		this.description = description;
@@ -32,12 +35,11 @@ public class Recipe {
 		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.imageURL = imageUrl;
+		this.image = image;
 	}
 
 	public Recipe(UUID uuid, String name, String author, int authorID, String description, int rating,
-			Timestamp publishDate, Time duration, List<Ingredient> ingredients, List<RecipeStep> steps,
-			String imageUrl) {
+			Timestamp publishDate, Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
 		this.description = description;
@@ -48,18 +50,18 @@ public class Recipe {
 		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.imageURL = imageUrl;
+		this.image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
 	}
 
 	public Recipe(String name, String author, int authorID, String description, int rating,
-			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.name = name;
 		this.author = author;
 		this.authorID = authorID;
 		this.rating = rating;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.imageURL = imageUrl;
+		this.image = image;
 
 	}
 
@@ -123,12 +125,12 @@ public class Recipe {
 		this.steps = steps;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImage(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public int getIngredientNumber() {

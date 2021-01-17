@@ -35,6 +35,9 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 			break;
 
 		case ProfileSettingsControllerAC.SAVE_CHANGES:
+			if (verifyParameters()) {
+				System.out.println("Put del nuevo user");
+			}
 
 			break;
 
@@ -43,6 +46,11 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 			windowController.setLoginView();
 			break;
 		}
+	}
+
+	private boolean verifyParameters() {
+
+		return true;
 	}
 
 	@Override

@@ -6,11 +6,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -64,7 +65,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	JTextField ingredient, quantity;
 	JTextArea instruction;
 
-	String imgPath;
+	Image image;
 
 	JComboBox<RecipeStepActions> actions;
 	JComboBox<Integer> values;
@@ -449,11 +450,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		return stepModel.getList();
 	}
 
-	public String getImage() {
-		return imgPath;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImage(String imgPath) {
-		this.imgPath = imgPath;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

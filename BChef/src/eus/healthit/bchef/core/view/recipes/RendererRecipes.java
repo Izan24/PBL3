@@ -76,7 +76,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		JLabel image;
 
 		try {
-			image = new JLabel(new ImageIcon(new URL(value.getImageURL())));
+			image = new JLabel(new ImageIcon(value.getImage()));
 
 		} catch (Exception e) {
 			image = new JLabel("MalformedxD");
@@ -88,7 +88,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// The Recipe info panel
 		// --------------------------------------------------------------------------
 
-		JLabel text = new JLabel(value.getName());
+		JLabel text = new JLabel(value.getDescription());
 
 		// --------------------------------------------------------------------------
 		// The bottom part of the panel

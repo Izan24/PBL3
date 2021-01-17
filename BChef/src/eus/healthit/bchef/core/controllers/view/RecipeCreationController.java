@@ -1,7 +1,9 @@
 package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.Color;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
@@ -32,7 +34,11 @@ public class RecipeCreationController implements IRoundButtonListener {
 			System.out.println("ADD IMAGE");
 			FileChooser file = new FileChooser();
 			try {
-				createRecipeView.setImage(file.getSelectedFile().getPath());
+				try {
+					createRecipeView.setImage(ImageIO.read(file.getSelectedFile()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} catch (NullPointerException e) {
 			}
 			break;
