@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.controllers.view.CreateAccountController;
 import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
-import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
@@ -328,18 +327,4 @@ public class CreateAccountView extends JPanel {
 	public String getPwdConfirm() {
 		return String.valueOf(pwdConfirm.getPassword());
 	}
-
-//	public void resetAllFields() {
-////		name = null;
-////		surname = null;
-////		email = null;
-////		username = null;
-////		showPWDBox = null;
-////
-////		initTextFields();
-////		initCheckBoxes();
-////		this.repaint();
-////		this.revalidate();
-//	}
-
 }

@@ -24,7 +24,7 @@ public class RoundedTextField extends JTextField implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		if (this.getText().isEmpty()) {
+		if (super.getText().equals(hint)) {
 			super.setText("");
 			super.setForeground(Color.black);
 			showingHint = false;
@@ -33,7 +33,7 @@ public class RoundedTextField extends JTextField implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		if (this.getText().isEmpty()) {
+		if (super.getText().trim().equals("")) {
 			super.setText(hint);
 			showingHint = true;
 			super.setForeground(Color.GRAY);
@@ -49,6 +49,5 @@ public class RoundedTextField extends JTextField implements FocusListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 	}
-	
-	
+
 }
