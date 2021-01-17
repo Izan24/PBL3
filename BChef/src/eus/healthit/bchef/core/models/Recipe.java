@@ -136,4 +136,9 @@ public class Recipe {
 		Recipe o = (Recipe) obj;
 		return uuid.equals(o.getUUID());
 	}
+
+	@Override
+	public String toString() {
+		return name + author;
+	}
 }

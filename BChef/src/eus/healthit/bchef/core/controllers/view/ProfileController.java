@@ -22,9 +22,6 @@ public class ProfileController implements ActionListener{
 		case ProfileControllerAC.SAVED:
 			profileView.changeListView(ProfileControllerAC.SAVED);
 			break;
-
-		default:
-			break;
 		}
 	}
 

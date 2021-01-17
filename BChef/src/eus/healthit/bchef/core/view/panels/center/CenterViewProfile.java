@@ -57,7 +57,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	public CenterViewProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
-		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		this.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
@@ -124,7 +124,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		savedButton = new JButton("Recetas Guardadas");
 		savedButton.setFont(textFont);
 		savedButton.setBackground(bgColor);
-		savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
+		savedButton.setBorder(BorderFactory.createEmptyBorder());
 		savedButton.setActionCommand(ProfileControllerAC.SAVED);
 		savedButton.addActionListener(controller);
 		savedButton.setFocusable(false);
@@ -132,7 +132,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	private void initJlist() {
-
 		DoubleClickListener clickListener = new DoubleClickListener(this);
 
 		uploadedModel = new RecipesList();
@@ -155,8 +154,23 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	}
 
-	private JPanel createContent() {
+	private JScrollPane createContent() {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBackground(bgColor);
+
+		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll.setBorder(BorderFactory.createEmptyBorder());
+		scroll.setBackground(bgColor);
+		scroll.setOpaque(false);
+
+		scroll.setViewportView(createMainPanel());
+
+		return scroll;
+	}
+
+	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new BorderLayout(20, 0));
+		contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		contentPanel.setBackground(bgColor);
 		contentPanel.setOpaque(true);
 
@@ -169,7 +183,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	private JPanel createNorthPanel() {
 
 		JPanel northPanel = new JPanel(new BorderLayout(20, 20));
-		northPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.lightGray));
+//		northPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.lightGray));
 		northPanel.setBackground(bgColor);
 		northPanel.setOpaque(true);
 
@@ -194,7 +208,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private JPanel createInfoPanel() {
 		JPanel infoPanel = new JPanel(new GridLayout());
-//		infoPanel.setBorder(new RoundedBorder(15, new Color(148, 204, 255)));
 		infoPanel.setBackground(bgColor);
 		infoPanel.setPreferredSize(new Dimension(100, 100));
 
@@ -238,7 +251,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setBackground(bgColor);
-		centerPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.LIGHT_GRAY));
+//		centerPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.LIGHT_GRAY));
 
 		centerPanel.add(createButtonPannel(), BorderLayout.NORTH);
 		centerPanel.add(createSlidePannel(), BorderLayout.CENTER);
@@ -248,7 +261,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private JPanel createButtonPannel() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+//		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 		buttonPanel.setBackground(bgColor);
 
 		buttonPanel.add(uploadedButton);
@@ -257,10 +270,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		return buttonPanel;
 	}
 
-	private JPanel createSlidePannel() {
-		JPanel scrollPanel = new JPanel(new GridLayout());
-		scrollPanel.setBackground(bgColor);
-
+	private JScrollPane createSlidePannel() {
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -269,16 +279,14 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 		scrollPane.setViewportView(uploaded);
 
-		scrollPanel.add(scrollPane);
-
-		return scrollPanel;
+		return scrollPane;
 	}
 
 	public void changeListView(String selection) {
 		switch (selection) {
 		case ProfileControllerAC.UPLOADED:
 			uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
-			savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
+			savedButton.setBorder(BorderFactory.createEmptyBorder());
 
 			uploadedButton.setForeground(selectedColor);
 			savedButton.setForeground(Color.black);
@@ -287,7 +295,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 			break;
 
 		case ProfileControllerAC.SAVED:
-			uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
+			uploadedButton.setBorder(BorderFactory.createEmptyBorder());
 			savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
 
 			uploadedButton.setForeground(Color.black);
@@ -314,21 +322,18 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	public void updateView() {
-		savedModel.setList(user.getSaved());
-		uploadedModel.setList(user.getPublished());
+		initJlist();
 
 		recipes.setText(String.valueOf(user.getPublishedNumber()));
 		following.setText(String.valueOf(user.getFollowedNumber()));
 		followers.setText(String.valueOf(user.getFollowersNumber()));
+
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
 	public void clicked() {
-		/*
-		 * Comprobar de que jlist ha sido. Se me ocurre mirar el boton que está
-		 * presionado o que cada vez que presiones un boton cambiar una referencia a un
-		 * JList y pillar de ahi el selectedValue
-		 */
 		openSelectedRecipe();
 	}
 }
