@@ -42,7 +42,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	public final static String QUANTITY_DEFAULT_TEXT = "Cantidad";
 	public final static String STEP_DEFAULT_TEXT = "Instruccion del paso";
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	User user;
 
 	RecipeCreationControler controler;

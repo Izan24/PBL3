@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.io.File;
+import java.io.IOException;
+import java.nio.channels.NonReadableChannelException;
 
 import javax.imageio.ImageIO;
 
@@ -19,7 +21,11 @@ public class SearchBorder extends RoundedBorder{
 	
 	public SearchBorder(int radius, Color borderColor) {
 		super(radius, borderColor);
-		this.searchImage = null;
+		try {
+			this.searchImage = ImageIO.read(new File(IMAGEFILE));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public SearchBorder(int radius, Color borderColor, String icon) {

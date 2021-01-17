@@ -61,7 +61,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	JButton saveRecipe, startRecipe;
 	User user;
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Color bgColor = Color.white;
 
 	public CenterViewRecipe(CenterViewController centerController, User user) {
@@ -83,11 +83,11 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	private void initJlabels() {
 
 		titleLabel = new JLabel();
-		titleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 50));
+		titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 50));
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		authorLabel = new JLabel();
-		authorLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 23));
+		authorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 23));
 		authorLabel.setHorizontalAlignment(JLabel.CENTER);
 		authorLabel.addMouseListener(listener);
 
@@ -95,13 +95,13 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		ingredientTitleLabel = new JLabel("Ingredientes");
-		ingredientTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
+		ingredientTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		ingredientTitleLabel.setForeground(Color.darkGray);
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		elaborationTitleLabel = new JLabel("Elaboración");
-		elaborationTitleLabel.setFont(new Font("Gill Sans MT", Font.PLAIN, 40));
+		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		elaborationTitleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -114,14 +114,15 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 	}
 
 	private void initJbuttons() {
-		saveRecipe = new JButton("Guardar Receta");
+		saveRecipe = new JButton("Guardar");
 		saveRecipe.setPreferredSize(new Dimension(150, 40));
 		saveRecipe.setBackground(bgColor);
 		saveRecipe.setForeground(new Color(28, 162, 243));
 		saveRecipe.setFont(textFont);
 		saveRecipe.setFocusable(false);
-		saveRecipe.setUI(new UIRoundButton(saveRecipe, 30, bgColor, new Color(28, 162, 243),
-				new Font("Roboto", Font.PLAIN, 15), controller, RecipeViewControllerAC.SAVE));
+		saveRecipe.setUI(new UIRoundButton(saveRecipe, 30, bgColor, new Color(234, 246, 254), new Color(210, 236, 252),
+				new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller, RecipeViewControllerAC.SAVE,
+				"Guardar", "Guardar"));
 		saveRecipe.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
@@ -133,7 +134,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		startRecipe.setBorder(BorderFactory.createEmptyBorder());
 		startRecipe.setFocusable(false);
 		startRecipe.setUI(new UIRoundButton(startRecipe, 30, new Color(28, 162, 243), Color.white,
-				new Font("Roboto", Font.PLAIN, 15), controller, RecipeViewControllerAC.START));
+				new Font("Segoe UI", Font.PLAIN, 15), controller, RecipeViewControllerAC.START));
 	}
 
 	private Component createContentPanel() {
