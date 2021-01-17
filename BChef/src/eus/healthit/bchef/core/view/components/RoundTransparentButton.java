@@ -79,7 +79,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		g2.setColor(b.getFontColor());
 		String caption = b.getFrontText();
 
-		int dimy = (d.height + fm.getHeight() / 2) / 2;
+		int dimy = ((int)d.getHeight() + fm.getHeight() / 2) / 2;
 		int dimXStr;
 		int dimXImg;
 		
