@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -450,5 +451,9 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	public String getImage() {
 		return imgPath;
+	}
+
+	public void setImage(String imgPath) {
+		this.imgPath = imgPath;
 	}
 }

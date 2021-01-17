@@ -1,8 +1,6 @@
 package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -15,7 +13,7 @@ import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
-public class RecipeCreationController implements ActionListener, IRoundButtonListener {
+public class RecipeCreationController implements IRoundButtonListener {
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
@@ -33,6 +31,10 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 		case RecipeCreationControllerAC.ADD_IMAGE:
 			System.out.println("ADD IMAGE");
 			FileChooser file = new FileChooser();
+			try {
+				createRecipeView.setImage(file.getSelectedFile().getPath());
+			} catch (NullPointerException e) {
+			}
 			break;
 
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
@@ -54,46 +56,9 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 			break;
 
 		case RecipeCreationControllerAC.CREATE_RECIPE:
-			System.out.println(
-					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
-			break;
-
-		case RecipeCreationControllerAC.PREVIEW:
-			openPreviewWindow();
-			break;
-		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-
-		case RecipeCreationControllerAC.ADD_IMAGE:
-			System.out.println("ADD IMAGE");
-			FileChooser file = new FileChooser();
-			break;
-
-		case RecipeCreationControllerAC.ADD_INGREDIENT:
-			System.out.println("ADD_INGREDIENT");
-			createRecipeView.addIngredient();
-			break;
-
-		case RecipeCreationControllerAC.REMOVE_INGREDIENT:
-			System.out.println("REMOVE_INGREDIENT");
-			createRecipeView.removeIngredient();
-			break;
-
-		case RecipeCreationControllerAC.ADD_STEP:
-			System.out.println("ADD_STEP");
-			break;
-
-		case RecipeCreationControllerAC.REMOVE_STEP:
-			System.out.println("REMOVE_STEP:");
-			break;
-
-		case RecipeCreationControllerAC.CREATE_RECIPE:
-			System.out.println(
-					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
+//			System.out.println(
+//					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
+			System.out.println(createRecipeView.getImage());
 			break;
 
 		case RecipeCreationControllerAC.PREVIEW:
@@ -171,5 +136,4 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 	public void removeStep(RecipeStep step) {
 		createRecipeView.getStepListModel().deleteElement(step);
 	}
-
 }
