@@ -328,6 +328,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 			followButton.setUI(
 					new UIRoundButton(followButton, 30, new Color(28, 162, 243), new Color(196, 35, 93), Color.white,
 							buttonFont, controller, ProfileVisitControllerAC.FOLLOW, "Siguiendo", "Dejar de seguir"));
+			followButton.setText("Siguiendo");
 		} else {
 			followButton.setUI(new UIRoundButton(followButton, 30, new Color(28, 162, 243), Color.white, buttonFont,
 					controller, ProfileVisitControllerAC.FOLLOW));

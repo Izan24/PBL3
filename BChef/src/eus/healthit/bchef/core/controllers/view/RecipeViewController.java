@@ -19,9 +19,11 @@ public class RecipeViewController implements IRoundButtonListener {
 		switch (command) {
 		case RecipeViewControllerAC.SAVE:
 			if (user.getSaved().contains(centerViewRecipe.getRecipe())) {
+				System.out.println("dELETE");
 				user.getSaved().remove(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 			} else {
+				System.out.println("SAVE");
 				user.getSaved().add(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 			}
@@ -29,8 +31,8 @@ public class RecipeViewController implements IRoundButtonListener {
 		case RecipeViewControllerAC.START:
 			System.out.println("Start recipe");
 			/*
-			 * TIENES QUE LLAMAR A UN METODO ESTATICO DE CENTERCONTROLLER O TENER AQUI AL CENTERCONTROLLER PARA CAMBIAR LA VISTA
-			 *  A EMPEZAR RECETA
+			 * TIENES QUE LLAMAR A UN METODO ESTATICO DE CENTERCONTROLLER O TENER AQUI AL
+			 * CENTERCONTROLLER PARA CAMBIAR LA VISTA A EMPEZAR RECETA
 			 */
 			break;
 		}

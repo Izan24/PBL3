@@ -16,7 +16,7 @@ import eus.healthit.bchef.core.view.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
 
-	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe;
+	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe, buttonSettings;
 	ActionListener listener;
 
 	public LeftMenuView(ActionListener listener) {
@@ -77,7 +77,12 @@ public class LeftMenuView extends JPanel {
 		buttonChef.addActionListener(listener);
 		buttonChef.setActionCommand(CenterControllerAC.BCHEF);
 
-
+		buttonSettings = new CustomButton("Ajustes", "resources\\menuIcons\\settings_normal_64.png",
+				"resources\\menuIcons\\settings_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonSettings.setPreferredSize(new Dimension(200, 40));
+		buttonSettings.addActionListener(listener);
+		buttonSettings.setActionCommand(CenterControllerAC.SETTINGS);
 	}
 
 	private JPanel createMenuBar() {
@@ -96,7 +101,9 @@ public class LeftMenuView extends JPanel {
 		leftMenu.add(buttonProfile);
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonChef);
-		
+		leftMenu.add(Box.createVerticalGlue());
+		leftMenu.add(buttonSettings);
+
 		return leftMenu;
 	}
 }
