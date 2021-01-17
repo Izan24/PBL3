@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -20,7 +21,7 @@ public class LeftMenuView extends JPanel {
 	ActionListener listener;
 
 	public LeftMenuView(ActionListener listener) {
-		super(new FlowLayout(10, 10, 10));
+		super(new GridLayout(1, 1, 10, 10));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
