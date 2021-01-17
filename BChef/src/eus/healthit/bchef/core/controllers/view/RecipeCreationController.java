@@ -6,49 +6,82 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
-public class RecipeCreationControler implements ActionListener {
+public class RecipeCreationController implements ActionListener, IRoundButtonListener {
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
 
-	public RecipeCreationControler(CenterViewCreateRecipe createRecipeView) {
+	public RecipeCreationController(CenterViewCreateRecipe createRecipeView) {
 		this.createRecipeView = createRecipeView;
 
 		createPreviewWindow();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case RecipeCreationControlerAC.ADD_INGREDIENT:
+	public void actionPerformed(String command) {
+		switch (command) {
+		case RecipeCreationControllerAC.ADD_INGREDIENT:
 			System.out.println("ADD_INGREDIENT");
 			createRecipeView.addIngredient();
 			break;
 
-		case RecipeCreationControlerAC.REMOVE_INGREDIENT:
+		case RecipeCreationControllerAC.REMOVE_INGREDIENT:
 			System.out.println("REMOVE_INGREDIENT");
 			createRecipeView.removeIngredient();
 			break;
 
-		case RecipeCreationControlerAC.ADD_STEP:
+		case RecipeCreationControllerAC.ADD_STEP:
 			System.out.println("ADD_STEP");
 			break;
 
-		case RecipeCreationControlerAC.REMOVE_STEP:
+		case RecipeCreationControllerAC.REMOVE_STEP:
 			System.out.println("REMOVE_STEP:");
 			break;
 
-		case RecipeCreationControlerAC.CREATE_RECIPE:
+		case RecipeCreationControllerAC.CREATE_RECIPE:
 			System.out.println(
 					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
 			break;
 
-		case RecipeCreationControlerAC.PREVIEW:
+		case RecipeCreationControllerAC.PREVIEW:
+			openPreviewWindow();
+			break;
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+		case RecipeCreationControllerAC.ADD_INGREDIENT:
+			System.out.println("ADD_INGREDIENT");
+			createRecipeView.addIngredient();
+			break;
+
+		case RecipeCreationControllerAC.REMOVE_INGREDIENT:
+			System.out.println("REMOVE_INGREDIENT");
+			createRecipeView.removeIngredient();
+			break;
+
+		case RecipeCreationControllerAC.ADD_STEP:
+			System.out.println("ADD_STEP");
+			break;
+
+		case RecipeCreationControllerAC.REMOVE_STEP:
+			System.out.println("REMOVE_STEP:");
+			break;
+
+		case RecipeCreationControllerAC.CREATE_RECIPE:
+			System.out.println(
+					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
+			break;
+
+		case RecipeCreationControllerAC.PREVIEW:
 			openPreviewWindow();
 			break;
 		}
