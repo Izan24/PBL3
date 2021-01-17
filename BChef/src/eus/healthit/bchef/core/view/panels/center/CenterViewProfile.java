@@ -27,14 +27,6 @@ import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
 public class CenterViewProfile extends JPanel implements IClickable {
 
-	/*
-	 * METELE EL SELECTIONLISTENER A LOS DOS JLIST Y HAZ QUE SE VAYA A LA MISMA
-	 * VISTA QUE TIENES QUE CREAR DE UNA RECETA EN GRANDE
-	 */
-
-	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
-	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
-
 	CenterViewController centerController;
 
 	User user;
@@ -52,8 +44,12 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 //	Color bgColor = new Color(244, 249, 255);
 	Color bgColor = Color.white;
+
 	Color textColor = new Color(129, 145, 160);
 	Color selectedColor = new Color(30, 170, 255);
+
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
+	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
 
 	public CenterViewProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
@@ -313,7 +309,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		try {
 			centerController.setRecipeView(tmp.getSelectedValue());
 		} catch (Exception e) {
-			System.out.println("Exception en openSelectedRecipe en CenterViewProfile");
 		}
 	}
 
