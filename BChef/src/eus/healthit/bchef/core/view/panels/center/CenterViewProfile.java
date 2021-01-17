@@ -181,7 +181,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	private JPanel createNorthPanel() {
-
 		JPanel northPanel = new JPanel(new BorderLayout(5, 5));
 		northPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 		northPanel.setBackground(bgColor);

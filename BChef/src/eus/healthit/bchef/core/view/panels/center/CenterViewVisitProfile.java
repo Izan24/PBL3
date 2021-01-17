@@ -6,8 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -53,7 +56,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 
 	public CenterViewVisitProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
-		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		this.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
@@ -72,11 +75,12 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	private void initJlabels() {
 
 		profilePicture = new JLabel();
-		profilePicture.setIcon(user.getProfilePic());
+		profilePicture.setIcon(
+				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		profilePicture.setBackground(Color.white);
 
 		username = new JLabel(user.getUsername());
-		username.setFont(textFont);
+		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));
 		username.setBackground(Color.white);
 
 		recipesText = new JLabel("Recipes");
@@ -171,11 +175,13 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	private JPanel createNorthPanel() {
 
 		JPanel northPanel = new JPanel(new BorderLayout(20, 20));
+		northPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 		northPanel.setBackground(Color.white);
 		northPanel.setOpaque(true);
 
-		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 10, 10));
-		imagePanel.setBackground(Color.white);
+		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 0, 0));
+		imagePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 23));
+		imagePanel.setBackground(bgColor);
 		imagePanel.setOpaque(true);
 		imagePanel.add(profilePicture);
 
@@ -192,26 +198,31 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 		return northPanel;
 	}
 
-	private JPanel createTopPanel() {
-		JPanel topPanel = new JPanel(new BorderLayout(20, 20));
+	private Box createTopPanel() {
+		Box topPanel = Box.createHorizontalBox();
 		topPanel.setBackground(Color.white);
 		topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		JPanel buttonPanel = new JPanel(new FlowLayout());
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-		buttonPanel.setBackground(Color.white);
-		buttonPanel.add(followButton);
+		JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		namePanel.setBackground(bgColor);
 
-		topPanel.add(username, BorderLayout.WEST);
-		topPanel.add(buttonPanel, BorderLayout.EAST);
+		JPanel followPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		followPanel.setBackground(bgColor);
+
+		namePanel.add(username);
+		followPanel.add(followButton);
+
+		topPanel.add(namePanel);
+		topPanel.add(Box.createHorizontalGlue());
+		topPanel.add(followPanel);
 
 		return topPanel;
 	}
 
 	private JPanel createInfoPanel() {
 		JPanel infoPanel = new JPanel(new GridLayout());
+		infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 		infoPanel.setBackground(bgColor);
-		infoPanel.setPreferredSize(new Dimension(100, 100));
 
 		infoPanel.add(createRecipesPanel());
 		infoPanel.add(createFollowingPanel());
@@ -221,7 +232,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	}
 
 	public JPanel createRecipesPanel() {
-		JPanel recipePanel = new JPanel(new FlowLayout());
+		JPanel recipePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		recipePanel.setBackground(bgColor);
 
 		recipePanel.add(recipes);
@@ -231,7 +242,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	}
 
 	public JPanel createFollowingPanel() {
-		JPanel followingPanel = new JPanel(new FlowLayout());
+		JPanel followingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		followingPanel.setBackground(bgColor);
 
 		followingPanel.add(following);
@@ -241,7 +252,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	}
 
 	public JPanel createFollowerPanel() {
-		JPanel followerPanel = new JPanel(new FlowLayout());
+		JPanel followerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		followerPanel.setBackground(bgColor);
 
 		followerPanel.add(followers);
@@ -300,7 +311,8 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 		 * la base de datos
 		 */
 		initJlist();
-		profilePicture.setIcon(user.getProfilePic());
+		profilePicture.setIcon(
+				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		username = new JLabel(user.getUsername());
 		recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		following = new JLabel(String.valueOf(user.getFollowedNumber()));
