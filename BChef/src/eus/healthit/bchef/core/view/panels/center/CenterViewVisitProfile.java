@@ -14,6 +14,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.ProfileVisitController;
 import eus.healthit.bchef.core.controllers.view.ProfileVisitControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
@@ -22,7 +25,9 @@ import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
-public class CenterViewVisitProfile extends JPanel {
+public class CenterViewVisitProfile extends JPanel implements IClickable {
+
+	CenterViewController centerController;
 
 	User user, visiUser;
 	JScrollPane scrollPane;
@@ -45,15 +50,16 @@ public class CenterViewVisitProfile extends JPanel {
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
 
-	public CenterViewVisitProfile(User user) {
+	public CenterViewVisitProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
-		controller = new ProfileVisitController();
-
+		this.centerController = centerController;
 		this.user = user;
+
+		controller = new ProfileVisitController();
 
 		initJlabels();
 		initJButtons();
@@ -122,6 +128,8 @@ public class CenterViewVisitProfile extends JPanel {
 	}
 
 	private void initJlist() {
+		DoubleClickListener clickListener = new DoubleClickListener(this);
+
 		uploadedModel = new RecipesList();
 		uploadedModel.setList(user.getPublished());
 
@@ -130,10 +138,25 @@ public class CenterViewVisitProfile extends JPanel {
 		uploaded = new JList<>();
 		uploaded.setModel(uploadedModel);
 		uploaded.setCellRenderer(renderer);
+		uploaded.addMouseListener(clickListener);
 
 	}
 
-	private JPanel createContent() {
+	private JScrollPane createContent() {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBackground(bgColor);
+
+		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll.setBorder(BorderFactory.createEmptyBorder());
+		scroll.setBackground(bgColor);
+		scroll.setOpaque(false);
+
+		scroll.setViewportView(createMainPanel());
+
+		return scroll;
+	}
+
+	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new BorderLayout(20, 20));
 		contentPanel.setBackground(Color.white);
 		contentPanel.setOpaque(true);
@@ -261,11 +284,19 @@ public class CenterViewVisitProfile extends JPanel {
 		return this;
 	}
 
+	public void openSelectedRecipe() {
+		try {
+			centerController.setRecipeView(uploaded.getSelectedValue());
+		} catch (Exception e) {
+		}
+	}
+
 	public void setVisitUser(User visitUser) {
 		this.visiUser = visitUser;
 
 		/*
-		 *el user. ... hay que cambiarlo por visitUser cuando tengamos las peticiones a la base de datos
+		 * el user. ... hay que cambiarlo por visitUser cuando tengamos las peticiones a
+		 * la base de datos
 		 */
 		initJlist();
 		profilePicture.setIcon(user.getProfilePic());
@@ -276,10 +307,10 @@ public class CenterViewVisitProfile extends JPanel {
 
 		this.revalidate();
 		this.repaint();
+	}
 
-		/*
-		 * CAMBIA EL USUARIO QUE TIENE QUE MOSTRAR Y ACTUALIZA TODOS LOS DATOS COMO EN
-		 * EL RECIPEVIEW Y HACES REPAINT Y REVALIDATE
-		 */
+	@Override
+	public void clicked() {
+		openSelectedRecipe();
 	}
 }

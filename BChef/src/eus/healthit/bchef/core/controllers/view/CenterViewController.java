@@ -50,7 +50,7 @@ public class CenterViewController implements ActionListener {
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);
 		stepView = new CenterStepView();
-		visitProfile = new CenterViewVisitProfile(user);
+		visitProfile = new CenterViewVisitProfile(user, this);
 	}
 
 	public void setStartView() {
