@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.management.Query;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -354,11 +355,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	@Override
 	public void clicked() {
-		centerController.setVisitProfileView(recipe.getFullAuthor());
-		System.out.println(
-				"Tiene sque crear el profile view y llamar a un metodo del controlador que cambie a un perfil en concreto y "
-						+ "\n"
-						+ "le pases el perfil que ha seleccionado, en este caso seia buscar en la database el nombre del author");
+//		centerController.setVisitProfileView(Query.GetUserById(recipe.getAuthorID()));
+		System.out.println("Falta el query");
 	}
-
 }

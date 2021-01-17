@@ -421,6 +421,14 @@ public class CenterViewCreateRecipe extends JPanel {
 		}
 	}
 
+	public String getName() {
+		return title.getText();
+	}
+
+	public String getDescription() {
+		return description.getText();
+	}
+
 	public String getAuthor() {
 		return user.getName();
 	}

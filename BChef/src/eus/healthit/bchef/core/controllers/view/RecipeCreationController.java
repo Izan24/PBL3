@@ -94,12 +94,14 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 		preview.setRecipe(createRecipe());
 
 		framePreview.setContentPane(preview);
+		framePreview.setLocation(400, 75);
 		framePreview.setVisible(true);
 	}
 
 	public Recipe createRecipe() {
-		Recipe recipe = new Recipe(createRecipeView.getName(), createRecipeView.getAuthor(), 5,
-				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
+		Recipe recipe = new Recipe(createRecipeView.getName(), createRecipeView.getAuthor(), 2,
+				createRecipeView.getDescription(), 5, createRecipeView.getIngredients(), createRecipeView.getSteps(),
+				createRecipeView.getImage());
 		System.out.println("Crear receta");
 		return (recipe);
 //		return new Recipe("Prueba Prev", "Izan owo", 6, null, null, null);
