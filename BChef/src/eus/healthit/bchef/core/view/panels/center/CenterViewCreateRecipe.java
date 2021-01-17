@@ -117,9 +117,16 @@ public class CenterViewCreateRecipe extends JPanel {
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.REMOVE_STEP));
 
 		addImageButton = new JButton("Añadir imagen");
-		addImageButton.setBackground(Color.white);
-		addImageButton.setForeground(Color.DARK_GRAY);
+		addImageButton.setPreferredSize(new Dimension(150, 40));
+		addImageButton.setBackground(bgColor);
+		addImageButton.setForeground(new Color(28, 162, 243));
+		addImageButton.setFont(textFont);
 		addImageButton.setFocusable(false);
+		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
+				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
+				RecipeCreationControllerAC.ADD_IMAGE, "Añadir imagen", "Añadir imagen"));
+		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
 		addIngredientButton = new JButton("Añadir");
 		addIngredientButton.setPreferredSize(new Dimension(150, 35));

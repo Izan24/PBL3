@@ -11,6 +11,7 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
@@ -28,6 +29,12 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 	@Override
 	public void actionPerformed(String command) {
 		switch (command) {
+
+		case RecipeCreationControllerAC.ADD_IMAGE:
+			System.out.println("ADD IMAGE");
+			FileChooser file = new FileChooser();
+			break;
+
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
 			System.out.println("ADD_INGREDIENT");
 			createRecipeView.addIngredient();
@@ -60,6 +67,12 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
+
+		case RecipeCreationControllerAC.ADD_IMAGE:
+			System.out.println("ADD IMAGE");
+			FileChooser file = new FileChooser();
+			break;
+
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
 			System.out.println("ADD_INGREDIENT");
 			createRecipeView.addIngredient();

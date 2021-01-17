@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;
 import eus.healthit.bchef.core.view.panels.center.CenterView;
@@ -31,7 +32,7 @@ public class PrincipalView extends JPanel {
 
 		leftMenuView = new LeftMenuView(centerController);
 		northView = new NorthView();
-
+		
 		setContent();
 	}
 
