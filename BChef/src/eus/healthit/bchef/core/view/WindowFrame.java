@@ -26,4 +26,7 @@ public class WindowFrame extends JFrame {
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+
+	public void setContentPane(PrincipalView principalView, WindowFrameController windowFrameController) {
+	}
 }

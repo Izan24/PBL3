@@ -2,7 +2,6 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.attribute.FileOwnerAttributeView;
 
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -36,15 +35,17 @@ public class CenterViewController implements ActionListener {
 	CenterView centerView;
 	User user;
 
-	public CenterViewController(PrincipalView principalView, CenterView centerView, User user) {
+	public CenterViewController(PrincipalView principalView, CenterView centerView, User user,
+			WindowFrameController windowController) {
+
 		this.principalView = principalView;
 		this.centerView = centerView;
 		this.user = user;
 
-		initViews();
+		initViews(windowController);
 	}
 
-	private void initViews() {
+	private void initViews(WindowFrameController windowController) {
 		listView = new CenterViewList(this);
 		profileView = new CenterViewProfile(user, this);
 		recipeView = new CenterViewRecipe(this, user);
@@ -53,7 +54,7 @@ public class CenterViewController implements ActionListener {
 		createRecipeView = new CenterViewCreateRecipe(user);
 		stepView = new CenterStepView();
 		visitProfile = new CenterViewVisitProfile(user, this);
-		settingsView = new CenterViewProfileSettings(user);
+		settingsView = new CenterViewProfileSettings(user, windowController);
 	}
 
 	public void setStartView() {
@@ -84,7 +85,7 @@ public class CenterViewController implements ActionListener {
 		case CenterControllerAC.BCHEF:
 			principalView.changeCenterView(bchefView);
 			break;
-			
+
 		case CenterControllerAC.SETTINGS:
 			principalView.changeCenterView(settingsView);
 			break;
