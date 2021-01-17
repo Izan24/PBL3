@@ -10,7 +10,6 @@ import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +21,6 @@ import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
-import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControllerAC;
 import eus.healthit.bchef.core.enums.RecipeStepActions;

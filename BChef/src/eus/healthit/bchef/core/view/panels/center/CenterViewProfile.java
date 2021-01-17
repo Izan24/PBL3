@@ -340,8 +340,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		following.setText(String.valueOf(user.getFollowedNumber()));
 		followers.setText(String.valueOf(user.getFollowersNumber()));
 
-		this.revalidate();
-		this.repaint();
+		changeListView(ProfileControllerAC.UPLOADED);
 	}
 
 	@Override
