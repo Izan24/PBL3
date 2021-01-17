@@ -191,11 +191,9 @@ public class CenterViewProfileSettings extends JPanel {
 		logOut.setForeground(new Color(28, 162, 243));
 		logOut.setFont(textFont);
 		logOut.setFocusable(false);
-
-		logOut.setUI(new UIRoundButton(logOut, 30, bgColor, new Color(255, 201, 201), new Color(196, 35, 93),
+		logOut.setUI(new UIRoundButton(logOut, 30, bgColor, new Color(255, 217, 217), new Color(196, 35, 93),
 				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.LOG_OUT, "Cerrar sesion",
 				"Cerrar sesion"));
-
 		logOut.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(196, 35, 93)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
