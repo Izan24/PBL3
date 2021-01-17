@@ -28,6 +28,7 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
@@ -50,8 +51,8 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	RecipeCreationController controller;
 
-	Color greenButtonColor = new Color(144, 230, 146);
-	Color redButtonColor = new Color(230, 129, 129);
+	Color greenButtonColor = new Color(56, 186, 125);
+	Color redButtonColor = new Color(243, 69, 65);
 
 	JButton addImageButton;
 	JButton addStepButton, removeStepButton;
@@ -89,7 +90,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		addComboData();
 
 		this.add(createContent(), BorderLayout.CENTER);
-//		this.add(createButtonPannel(), BorderLayout.SOUTH);
 	}
 
 	private void initButtons() {
@@ -146,18 +146,20 @@ public class CenterViewCreateRecipe extends JPanel {
 		createButton.setFont(textFont);
 		createButton.setBorder(BorderFactory.createEmptyBorder());
 		createButton.setFocusable(false);
-		createButton.setUI(new UIRoundButton(createButton, 30, greenButtonColor, Color.white,
+		createButton.setUI(new UIRoundButton(createButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.CREATE_RECIPE));
 
-		previewButton = new JButton("Vista previa");
-		previewButton.setPreferredSize(new Dimension(150, 35));
-		previewButton.setBackground(new Color(28, 162, 243));
-		previewButton.setForeground(Color.white);
+		previewButton = new JButton("Crear cuenta");
+		previewButton.setPreferredSize(new Dimension(150, 40));
+		previewButton.setBackground(bgColor);
+		previewButton.setForeground(new Color(28, 162, 243));
 		previewButton.setFont(textFont);
-		previewButton.setBorder(BorderFactory.createEmptyBorder());
 		previewButton.setFocusable(false);
-		previewButton.setUI(new UIRoundButton(previewButton, 30, greenButtonColor, Color.white,
-				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.PREVIEW));
+		previewButton.setUI(new UIRoundButton(previewButton, 30, bgColor, new Color(234, 246, 254),
+				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
+				RecipeCreationControllerAC.CREATE_RECIPE, "Vista previa", "Vista previa"));
+		previewButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
 	private void initTextFields() {
@@ -203,7 +205,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		JPanel buttonPanel = new JPanel(new BorderLayout(20, 20));
 		buttonPanel.setBackground(bgColor);
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-//		buttonPanel.setPreferredSize(new Dimension(30,20));
 
 		buttonPanel.add(previewButton, BorderLayout.WEST);
 		buttonPanel.add(createButton, BorderLayout.EAST);
