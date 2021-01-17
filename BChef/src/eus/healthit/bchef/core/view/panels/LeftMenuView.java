@@ -89,16 +89,14 @@ public class LeftMenuView extends JPanel {
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonHome);
 		leftMenu.add(Box.createVerticalStrut(30));
-		leftMenu.add(buttonProfile);
+		leftMenu.add(buttonCreateRecipe);
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonList);
 		leftMenu.add(Box.createVerticalStrut(30));
-		leftMenu.add(buttonCreateRecipe);
+		leftMenu.add(buttonProfile);
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonChef);
-
-		// this.add(leftMenu, BorderLayout.CENTER);
-
+		
 		return leftMenu;
 	}
 }

@@ -44,4 +44,8 @@ public class RecipeStepList extends AbstractListModel<RecipeStep> {
 	public int getSize() {
 		return list.size();
 	}
+
+	public List<RecipeStep> getList() {
+		return list;
+	}
 }

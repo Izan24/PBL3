@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
+import eus.healthit.bchef.core.view.panels.center.CenterStepView;
 import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewBchef;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
@@ -13,6 +15,7 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
+import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
 
 public class CenterViewController implements ActionListener {
 
@@ -24,6 +27,8 @@ public class CenterViewController implements ActionListener {
 	CenterViewBchef bchefView;
 	CenterViewShopList shopListView;
 	CenterViewCreateRecipe createRecipeView;
+	CenterStepView stepView;
+	CenterViewVisitProfile visitProfile;
 
 	CenterView centerView;
 	User user;
@@ -34,21 +39,21 @@ public class CenterViewController implements ActionListener {
 		this.user = user;
 
 		initViews();
-		System.out.println("Initview");
 	}
 
 	private void initViews() {
 		listView = new CenterViewList(this);
-		profileView = new CenterViewProfile(user);
-		recipeView = new CenterViewRecipe();
+		profileView = new CenterViewProfile(user, this);
+		recipeView = new CenterViewRecipe(this);
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user);
+		stepView = new CenterStepView();
+		visitProfile = new CenterViewVisitProfile(user);
 	}
 
 	public void setStartView() {
 		principalView.changeCenterView(listView);
-		System.out.println("SetStartview");
 	}
 
 	@Override
@@ -67,6 +72,10 @@ public class CenterViewController implements ActionListener {
 			principalView.changeCenterView(profileView);
 			break;
 
+		case CenterControllerAC.PROFILE_VISIT:
+			principalView.changeCenterView(visitProfile);
+			break;
+
 		case CenterControllerAC.BCHEF:
 			principalView.changeCenterView(bchefView);
 			break;
@@ -74,12 +83,27 @@ public class CenterViewController implements ActionListener {
 		case CenterControllerAC.CREATE_RECIPE:
 			principalView.changeCenterView(createRecipeView);
 			break;
+
+		case CenterControllerAC.RECIPE_STEP:
+			principalView.changeCenterView(stepView);
+			break;
 		}
 	}
 
 	public void setRecipeView(Recipe recipe) {
 		recipeView.setRecipe(recipe);
 		principalView.changeCenterView(recipeView);
+	}
+
+	public void setVisitProfileView(User visitUser) {
+		visitProfile.setVisitUser(visitUser);
+		System.out.println("Tienes que usar el metodo setVIsitUser para setear todas las cosas que te pasa con el ");
+		principalView.changeCenterView(visitProfile);
+	}
+
+	public void setStepView(RecipeStep step) {
+		stepView.setStep(step);
+		principalView.changeCenterView(stepView);
 	}
 
 }

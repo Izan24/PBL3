@@ -50,12 +50,12 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 			southPanel.setBackground(Color.white);
 			starPanel.setBackground(Color.white);
 		} else {
-			panelList.setBackground(new Color(232, 232, 232));
-			textPanel.setBackground(new Color(232, 232, 232));
-			panelImage.setBackground(new Color(232, 232, 232));
-			dataPanel.setBackground(new Color(232, 232, 232));
-			southPanel.setBackground(new Color(232, 232, 232));
-			starPanel.setBackground(new Color(232, 232, 232));
+			panelList.setBackground(new Color(225, 252, 254));
+			textPanel.setBackground(new Color(225, 252, 254));
+			panelImage.setBackground(new Color(225, 252, 254));
+			dataPanel.setBackground(new Color(225, 252, 254));
+			southPanel.setBackground(new Color(225, 252, 254));
+			starPanel.setBackground(new Color(225, 252, 254));
 		}
 
 		// --------------------------------------------------------------------------
@@ -74,14 +74,14 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 
 		panelImage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
 		JLabel image;
-		
+
 		try {
 			image = new JLabel(new ImageIcon(new URL(value.getImageURL())));
-			
+
 		} catch (Exception e) {
 			image = new JLabel("MalformedxD");
 		}
-		
+
 		panelImage.add(image);
 
 		// --------------------------------------------------------------------------
@@ -114,7 +114,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		}
 
 		southPanel.add(starPanel);
-		
+
 		dataPanel.add(text, BorderLayout.CENTER);
 		dataPanel.add(southPanel, BorderLayout.SOUTH);
 

@@ -23,7 +23,7 @@ public class RecipesList extends AbstractListModel<Recipe> {
 	}
 
 	private void initList() {
-		list = RecipeRepository.getN(10);
+		list = RecipeRepository.getN(1);
 	}
 
 

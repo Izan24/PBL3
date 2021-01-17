@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -15,23 +16,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.controllers.implementations.ShopListController;
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.DefaultTextController;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
-import eus.healthit.bchef.core.controllers.view.ShopListSelectionListener;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
-public class CenterViewShopList extends JPanel {
-
-	/*
-	 * PONLE UN SELECTIONLISTENERR Y HACES QUE ESTO TENGA UNA FUNCION QUE CAMBIE EL
-	 * BOUGHT DEL OBJETO Y ASI ARREGLAS LO DEL TIC
-	 */
+public class CenterViewShopList extends JPanel implements IClickable {
 
 	JTextField newElementField;
 	User user;
+
+	JButton buttonAdd, deleteButton;
 
 	JList<Item> itemList;
 	ItemList listModel;
@@ -39,7 +40,7 @@ public class CenterViewShopList extends JPanel {
 
 	ShopListButtonController buttonController;
 	ShopListController listController;
-	ShopListSelectionListener listener;
+	DoubleClickListener listener;
 
 	public CenterViewShopList(User user) {
 		super(new BorderLayout(10, 10));
@@ -55,11 +56,33 @@ public class CenterViewShopList extends JPanel {
 		 * AQUI TE TIENEN QUE PASAR EL USER E INICIAR LA LISTA DE ITEMS DE LA LISTA QUE
 		 * TIENE EL USER
 		 */
+		initButtons();
 		initList();
 
 		this.add(createNorthPanel(), BorderLayout.NORTH);
 		this.add(createCenterPanel(), BorderLayout.CENTER);
 		this.add(createSouthPanel(), BorderLayout.SOUTH);
+	}
+
+	private void initButtons() {
+		buttonAdd = new JButton();
+		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon.png"));
+		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
+		buttonAdd.addActionListener(buttonController);
+		buttonAdd.setFocusable(false);
+		buttonAdd.setBorder(BorderFactory.createEmptyBorder());
+		buttonAdd.setBackground(Color.white);
+		buttonAdd.setForeground(Color.white);
+		buttonAdd.setPreferredSize(new Dimension(40, 40));
+		buttonAdd.setBackground(new Color(224, 224, 224));
+
+		deleteButton = new JButton("Eliminar");
+		deleteButton.setBackground(new Color(202, 0, 0));
+		deleteButton.setActionCommand(ShopListControllerAC.REMOVE);
+		deleteButton.addActionListener(buttonController);
+		deleteButton.setForeground(Color.white);
+		deleteButton.setFocusable(false);
+
 	}
 
 	private void initList() {
@@ -69,7 +92,7 @@ public class CenterViewShopList extends JPanel {
 		// listModel.setList(user.getShopList());
 
 		renderer = new ItemRenderer(buttonController);
-		listener = new ShopListSelectionListener(this);
+		listener = new DoubleClickListener(this);
 
 		itemList.setModel(listModel);
 		itemList.setCellRenderer(renderer);
@@ -82,21 +105,13 @@ public class CenterViewShopList extends JPanel {
 		northPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 		newElementField = new JTextField();
-		newElementField.setText("");
+		newElementField.setText("Nuevo elemento");
+		newElementField.setForeground(Color.GRAY);
 		newElementField.setToolTipText("Nuevo elemento");
+		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
 		newElementField.setPreferredSize(new Dimension(300, 40));
-
-		JButton buttonAdd = new JButton();
-		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon.png"));
-		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
-		buttonAdd.addActionListener(buttonController);
-		buttonAdd.setFocusable(false);
-		buttonAdd.setPreferredSize(new Dimension(40, 40));
-		buttonAdd.setBackground(new Color(224, 224, 224));
-		/*
-		 * Crea el controlador del panel de la lista de la compra
-		 */
-//		buttonAdd.addActionListener(listener);
+		newElementField.setBorder(new SearchBorder(20, Color.GRAY));
+		newElementField.setFont(new Font("Gill Sans MT", Font.PLAIN, 20));
 
 		northPanel.add(newElementField);
 		northPanel.add(buttonAdd);
@@ -123,25 +138,14 @@ public class CenterViewShopList extends JPanel {
 		JPanel southPanel = new JPanel(new FlowLayout());
 		southPanel.setBackground(Color.white);
 
-		JButton deleteButton = new JButton("Eliminar");
-		deleteButton.setBackground(new Color(202, 0, 0));
-		deleteButton.setActionCommand(ShopListControllerAC.REMOVE);
-		deleteButton.addActionListener(buttonController);
-		deleteButton.setForeground(Color.white);
-		deleteButton.setFocusable(false);
-
 		southPanel.add(deleteButton);
 
 		return southPanel;
 	}
 
 	public void addElement() {
-		String spaceless = newElementField.getText().trim();
-
-		if (!spaceless.equals("")) {
-			listController.addElement(newElementField.getText());
-			newElementField.setText("");
-		}
+		listController.addElement(newElementField.getText());
+		newElementField.setText("");
 	}
 
 	public void removeElement() {
@@ -151,14 +155,15 @@ public class CenterViewShopList extends JPanel {
 		}
 	}
 
-	public void checkItem() {
+	public ItemList getListModel() {
+		return listModel;
+	}
+
+	@Override
+	public void clicked() {
 		Item selectedItem = itemList.getSelectedValue();
 		selectedItem.flipBought();
 		this.repaint();
-	}
-
-	public ItemList getListModel() {
-		return listModel;
 	}
 
 }

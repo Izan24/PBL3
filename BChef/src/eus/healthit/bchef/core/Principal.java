@@ -18,18 +18,8 @@ public class Principal {
 		windowFrame = new WindowFrame();
 	}
 
-
-	public static void main(String[] args) throws MalformedURLException {
-		//IKitchenController kitchenController = new KitchenController();
-		//Principal principal = new Principal();
-		Map<String, String> map = new HashMap<>();
-		map.put("name", "Urko");
-		map.put("surname", "Agirregomezkorta");
-		map.put("profilepic", ImageCoder.encodeImage("proba2.png"));
-		map.put("email","u.agirregomezkort@alumni.mondragon.edu");
-		map.put("username", "Rkolay");
-		map.put("password", "mutriku123");
-		Client cliente = new Client(new URL("http://localhost/api/user"));
-		cliente.postUser(map);
+	public static void main(String[] args) {
+		IKitchenController kitchenController = new KitchenController();
+		Principal principal = new Principal();
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 
+import javax.swing.Icon;
 import javax.swing.border.Border;
 
 public class RoundedBorder implements Border{
@@ -19,6 +20,12 @@ public class RoundedBorder implements Border{
 		this.radius = radius;
 		this.borderColor = borderColor;
 	}
+	
+	public RoundedBorder(int radius, Color borderColor, boolean icon) {
+		this.radius = radius;
+		this.borderColor = borderColor;
+	}
+	
 	
 	@Override
 	public Insets getBorderInsets(Component c) {
