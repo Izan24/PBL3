@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
+import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
 public class RecipeCreationController implements ActionListener, IRoundButtonListener {
@@ -88,13 +90,19 @@ public class RecipeCreationController implements ActionListener, IRoundButtonLis
 	}
 
 	private void openPreviewWindow() {
+		CenterPreviewRecipe preview = new CenterPreviewRecipe();
+		preview.setRecipe(createRecipe());
+
+		framePreview.setContentPane(preview);
 		framePreview.setVisible(true);
 	}
 
-	private void createRecipe() {
-//		Recipe recipe = new Recipe(createRecipeView.getName(), createRecipeView.getAuthor(), 5,
-//				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
+	public Recipe createRecipe() {
+		Recipe recipe = new Recipe(createRecipeView.getName(), createRecipeView.getAuthor(), 5,
+				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
 		System.out.println("Crear receta");
+		return (recipe);
+//		return new Recipe("Prueba Prev", "Izan owo", 6, null, null, null);
 	}
 
 	private void createPreviewWindow() {

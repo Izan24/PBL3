@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -29,6 +30,7 @@ import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
+import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
@@ -62,6 +64,8 @@ public class CenterViewCreateRecipe extends JPanel {
 	JTextField title, description;
 	JTextField ingredient, quantity;
 	JTextArea instruction;
+
+	String imgPath;
 
 	JComboBox<RecipeStepActions> actions;
 	JComboBox<Integer> values;
@@ -149,7 +153,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		createButton.setUI(new UIRoundButton(createButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.CREATE_RECIPE));
 
-		previewButton = new JButton("Crear cuenta");
+		previewButton = new JButton("Vista previa");
 		previewButton.setPreferredSize(new Dimension(150, 40));
 		previewButton.setBackground(bgColor);
 		previewButton.setForeground(new Color(28, 162, 243));
@@ -157,7 +161,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		previewButton.setFocusable(false);
 		previewButton.setUI(new UIRoundButton(previewButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.CREATE_RECIPE, "Vista previa", "Vista previa"));
+				RecipeCreationControllerAC.PREVIEW, "Vista previa", "Vista previa"));
 		previewButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -166,19 +170,22 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		title = new JTextField();
 		title.setFont(textFont);
+		title.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		title.setText(TITLE_DEFAULT_TEXT);
 		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
 		title.setForeground(Color.gray);
 
 		description = new JTextField();
 		description.setFont(textFont);
+		description.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		description.setText(DESCRIPTION_DEFAULT_TEXT);
 		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
 		description.setForeground(Color.gray);
 
 		instruction = new JTextArea();
-		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
 		instruction.setFont(textFont);
+		instruction.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
+//		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
@@ -186,12 +193,14 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		ingredient = new JTextField();
 		ingredient.setFont(textFont);
+		ingredient.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
 		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
 		ingredient.setForeground(Color.gray);
 
 		quantity = new JTextField();
 		quantity.setFont(textFont);
+		quantity.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		quantity.setText(QUANTITY_DEFAULT_TEXT);
 		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
 		quantity.setForeground(Color.gray);
@@ -426,11 +435,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		return stepModel.getList();
 	}
 
-//	public String getImage() {
-//		/*
-//		 * Returnear la imagen cuando la tengamos
-//		 */
-////		return ima;
-//	}
-
+	public String getImage() {
+		return imgPath;
+	}
 }

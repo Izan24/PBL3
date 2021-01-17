@@ -44,7 +44,7 @@ public class NorthView extends JPanel {
 		searchBar.setPreferredSize(new Dimension(550, 35));
 		searchBar.addActionListener(controller);
 		searchBar.setActionCommand(NorthViewControllerAC.SEARCH);
-		searchBar.setBorder(new SearchBorder(30, new Color(200, 200, 200)));
+		searchBar.setBorder(new SearchBorder(30, new Color(200, 200, 200),true));
 
 		panelSearch.add(searchBar);
 

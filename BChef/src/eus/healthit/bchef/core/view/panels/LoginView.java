@@ -89,14 +89,14 @@ public class LoginView extends JPanel {
 	private void initTextFields() {
 		username = new RoundedTextField(DEFAULT_USERNAME_TEXT);
 		username.setPreferredSize(new Dimension(350, 40));
-		username.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		username.setBorder(new SearchBorder(20, new Color(200, 200, 200),false));
 		username.setText(DEFAULT_USERNAME_TEXT);
 		username.setForeground(Color.gray);
 		username.setOpaque(false);
 
 		password = new RoundedJPasswordField(DEFAULT_PASSWORD_TEXT);
 		password.setPreferredSize(new Dimension(350, 40));
-		password.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		password.setBorder(new SearchBorder(20, new Color(200, 200, 200),false));
 		password.setText(DEFAULT_PASSWORD_TEXT);
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.gray);

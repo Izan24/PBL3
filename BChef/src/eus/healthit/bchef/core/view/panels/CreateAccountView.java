@@ -98,42 +98,42 @@ public class CreateAccountView extends JPanel {
 	private void initTextFields() {
 		name = new RoundedTextField(DEFAULT_NAME_TEXT);
 		name.setPreferredSize(new Dimension(350, 40));
-		name.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		name.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		name.setText(DEFAULT_NAME_TEXT);
 		name.setForeground(Color.gray);
 		name.setOpaque(false);
 
 		surname = new RoundedTextField(DEFAULT_SURNAME_TEXT);
 		surname.setPreferredSize(new Dimension(350, 40));
-		surname.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		surname.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		surname.setText(DEFAULT_SURNAME_TEXT);
 		surname.setForeground(Color.gray);
 		surname.setOpaque(false);
 
 		email = new RoundedTextField(DEFAULT_EMAIL_TEXT);
 		email.setPreferredSize(new Dimension(350, 40));
-		email.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		email.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		email.setText(DEFAULT_EMAIL_TEXT);
 		email.setForeground(Color.gray);
 		email.setOpaque(false);
 
 		username = new RoundedTextField(DEFAULT_USERNAME_TEXT);
 		username.setPreferredSize(new Dimension(350, 40));
-		username.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		username.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		username.setText(DEFAULT_USERNAME_TEXT);
 		username.setForeground(Color.gray);
 		username.setOpaque(false);
 
 		pwd = new RoundedJPasswordFieldShow(DEFAULT_PWD_TEXT, showPWDBox);
 		pwd.setPreferredSize(new Dimension(350, 40));
-		pwd.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		pwd.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		pwd.setText(DEFAULT_PWD_TEXT);
 		pwd.setEchoChar((char) 0);
 		pwd.setForeground(Color.gray);
 
 		pwdConfirm = new RoundedJPasswordFieldShow(DEFAULT_CONFPWD_TEXT, showPWDBox);
 		pwdConfirm.setPreferredSize(new Dimension(350, 40));
-		pwdConfirm.setBorder(new SearchBorder(20, new Color(200, 200, 200)));
+		pwdConfirm.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		pwdConfirm.setText(DEFAULT_CONFPWD_TEXT);
 		pwdConfirm.setEchoChar((char) 0);
 		pwdConfirm.setForeground(Color.gray);
