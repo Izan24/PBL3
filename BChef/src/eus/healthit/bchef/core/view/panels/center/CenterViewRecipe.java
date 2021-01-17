@@ -9,10 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
-import javax.management.Query;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,7 +21,6 @@ import javax.swing.JScrollPane;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.RecipeViewController;
 import eus.healthit.bchef.core.controllers.view.RecipeViewControllerAC;
 import eus.healthit.bchef.core.models.Ingredient;
@@ -304,9 +300,9 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 				JLabel ingrName = new JLabel(ingr.getName());
 				JLabel ingrQuantity = new JLabel(ingr.getQuantity());
 
-				ingrName.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+				ingrName.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 
-				ingrQuantity.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+				ingrQuantity.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 				ingrQuantity.setHorizontalAlignment(JLabel.RIGHT);
 
 				tmpIngPanel.add(ingrName);
@@ -334,7 +330,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 				JLabel stepText = new JLabel(step.getText());
 
-				stepText.setFont(new Font("Gill Sans MT", Font.PLAIN, 18));
+				stepText.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 				stepText.setHorizontalAlignment(JLabel.CENTER);
 
 				stepPanel.add(stepText);

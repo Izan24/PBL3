@@ -33,6 +33,7 @@ import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
+import eus.healthit.bchef.core.view.ingredients.IngredientRenderer;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
 
 public class CenterViewCreateRecipe extends JPanel {
@@ -77,6 +78,8 @@ public class CenterViewCreateRecipe extends JPanel {
 	IngredientList ingredientModel;
 	RecipeStepList stepModel;
 
+	IngredientRenderer ingredientRenderer;
+
 	Color bgColor = Color.white;
 
 	public CenterViewCreateRecipe(User user) {
@@ -90,6 +93,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		controller = new RecipeCreationController(this);
 
 		initButtons();
+		initJLists();
 		initTextFields();
 		addComboData();
 
@@ -171,6 +175,19 @@ public class CenterViewCreateRecipe extends JPanel {
 				RecipeCreationControllerAC.PREVIEW, "Vista previa", "Vista previa"));
 		previewButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
+	}
+
+	private void initJLists() {
+		ingredients = new JList<>();
+		ingredientModel = new IngredientList();
+		ingredientRenderer = new IngredientRenderer();
+
+		ingredients.setModel(ingredientModel);
+		ingredients.setCellRenderer(ingredientRenderer);
+
+		steps = new JList<>();
+		stepModel = new RecipeStepList();
+		steps.setModel(stepModel);
 	}
 
 	private void initTextFields() {
@@ -323,10 +340,6 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-		steps = new JList<>();
-		stepModel = new RecipeStepList();
-		steps.setModel(stepModel);
-
 		scrollPane.setViewportView(steps);
 
 		return scrollPane;
@@ -386,10 +399,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		scrollPane.setOpaque(true);
 
 		scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-
-		ingredients = new JList<>();
-		ingredientModel = new IngredientList();
-		ingredients.setModel(ingredientModel);
 
 		scrollPane.setViewportView(ingredients);
 

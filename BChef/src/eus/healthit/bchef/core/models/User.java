@@ -14,13 +14,12 @@ public class User {
 	String username;
 	String password;
 	List<User> followed;
-	List<User> followers;
+	int followers;
 	List<Recipe> published;
 	List<Recipe> saved;
-	List<Item> shopList; // HACEMOS QUE SEA INGREDIENT O UN STRING SIN MAS??
+	List<Item> shopList;
 	List<Recipe> history;
 
-	
 	/**
 	 * Creates a new User with Profile pic
 	 */
@@ -34,18 +33,17 @@ public class User {
 		this.username = username;
 		this.password = password;
 		followed = new ArrayList<>();
-		followers = new ArrayList<>();
+		followers = 0;
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
 		shopList = new ArrayList<>();
 		history = new ArrayList<>();
 	}
-	
+
 	/**
 	 * Creates a new User without Profile pic
 	 */
-	public User(int id, String name, String surname, String email, String username,
-			String password) {
+	public User(int id, String name, String surname, String email, String username, String password) {
 
 		this.id = id;
 		this.name = name;
@@ -55,7 +53,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		followed = new ArrayList<>();
-		followers = new ArrayList<>();
+		followers = 0;
 		published = new ArrayList<>();
 		saved = new ArrayList<>();
 		shopList = new ArrayList<>();
@@ -66,7 +64,7 @@ public class User {
 	 * Load an existing user
 	 */
 	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
-			String password, List<User> followed,List<User> followers, List<Recipe> published, List<Recipe> saved,
+			String password, List<User> followed, int followers, List<Recipe> published, List<Recipe> saved,
 			List<Item> shopList, List<Recipe> history) {
 
 		this.id = id;
@@ -77,7 +75,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.followed = followed;
-		this.followers = followers;
+		this.followers = 0;
 		this.published = published;
 		this.saved = saved;
 		this.shopList = shopList;
@@ -92,8 +90,8 @@ public class User {
 		this.name = name;
 	}
 
-	//------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------
+
 	public String getSurname() {
 		return surname;
 	}
@@ -101,8 +99,8 @@ public class User {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 
 	public ImageIcon getProfilePic() {
 		return profilePic;
@@ -111,12 +109,12 @@ public class User {
 	public void setProfilePic(ImageIcon profilePic) {
 		this.profilePic = profilePic;
 	}
-	
+
 	public void removeProfilePic() {
 		this.profilePic = new ImageIcon("resources/user/default_user.png");
 	}
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 
 	public String getEmail() {
 		return email;
@@ -125,8 +123,8 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 
 	public String getUsername() {
 		return username;
@@ -136,8 +134,8 @@ public class User {
 		this.username = username;
 	}
 
-	//------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------
+
 	public String getPassword() {
 		return password;
 	}
@@ -145,104 +143,101 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 
 	public int getId() {
 		return id;
 	}
 
-	//------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------
+
 	public List<User> getFollowed() {
 		return followed;
 	}
-	
+
 	public void addFollowedUser(User user) {
 		followed.add(user);
 	}
-	
+
 	public void removeFollowedUser(User user) {
 		followed.remove(user);
 	}
-	
+
 	public int getFollowedNumber() {
 		return followed.size();
 	}
-	
-	//------------------------------------------------------------------------
-	
-	public List<User> getFollowers() {
+
+	// ------------------------------------------------------------------------
+
+	public int getFollowers() {
 		return followers;
 	}
-	
-	public void addFollower(User user) {
-		followers.add(user);
-	}
-	
-	public void removeFollower(User user) {
-		followers.remove(user);
-	}
-	
-	public int getFollowersNumber() {
-		return followers.size();
-	}
-	
-	//------------------------------------------------------------------------
 
+	public void addFollower(User user) {
+		followers++;
+	}
+
+	public void removeFollower(User user) {
+		followers--;
+	}
+
+	public int getFollowersNumber() {
+		return followers;
+	}
+
+	// ------------------------------------------------------------------------
 
 	public List<Recipe> getPublished() {
 		return published;
 	}
-	
+
 	public int getPublishedNumber() {
 		return published.size();
 	}
-	
+
 	public void addPublication(Recipe recipe) {
 		published.add(recipe);
 	}
-	
+
 	public void removePublication(Recipe recipe) {
 		published.remove(recipe);
 	}
-	
-	//------------------------------------------------------------------------
 
+	// ------------------------------------------------------------------------
 
 	public List<Recipe> getSaved() {
 		return saved;
 	}
-	
+
 	public void addSaved(Recipe recipe) {
 		saved.add(recipe);
 	}
-	
+
 	public void removeSaved(Recipe recipe) {
 		saved.remove(recipe);
 	}
-	
-	//------------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------
 
 	public List<Item> getShopList() {
 		return shopList;
 	}
-	
+
 	public void addShopElement(Item ingredient) {
 		shopList.add(ingredient);
 	}
-	
+
 	public void removeShopElement(Item ingredient) {
 		shopList.remove(ingredient);
 	}
-	
-	//------------------------------------------------------------------------
 
+	// ------------------------------------------------------------------------
 
 	public List<Recipe> getHistory() {
 		return history;
 	}
-	
+
 	public void addHistory(Recipe recipe) {
 		history.add(recipe);
 	}
@@ -250,7 +245,7 @@ public class User {
 	@Override
 	public boolean equals(Object obj) {
 		User o = (User) obj;
-		
+
 		return id == o.getId();
 	}
 }
