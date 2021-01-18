@@ -50,7 +50,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 
 				user = newUser;
 				System.out.println(user);
-				
+
 			}
 
 			break;

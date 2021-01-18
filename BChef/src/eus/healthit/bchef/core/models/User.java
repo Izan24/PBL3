@@ -3,6 +3,7 @@ package eus.healthit.bchef.core.models;
 import java.awt.Image;
 import java.awt.font.ImageGraphicAttribute;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,11 @@ public class User {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
-		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
+		try {
+			this.profilePic = ImageIO.read(new File("resources/user/default_user.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.email = email;
 		this.username = username;
 		this.password = password;
@@ -114,7 +119,11 @@ public class User {
 	}
 
 	public void removeProfilePic() {
-		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
+		try {
+			this.profilePic = ImageIO.read(new File("resources/user/default_user.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ------------------------------------------------------------------------
