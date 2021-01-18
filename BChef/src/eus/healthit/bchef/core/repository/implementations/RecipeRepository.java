@@ -44,8 +44,7 @@ public class RecipeRepository {
 			stmt.close();
 			while (rSet.next()) {
 				recipes.add(new Recipe(UUID.randomUUID(), "Prueba", "RKolay", 12, "Esto es una receta de prueba", 10,
-						null, null, null, null, ImageIO.read(new File(
-								"C:\\Users\\izan2\\Desktop\\PBL3\\PBL3\\BChef\\resources\\recipeIcons\\recetaBonita.jpg"))));
+						null, null, null, null, ImageIO.read(new File("resources\\recipeIcons\\recetaBonita.jpg"))));
 			}
 			System.out.println(query);
 			return recipes;

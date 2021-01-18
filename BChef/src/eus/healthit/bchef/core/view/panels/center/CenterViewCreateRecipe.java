@@ -8,18 +8,23 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
@@ -69,8 +74,9 @@ public class CenterViewCreateRecipe extends JPanel {
 	Image image;
 
 	JComboBox<RecipeStepActions> actions;
-	JComboBox<Integer> values;
-	JComboBox<Integer> time;
+	JSpinner values, time;
+	SpinnerNumberModel valueSpinnerModel;
+	SpinnerDateModel timeSpinnerModel;
 
 	JList<Ingredient> ingredients;
 	JList<RecipeStep> steps;
@@ -95,13 +101,13 @@ public class CenterViewCreateRecipe extends JPanel {
 		initButtons();
 		initJLists();
 		initTextFields();
-		addComboData();
+		initJSpinners();
+		initJComboBoxes();
 
 		this.add(createContent(), BorderLayout.CENTER);
 	}
 
 	private void initButtons() {
-
 		addStepButton = new JButton("Añadir");
 		addStepButton.setPreferredSize(new Dimension(150, 35));
 		addStepButton.setBackground(greenButtonColor);
@@ -191,7 +197,6 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private void initTextFields() {
-
 		title = new JTextField();
 		title.setFont(textFont);
 		title.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
@@ -209,7 +214,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		instruction = new JTextArea();
 		instruction.setFont(textFont);
 		instruction.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
-//		instruction.setBorder(BorderFactory.createLineBorder(Color.lightGray));
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
@@ -231,7 +235,40 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	}
 
-	private void addComboData() {
+	private void initJComboBoxes() {
+		actions = new JComboBox<>();
+		actions.setPreferredSize(new Dimension(100, 10));
+		actions.setBackground(bgColor);
+		actions.setBorder(new RoundedBorder(20, new Color(200, 200, 200)));
+		actions.setFocusable(false);
+		actions.addActionListener(controller);
+		actions.setActionCommand(RecipeCreationControllerAC.ACTION_CHANGE);
+
+		actions.addItem(RecipeStepActions.OVEN);
+		actions.addItem(RecipeStepActions.STOVE);
+		actions.addItem(RecipeStepActions.TIMER);
+	}
+
+	private void initJSpinners() {
+		values = new JSpinner();
+		values.setPreferredSize(new Dimension(100, 10));
+		values.setBackground(bgColor);
+		values.setBorder(new RoundedBorder(20, new Color(200, 200, 200)));
+
+		valueSpinnerModel = new SpinnerNumberModel(0, 0, 10, 1);
+		values.setModel(valueSpinnerModel);
+
+		time = new JSpinner();
+		time.setPreferredSize(new Dimension(125, 10));
+		time.setBackground(bgColor);
+		time.setBorder(new RoundedBorder(20, new Color(200, 200, 200)));
+
+		timeSpinnerModel = new SpinnerDateModel(new Date(0), null, null, Calendar.MINUTE);
+
+		time.setModel(timeSpinnerModel);
+
+		DateEditor editor = new DateEditor(time, "HH:mm:ss");
+		time.setEditor(editor);
 	}
 
 	private Component createButtonPannel() {
@@ -298,7 +335,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		JLabel titleLabel = new JLabel("Pasos");
 		titleLabel.setFont(textFont);
-		titleLabel.setHorizontalAlignment(JLabel.CENTER);
+		titleLabel.setHorizontalAlignment(JLabel.LEFT);
 
 		infoPanel.add(createComboBoxPanel(), BorderLayout.EAST);
 		infoPanel.add(instruction, BorderLayout.CENTER);
@@ -307,13 +344,18 @@ public class CenterViewCreateRecipe extends JPanel {
 		return infoPanel;
 	}
 
+//	private Component createInstructionPanel() {
+//		JPanel instructionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//		instructionPanel.setBackground(bgColor);
+//
+//		instructionPanel.add(instruction);
+//
+//		return instructionPanel;
+//	}
+
 	private Component createComboBoxPanel() {
 		JPanel comboPanel = new JPanel(new GridLayout(3, 1, 5, 5));
 		comboPanel.setBackground(bgColor);
-
-		actions = new JComboBox<>();
-		values = new JComboBox<>();
-		time = new JComboBox<>();
 
 		comboPanel.add(actions);
 		comboPanel.add(values);
@@ -418,7 +460,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	public void addStep(String imageURL, int num) {
-		controller.addStep(instruction.getText(), (int) values.getSelectedItem(),
+		controller.addStep(instruction.getText(), (int) values.getValue(),
 				(RecipeStepActions) actions.getSelectedItem(), imageURL, num);
 	}
 
@@ -465,5 +507,50 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public RecipeStepActions getAction() {
+		return (RecipeStepActions) actions.getSelectedItem();
+	}
+
+	public void changeValueLimits() {
+		System.out.println("hola");
+		if (actions.getSelectedItem().equals(RecipeStepActions.OVEN)) {
+			valueSpinnerModel.setMinimum(0);
+			valueSpinnerModel.setMaximum(300);
+			valueSpinnerModel.setStepSize(1);
+			valueSpinnerModel.setValue(0);
+		} else if (actions.getSelectedItem().equals(RecipeStepActions.STOVE)) {
+			valueSpinnerModel.setMinimum(0);
+			valueSpinnerModel.setMaximum(10);
+			valueSpinnerModel.setStepSize(1);
+			valueSpinnerModel.setValue(0);
+		}
+	}
+
+	public void resetIngredientFields() {
+		if (ingredient.hasFocus()) {
+			ingredient.setText("");
+		} else {
+			ingredient.setText(INGREDIENT_DEFAULT_TEXT);
+			ingredient.setForeground(Color.gray);
+		}
+
+		if (quantity.hasFocus()) {
+			quantity.setText("");
+		} else {
+			quantity.setText(QUANTITY_DEFAULT_TEXT);
+			quantity.setForeground(Color.gray);
+		}
+
+	}
+
+	public void resetStepFIelds() {
+		if (instruction.hasFocus()) {
+			instruction.setText("");
+		} else {
+			instruction.setText(STEP_DEFAULT_TEXT);
+			instruction.setForeground(Color.gray);
+		}
 	}
 }

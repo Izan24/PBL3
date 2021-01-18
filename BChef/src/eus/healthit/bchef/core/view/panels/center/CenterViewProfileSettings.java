@@ -85,7 +85,7 @@ public class CenterViewProfileSettings extends JPanel {
 		initJTextField();
 		initJButtons();
 
-		this.add(createBoxPanel());
+		this.add(createScrollPanel());
 	}
 
 	private void initCheckBoxes() {
@@ -198,16 +198,34 @@ public class CenterViewProfileSettings extends JPanel {
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
+	private Component createScrollPanel() {		
+		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBackground(bgColor);
+		scrollPane.setOpaque(true);
+
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+		scrollPane.setViewportView(createBoxPanel());
+		
+
+		return scrollPane;
+	}
+
 	private Component createBoxPanel() {
 		Box verticalBox = Box.createVerticalBox();
 		verticalBox.add(Box.createVerticalGlue());
 		verticalBox.add(createFlow());
 		verticalBox.add(Box.createVerticalGlue());
+		verticalBox.setBackground(bgColor);
+		verticalBox.setOpaque(true);
 
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.add(Box.createHorizontalGlue());
 		horizontalBox.add(verticalBox);
 		horizontalBox.add(Box.createHorizontalGlue());
+		horizontalBox.setBackground(bgColor);
+		horizontalBox.setOpaque(true);
 
 		return horizontalBox;
 	}
@@ -393,11 +411,16 @@ public class CenterViewProfileSettings extends JPanel {
 		return this;
 	}
 
-//	public void updateView() {
-//		recipes.setText(String.valueOf(user.getPublishedNumber()));
-//		following.setText(String.valueOf(user.getFollowedNumber()));
-//		followers.setText(String.valueOf(user.getFollowersNumber()));
-//	}
+	public void updateView() {
+		username.setText(user.getUsername());
+		name.setText(user.getName());
+		surname.setText(user.getSurname());
+		email.setText(user.getEmail());
+		pwd.setText(DEFAULT_PWD_TEXT);
+		pwd.setEchoChar((char) 0);
+		newPwd.setText(DEFAULT_CONFPWD_TEXT);
+		newPwd.setEchoChar((char) 0);
+	}
 
 	public void setImage(Image image) {
 		this.image = image;

@@ -42,7 +42,12 @@ public class RoundedTextField extends JTextField implements FocusListener {
 
 	@Override
 	public String getText() {
-		return showingHint ? "" : super.getText();
+		return super.getText();
+	}
+
+	@Override
+	public void setText(String arg0) {
+		super.setText(arg0);
 	}
 
 	@Override

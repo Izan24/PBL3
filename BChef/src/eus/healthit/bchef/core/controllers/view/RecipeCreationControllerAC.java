@@ -12,4 +12,6 @@ public class RecipeCreationControllerAC {
 
 	public static final String CREATE_RECIPE = "create_recipe";
 	public static final String PREVIEW = "preview";
+
+	public static final String ACTION_CHANGE = "action_change";
 }

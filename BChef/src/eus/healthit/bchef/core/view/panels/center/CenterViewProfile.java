@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -335,9 +336,11 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	public void updateView() {
 		initJlist();
 
-		recipes.setText(String.valueOf(user.getPublishedNumber()));
 		following.setText(String.valueOf(user.getFollowedNumber()));
 		followers.setText(String.valueOf(user.getFollowersNumber()));
+		recipes.setText(String.valueOf(user.getPublishedNumber()));
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+		username.setText(user.getUsername());
 
 		changeListView(ProfileControllerAC.UPLOADED);
 	}

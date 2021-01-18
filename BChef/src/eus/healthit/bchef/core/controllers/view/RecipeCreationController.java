@@ -1,6 +1,8 @@
 package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -15,7 +17,7 @@ import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
-public class RecipeCreationController implements IRoundButtonListener {
+public class RecipeCreationController implements IRoundButtonListener, ActionListener {
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
@@ -24,6 +26,18 @@ public class RecipeCreationController implements IRoundButtonListener {
 		this.createRecipeView = createRecipeView;
 
 		createPreviewWindow();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+		case RecipeCreationControllerAC.ACTION_CHANGE:
+			createRecipeView.changeValueLimits();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -44,17 +58,17 @@ public class RecipeCreationController implements IRoundButtonListener {
 			break;
 
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
-			System.out.println("ADD_INGREDIENT");
 			createRecipeView.addIngredient();
+			createRecipeView.resetIngredientFields();
 			break;
 
 		case RecipeCreationControllerAC.REMOVE_INGREDIENT:
-			System.out.println("REMOVE_INGREDIENT");
 			createRecipeView.removeIngredient();
 			break;
 
 		case RecipeCreationControllerAC.ADD_STEP:
 			System.out.println("ADD_STEP");
+			createRecipeView.resetStepFIelds();
 			break;
 
 		case RecipeCreationControllerAC.REMOVE_STEP:

@@ -11,6 +11,7 @@ import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.view.components.CustomScrollBar;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
@@ -31,9 +32,11 @@ public class CenterViewList extends JScrollPane implements IClickable {
 
 	public CenterViewList(CenterViewController centerController) {
 
-		super(new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		super(new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
+		this.setVerticalScrollBar(new CustomScrollBar(false));
+		this.setHorizontalScrollBar(new CustomScrollBar(true));
 
 		this.centerController = centerController;
 

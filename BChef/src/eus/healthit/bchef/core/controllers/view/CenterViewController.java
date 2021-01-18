@@ -88,6 +88,7 @@ public class CenterViewController implements ActionListener {
 			break;
 
 		case CenterControllerAC.SETTINGS:
+			settingsView.updateView();
 			principalView.changeCenterView(settingsView);
 			break;
 

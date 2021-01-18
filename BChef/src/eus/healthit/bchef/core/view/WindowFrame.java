@@ -19,7 +19,7 @@ public class WindowFrame extends JFrame {
 	}
 
 	private void setWindow() {
-		this.setSize(1250, 750);
+		this.setSize(1275, 760);
 		this.setLocation(300, 150);
 		this.setResizable(true);
 		this.setBackground(Color.white);

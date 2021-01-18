@@ -51,11 +51,10 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				System.out.println("Put del nuevo user");
 				user.setName(settingsView.getName());
 				user.setSurname(settingsView.getSurname());
-				user.setProfilePic(settingsView.getImage());
+//				user.setProfilePic(settingsView.getImage());
 				user.setEmail(settingsView.getEmail());
 				user.setUsername(settingsView.getUsername());
 			}
-
 			break;
 
 		case ProfileSettingsControllerAC.LOG_OUT:
@@ -86,7 +85,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 //			return false;
 //			PETICION A LA DATABASE PARA QUE MIRE SI EXISTE
 //		}
-		else if (!passwordVerify()) {
+		else if (passwordVerify()) {
 			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");
 			return false;
 		}
