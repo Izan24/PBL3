@@ -20,10 +20,7 @@ public class CommandController {
 	private BChefController bChefController;
 	
 	//Variables para guardar el comando anterior
-	boolean expectingConfirmation;
-	boolean expectingNumber;
-	int searchIndex;
-	List<Recipe> foundRecipes;
+
 	
 	private CommandController() {
 		bChefController = BChefController.getInstance();
@@ -66,9 +63,11 @@ public class CommandController {
 			setAlarm(string);
 			break;
 		case LIST_ADD:
+			//TODO
 			OutputController.getInstance().send("He añadido " + string + " a la lista.");
 			break;
 		case LIST_REMOVE:
+			//TODO
 			OutputController.getInstance().send("He quitado " + string + " de la lista.");
 			break;
 		case YES:
@@ -78,12 +77,7 @@ public class CommandController {
 			bChefController.cancellCall();
 			break;
 		case NUMBER:
-			if(expectingNumber) {
-				
-				expectingNumber = false;
-			}
-			else bChefController.errorMessage("MISSUNDERSTOOD");
-			break;
+			//En desuso
 		default:
 			bChefController.errorMessage("MISSUNDERSTOOD");
 			break;
@@ -92,13 +86,12 @@ public class CommandController {
 	}
 	
 
-	private boolean searchIngredient(String string) {
+	private void searchIngredient(String string) {
 		Set<String> ingredients = StringParser.parseIngredients(string);
 		OutputController outputController = OutputController.getInstance();
 		outputController.send("Buscando recetas con: " + String.join(", ", ingredients));
 		System.out.println("Ingres: ");
 		ingredients.stream().forEach(System.out::println);
-		return true;
 	}
 	
 	private void switchKitchen(String string) {

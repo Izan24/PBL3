@@ -4,7 +4,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
@@ -21,99 +23,122 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.util.TextBuilder;
 import eus.healthit.bchef.core.util.func.FunctionCall;
-import eus.healthit.bchef.core.util.func.KitchenSwitchCall;
 import eus.healthit.bchef.core.util.func.NewAlarmCall;
 import eus.healthit.bchef.core.util.func.NextRecipeCall;
 
 public class BChefController implements PropertyChangeListener {
 
 	PropertyChangeSupport connector;
-	
 
-    private static BChefController instance = new BChefController();
+	private static BChefController instance = new BChefController();
 
-    private BChefController() {
-    	outputController = OutputController.getInstance();
-    	recipeAssitantController = new RecipeAssistantController();
-    	kitchenController = new KitchenController();
-    	connector = new PropertyChangeSupport(this);
-    	System.out.println("inic");
-    }
+	private BChefController() {
+		outputController = OutputController.getInstance();
+		recipeAssitantController = new RecipeAssistantController();
+		kitchenController = new KitchenController();
+		connector = new PropertyChangeSupport(this);
+		System.out.println("inic");
+	}
 
-    public static BChefController getInstance() {
-        return instance;
-    }
-	
+	public static BChefController getInstance() {
+		return instance;
+	}
+
 	IBoardController boardController;
 	IInputController inputController;
 	IOutputController outputController;
 	IViewController viewController;
 	IKitchenController kitchenController;
-	//CommandController commandController;
+	// CommandController commandController;
 	IRecipeAssistantController recipeAssitantController;
-	
-	
+
 	List<Recipe> searchedRecipes;
 	int searchedRecipesIndex;
 	FunctionCall nextFunction;
-	
 
 	public void switchKitchen(KitchenUtil util, Integer index, Integer value) {
-		switch(util) {
+		switch (util) {
 		case OVEN:
-			if(value == null) {
+			if (value == null) {
 				errorMessage("MISSUNDERSTOOD");
 				break;
 			}
-			if(index == null) kitchenController.setOven(0, value);
-			else kitchenController.setOven(index, value);
+			if (index == null)
+				kitchenController.setOven(0, value);
+			else
+				kitchenController.setOven(index, value);
 			break;
 		case STOVE:
-			if(value == null) {
+			if (value == null) {
 				errorMessage("MISSUNDERSTOOD");
 				break;
 			}
-			if(index == null) kitchenController.setFire(0, value);
-			else kitchenController.setFire(index, value);
+			if (index == null)
+				kitchenController.setFire(0, value);
+			else
+				kitchenController.setFire(index, value);
 			break;
 		case MISUNDERSTOOD:
 			errorMessage("MISSUNDERSTOOD");
 			break;
-		}	
+		}
 	}
 
 	public void nextStep() {
-		if(recipeAssitantController.getRecipe() == null) {
+		if (recipeAssitantController.getRecipe() == null) {
 			errorMessage("MISSING_RECIPE");
 			return;
 		}
-		
+
 		RecipeStep nextStep = recipeAssitantController.nextStep();
-		if(nextStep == null) {
+		if (nextStep == null) {
 			errorMessage("MISSING_NEXTSTEP");
 			return;
 		}
-		
+
 		outputController.send(nextStep.getText());
-		switch(nextStep.getAction()) {
-		case FURNACE:
-			
-			break;
-		case SET_FIRE:
-			break;
-		default:
-			break;
+
+		Duration stepDuration = nextStep.getTime();
+		if (stepDuration != null && stepDuration != Duration.ZERO) {
+			switch (nextStep.getAction()) {
+			case OVEN:
+				nextFunction = new NewAlarmCall(KitchenUtil.OVEN, null, nextStep.getTime());
+				outputController.send(TextBuilder.askAlarmMessage(stepDuration, null, null));
+				break;
+			case STOVE:
+				nextFunction = new NewAlarmCall(KitchenUtil.STOVE, null, nextStep.getTime());
+				outputController.send(TextBuilder.askAlarmMessage(stepDuration, null, null));
+				break;
+			case TIMER:
+				nextFunction = new NewAlarmCall(null, null, nextStep.getTime());
+				outputController.send(TextBuilder.askAlarmMessage(stepDuration, null, null));
+				break;
+			default:
+				break;
+			}
+		} else {
+			switch (nextStep.getAction()) {
+			case OVEN:
+				outputController.send(TextBuilder.askKitchenSwitch(KitchenUtil.OVEN, nextStep.getValue()));
+				break;
+			case STOVE:
+				outputController.send(TextBuilder.askKitchenSwitch(KitchenUtil.STOVE, nextStep.getValue()));
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
-	
+
 	public void prevStep() {
-		if(recipeAssitantController.getRecipe() == null) {
+		if (recipeAssitantController.getRecipe() == null) {
 			errorMessage("MISSING_RECIPE");
 			return;
 		}
-		
+
 		RecipeStep prevStep = recipeAssitantController.prevStep();
-		if(prevStep == null) {
+		if (prevStep == null) {
 			errorMessage("MISSING_PREVSTEP");
 			return;
 		}
@@ -124,20 +149,28 @@ public class BChefController implements PropertyChangeListener {
 		recipeAssitantController.nextStep();
 	}
 
+	public void fireIngredientSearch(Set<String> ingredients) {
+		//TODO: Query de search
+		searchedRecipes = new ArrayList<>();
+		searchedRecipesIndex = 0;
+		if(searchedRecipes.size() == 0) errorMessage("RECIPES_NOT_FOUND");
+		else nextRecipe();
+	}
+	
 	public void nextRecipe() {
-		if(searchedRecipesIndex < searchedRecipes.size()) {
-			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(++searchedRecipesIndex)));
-		}
-		else errorMessage("NO_MORE_RECIPES");
+		if (searchedRecipesIndex < searchedRecipes.size()) {
+			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(searchedRecipesIndex++)));
+		} else
+			errorMessage("NO_MORE_RECIPES");
 	}
 
 	public void setAlarm(KitchenUtil util, Integer index, Duration time) {
 		recipeAssitantController.setAlarm(util, index, time);
 		outputController.send(TextBuilder.newAlarmMessage(time, util, index));
 	}
-	
+
 	public void confirmCall() {
-		if(nextFunction != null)
+		if (nextFunction != null)
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
 				startRecipe(searchedRecipes.get(searchedRecipesIndex));
@@ -145,11 +178,12 @@ public class BChefController implements PropertyChangeListener {
 			default:
 				break;
 			}
-		else errorMessage("MISSUNDERSTOOD");
+		else
+			errorMessage("MISSUNDERSTOOD");
 	}
 
 	public void cancellCall() {
-		if(nextFunction != null) {
+		if (nextFunction != null) {
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
 				nextFunction.executeCall();
@@ -158,8 +192,8 @@ public class BChefController implements PropertyChangeListener {
 				break;
 			}
 			nextFunction = null;
-		}
-		else errorMessage("MISSUNDERSTOOD");
+		} else
+			errorMessage("MISSUNDERSTOOD");
 	}
 
 	public void errorMessage(String reason) {
@@ -173,10 +207,9 @@ public class BChefController implements PropertyChangeListener {
 			System.out.println(evt.getSource());
 			outputController.soundAlarm();
 			KitchenAlarm alarm = (KitchenAlarm) evt.getNewValue();
-			if(alarm.getUtil() != null)
+			if (alarm.getUtil() != null)
 				outputController.send(TextBuilder.alarmDeactivateMessage(alarm.getUtil(), alarm.getUtilIndex()));
 			break;
-	
 		default:
 			break;
 		}
@@ -185,6 +218,5 @@ public class BChefController implements PropertyChangeListener {
 	public void addPropertyChangeListner(PropertyChangeListener listener) {
 		connector.addPropertyChangeListener(listener);
 	}
-	
-	
+
 }
