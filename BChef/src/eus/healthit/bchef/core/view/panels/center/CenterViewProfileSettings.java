@@ -63,7 +63,7 @@ public class CenterViewProfileSettings extends JPanel {
 
 	JCheckBox showPWDBox;
 
-	ImageIcon image;
+	Image image;
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
@@ -104,8 +104,7 @@ public class CenterViewProfileSettings extends JPanel {
 	private void initJlabels() {
 
 		profilePicture = new JLabel();
-		profilePicture.setIcon(
-				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH)));
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(125, 125, Image.SCALE_SMOOTH)));
 
 		logoLabel = new JLabel();
 		logoLabel.setBackground(bgColor);
@@ -389,15 +388,6 @@ public class CenterViewProfileSettings extends JPanel {
 		return butonPanel;
 	}
 
-	private Component createUsernamePanel() {
-		JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		usernamePanel.setBackground(bgColor);
-
-		usernamePanel.add(username);
-
-		return usernamePanel;
-	}
-
 	public JPanel getPanel() {
 		return this;
 	}
@@ -408,12 +398,40 @@ public class CenterViewProfileSettings extends JPanel {
 //		followers.setText(String.valueOf(user.getFollowersNumber()));
 //	}
 
-	public void setImage(ImageIcon image) {
+	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Image getImage() {
+		return image;
 	}
 
 	public String getPwd() {
 		return String.valueOf(pwd.getPassword());
+	}
+
+	public JLabel getProfilePicture() {
+		return profilePicture;
+	}
+
+	public String getName() {
+		return name.getText();
+	}
+
+	public String getSurname() {
+		return surname.getText();
+	}
+
+	public String getUsername() {
+		return username.getText();
+	}
+
+	public String getEmail() {
+		return email.getText();
+	}
+
+	public String getNewPwd() {
+		return String.valueOf(newPwd.getPassword());
 	}
 
 	public String getnewPwd() {

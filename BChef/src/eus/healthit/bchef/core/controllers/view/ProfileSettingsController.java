@@ -2,7 +2,9 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
@@ -29,7 +31,11 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 		case ProfileSettingsControllerAC.UPLOAD_IMAGE:
 			FileChooser file = new FileChooser();
 			try {
-				settingsView.setImage(new ImageIcon(file.getSelectedFile().getPath()));
+				try {
+					settingsView.setImage(ImageIO.read(file.getSelectedFile()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} catch (NullPointerException e) {
 			}
 			break;
@@ -37,6 +43,14 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 		case ProfileSettingsControllerAC.SAVE_CHANGES:
 			if (verifyParameters()) {
 				System.out.println("Put del nuevo user");
+				User newUser = new User(user.getId(), settingsView.getName(), settingsView.getSurname(),
+						settingsView.getImage(), settingsView.getEmail(), settingsView.getUsername(), "pwd",
+						user.getFollowed(), user.getFollowers(), user.getPublished(), user.getSaved(),
+						user.getShopList(), user.getHistory());
+
+				user = newUser;
+				System.out.println(user);
+				
 			}
 
 			break;

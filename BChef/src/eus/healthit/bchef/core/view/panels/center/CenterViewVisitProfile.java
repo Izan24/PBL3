@@ -75,8 +75,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 	private void initJlabels() {
 
 		profilePicture = new JLabel();
-		profilePicture.setIcon(
-				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		profilePicture.setBackground(Color.white);
 
 		username = new JLabel(user.getUsername());
@@ -311,8 +310,7 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 		 * la base de datos
 		 */
 		initJlist();
-		profilePicture.setIcon(
-				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		username = new JLabel(user.getUsername());
 		recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		following = new JLabel(String.valueOf(user.getFollowedNumber()));

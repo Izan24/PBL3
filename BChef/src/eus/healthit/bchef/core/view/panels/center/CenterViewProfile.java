@@ -75,8 +75,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	private void initJlabels() {
 
 		profilePicture = new JLabel();
-		profilePicture.setIcon(
-				new ImageIcon(user.getProfilePic().getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 
 		username = new JLabel(user.getUsername());
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));

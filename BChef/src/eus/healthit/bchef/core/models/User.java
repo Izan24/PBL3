@@ -1,15 +1,19 @@
 package eus.healthit.bchef.core.models;
 
+import java.awt.Image;
+import java.awt.font.ImageGraphicAttribute;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class User {
 
 	int id;
 	String name, surname;
-	ImageIcon profilePic;
+	Image profilePic;
 	String email;
 	String username;
 	String password;
@@ -23,8 +27,7 @@ public class User {
 	/**
 	 * Creates a new User with Profile pic
 	 */
-	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
-			String password) {
+	public User(int id, String name, String surname, Image profilePic, String email, String username, String password) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -48,7 +51,7 @@ public class User {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
-		this.profilePic = new ImageIcon("resources/user/default_user.png");
+		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
 		this.email = email;
 		this.username = username;
 		this.password = password;
@@ -63,9 +66,9 @@ public class User {
 	/**
 	 * Load an existing user
 	 */
-	public User(int id, String name, String surname, ImageIcon profilePic, String email, String username,
-			String password, List<User> followed, int followers, List<Recipe> published, List<Recipe> saved,
-			List<Item> shopList, List<Recipe> history) {
+	public User(int id, String name, String surname, Image profilePic, String email, String username, String password,
+			List<User> followed, int followers, List<Recipe> published, List<Recipe> saved, List<Item> shopList,
+			List<Recipe> history) {
 
 		this.id = id;
 		this.name = name;
@@ -75,7 +78,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.followed = followed;
-		this.followers = 0;
+		this.followers = followers;
 		this.published = published;
 		this.saved = saved;
 		this.shopList = shopList;
@@ -102,16 +105,16 @@ public class User {
 
 	// ------------------------------------------------------------------------
 
-	public ImageIcon getProfilePic() {
+	public Image getProfilePic() {
 		return profilePic;
 	}
 
-	public void setProfilePic(ImageIcon profilePic) {
+	public void setProfilePic(Image profilePic) {
 		this.profilePic = profilePic;
 	}
 
 	public void removeProfilePic() {
-		this.profilePic = new ImageIcon("resources/user/default_user.png");
+		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
 	}
 
 	// ------------------------------------------------------------------------
@@ -248,4 +251,10 @@ public class User {
 
 		return id == o.getId();
 	}
+
+	@Override
+	public String toString() {
+		return name + "\n" + surname + "\n" + username + "\n" + email;
+	}
+
 }
