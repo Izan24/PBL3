@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DatabaseMetaData;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -85,6 +86,7 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 //		else if (checkUsername(createAccountView.getUsername())) {
 //			new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
 //			return false;
+//			PETICION A LA DATABASE PARA QUE MIRE SI EXISTE
 //		}
 		else if (!passwordVerify()) {
 			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");

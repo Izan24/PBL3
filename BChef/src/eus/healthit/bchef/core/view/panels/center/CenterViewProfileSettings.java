@@ -27,6 +27,7 @@ import eus.healthit.bchef.core.controllers.view.ProfileSettingsController;
 import eus.healthit.bchef.core.controllers.view.ProfileSettingsControllerAC;
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordFieldShow;
@@ -68,7 +69,7 @@ public class CenterViewProfileSettings extends JPanel {
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
 
-	public CenterViewProfileSettings(User user, WindowFrameController windowController) {
+	public CenterViewProfileSettings(User user, WindowFrameController windowController, WindowFrame window) {
 		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		this.setPreferredSize(new Dimension(1200, 1500));
@@ -77,7 +78,7 @@ public class CenterViewProfileSettings extends JPanel {
 
 		this.user = user;
 
-		controller = new ProfileSettingsController(user, this, windowController);
+		controller = new ProfileSettingsController(user, this, windowController, window);
 
 		initCheckBoxes();
 		initJlabels();
@@ -431,10 +432,6 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	public String getNewPwd() {
-		return String.valueOf(newPwd.getPassword());
-	}
-
-	public String getnewPwd() {
 		return String.valueOf(newPwd.getPassword());
 	}
 

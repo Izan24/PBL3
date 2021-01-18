@@ -48,7 +48,7 @@ public class WindowFrameController {
 	}
 
 	public void setAppView(User user) {
-		principalView = new PrincipalView(user, this);
+		principalView = new PrincipalView(user, this, window);
 		window.setContentPane(principalView);
 		window.repaint();
 	}

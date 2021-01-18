@@ -21,12 +21,12 @@ public class PrincipalView extends JPanel {
 
 	CenterViewController centerController;
 
-	public PrincipalView(User user, WindowFrameController windowFrameController) {
+	public PrincipalView(User user, WindowFrameController windowFrameController, WindowFrame window) {
 		super(new BorderLayout());
 
 		centerView = new CenterView();
 
-		centerController = new CenterViewController(this, centerView, user, windowFrameController);
+		centerController = new CenterViewController(this, centerView, user, windowFrameController, window);
 		centerController.setStartView();
 
 		leftMenuView = new LeftMenuView(centerController);
