@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -43,35 +46,33 @@ import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
 
 public class CenterViewCreateRecipe extends JPanel {
 
-	/*
-	 * FALTA HACER EL ADDCOMBODATA, AÑADIR LOS STEPS AL JLIST Y EL BOTON DE CREAR
-	 * RECETA
-	 */
-
 	public final static String TITLE_DEFAULT_TEXT = "Introduzca titulo";
 	public final static String DESCRIPTION_DEFAULT_TEXT = "Descripcion de la receta";
 	public final static String INGREDIENT_DEFAULT_TEXT = "Ingrediente";
 	public final static String QUANTITY_DEFAULT_TEXT = "Cantidad";
 	public final static String STEP_DEFAULT_TEXT = "Instruccion del paso";
 
+	Font titleFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
-	User user;
-
-	RecipeCreationController controller;
-
 	Color greenButtonColor = new Color(56, 186, 125);
 	Color redButtonColor = new Color(243, 69, 65);
+	Color bgColor = Color.white;
+
+	User user;
+
+	Image image;
+	RecipeCreationController controller;
 
 	JButton addImageButton;
 	JButton addStepButton, removeStepButton;
 	JButton addIngredientButton, removeIngredientButton;
 	JButton createButton, previewButton;
 
+	JLabel recipeCreationTitle, ingredientTitle, stepsTitleJLabel;
+
 	JTextField title, description;
 	JTextField ingredient, quantity;
 	JTextArea instruction;
-
-	Image image;
 
 	JComboBox<RecipeStepActions> actions;
 	JSpinner values, time;
@@ -86,10 +87,8 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	IngredientRenderer ingredientRenderer;
 
-	Color bgColor = Color.white;
-
 	public CenterViewCreateRecipe(User user) {
-		super(new BorderLayout(100, 100));
+		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
@@ -99,12 +98,13 @@ public class CenterViewCreateRecipe extends JPanel {
 		controller = new RecipeCreationController(this);
 
 		initButtons();
+		initJLabels();
 		initJLists();
 		initTextFields();
 		initJSpinners();
 		initJComboBoxes();
 
-		this.add(createContent(), BorderLayout.CENTER);
+		this.add(createMainScrollPanel());
 	}
 
 	private void initButtons() {
@@ -183,6 +183,20 @@ public class CenterViewCreateRecipe extends JPanel {
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
+	private void initJLabels() {
+		recipeCreationTitle = new JLabel("Crea tu propia receta");
+		recipeCreationTitle.setFont(titleFont);
+		recipeCreationTitle.setBackground(bgColor);
+
+		ingredientTitle = new JLabel("Ingredientes");
+		ingredientTitle.setFont(titleFont);
+		ingredientTitle.setBackground(bgColor);
+
+		stepsTitleJLabel = new JLabel("Pasos");
+		stepsTitleJLabel.setFont(titleFont);
+		stepsTitleJLabel.setBackground(bgColor);
+	}
+
 	private void initJLists() {
 		ingredients = new JList<>();
 		ingredientModel = new IngredientList();
@@ -218,6 +232,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
 		instruction.setMargin(new Insets(20, 20, 20, 20));
+		instruction.setPreferredSize(new Dimension(314, 79));
 
 		ingredient = new JTextField();
 		ingredient.setFont(textFont);
@@ -271,17 +286,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		time.setEditor(editor);
 	}
 
-	private Component createButtonPannel() {
-		JPanel buttonPanel = new JPanel(new BorderLayout(20, 20));
-		buttonPanel.setBackground(bgColor);
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-
-		buttonPanel.add(previewButton, BorderLayout.WEST);
-		buttonPanel.add(createButton, BorderLayout.EAST);
-
-		return buttonPanel;
-	}
-
 	private Component createContent() {
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -298,6 +302,231 @@ public class CenterViewCreateRecipe extends JPanel {
 		scrollPane.setViewportView(contentPanel);
 
 		return scrollPane;
+	}
+
+	private Component createMainScrollPanel() {
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBackground(bgColor);
+		scrollPane.setOpaque(true);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+		scrollPane.setViewportView(createMainPanel());
+
+		return scrollPane;
+	}
+
+	private Component createMainPanel() {
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		mainPanel.setBackground(bgColor);
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.weighty = 1;
+		constraints.weightx = 1;
+		constraints.insets = new Insets(0, 10, 0, 10);
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+
+		mainPanel.add(createLeftPanel(), constraints);
+		constraints.gridx = 1;
+		mainPanel.add(createRightPanel(), constraints);
+
+		return mainPanel;
+	}
+
+	private Component createLeftPanel() {
+		JPanel leftPanel = new JPanel(new GridBagLayout());
+		leftPanel.setBackground(bgColor);
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.weighty = 1;
+		constraints.weightx = 1;
+		constraints.insets = new Insets(5, 0, 5, 0);
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+
+		leftPanel.add(createAddImagePanel(), constraints);
+		constraints.gridy = 1;
+		leftPanel.add(createIngredientFieldsPanel(), constraints);
+		constraints.gridy = 2;
+		leftPanel.add(createIngredientButtonPanel(), constraints);
+		constraints.gridy = 3;
+		leftPanel.add(createIngredientListPanel(), constraints);
+		constraints.gridy = 4;
+		leftPanel.add(createPreviewButtonPanel(), constraints);
+
+		return leftPanel;
+	}
+
+	private Component createAddImagePanel() {
+		JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		imagePanel.setBackground(bgColor);
+
+		imagePanel.add(addImageButton);
+
+		return imagePanel;
+	}
+
+	private Component createIngredientFieldsPanel() {
+		JPanel ingredientFielsPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+		ingredientFielsPanel.setBackground(bgColor);
+
+		ingredientFielsPanel.add(createIngredientsTextPanel());
+		ingredientFielsPanel.add(ingredient);
+		ingredientFielsPanel.add(quantity);
+
+		return ingredientFielsPanel;
+	}
+
+	private Component createIngredientsTextPanel() {
+		JPanel ingredientTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		ingredientTextPanel.setBackground(bgColor);
+
+		ingredientTextPanel.add(ingredientTitle);
+
+		return ingredientTextPanel;
+	}
+
+	private Component createIngredientButtonPanel() {
+		JPanel ingredientButtonPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+		ingredientButtonPanel.setBackground(bgColor);
+
+		ingredientButtonPanel.add(addIngredientButton);
+		ingredientButtonPanel.add(removeIngredientButton);
+
+		return ingredientButtonPanel;
+	}
+
+	private Component createIngredientListPanel() {
+		JScrollPane ingredientListPanel = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		ingredientListPanel.setBackground(bgColor);
+		ingredientListPanel.setOpaque(true);
+
+		ingredientListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+		ingredientListPanel.setViewportView(ingredients);
+
+		return ingredientListPanel;
+	}
+
+	private Component createPreviewButtonPanel() {
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 1, 5, 5));
+		buttonPanel.setBackground(bgColor);
+
+		buttonPanel.add(previewButton);
+
+		return buttonPanel;
+	}
+
+	private Component createRightPanel() {
+		JPanel rightPanel = new JPanel(new GridBagLayout());
+		rightPanel.setBackground(bgColor);
+		rightPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.weighty = 1;
+		constraints.weightx = 1;
+		constraints.insets = new Insets(5, 0, 5, 0);
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+
+		rightPanel.add(createTitleDesciptionPanel(), constraints);
+		constraints.gridy = 1;
+		rightPanel.add(createStepFieldsPanel(), constraints);
+		constraints.gridy = 2;
+		rightPanel.add(createStepButtonPanel(), constraints);
+		constraints.gridy = 3;
+		rightPanel.add(createStepListPanel(), constraints);
+		constraints.gridy = 4;
+		rightPanel.add(createCreateRecipeButtonPanel(), constraints);
+
+		return rightPanel;
+	}
+
+	private Component createTitleDesciptionPanel() {
+		JPanel titleDescriptionPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+		titleDescriptionPanel.setBackground(bgColor);
+
+		titleDescriptionPanel.add(title);
+		titleDescriptionPanel.add(description);
+
+		return titleDescriptionPanel;
+	}
+
+	private Component createStepFieldsPanel() {
+		JPanel stepFields = new JPanel(new BorderLayout());
+		stepFields.setBackground(bgColor);
+
+		stepFields.add(createStepTextPanel(), BorderLayout.NORTH);
+		stepFields.add(createInstructionTextPanel(), BorderLayout.CENTER);
+		stepFields.add(createComboBoxPanel(), BorderLayout.EAST);
+
+		return stepFields;
+	}
+
+	private Component createStepTextPanel() {
+		JPanel stepTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		stepTextPanel.setBackground(bgColor);
+
+		stepTextPanel.add(stepsTitleJLabel);
+
+		return stepTextPanel;
+	}
+
+	private Component createInstructionTextPanel() {
+		JPanel instructionTextPanel = new JPanel(new GridLayout());
+		instructionTextPanel.setBackground(bgColor);
+
+		instructionTextPanel.add(instruction);
+
+		return instructionTextPanel;
+	}
+
+	private Component createStepButtonPanel() {
+		JPanel stepButtonPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+		stepButtonPanel.setBackground(bgColor);
+
+		stepButtonPanel.add(addStepButton);
+		stepButtonPanel.add(removeStepButton);
+
+		return stepButtonPanel;
+	}
+
+	private Component createStepListPanel() {
+		JScrollPane stepListPanel = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		stepListPanel.setBackground(bgColor);
+		stepListPanel.setOpaque(true);
+
+		stepListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+		stepListPanel.setViewportView(steps);
+
+		return stepListPanel;
+	}
+
+	private Component createCreateRecipeButtonPanel() {
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 1, 5, 5));
+		buttonPanel.setBackground(bgColor);
+
+		buttonPanel.add(createButton);
+
+		return buttonPanel;
+	}
+
+	private Component createButtonPannel() {
+		JPanel buttonPanel = new JPanel(new BorderLayout(20, 20));
+		buttonPanel.setBackground(bgColor);
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+
+		buttonPanel.add(previewButton, BorderLayout.WEST);
+		buttonPanel.add(createButton, BorderLayout.EAST);
+
+		return buttonPanel;
 	}
 
 	private Component createCenterPanel() {
@@ -385,16 +614,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		scrollPane.setViewportView(steps);
 
 		return scrollPane;
-	}
-
-	private Component createStepButtonPanel() {
-		JPanel stepButtonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
-		stepButtonPanel.setBackground(bgColor);
-
-		stepButtonPanel.add(addStepButton);
-		stepButtonPanel.add(removeStepButton);
-
-		return stepButtonPanel;
 	}
 
 	private Component createWestPanel() {

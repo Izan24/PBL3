@@ -41,6 +41,8 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 					settingsView.setImage(ImageIO.read(file.getSelectedFile()));
 				} catch (IOException e) {
 					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
 				}
 			} catch (NullPointerException e) {
 			}

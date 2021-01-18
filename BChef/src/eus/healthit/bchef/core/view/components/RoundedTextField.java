@@ -12,12 +12,10 @@ public class RoundedTextField extends JTextField implements FocusListener {
 
 	private static final long serialVersionUID = -5175905329740849910L;
 	private final String hint;
-	private boolean showingHint;
 
 	public RoundedTextField(String hint) {
 		super(hint);
 		this.hint = hint;
-		this.showingHint = true;
 		super.setMargin(new Insets(4, 28, 4, 8));
 		super.addFocusListener(this);
 	}
@@ -27,7 +25,6 @@ public class RoundedTextField extends JTextField implements FocusListener {
 		if (super.getText().equals(hint)) {
 			super.setText("");
 			super.setForeground(Color.black);
-			showingHint = false;
 		}
 	}
 
@@ -35,7 +32,6 @@ public class RoundedTextField extends JTextField implements FocusListener {
 	public void focusLost(FocusEvent e) {
 		if (super.getText().trim().equals("")) {
 			super.setText(hint);
-			showingHint = true;
 			super.setForeground(Color.GRAY);
 		}
 	}
