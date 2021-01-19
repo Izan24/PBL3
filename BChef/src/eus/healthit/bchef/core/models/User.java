@@ -45,6 +45,25 @@ public class User {
 	}
 
 	/**
+	 * Creates a new User with Profile pic and without username and password
+	 */
+	public User(int id, String name, String surname, Image profilePic, String email) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.profilePic = profilePic;
+		this.email = email;
+		this.username = "";
+		this.password = "";
+		followed = new ArrayList<>();
+		followers = 0;
+		published = new ArrayList<>();
+		saved = new ArrayList<>();
+		shopList = new ArrayList<>();
+		history = new ArrayList<>();
+	}
+
+	/**
 	 * Creates a new User without Profile pic
 	 */
 	public User(int id, String name, String surname, String email, String username, String password) {
@@ -185,9 +204,6 @@ public class User {
 	public int getFollowers() {
 		return followers;
 	}
-
-	public void addFollower(User user) {
-		followers++;
 	}
 
 	public void removeFollower(User user) {
@@ -267,3 +283,4 @@ public class User {
 	}
 
 }
+

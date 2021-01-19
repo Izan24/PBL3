@@ -27,4 +27,8 @@ public class Item {
 		return name;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 }

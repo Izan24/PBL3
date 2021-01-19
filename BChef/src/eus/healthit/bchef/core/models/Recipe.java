@@ -16,6 +16,7 @@ public class Recipe {
 	int rating; // 0 to 10 in 5 stars
 	Timestamp publishDate;
 	Time duration;
+	String imagePath;
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
 
@@ -109,6 +110,14 @@ public class Recipe {
 		this.duration = duration;
 	}
 
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}

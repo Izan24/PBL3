@@ -16,9 +16,8 @@ public class Principal {
 		windowFrame = new WindowFrame();
 	}
 
-	public static void main(String[] args) {
-		IKitchenController kitchenController = new KitchenController();
-		Principal principal = new Principal();
+	public static void main(String[] args) throws IOException {
+		
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

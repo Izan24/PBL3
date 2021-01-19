@@ -1,10 +1,12 @@
 package eus.healthit.bchef.core.models;
 
+import java.awt.Image;
+
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
-	Long id;
+	Integer id;
 	RecipeStepActions action;
 	int value;
 	String imageURL;
@@ -65,11 +67,11 @@ public class RecipeStep {
 		return imageURL;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
-	public long getNum() {
+	public int getNum() {
 		return num;
 	}
 
