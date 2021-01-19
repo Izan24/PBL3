@@ -6,53 +6,50 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
-
 	Integer id;
 	RecipeStepActions action;
 	int value;
-	String imagePath;
-	Image image;
-    String text;
-    Integer num;
+	String imageURL;
+	String text;
+	long num;
 
-    public RecipeStep(int id, RecipeStepActions action, int value, Image image, String text, int num) {
+	public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
-		this.image = image;
+		this.imageURL = imageURL;
 		this.text = text;
 		this.num = num;
 	}
-    
-    public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num) {
+
+	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
-		this.image = image;
+		this.imageURL = imageURL;
 		this.text = text;
 		this.num = num;
 	}
 
-	public int getId() {
+	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text) {
+		this.id = null;
+		this.action = action;
+		this.value = value;
+		this.imageURL = imageURL;
+		this.text = text;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	public RecipeStepActions getAction() {
 		return action;
 	}
-	
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-
 
 	public void setAction(RecipeStepActions action) {
 		this.action = action;
@@ -66,8 +63,8 @@ public class RecipeStep {
 		this.value = value;
 	}
 
-	public Image getImage() {
-		return image;
+	public String getImageURL() {
+		return imageURL;
 	}
 
 	public void setImage(Image image) {
@@ -87,11 +84,12 @@ public class RecipeStep {
 	}
 
 	public String getText() {
-        return text;
-    }
+		return text;
+	}
 
-  @Override
+	@Override
 	public String toString() {
 		return text;
 	}
+
 }

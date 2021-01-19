@@ -3,6 +3,7 @@ package eus.healthit.bchef.core.models;
 import java.awt.Image;
 import java.awt.font.ImageGraphicAttribute;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class User {
 		shopList = new ArrayList<>();
 		history = new ArrayList<>();
 	}
-	
+
 	/**
 	 * Creates a new User with Profile pic and without username and password
 	 */
@@ -70,7 +71,11 @@ public class User {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
-		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
+		try {
+			this.profilePic = ImageIO.read(new File("resources/user/default_user.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.email = email;
 		this.username = username;
 		this.password = password;
@@ -133,7 +138,11 @@ public class User {
 	}
 
 	public void removeProfilePic() {
-		this.profilePic = new ImageIcon("resources/user/default_user.png").getImage();
+		try {
+			this.profilePic = ImageIO.read(new File("resources/user/default_user.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -186,10 +195,6 @@ public class User {
 		followed.remove(user);
 	}
 
-	public void setFollowed(List<User> followed) {
-		this.followed = followed;
-	}
-
 	public int getFollowedNumber() {
 		return followed.size();
 	}
@@ -199,22 +204,17 @@ public class User {
 	public int getFollowers() {
 		return followers;
 	}
-
-	public void addFollower() {
-		followers++;
 	}
 
-	public void removeFollower() {
+	public void removeFollower(User user) {
 		followers--;
 	}
 
-	public void setFollowers(int followers) {
-		this.followers = followers;
+	public int getFollowersNumber() {
+		return followers;
 	}
 
 	// ------------------------------------------------------------------------
-
-	
 
 	public List<Recipe> getPublished() {
 		return published;
@@ -276,5 +276,11 @@ public class User {
 
 		return id == o.getId();
 	}
+
+	@Override
+	public String toString() {
+		return name + "\n" + surname + "\n" + username + "\n" + email;
+	}
+
 }
 

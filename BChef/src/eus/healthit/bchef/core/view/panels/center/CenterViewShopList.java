@@ -24,6 +24,7 @@ import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
@@ -41,6 +42,8 @@ public class CenterViewShopList extends JPanel implements IClickable {
 	ShopListButtonController buttonController;
 	ShopListController listController;
 	DoubleClickListener listener;
+
+	Font textFont = new Font("Roboto", Font.PLAIN, 20);
 
 	public CenterViewShopList(User user) {
 		super(new BorderLayout(10, 10));
@@ -110,8 +113,8 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		newElementField.setToolTipText("Nuevo elemento");
 		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
 		newElementField.setPreferredSize(new Dimension(300, 40));
-		newElementField.setBorder(new SearchBorder(20, Color.GRAY));
-		newElementField.setFont(new Font("Gill Sans MT", Font.PLAIN, 20));
+		newElementField.setBorder(new SearchBorder(20, Color.GRAY, false));
+		newElementField.setFont(textFont);
 
 		northPanel.add(newElementField);
 		northPanel.add(buttonAdd);
@@ -128,6 +131,11 @@ public class CenterViewShopList extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setViewportView(itemList);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		centerPanel.add(scrollPane);
 

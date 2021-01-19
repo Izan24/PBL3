@@ -6,24 +6,32 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.ProfileVisitController;
 import eus.healthit.bchef.core.controllers.view.ProfileVisitControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
+import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
-public class CenterViewVisitProfile extends JPanel {
+public class CenterViewVisitProfile extends JPanel implements IClickable {
 
-	Font textFont = new Font("Gill Sans MT", Font.PLAIN, 20);
+	CenterViewController centerController;
 
 	User user, visiUser;
 	JScrollPane scrollPane;
@@ -39,15 +47,24 @@ public class CenterViewVisitProfile extends JPanel {
 	RecipesList uploadedModel;
 	RendererRecipes renderer;
 
-	public CenterViewVisitProfile(User user) {
+	Color bgColor = Color.white;
+	Color textColor = new Color(129, 145, 160);
+	Color selectedColor = new Color(30, 170, 255);
+
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
+	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
+	Font buttonFont = new Font("Segoe UI", Font.BOLD, 20);
+
+	public CenterViewVisitProfile(User user, CenterViewController centerController) {
 		super(new GridLayout(1, 1, 100, 100));
-		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+		this.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
-		controller = new ProfileVisitController();
-
+		this.centerController = centerController;
 		this.user = user;
+
+		controller = new ProfileVisitController();
 
 		initJlabels();
 		initJButtons();
@@ -59,65 +76,65 @@ public class CenterViewVisitProfile extends JPanel {
 	private void initJlabels() {
 
 		profilePicture = new JLabel();
-		profilePicture.setIcon(user.getProfilePic());
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		profilePicture.setBackground(Color.white);
 
 		username = new JLabel(user.getUsername());
-		username.setFont(textFont);
+		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));
 		username.setBackground(Color.white);
 
 		recipesText = new JLabel("Recipes");
 		recipesText.setFont(textFont);
+		recipesText.setForeground(textColor);
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
-		recipesText.setBackground(Color.white);
 
 		followersText = new JLabel("Followers");
 		followersText.setFont(textFont);
+		followersText.setForeground(textColor);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
-		followersText.setBackground(Color.white);
 
 		followingText = new JLabel("Following");
 		followingText.setFont(textFont);
+		followingText.setForeground(textColor);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
-		followingText.setBackground(Color.white);
 
 		recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
-		recipes.setFont(textFont);
+		recipes.setFont(numberFont);
+		recipes.setForeground(new Color(15, 20, 25));
 		recipes.setHorizontalAlignment(JLabel.CENTER);
-		recipes.setBackground(Color.white);
 
 		following = new JLabel(String.valueOf(user.getFollowedNumber()));
-		following.setFont(textFont);
+		following.setFont(numberFont);
 		following.setHorizontalAlignment(JLabel.CENTER);
-		following.setBackground(Color.white);
 
 		followers = new JLabel(String.valueOf(user.getFollowersNumber()));
-		followers.setFont(textFont);
+		followers.setFont(numberFont);
 		followers.setHorizontalAlignment(JLabel.CENTER);
-		followers.setBackground(Color.white);
 
 		recipesTextList = new JLabel("Recetas creadas");
 		recipesTextList.setFont(textFont);
+		recipesTextList.setForeground(selectedColor);
 		recipesTextList.setHorizontalAlignment(JLabel.CENTER);
-		recipesTextList.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY));
-		recipesTextList.setBackground(Color.white);
+		recipesTextList.setBackground(bgColor);
+		recipesTextList.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
 
 	}
 
 	private void initJButtons() {
-//		followButton = new CustomButton("Seguir", Color.white, Color.white, new Color(30, 170, 255),
-//				new Color(29, 154, 231), textFont);
 		followButton = new JButton("Seguir");
-		followButton.setPreferredSize(new Dimension(180, 40));
-		followButton.setBackground(new Color(30, 170, 255));
+		followButton.setPreferredSize(new Dimension(150, 35));
+		followButton.setBackground(new Color(28, 162, 243));
 		followButton.setForeground(Color.white);
 		followButton.setFont(textFont);
+		followButton.setBorder(BorderFactory.createEmptyBorder());
 		followButton.setFocusable(false);
-		followButton.addActionListener(controller);
-		followButton.setActionCommand(ProfileVisitControllerAC.FOLLOW);
+		followButton.setUI(new UIRoundButton(followButton, 30, new Color(28, 162, 243), Color.white,
+				new Font("Roboto", Font.PLAIN, 15), controller, ProfileVisitControllerAC.FOLLOW));
 	}
 
 	private void initJlist() {
+		DoubleClickListener clickListener = new DoubleClickListener(this);
+
 		uploadedModel = new RecipesList();
 		uploadedModel.setList(user.getPublished());
 
@@ -126,10 +143,30 @@ public class CenterViewVisitProfile extends JPanel {
 		uploaded = new JList<>();
 		uploaded.setModel(uploadedModel);
 		uploaded.setCellRenderer(renderer);
+		uploaded.addMouseListener(clickListener);
 
 	}
 
-	private JPanel createContent() {
+	private JScrollPane createContent() {
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBackground(bgColor);
+
+		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll.setBorder(BorderFactory.createEmptyBorder());
+		scroll.setBackground(bgColor);
+		scroll.setOpaque(false);
+		
+		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+
+		scroll.setViewportView(createMainPanel());
+
+		return scroll;
+	}
+
+	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new BorderLayout(20, 20));
 		contentPanel.setBackground(Color.white);
 		contentPanel.setOpaque(true);
@@ -143,11 +180,13 @@ public class CenterViewVisitProfile extends JPanel {
 	private JPanel createNorthPanel() {
 
 		JPanel northPanel = new JPanel(new BorderLayout(20, 20));
+		northPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 		northPanel.setBackground(Color.white);
 		northPanel.setOpaque(true);
 
-		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 10, 10));
-		imagePanel.setBackground(Color.white);
+		JPanel imagePanel = new JPanel(new GridLayout(1, 1, 0, 0));
+		imagePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 23));
+		imagePanel.setBackground(bgColor);
 		imagePanel.setOpaque(true);
 		imagePanel.add(profilePicture);
 
@@ -156,7 +195,7 @@ public class CenterViewVisitProfile extends JPanel {
 		infoPanel.setOpaque(true);
 
 		infoPanel.add(createTopPanel());
-		infoPanel.add(createFollowerPanel());
+		infoPanel.add(createInfoPanel());
 
 		northPanel.add(imagePanel, BorderLayout.WEST);
 		northPanel.add(infoPanel, BorderLayout.CENTER);
@@ -164,33 +203,65 @@ public class CenterViewVisitProfile extends JPanel {
 		return northPanel;
 	}
 
-	private JPanel createTopPanel() {
-		JPanel topPanel = new JPanel(new BorderLayout(20, 20));
+	private Box createTopPanel() {
+		Box topPanel = Box.createHorizontalBox();
 		topPanel.setBackground(Color.white);
 		topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		JPanel buttonPanel = new JPanel(new FlowLayout());
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-		buttonPanel.setBackground(Color.white);
-		buttonPanel.add(followButton);
+		JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		namePanel.setBackground(bgColor);
 
-		topPanel.add(username, BorderLayout.WEST);
-		topPanel.add(buttonPanel, BorderLayout.EAST);
+		JPanel followPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		followPanel.setBackground(bgColor);
+
+		namePanel.add(username);
+		followPanel.add(followButton);
+
+		topPanel.add(namePanel);
+		topPanel.add(Box.createHorizontalGlue());
+		topPanel.add(followPanel);
 
 		return topPanel;
 	}
 
-	private JPanel createFollowerPanel() {
-		JPanel followerPanel = new JPanel(new GridLayout(2, 3));
-		followerPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 50, 0));
-		followerPanel.setBackground(Color.white);
-		followerPanel.setOpaque(true);
-		followerPanel.add(recipesText);
-		followerPanel.add(followingText);
-		followerPanel.add(followersText);
-		followerPanel.add(recipes);
-		followerPanel.add(following);
+	private JPanel createInfoPanel() {
+		JPanel infoPanel = new JPanel(new GridLayout());
+		infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+		infoPanel.setBackground(bgColor);
+
+		infoPanel.add(createRecipesPanel());
+		infoPanel.add(createFollowingPanel());
+		infoPanel.add(createFollowerPanel());
+
+		return infoPanel;
+	}
+
+	public JPanel createRecipesPanel() {
+		JPanel recipePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		recipePanel.setBackground(bgColor);
+
+		recipePanel.add(recipes);
+		recipePanel.add(recipesText);
+
+		return recipePanel;
+	}
+
+	public JPanel createFollowingPanel() {
+		JPanel followingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		followingPanel.setBackground(bgColor);
+
+		followingPanel.add(following);
+		followingPanel.add(followingText);
+
+		return followingPanel;
+	}
+
+	public JPanel createFollowerPanel() {
+		JPanel followerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		followerPanel.setBackground(bgColor);
+
 		followerPanel.add(followers);
+		followerPanel.add(followersText);
 
 		return followerPanel;
 	}
@@ -218,6 +289,11 @@ public class CenterViewVisitProfile extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.white);
 		scrollPane.setOpaque(true);
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
@@ -230,22 +306,46 @@ public class CenterViewVisitProfile extends JPanel {
 		return this;
 	}
 
+	public void openSelectedRecipe() {
+		try {
+			centerController.setRecipeView(uploaded.getSelectedValue());
+		} catch (Exception e) {
+		}
+	}
+
 	public void setVisitUser(User visitUser) {
 		this.visiUser = visitUser;
 
-		profilePicture.setIcon(user.getProfilePic());
+		/*
+		 * el user. ... hay que cambiarlo por visitUser cuando tengamos las peticiones a
+		 * la base de datos
+		 */
+		initJlist();
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		username = new JLabel(user.getUsername());
 		recipes = new JLabel(String.valueOf(user.getPublishedNumber()));
 		following = new JLabel(String.valueOf(user.getFollowedNumber()));
 		followers = new JLabel(String.valueOf(user.getFollowersNumber()));
-		uploadedModel.setList(user.getPublished());
+		changeButtonStatus();
 
 		this.revalidate();
 		this.repaint();
+	}
 
-		/*
-		 * CAMBIA EL USUARIO QUE TIENE QUE MOSTRAR Y ACTUALIZA TODOS LOS DATOS COMO EN
-		 * EL RECIPEVIEW Y HACES REPAINT Y REVALIDATE
-		 */
+	public void changeButtonStatus() {
+		if (user.getFollowed().contains(visiUser)) {
+			followButton.setUI(
+					new UIRoundButton(followButton, 30, new Color(28, 162, 243), new Color(196, 35, 93), Color.white,
+							buttonFont, controller, ProfileVisitControllerAC.FOLLOW, "Siguiendo", "Dejar de seguir"));
+			followButton.setText("Siguiendo");
+		} else {
+			followButton.setUI(new UIRoundButton(followButton, 30, new Color(28, 162, 243), Color.white, buttonFont,
+					controller, ProfileVisitControllerAC.FOLLOW));
+		}
+	}
+
+	@Override
+	public void clicked() {
+		openSelectedRecipe();
 	}
 }

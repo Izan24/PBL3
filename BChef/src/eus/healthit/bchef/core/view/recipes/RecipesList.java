@@ -17,15 +17,18 @@ public class RecipesList extends AbstractListModel<Recipe> {
 		initList();
 	}
 
-
 	public void setList(List<Recipe> list) {
+		System.out.println("seteando la lista:");
+
+		for (Recipe r : list) {
+			System.out.println(r.toString());
+		}
 		this.list = list;
 	}
 
 	private void initList() {
 		list = RecipeRepository.getN(1);
 	}
-
 
 	public void addElement(Recipe elemento) {
 		if (elemento != null) {

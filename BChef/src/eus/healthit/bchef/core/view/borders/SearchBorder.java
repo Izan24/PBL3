@@ -8,20 +8,29 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.io.File;
+import java.io.IOException;
+import java.nio.channels.NonReadableChannelException;
 
 import javax.imageio.ImageIO;
 
-public class SearchBorder extends RoundedBorder{
+public class SearchBorder extends RoundedBorder {
 
 	public static final String IMAGEFILE = "resources/menuicons/search.png";
-	
-	private Image searchImage;	
-	
-	public SearchBorder(int radius, Color borderColor) {
+
+	private Image searchImage;
+
+	public SearchBorder(int radius, Color borderColor, boolean defIcon) {
 		super(radius, borderColor);
-		this.searchImage = null;
+
+		if (defIcon) {
+			try {
+				this.searchImage = ImageIO.read(new File(IMAGEFILE));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-	
+
 	public SearchBorder(int radius, Color borderColor, String icon) {
 		super(radius, borderColor);
 		try {
@@ -29,7 +38,7 @@ public class SearchBorder extends RoundedBorder{
 		} catch (Exception e) {
 		}
 	}
-	
+
 	@Override
 	public Insets getBorderInsets(Component c) {
 		Insets insets;
@@ -48,8 +57,8 @@ public class SearchBorder extends RoundedBorder{
 		g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		if (searchImage != null) {
 			g2.drawImage(searchImage.getScaledInstance(20, 20, Image.SCALE_SMOOTH), 10, 8, null);
-			g2.drawLine(38, 5, 38, height-6);
+			g2.drawLine(38, 5, 38, height - 6);
 		}
 	}
-	
+
 }
