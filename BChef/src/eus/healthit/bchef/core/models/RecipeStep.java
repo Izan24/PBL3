@@ -1,46 +1,58 @@
 package eus.healthit.bchef.core.models;
 
+import java.awt.Image;
+
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
 
-	Long id;
+	Integer id;
 	RecipeStepActions action;
 	int value;
-	String imageURL;
+	String imagePath;
+	Image image;
     String text;
-    long num;
+    Integer num;
 
-    public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
+    public RecipeStep(int id, RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
 	}
     
-    public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
+    public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public RecipeStepActions getAction() {
 		return action;
 	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 
 	public void setAction(RecipeStepActions action) {
 		this.action = action;
@@ -54,17 +66,15 @@ public class RecipeStep {
 		this.value = value;
 	}
 
-	
-
-	public String getImageURL() {
-		return imageURL;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
-	public long getNum() {
+	public int getNum() {
 		return num;
 	}
 
@@ -80,10 +90,8 @@ public class RecipeStep {
         return text;
     }
 
-
   @Override
 	public String toString() {
 		return text;
 	}
-  
 }

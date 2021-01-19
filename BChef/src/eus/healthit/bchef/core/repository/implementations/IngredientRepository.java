@@ -1,82 +1,46 @@
 package eus.healthit.bchef.core.repository.implementations;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import eus.healthit.bchef.core.controllers.QueryCon;
-import eus.healthit.bchef.core.models.Ingredient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class IngredientRepository {
 
-	public static List<Ingredient> get(String uuid) {
-		try {
-			Connection conn = QueryCon.getConnection();
-			Statement stmt = conn.createStatement();
-			List<Ingredient> ingredients = new ArrayList<>();
-			String query = "SELECT * FROM public.rel_ingredients AS r WHERE r.uuid_recipe = '" + uuid + "'";
-			ResultSet rSet = stmt.executeQuery(query);
-			stmt.close();
-			while (rSet.next()) {
-				ingredients.add(getOne(rSet.getLong("id_ingredient"), uuid));
-			}
-			System.out.println(query);
-			return ingredients;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public static List<JSONObject> getByUuid(String uuid) throws SQLException {
+		String query = "SELECT * FROM public.rel_ingredients INNER JOIN public.ingredients ON (rel_ingredients.id_ingredient = ingredients.id)"
+				+ "WHERE rel_ingredients.uuid_recipe = " + uuid + "";
+		ResultSet rSet = QueryCon.executeQuery(query);
+		return parseIngredientList(rSet);
 	}
 
-	public static Ingredient getOne(long id, String uuid) {
-		try {
-			Connection conn = QueryCon.getConnection();
-			Statement stmt = conn.createStatement();
-			String q = "SELECT * FROM public.ingredients AS r WHERE r.id = " + id;
-			ResultSet rSet = stmt.executeQuery(q);
-			stmt.close();
-			rSet.next();
-			System.out.println(q);
-			return new Ingredient(id, rSet.getString("name"), rSet.getString("type"), RelationRepository.getIngredientAmount(uuid, id));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	private static JSONObject parseIngredient(ResultSet rset) throws JSONException, SQLException {
+		JSONObject ingredient = new JSONObject();
+		ingredient.put("id", rset.getInt("id")).put("name", rset.getString("name")).put("type", rset.getString("type"));
+		return ingredient;
 	}
 
-	public static boolean insert(Ingredient ingredient) {
-		try {
-			Connection conn = QueryCon.getConnection();
-			Statement stmt = conn.createStatement();
-			String q = "INSERT INTO public.ingredients (name, type) VALUES ('" + ingredient.getName() + "', '"
-					+ ingredient.getType() + "')";
-			stmt.execute(q);
-			stmt.close();
-			System.out.println(q);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+	private static List<JSONObject> parseIngredientList(ResultSet rSet) throws SQLException {
+		List<JSONObject> list = new ArrayList<>();
+		while (rSet.next()) {
+			list.add(parseIngredient(rSet));
 		}
-
+		return list;
 	}
 
-	public static long getId(Ingredient ingredient) {
-		try {
-			Connection conn = QueryCon.getConnection();
-			Statement stmt = conn.createStatement();
-			String q = "SELECT * FROM public.ingredients AS r WHERE r.name = '" + ingredient.getName() + "'";
-			ResultSet rSet = stmt.executeQuery(q);
-			stmt.close();
-			rSet.next();
-			System.out.println(q);
-			return rSet.getLong("id");
-		} catch (Exception e) {
-			return -1;
-		}
+	public static JSONObject ingredientLike(String like) throws JSONException, SQLException {
+		String query = "SELECT * FROM public.ingredients WHERE ingredients.name LIKE '%" + like + "%'";
+		ResultSet rSet = QueryCon.executeQuery(query);
+		return new JSONObject().put("ingredients", parseIngredientList(rSet));
+	}
 
+	public static void makeRelation(int idIng, String uuidRecipe, String amount) throws SQLException {
+		String query = String.format("INSERT INTO public.rel_ingredients VALUES ('%s', %d, %d )", uuidRecipe, idIng,
+				amount);
+		QueryCon.execute(query);
 	}
 
 }
