@@ -13,6 +13,8 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.repository.implementations.UserRepository;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.dialogs.FileChooser;
@@ -24,10 +26,12 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
 	WindowFrame window;
+	User user;
 
-	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window) {
+	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window, User user) {
 		this.createRecipeView = createRecipeView;
 		this.window = window;
+		this.user = user;
 
 		createPreviewWindow();
 	}

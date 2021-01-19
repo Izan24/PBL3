@@ -46,6 +46,7 @@ import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.ingredients.IngredientRenderer;
 import eus.healthit.bchef.core.view.recipeStep.RecipeStepList;
+import eus.healthit.bchef.core.view.recipeStep.RecipeStepRenderer;
 
 public class CenterViewCreateRecipe extends JPanel {
 
@@ -89,6 +90,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	RecipeStepList stepModel;
 
 	IngredientRenderer ingredientRenderer;
+	RecipeStepRenderer stepRenderer;
 
 	public CenterViewCreateRecipe(User user, WindowFrame window) {
 		super(new GridLayout());
@@ -210,7 +212,10 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		steps = new JList<>();
 		stepModel = new RecipeStepList();
+		stepRenderer = new RecipeStepRenderer();
+
 		steps.setModel(stepModel);
+		steps.setCellRenderer(stepRenderer);
 	}
 
 	private void initTextFields() {
@@ -545,7 +550,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		stepListPanel.setBackground(bgColor);
 		stepListPanel.setOpaque(true);
 		stepListPanel.setPreferredSize(new Dimension(439, 130));
-		
+
 		stepListPanel.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		stepListPanel.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		stepListPanel.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
@@ -786,11 +791,19 @@ public class CenterViewCreateRecipe extends JPanel {
 			valueSpinnerModel.setMaximum(300);
 			valueSpinnerModel.setStepSize(1);
 			valueSpinnerModel.setValue(0);
+
+			values.setEnabled(true);
+
 		} else if (actions.getSelectedItem().equals(RecipeStepActions.STOVE)) {
 			valueSpinnerModel.setMinimum(0);
 			valueSpinnerModel.setMaximum(10);
 			valueSpinnerModel.setStepSize(1);
 			valueSpinnerModel.setValue(0);
+
+			values.setEnabled(true);
+
+		} else if (actions.getSelectedItem().equals(RecipeStepActions.TIMER)) {
+			values.setEnabled(false);
 		}
 	}
 
