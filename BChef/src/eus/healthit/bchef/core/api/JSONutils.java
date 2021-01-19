@@ -1,11 +1,15 @@
 package eus.healthit.bchef.core.api;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,13 +26,20 @@ public class JSONutils {
 		int id = jsonReturn.getInt("id");
 		String name = jsonReturn.getString("name");
 		String surname = jsonReturn.getString("surname");
-		Image profilepic = ImageRepository.decodeImage(jsonReturn.getString("profilepic"));
+		String pString = jsonReturn.getString("profilepic");
+		Image profilepic = null;
+		try {
+			profilepic = (pString.equals("default"))?ImageIO.read(new File("resources/user/default_user.png")):ImageRepository.decodeImage(pString);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		String email = jsonReturn.getString("email");
 		User user = new User(id, name, surname, profilepic, email);
 
 		JSONArray arrayJSON = jsonReturn.getJSONArray("followed");
 		user.setFollowed(getFollowers(arrayJSON));
 		user.setFollowers(jsonReturn.getInt("followers"));
+		user.setUsername(jsonReturn.getString("username"));
 		arrayJSON = jsonReturn.getJSONArray("published");
 
 		for (Object obj : arrayJSON) {
@@ -48,7 +59,7 @@ public class JSONutils {
 			user.addHistory(getRecipe(history));
 		}
 
-		arrayJSON = jsonReturn.getJSONArray("shopList");
+		arrayJSON = jsonReturn.getJSONArray("shoplist");
 		for (Object obj : arrayJSON) {
 			JSONObject item = (JSONObject) obj;
 			user.addShopElement(getListItem(item));
@@ -87,7 +98,7 @@ public class JSONutils {
 		UUID uuid = UUID.fromString(published.getString("uuid"));
 		String name2 = published.getString("name");
 		int authorID = published.getInt("author");
-		String author = API.getUserName(authorID).getString("username");
+		String author = API.getUserName(authorID).getString("name");
 		String description = published.getString("description");
 		int rating = published.getInt("rating");
 		Timestamp publishDate = Timestamp.valueOf(published.getString("publish_date"));
@@ -112,13 +123,13 @@ public class JSONutils {
 			int idS = step.getInt("id");
 			RecipeStepActions recipeS = RecipeStepActions.valueOf(step.getString("action"));
 			int value = step.getInt("value");
-			Image image = ImageRepository.decodeImage(step.getString("image"));
-			String text = step.getString("text");
+			Image image = ImageRepository.decodeImage(step.getString("img"));
+			String text = step.getString("txt");
 			int num = step.getInt("num");
 			listaPasos.add(new RecipeStep(idS, recipeS, value, image, text, num));
 		}
 
-		Image image = ImageCoder.decodeImage(published.getString("image"));
+		Image image = ImageCoder.decodeImage(published.getString("img"));
 		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, duration, ingredientes,
 				listaPasos, image);
 	}

@@ -3,6 +3,7 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -176,8 +177,13 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	public void addStep() {
-		RecipeStep step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(), null,
-				createRecipeView.getInstruction(), createRecipeView.getValue());
+		RecipeStep step = null;
+		try {
+			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(), ImageIO.read(new File("proba3.jfif")),
+					createRecipeView.getInstruction(), createRecipeView.getValue());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		createRecipeView.getStepListModel().addElement(step);
 	}
 

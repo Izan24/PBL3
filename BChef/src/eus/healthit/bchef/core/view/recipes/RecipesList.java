@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 
 import eus.healthit.bchef.core.models.Recipe;
-import eus.healthit.bchef.core.repository.implementations.RecipeRepository;
 
 public class RecipesList extends AbstractListModel<Recipe> {
 
@@ -14,7 +13,6 @@ public class RecipesList extends AbstractListModel<Recipe> {
 
 	public RecipesList() {
 		list = new ArrayList<>();
-		initList();
 	}
 
 	public void setList(List<Recipe> list) {
@@ -24,10 +22,6 @@ public class RecipesList extends AbstractListModel<Recipe> {
 			System.out.println(r.toString());
 		}
 		this.list = list;
-	}
-
-	private void initList() {
-		list = RecipeRepository.getN(1);
 	}
 
 	public void addElement(Recipe elemento) {

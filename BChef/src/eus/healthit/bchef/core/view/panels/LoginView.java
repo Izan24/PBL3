@@ -23,6 +23,7 @@ import eus.healthit.bchef.core.controllers.view.LoginViewController;
 import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordField;
@@ -46,14 +47,14 @@ public class LoginView extends JPanel {
 	JLabel textLabel;
 	User user;
 
-	public LoginView(WindowFrameController windowFrameController) {
+	public LoginView(WindowFrameController windowFrameController, WindowFrame window) {
 		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setPreferredSize(new Dimension(480, 640));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
 
-		controller = new LoginViewController(this, windowFrameController);
+		controller = new LoginViewController(this, windowFrameController, window);
 
 		initTextFields();
 		initButtons();
@@ -206,8 +207,14 @@ public class LoginView extends JPanel {
 		return southPanel;
 	}
 
-//	public void resetAllFields() {
-//		initTextFields();
-//	}
+	public String getUsername() {
+		return username.getText();
+	}
+
+	public String getPassword() {
+		return String.valueOf(password.getPassword());
+	}
+
+
 
 }

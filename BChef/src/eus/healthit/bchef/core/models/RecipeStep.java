@@ -1,6 +1,7 @@
 package eus.healthit.bchef.core.models;
 
 import java.awt.Image;
+import java.time.Duration;
 
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 
@@ -9,35 +10,57 @@ public class RecipeStep {
 	Integer id;
 	RecipeStepActions action;
 	int value;
-	String imageURL;
 	String text;
 	int num;
 	Image image;
-
-	public RecipeStep(Integer id, RecipeStepActions action, int value, String imageURL, String text, int num) {
+	String imagePath;
+	Duration duration;
+	
+	public RecipeStep(Integer id, RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
 	}
 
-	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, int num) {
+	public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
 	}
 
-	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text) {
+	public RecipeStep(RecipeStepActions action, int value, Image image, String text) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
+	}
+	
+	public RecipeStep(RecipeStepActions action, int value, String imagePath, String text, int num) {
+		this.id = null;
+		this.action = action;
+		this.value = value;
+		this.imagePath = imagePath;
+		this.text = text;
+		this.num = num;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	public String getImagePath() {
+		return imagePath;
 	}
 
 	public long getId() {
@@ -64,9 +87,6 @@ public class RecipeStep {
 		this.value = value;
 	}
 
-	public String getImageURL() {
-		return imageURL;
-	}
 
 	public void setImage(Image image) {
 		this.image = image;
@@ -88,6 +108,8 @@ public class RecipeStep {
 		return text;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return text;

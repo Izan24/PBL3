@@ -70,6 +70,6 @@ public class CenterStepView extends JPanel {
 
 	private void updateView(RecipeStep step) {
 		instructionPanel.setText(step.getText());
-		imageLabel.setText(step.getImageURL());
+		imageLabel.setText(step.getImagePath());
 	}
 }

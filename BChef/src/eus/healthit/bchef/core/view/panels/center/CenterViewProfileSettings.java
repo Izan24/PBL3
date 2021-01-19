@@ -53,6 +53,10 @@ public class CenterViewProfileSettings extends JPanel {
 
 	User user;
 
+	String imagePath;
+	
+	
+
 	ProfileSettingsController controller;
 
 	JScrollPane scrollPane;
@@ -464,6 +468,14 @@ public class CenterViewProfileSettings extends JPanel {
 
 	public String getNewPwd() {
 		return String.valueOf(newPwd.getPassword());
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public void changePwdState() {

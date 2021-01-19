@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.sql.DatabaseMetaData;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.json.JSONObject;
 
+import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.panels.CreateAccountView;
@@ -29,7 +32,9 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 		switch (command) {
 		case CreateAccountControllerAC.CREATEACC:
 			if (verifyParams()) {
-				// confirm dialog
+				JSONParser.registerUser(createAccountView.getName(), createAccountView.getSurname(),
+						createAccountView.getEmail(), createAccountView.getUsername(),
+						createAccountView.getPwd(), "default");
 				windowFrameController.setLoginView();
 			} else {
 				// error dialog diciendo que es lo que ha pasado, tambien lo puedes hacer desde

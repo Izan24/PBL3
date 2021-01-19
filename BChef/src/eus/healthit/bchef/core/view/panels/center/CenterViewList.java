@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
@@ -52,6 +53,7 @@ public class CenterViewList extends JScrollPane implements IClickable {
 
 		recipes = new JList<>();
 		listModel = new RecipesList();
+		listModel.setList(JSONParser.getPage(0));
 		renderer = new RendererRecipes();
 
 		recipes.setModel(listModel);

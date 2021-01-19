@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core.controllers.view;
 
+import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -23,18 +24,18 @@ public class WindowFrameController {
 	}
 
 	private void initViews() {
-		loginView = new LoginView(this);
+		loginView = new LoginView(this,window);
 		createAccountView = new CreateAccountView(this, window);
 	}
 
 	private void setStartView() {
-//		setLoginView();
-		setAppView(new User(0, "Test", "TestUser777", "test.user@gmail.com", "User", "User"));
+		setLoginView();
+		//setAppView(JSONParser.getUserById(6));
 		window.setVisible(true);
 	}
 
 	public void setLoginView() {
-		loginView = new LoginView(this);
+		loginView = new LoginView(this, window);
 		window.setContentPane(loginView);
 		window.repaint();
 		window.revalidate();
@@ -51,6 +52,7 @@ public class WindowFrameController {
 		principalView = new PrincipalView(user, this, window);
 		window.setContentPane(principalView);
 		window.repaint();
+		window.revalidate();
 	}
 
 }

@@ -70,10 +70,6 @@ public class API {
 		return APIutils.putRequest("/api/user/shoplist/remove", json);
 	}
 
-	public static JSONObject registerUser(JSONObject json) {
-		return APIutils.putRequest("/api/register/user", json);
-	}
-
 	public static JSONObject follow(JSONObject json) {
 		return APIutils.putRequest("/api/user/follow", json);
 	}

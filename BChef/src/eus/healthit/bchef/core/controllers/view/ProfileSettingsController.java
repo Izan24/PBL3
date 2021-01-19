@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -38,6 +39,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 			FileChooser file = new FileChooser();
 			try {
 				try {
+					settingsView.setImagePath(file.getSelectedFile().getPath());
 					settingsView.setImage(ImageIO.read(file.getSelectedFile()));
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -53,9 +55,11 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				System.out.println("Put del nuevo user");
 				user.setName(settingsView.getName());
 				user.setSurname(settingsView.getSurname());
-//				user.setProfilePic(settingsView.getImage());
+				user.setProfilePic(settingsView.getImage());
 				user.setEmail(settingsView.getEmail());
 				user.setUsername(settingsView.getUsername());
+				user.setImgString(settingsView.getImagePath());
+				JSONParser.updateUser(user);
 			}
 			break;
 

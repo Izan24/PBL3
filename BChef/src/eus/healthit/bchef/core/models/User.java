@@ -12,12 +12,21 @@ import javax.swing.ImageIcon;
 
 public class User {
 
+	public String getImgString() {
+		return imgString;
+	}
+
+	public void setImgString(String imgString) {
+		this.imgString = imgString;
+	}
+
 	int id;
 	String name, surname;
 	Image profilePic;
 	String email;
 	String username;
 	String password;
+	String imgString;
 	List<User> followed;
 	int followers;
 	List<Recipe> published;
@@ -109,6 +118,15 @@ public class User {
 		this.history = history;
 	}
 
+	public User(String name, String surname, String email, String username, String pwd) {
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.username = username;
+		this.password = pwd;
+		this.imgString = "default";
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -198,13 +216,22 @@ public class User {
 	public int getFollowedNumber() {
 		return followed.size();
 	}
+	
+	public void setFollowed(List<User> followed) {
+		this.followed = followed;
+		
+	}
 
+	public void setFollowers(int followers) {
+		this.followers = followers;
+		
+	}
 	// ------------------------------------------------------------------------
 
 	public int getFollowers() {
 		return followers;
 	}
-	}
+	
 
 	public void removeFollower(User user) {
 		followers--;
@@ -281,6 +308,8 @@ public class User {
 	public String toString() {
 		return name + "\n" + surname + "\n" + username + "\n" + email;
 	}
+
+
 
 }
 

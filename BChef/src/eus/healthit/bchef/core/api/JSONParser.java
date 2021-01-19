@@ -4,21 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
-import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 
 public class JSONParser {
 	public static StatusCode registerUser(String name, String surname, String email, String username, String password,
-			String profilepic) {
+			String path) {
 		JSONObject json = new JSONObject();
 		json.put("name", name).put("surname", surname).put("email", email).put("username", username)
-				.put("password", password).put("profilepic", profilepic);
-		JSONObject jsonReturn = API.registerUser(json);
+				.put("password", password).put("profilepic", (path.equals("default"))?"default":ImageRepository.encodeImage(path));
+		JSONObject jsonReturn = API.addUser(json);
 
 		String status = jsonReturn.getString("status");
 
@@ -64,6 +63,11 @@ public class JSONParser {
 		String status = jsonReturn.getString("status");
 
 		return StatusCode.valueOf(status);
+	}
+
+	public static User getUserById(int id) {
+		JSONObject json = API.getUserById(id);
+		return JSONutils.getUser(json);
 	}
 
 	public static StatusCode unfollow(Integer user, Integer unfollowed) {
@@ -141,6 +145,33 @@ public class JSONParser {
 		String status = jsonReturn.getString("status");
 
 		return StatusCode.valueOf(status);
+	}
+
+	public static List<Recipe> getPage(int i) {
+
+		JSONObject jsonReturn = API.getPage(i);
+		JSONArray recipes = jsonReturn.getJSONArray("recipes");
+
+		List<Recipe> recipeList = new ArrayList<>();
+
+		for (Object object : recipes) {
+			JSONObject recipe = (JSONObject) object;
+			recipeList.add(JSONutils.getRecipe(recipe));
+		}
+		return recipeList;
+	}
+
+	public static StatusCode updateUser(User user) {
+		JSONObject json = new JSONObject();
+		json.put("name", user.getName()).put("surname", user.getSurname())
+		.put("email", user.getEmail()).put("username", user.getUsername())
+				.put("password", user.getPassword()).put("profilepic", (user.getImgString().equals("default"))?"default":ImageRepository.encodeImage(user.getImgString()));
+		JSONObject jsonReturn = API.addUser(json);
+
+		String status = jsonReturn.getString("status");
+
+		return StatusCode.valueOf(status);
+		
 	}
 
 }
