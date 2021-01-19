@@ -14,7 +14,6 @@ import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.repository.implementations.UserRepository;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.dialogs.FileChooser;
@@ -76,6 +75,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 		case RecipeCreationControllerAC.ADD_STEP:
 			System.out.println("ADD_STEP");
+			if (checkStep()) {
+				addStep();
+			}
 			createRecipeView.resetStepFIelds();
 			break;
 
@@ -99,7 +101,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	private boolean recipeValid() {
-
 		if (createRecipeView.getTitle().trim().equals("")
 				|| createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
 			new CreationErrorDialog(window, "Invalid title", true, "El titulo introducido no es valido");
@@ -150,9 +151,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 		Recipe recipe = new Recipe(title, createRecipeView.getAuthor(), 2, description, 5,
 				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
-		System.out.println("Crear receta");
+
 		return (recipe);
-//		return new Recipe("Prueba Prev", "Izan owo", 6, null, null, null);
 	}
 
 	private void createPreviewWindow() {
@@ -175,10 +175,31 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	}
 
-	public void addStep(String text, int value, RecipeStepActions action, String imageURL, int num) {
-		RecipeStep step = new RecipeStep(action, value, imageURL, text, num);
-
+	public void addStep() {
+		RecipeStep step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(), null,
+				createRecipeView.getInstruction(), createRecipeView.getValue());
 		createRecipeView.getStepListModel().addElement(step);
+	}
+
+	public boolean checkStep() {
+		if (createRecipeView.getInstruction().equals("")
+				|| createRecipeView.getInstruction().equals(CenterViewCreateRecipe.STEP_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, "Invalid instruction", true, "La instrucción no es valida");
+			return false;
+		} else {
+			if (createRecipeView.getAction().equals(RecipeStepActions.TIMER)) {
+//				if (createRecipeView.getDuration().equals("00:00:00")) {
+//					new CreationErrorDialog(window, "Invalid time", true, "El tiempo no puede ser 0");
+//					return false
+//				}
+			} else {
+				if (createRecipeView.getValue() == 0) {
+					new CreationErrorDialog(window, "Invalid value", true, "El valor no puede ser 0");
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public void removeIngredient(Ingredient ingredient) {

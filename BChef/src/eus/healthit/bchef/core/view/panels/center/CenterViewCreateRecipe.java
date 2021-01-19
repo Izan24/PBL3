@@ -100,7 +100,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		this.user = user;
 
-		controller = new RecipeCreationController(this, window);
+		controller = new RecipeCreationController(this, window, user);
 
 		initButtons();
 		initJLabels();
@@ -241,6 +241,8 @@ public class CenterViewCreateRecipe extends JPanel {
 		instruction.setForeground(Color.gray);
 		instruction.setMargin(new Insets(20, 20, 20, 20));
 		instruction.setPreferredSize(new Dimension(314, 79));
+		instruction.setLineWrap(true);
+		instruction.setWrapStyleWord(true);
 
 		ingredient = new JTextField();
 		ingredient.setFont(textFont);
@@ -715,10 +717,10 @@ public class CenterViewCreateRecipe extends JPanel {
 		controller.addIngredient(ingredient.getText(), quantity.getText());
 	}
 
-	public void addStep(String imageURL, int num) {
-		controller.addStep(instruction.getText(), (int) values.getValue(),
-				(RecipeStepActions) actions.getSelectedItem(), imageURL, num);
-	}
+//	public void addStep(String imageURL, int num) {
+//		controller.addStep(instruction.getText(), (int) values.getValue(),
+//				(RecipeStepActions) actions.getSelectedItem(), imageURL, num);
+//	}
 
 	public void removeIngredient() {
 		try {
@@ -777,8 +779,12 @@ public class CenterViewCreateRecipe extends JPanel {
 		return (RecipeStepActions) actions.getSelectedItem();
 	}
 
-	public int getValues() {
+	public int getValue() {
 		return (int) values.getValue();
+	}
+
+	public String getInstruction() {
+		return instruction.getText();
 	}
 
 //	public Object getTime() {

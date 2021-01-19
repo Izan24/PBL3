@@ -4,15 +4,14 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
-
 	Long id;
 	RecipeStepActions action;
 	int value;
 	String imageURL;
-    String text;
-    long num;
+	String text;
+	long num;
 
-    public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
+	public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
@@ -20,14 +19,22 @@ public class RecipeStep {
 		this.text = text;
 		this.num = num;
 	}
-    
-    public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
+
+	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
 		this.imageURL = imageURL;
 		this.text = text;
 		this.num = num;
+	}
+
+	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text) {
+		this.id = null;
+		this.action = action;
+		this.value = value;
+		this.imageURL = imageURL;
+		this.text = text;
 	}
 
 	public long getId() {
@@ -54,8 +61,6 @@ public class RecipeStep {
 		this.value = value;
 	}
 
-	
-
 	public String getImageURL() {
 		return imageURL;
 	}
@@ -77,13 +82,12 @@ public class RecipeStep {
 	}
 
 	public String getText() {
-        return text;
-    }
+		return text;
+	}
 
-
-  @Override
+	@Override
 	public String toString() {
 		return text;
 	}
-  
+
 }
