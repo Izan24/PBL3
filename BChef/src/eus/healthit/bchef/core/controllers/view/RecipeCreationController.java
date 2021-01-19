@@ -13,6 +13,8 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.view.WindowFrame;
+import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
@@ -21,9 +23,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
+	WindowFrame window;
 
-	public RecipeCreationController(CenterViewCreateRecipe createRecipeView) {
+	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window) {
 		this.createRecipeView = createRecipeView;
+		this.window = window;
 
 		createPreviewWindow();
 	}
@@ -79,6 +83,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 //			System.out.println(
 //					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
 			System.out.println(createRecipeView.getImage());
+			if (recipeValid()) {
+
+			}
 			break;
 
 		case RecipeCreationControllerAC.PREVIEW:
@@ -87,11 +94,32 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		}
 	}
 
+	private boolean recipeValid() {
+
+		if (createRecipeView.getTitle().trim().equals("")
+				|| createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, "Invalid title", true, "El titulo introducido no es valido");
+			return false;
+		} else if (createRecipeView.getDescription().trim().equals("")
+				|| createRecipeView.getDescription().equals(CenterViewCreateRecipe.DESCRIPTION_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, "Invalid description", true, "La descripción no es valida");
+			return false;
+		} else if (createRecipeView.getIngredientListModel().getSize() == 0) {
+			new CreationErrorDialog(window, "Invalid ingredients", true, "Introduce minimo un ingrediente");
+			return false;
+		} else if (createRecipeView.getStepListModel().getSize() == 0) {
+			new CreationErrorDialog(window, "Invalid step", true, "Introduce minimo un paso");
+			return false;
+		}
+		return true;
+	}
+
 	private void openPreviewWindow() {
 		CenterPreviewRecipe preview = new CenterPreviewRecipe();
 		preview.setRecipe(createRecipe());
 
 		framePreview.setContentPane(preview);
+		framePreview.setSize(1250, 750);
 		framePreview.setLocation(400, 75);
 		framePreview.setVisible(true);
 	}
@@ -104,10 +132,10 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		 * PASA ESTO A UN METODO
 		 */
 
-		if (createRecipeView.getName().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
+		if (createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
 			title = "";
 		} else {
-			title = createRecipeView.getName();
+			title = createRecipeView.getTitle();
 		}
 
 		if (createRecipeView.getDescription().equals(CenterViewCreateRecipe.DESCRIPTION_DEFAULT_TEXT)) {

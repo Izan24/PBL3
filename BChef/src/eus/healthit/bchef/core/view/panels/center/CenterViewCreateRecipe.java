@@ -38,6 +38,7 @@ import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
@@ -88,7 +89,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	IngredientRenderer ingredientRenderer;
 
-	public CenterViewCreateRecipe(User user) {
+	public CenterViewCreateRecipe(User user, WindowFrame window) {
 		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(bgColor);
@@ -96,7 +97,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		this.user = user;
 
-		controller = new RecipeCreationController(this);
+		controller = new RecipeCreationController(this, window);
 
 		initButtons();
 		initJLabels();
@@ -286,6 +287,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		DateEditor editor = new DateEditor(time, "HH:mm:ss");
 		time.setEditor(editor);
+
 	}
 
 	private Component createContent() {
@@ -606,15 +608,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		return infoPanel;
 	}
 
-//	private Component createInstructionPanel() {
-//		JPanel instructionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//		instructionPanel.setBackground(bgColor);
-//
-//		instructionPanel.add(instruction);
-//
-//		return instructionPanel;
-//	}
-
 	private Component createComboBoxPanel() {
 		JPanel comboPanel = new JPanel(new GridLayout(3, 1, 5, 5));
 		comboPanel.setBackground(bgColor);
@@ -699,14 +692,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		return scrollPane;
 	}
 
-	public RecipeStepList getStepListModel() {
-		return stepModel;
-	}
-
-	public IngredientList getIngredientListModel() {
-		return ingredientModel;
-	}
-
 	public void addIngredient() {
 		controller.addIngredient(ingredient.getText(), quantity.getText());
 	}
@@ -733,7 +718,15 @@ public class CenterViewCreateRecipe extends JPanel {
 		}
 	}
 
-	public String getName() {
+	public RecipeStepList getStepListModel() {
+		return stepModel;
+	}
+
+	public IngredientList getIngredientListModel() {
+		return ingredientModel;
+	}
+
+	public String getTitle() {
 		return title.getText();
 	}
 
@@ -765,8 +758,15 @@ public class CenterViewCreateRecipe extends JPanel {
 		return (RecipeStepActions) actions.getSelectedItem();
 	}
 
+	public int getValues() {
+		return (int) values.getValue();
+	}
+
+//	public Object getTime() {
+//		return time.getValue();
+//	}
+
 	public void changeValueLimits() {
-		System.out.println("hola");
 		if (actions.getSelectedItem().equals(RecipeStepActions.OVEN)) {
 			valueSpinnerModel.setMinimum(0);
 			valueSpinnerModel.setMaximum(300);

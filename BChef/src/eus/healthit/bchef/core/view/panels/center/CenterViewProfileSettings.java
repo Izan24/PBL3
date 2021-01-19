@@ -43,31 +43,29 @@ public class CenterViewProfileSettings extends JPanel {
 	public static final String DEFAULT_PWD_TEXT = "Contraseña actual";
 	public static final String DEFAULT_CONFPWD_TEXT = "Nueva contraseña";
 
+	Color bgColor = Color.white;
+	Color textColor = new Color(129, 145, 160);
+	Color selectedColor = new Color(30, 170, 255);
+
+	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
+	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
+
 	User user;
-
-	JScrollPane scrollPane;
-
-	JLabel profilePicture;
-	JTextField name, surname, username, email;
-
-	JPasswordField pwd, newPwd;
-	JLabel logoLabel, textLabel;
-
-	JButton saveChanges, addImageButton, logOut;
 
 	ProfileSettingsController controller;
 
-	Color bgColor = Color.white;
+	JScrollPane scrollPane;
+	JLabel profilePicture;
+	JLabel logoLabel, textLabel;
 
-	Color textColor = new Color(129, 145, 160);
-	Color selectedColor = new Color(30, 170, 255);
+	JTextField name, surname, username, email;
+	JPasswordField pwd, newPwd;
+
+	JButton saveChanges, addImageButton, logOut;
 
 	JCheckBox showPWDBox;
 
 	Image image;
-
-	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
-	Font numberFont = new Font("Segoe UI", Font.BOLD, 20);
 
 	public CenterViewProfileSettings(User user, WindowFrameController windowController, WindowFrame window) {
 		super(new GridLayout());
@@ -198,7 +196,7 @@ public class CenterViewProfileSettings extends JPanel {
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
-	private Component createScrollPanel() {		
+	private Component createScrollPanel() {
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
@@ -207,7 +205,6 @@ public class CenterViewProfileSettings extends JPanel {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
 		scrollPane.setViewportView(createBoxPanel());
-		
 
 		return scrollPane;
 	}

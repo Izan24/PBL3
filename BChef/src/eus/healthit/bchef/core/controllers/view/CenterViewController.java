@@ -52,7 +52,7 @@ public class CenterViewController implements ActionListener {
 		recipeView = new CenterViewRecipe(this, user);
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
-		createRecipeView = new CenterViewCreateRecipe(user);
+		createRecipeView = new CenterViewCreateRecipe(user, window);
 		stepView = new CenterStepView();
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
