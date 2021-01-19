@@ -1,23 +1,16 @@
 package eus.healthit.bchef.core.api;
 
-import java.awt.Image;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.repository.implementations.ImageRepository;
 
 public class JSONParser 
 {

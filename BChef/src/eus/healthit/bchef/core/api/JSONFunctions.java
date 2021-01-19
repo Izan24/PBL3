@@ -16,7 +16,6 @@ import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.repository.implementations.ImageRepository;
 
 public class JSONFunctions 
 {

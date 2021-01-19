@@ -1,3 +1,5 @@
+package eus.healthit.bchef.core.controllers.view;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
