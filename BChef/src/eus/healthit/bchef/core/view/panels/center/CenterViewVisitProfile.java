@@ -24,6 +24,7 @@ import eus.healthit.bchef.core.controllers.view.ProfileVisitController;
 import eus.healthit.bchef.core.controllers.view.ProfileVisitControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
@@ -154,6 +155,11 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		scroll.setBackground(bgColor);
 		scroll.setOpaque(false);
+		
+		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scroll.setViewportView(createMainPanel());
 
@@ -283,6 +289,11 @@ public class CenterViewVisitProfile extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.white);
 		scrollPane.setOpaque(true);
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 

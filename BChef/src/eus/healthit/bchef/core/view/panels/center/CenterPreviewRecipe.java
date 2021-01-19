@@ -3,6 +3,7 @@ package eus.healthit.bchef.core.view.panels.center;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 
 public class CenterPreviewRecipe extends JPanel {
 
@@ -90,6 +92,11 @@ public class CenterPreviewRecipe extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 

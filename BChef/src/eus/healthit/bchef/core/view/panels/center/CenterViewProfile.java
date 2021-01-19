@@ -3,6 +3,7 @@ package eus.healthit.bchef.core.view.panels.center;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -26,6 +27,7 @@ import eus.healthit.bchef.core.controllers.view.ProfileController;
 import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 
@@ -162,6 +164,11 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		scroll.setBackground(bgColor);
 		scroll.setOpaque(false);
+		
+		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scroll.setViewportView(createMainPanel());
 
@@ -289,6 +296,11 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(false);
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setViewportView(uploaded);
 

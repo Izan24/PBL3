@@ -28,6 +28,7 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 
 public class CenterViewRecipe extends JPanel implements IClickable {
@@ -139,6 +140,11 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 

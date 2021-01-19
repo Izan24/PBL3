@@ -24,6 +24,7 @@ import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
@@ -130,6 +131,11 @@ public class CenterViewShopList extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setViewportView(itemList);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		centerPanel.add(scrollPane);
 

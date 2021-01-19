@@ -41,6 +41,7 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
 import eus.healthit.bchef.core.view.ingredients.IngredientRenderer;
@@ -314,6 +315,10 @@ public class CenterViewCreateRecipe extends JPanel {
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scrollPane.setViewportView(createMainPanel());
 
@@ -438,6 +443,10 @@ public class CenterViewCreateRecipe extends JPanel {
 		ingredientListPanel.setBackground(bgColor);
 		ingredientListPanel.setOpaque(true);
 		ingredientListPanel.setPreferredSize(new Dimension(258, 130));
+		ingredientListPanel.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		ingredientListPanel.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		ingredientListPanel.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		ingredientListPanel.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		ingredientListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
@@ -536,6 +545,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		stepListPanel.setBackground(bgColor);
 		stepListPanel.setOpaque(true);
 		stepListPanel.setPreferredSize(new Dimension(439, 130));
+		
+		stepListPanel.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		stepListPanel.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		stepListPanel.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		stepListPanel.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		stepListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 

@@ -6,7 +6,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
-import eus.healthit.bchef.core.view.dialogs.FileChooser;
 
 public class Principal {
 

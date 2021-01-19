@@ -30,6 +30,7 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordFieldShow;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
@@ -202,6 +203,11 @@ public class CenterViewProfileSettings extends JPanel {
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
 
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
 		scrollPane.setViewportView(createBoxPanel());
@@ -244,6 +250,11 @@ public class CenterViewProfileSettings extends JPanel {
 		scroll.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
 		scroll.setBackground(bgColor);
 		scroll.setOpaque(false);
+
+		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		scroll.setViewportView(createMainPanel());
 

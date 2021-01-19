@@ -1,6 +1,7 @@
 package eus.healthit.bchef.core.view.panels.center;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JList;
@@ -11,9 +12,10 @@ import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Recipe;
-import eus.healthit.bchef.core.view.components.CustomScrollBar;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
+
 
 public class CenterViewList extends JScrollPane implements IClickable {
 
@@ -35,8 +37,11 @@ public class CenterViewList extends JScrollPane implements IClickable {
 		super(new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-		this.setVerticalScrollBar(new CustomScrollBar(false));
-		this.setHorizontalScrollBar(new CustomScrollBar(true));
+
+		this.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		this.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		this.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		this.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
 		this.centerController = centerController;
 
