@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.view;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
@@ -23,6 +24,8 @@ public class WindowFrame extends JFrame {
 		this.setLocation(300, 150);
 		this.setResizable(true);
 		this.setBackground(Color.white);
+		ImageIcon img = new ImageIcon("resources/menuIcons/bchef_icon.png");
+		this.setIconImage(img.getImage());
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
