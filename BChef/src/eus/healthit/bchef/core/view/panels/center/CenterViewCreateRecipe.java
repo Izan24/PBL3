@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -240,6 +241,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
 		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
 		ingredient.setForeground(Color.gray);
+		ingredient.setPreferredSize(new Dimension(258, 37));
 
 		quantity = new JTextField();
 		quantity.setFont(textFont);
@@ -314,6 +316,35 @@ public class CenterViewCreateRecipe extends JPanel {
 		scrollPane.setViewportView(createMainPanel());
 
 		return scrollPane;
+	}
+
+	private Component createBoxPanel() {
+		Box verticalBox = Box.createVerticalBox();
+
+		verticalBox.add(Box.createVerticalStrut(50));
+		verticalBox.add(createFlow());
+		verticalBox.add(Box.createVerticalStrut(50));
+		verticalBox.setBackground(bgColor);
+		verticalBox.setOpaque(true);
+
+		Box horizontalBox = Box.createHorizontalBox();
+
+		horizontalBox.add(Box.createVerticalStrut(50));
+		horizontalBox.add(verticalBox);
+		horizontalBox.add(Box.createVerticalStrut(50));
+		horizontalBox.setBackground(bgColor);
+		horizontalBox.setOpaque(true);
+
+		return horizontalBox;
+	}
+
+	private Component createFlow() {
+		JPanel flowPanel = new JPanel(new FlowLayout());
+		flowPanel.setBackground(bgColor);
+
+		flowPanel.add(createMainPanel());
+
+		return flowPanel;
 	}
 
 	private Component createMainPanel() {
@@ -404,6 +435,7 @@ public class CenterViewCreateRecipe extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		ingredientListPanel.setBackground(bgColor);
 		ingredientListPanel.setOpaque(true);
+		ingredientListPanel.setPreferredSize(new Dimension(258, 130));
 
 		ingredientListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
@@ -501,6 +533,7 @@ public class CenterViewCreateRecipe extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		stepListPanel.setBackground(bgColor);
 		stepListPanel.setOpaque(true);
+		stepListPanel.setPreferredSize(new Dimension(439, 130));
 
 		stepListPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 

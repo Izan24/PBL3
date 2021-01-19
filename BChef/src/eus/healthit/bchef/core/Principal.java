@@ -27,5 +27,6 @@ public class Principal {
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+
 	}
 }
