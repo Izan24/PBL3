@@ -74,4 +74,20 @@ public class APIutils {
 			return new JSONObject().put("status", StatusCode.CONECTION_ERROR);
 		}
 	}
+
+	public static JSONObject postRequest(String url, JSONObject json) {
+		try {
+			HttpURLConnection httpClient = getConnection(url, "POST", PORT);
+
+			if (!writeJSON(httpClient, json))
+				return new JSONObject().put("status", StatusCode.CONECTION_ERROR);
+
+			int responseCode = httpClient.getResponseCode();
+			System.out.println("Response Code : " + responseCode);
+			return getInputStream(httpClient);
+		} catch (Exception e) {
+			System.out.println("UwuException");
+			return new JSONObject().put("status", StatusCode.CONECTION_ERROR);
+		}
+	}
 }

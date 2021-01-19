@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.models;
 
 public class Item {
 
+	int id;
 	String name;
 	boolean bought;
 
@@ -24,6 +25,10 @@ public class Item {
 
 	public String getName() {
 		return name;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 }

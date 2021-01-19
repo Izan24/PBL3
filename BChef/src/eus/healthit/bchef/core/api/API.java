@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.json.JSONObject;
 
 public class API {
-
+ 
 	
-
+	/*########################			GET			#############################*/
 	public static JSONObject searchRecipe(String kw, int page) throws IOException {
 		return APIutils.getRequest("/api/search?like=" + kw + "&page=" + page);
 	}
@@ -20,16 +20,22 @@ public class API {
 		return APIutils.getRequest("/api/page?num=" + i);
 	}
 
-	public static JSONObject auth(JSONObject json) {
-		return APIutils.putRequest("/api/auth", json);
-	}
-
 	public static JSONObject getUserName(int i) {
 		return APIutils.getRequest("/api/user/name?id=" + i);
 	}
 
 	public static JSONObject getUserById(int i) {
 		return APIutils.getRequest("/api/user/byId?id=" + i);
+	}
+
+	public static JSONObject checkUser(String username) {
+		return APIutils.getRequest("/api/register/check?username=" + username);
+	}
+
+	
+	/*########################			PUT			#############################*/
+	public static JSONObject auth(JSONObject json) {
+		return APIutils.putRequest("/api/auth", json);
 	}
 
 	public static JSONObject rate(JSONObject json) {
@@ -68,12 +74,20 @@ public class API {
 		return APIutils.putRequest("/api/register/user", json);
 	}
 
-	public static JSONObject checkUser(String username) {
-		return APIutils.getRequest("/api/register/check?username=" + username);
+	public static JSONObject follow(JSONObject json) {
+		return APIutils.putRequest("/api/user/follow", json);
 	}
 
+	public static JSONObject unfollow(JSONObject json) {
+		return APIutils.putRequest("/api/user/unfollow", json);
+	}
+	/*########################			POST		#############################*/
 	public static JSONObject addRecipe(JSONObject json) {
-		return APIutils.putRequest("/api/register/recipe", json);
+		return APIutils.postRequest("/api/register/recipe", json);
+	}
+
+	public static JSONObject addUser(JSONObject json) {
+		return APIutils.postRequest("/api/register/user", json);
 	}
 
 }
