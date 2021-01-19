@@ -11,9 +11,10 @@ public class RecipeStep {
 	int value;
 	String imageURL;
 	String text;
-	long num;
+	int num;
+	Image image;
 
-	public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
+	public RecipeStep(Integer id, RecipeStepActions action, int value, String imageURL, String text, int num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
@@ -22,7 +23,7 @@ public class RecipeStep {
 		this.num = num;
 	}
 
-	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
+	public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, int num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
@@ -43,7 +44,7 @@ public class RecipeStep {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
