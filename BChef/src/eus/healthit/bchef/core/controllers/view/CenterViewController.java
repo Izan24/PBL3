@@ -1,8 +1,15 @@
 package eus.healthit.bchef.core.controllers.view;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.channels.NonReadableChannelException;
 
+import javax.imageio.ImageIO;
+
+import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
@@ -59,7 +66,15 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(listView);
+		principalView.changeCenterView(stepView);
+		try {
+			stepView.setStep(new RecipeStep(RecipeStepActions.OVEN, 100,
+					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(100, 100,
+							Image.SCALE_SMOOTH),
+					"Calienta el horno durante 10 minutos hasta que el pollo se queme", 1));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

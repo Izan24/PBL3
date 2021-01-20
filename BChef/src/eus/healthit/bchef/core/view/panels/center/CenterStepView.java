@@ -6,10 +6,10 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.ImageCapabilities;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,13 +25,22 @@ public class CenterStepView extends JPanel {
 		this.setSize(new Dimension(90, 20));
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		initJLabels();
+
+		this.add(createContent());
+	}
+
+	private void initJLabels() {
+		instructionPanel = new JLabel();
+		imageLabel = new JLabel();
 	}
 
 	public Component createContent() {
 		JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 
 		mainPanel.add(createCenterPanel(), BorderLayout.CENTER);
-		mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
+		mainPanel.add(createCounterPanel(), BorderLayout.SOUTH);
 
 		return mainPanel;
 	}
@@ -43,20 +52,18 @@ public class CenterStepView extends JPanel {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weighty = 1;
 		constraints.weightx = 1;
-		constraints.insets = new Insets(0, 140, 0, 140);
+		constraints.insets = new Insets(0, 50, 0, 50);
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
-		instructionPanel = new JLabel();
-		imageLabel = new JLabel();
-
-		centerPanel.add(instructionPanel);
 		centerPanel.add(imageLabel);
+		constraints.gridx = 1;
+		centerPanel.add(instructionPanel);
 
 		return centerPanel;
 	}
 
-	private Component createSouthPanel() {
+	private Component createCounterPanel() {
 		JPanel southPanel = new JPanel(new GridLayout());
 
 		return southPanel;
@@ -65,11 +72,14 @@ public class CenterStepView extends JPanel {
 	public void setStep(RecipeStep step) {
 		updateView(step);
 		System.out.println("Update view");
-		this.repaint();
 	}
 
 	private void updateView(RecipeStep step) {
 		instructionPanel.setText(step.getText());
-		imageLabel.setText(step.getImagePath());
+		imageLabel.setIcon(new ImageIcon(step.getImage()));
+
+//		if (step.getDuration().toMillis() != 0) {
+//			// Crear un panel de timer con el tiempo
+//		}
 	}
 }

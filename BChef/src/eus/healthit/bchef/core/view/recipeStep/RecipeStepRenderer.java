@@ -4,13 +4,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.font.ImageGraphicAttribute;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
+import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.RecipeStep;
 
 public class RecipeStepRenderer implements ListCellRenderer<RecipeStep> {
@@ -25,31 +28,40 @@ public class RecipeStepRenderer implements ListCellRenderer<RecipeStep> {
 
 		JPanel ingredientPanel = new JPanel(new GridLayout(1, 2, 0, 0));
 		JLabel ingredientText = new JLabel(value.getText());
-		JLabel ingredient = new JLabel(value.getAction().toString());
-
-		ingredientPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20),
-				BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY)));
-		ingredientText.setOpaque(true);
-		ingredient.setOpaque(true);
-
-		if (isSelected) {
-			ingredientPanel.setBackground(selectedColor);
-			ingredientText.setBackground(selectedColor);
-			ingredient.setBackground(selectedColor);
-		} else {
-			ingredientPanel.setBackground(bgColor);
-			ingredientText.setBackground(bgColor);
-			ingredient.setBackground(bgColor);
-		}
+		JLabel actionIcon = new JLabel();
+		JLabel action = new JLabel(value.getAction().toString());
 
 		ingredientText.setFont(textFont);
 		ingredientText.setHorizontalAlignment(JLabel.LEFT);
 
-		ingredient.setFont(textFont);
-		ingredient.setHorizontalAlignment(JLabel.RIGHT);
+		action.setFont(textFont);
+		action.setHorizontalAlignment(JLabel.RIGHT);
+
+		ingredientPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20),
+				BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY)));
+		ingredientText.setOpaque(true);
+		action.setOpaque(true);
+
+		if (isSelected) {
+			ingredientPanel.setBackground(selectedColor);
+			ingredientText.setBackground(selectedColor);
+			action.setBackground(selectedColor);
+		} else {
+			ingredientPanel.setBackground(bgColor);
+			ingredientText.setBackground(bgColor);
+			action.setBackground(bgColor);
+		}
+
+		if (value.getAction().equals(RecipeStepActions.OVEN)) {
+			action.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
+		} else if (value.getAction().equals(RecipeStepActions.STOVE)) {
+			action.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
+		} else if (value.getAction().equals(RecipeStepActions.TIMER)) {
+			action.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
+		}
 
 		ingredientPanel.add(ingredientText);
-		ingredientPanel.add(ingredient);
+		ingredientPanel.add(action);
 
 		return ingredientPanel;
 	}

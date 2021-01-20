@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -78,12 +79,13 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			System.out.println("ADD_STEP");
 			if (checkStep()) {
 				addStep();
+				createRecipeView.resetStepFIelds();
 			}
-			createRecipeView.resetStepFIelds();
 			break;
 
 		case RecipeCreationControllerAC.REMOVE_STEP:
 			System.out.println("REMOVE_STEP:");
+			createRecipeView.removeStep();
 			break;
 
 		case RecipeCreationControllerAC.CREATE_RECIPE:
@@ -179,8 +181,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	public void addStep() {
 		RecipeStep step = null;
 		try {
-			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(), ImageIO.read(new File("proba3.jfif")),
-					createRecipeView.getInstruction(), createRecipeView.getValue());
+			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
+					ImageIO.read(new File("proba3.jfif")), createRecipeView.getInstruction(),
+					createRecipeView.getValue());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -194,10 +197,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			return false;
 		} else {
 			if (createRecipeView.getAction().equals(RecipeStepActions.TIMER)) {
-//				if (createRecipeView.getDuration().equals("00:00:00")) {
-//					new CreationErrorDialog(window, "Invalid time", true, "El tiempo no puede ser 0");
-//					return false
-//				}
+				Duration duration = parseDuration();
+				if (duration.toNanos() == 0) {
+					new CreationErrorDialog(window, "Invalid time", true, "El tiempo no puede ser 0");
+					return false;
+				}
 			} else {
 				if (createRecipeView.getValue() == 0) {
 					new CreationErrorDialog(window, "Invalid value", true, "El valor no puede ser 0");
@@ -206,6 +210,39 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			}
 		}
 		return true;
+	}
+
+	private Duration parseDuration() {
+		String fullDuration = createRecipeView.getTime();
+
+		System.out.println(fullDuration);
+
+		String[] params = fullDuration.split(" ");
+		String[] time = params[3].split(":");
+
+		try {
+			time[0] = String.valueOf(Integer.parseInt(time[0]));
+		} catch (NumberFormatException e) {
+			System.out.println("String does not contain a valid number");
+		}
+		try {
+			time[1] = String.valueOf(Integer.parseInt(time[1]));
+		} catch (NumberFormatException e) {
+			System.out.println("String does not contain a valid number");
+		}
+		try {
+			time[2] = String.valueOf(Integer.parseInt(time[2]));
+		} catch (NumberFormatException e) {
+			System.out.println("String does not contain a valid number");
+		}
+
+		Duration duration = Duration.ofSeconds(Long.valueOf(time[2]));
+		duration = duration.plusMinutes(Long.valueOf(time[1]));
+		duration = duration.plusHours(Long.valueOf(time[0]));
+
+		System.out.println(duration.toMinutes());
+
+		return duration;
 	}
 
 	public void removeIngredient(Ingredient ingredient) {

@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.text.html.parser.DTD;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -225,6 +226,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		title.setText(TITLE_DEFAULT_TEXT);
 		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
 		title.setForeground(Color.gray);
+		title.setPreferredSize(new Dimension(544, 31));
 
 		description = new JTextField();
 		description.setFont(textFont);
@@ -232,6 +234,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		description.setText(DESCRIPTION_DEFAULT_TEXT);
 		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
 		description.setForeground(Color.gray);
+		description.setPreferredSize(new Dimension(544, 31));
 
 		instruction = new JTextArea();
 		instruction.setFont(textFont);
@@ -727,15 +730,12 @@ public class CenterViewCreateRecipe extends JPanel {
 			controller.removeIngredient(ingredients.getSelectedValue());
 		} catch (IndexOutOfBoundsException e) {
 		}
-
 	}
 
 	public void removeStep() {
-		if (steps.getSelectedValue() != null) {
-			try {
-				controller.removeStep(steps.getSelectedValue());
-			} catch (IndexOutOfBoundsException e) {
-			}
+		try {
+			controller.removeStep(steps.getSelectedValue());
+		} catch (IndexOutOfBoundsException e) {
 		}
 	}
 
@@ -773,6 +773,10 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public String getTime() {
+		return String.valueOf(timeSpinnerModel.getValue());
 	}
 
 	public RecipeStepActions getAction() {

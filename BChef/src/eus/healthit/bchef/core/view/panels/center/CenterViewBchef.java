@@ -21,7 +21,7 @@ public class CenterViewBchef extends JPanel {
 	private JPanel createLogoPanel() {
 		JPanel panelLogo = new JPanel(new GridLayout());
 		panelLogo.setPreferredSize(new Dimension(600, 600));
-		panelLogo.setBackground(new Color(128,192,255));
+		panelLogo.setBackground(new Color(128, 192, 255));
 
 		ImageIcon logo = new ImageIcon("resources/viewIcons/BChefLogoWhite.png");
 		JLabel labelLogo = new JLabel(logo);

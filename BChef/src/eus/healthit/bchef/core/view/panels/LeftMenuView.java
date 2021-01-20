@@ -64,8 +64,8 @@ public class LeftMenuView extends JPanel {
 		buttonList.addActionListener(listener);
 		buttonList.setActionCommand(CenterControllerAC.LIST);
 
-		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\home_normal_32.png",
-				"resources\\menuIcons\\home_active_32.png", new Color(15, 20, 25), new Color(29, 161, 242),
+		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\create_recipe_64.png",
+				"resources\\menuIcons\\create_recipe_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonCreateRecipe.setPreferredSize(new Dimension(180, 40));
 		buttonCreateRecipe.addActionListener(listener);
