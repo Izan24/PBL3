@@ -53,7 +53,7 @@ public class CenterViewList extends JScrollPane implements IClickable {
 
 		recipes = new JList<>();
 		listModel = new RecipesList();
-//		listModel.setList(JSONParser.getPage(0));
+		listModel.setList(JSONParser.getPage(0));
 		renderer = new RendererRecipes();
 
 		recipes.setModel(listModel);

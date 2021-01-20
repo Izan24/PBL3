@@ -17,7 +17,7 @@ public class RecipesList extends AbstractListModel<Recipe> {
 
 	public RecipesList() {
 		list = new ArrayList<>();
-		initList();
+		//initList();
 	}
 
 	private void initList() {
