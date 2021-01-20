@@ -1,8 +1,9 @@
 package eus.healthit.bchef.core;
 
 import eus.healthit.bchef.core.controllers.CommandController;
-import eus.healthit.bchef.core.controllers.implementations.OutputController;
-import eus.healthit.bchef.core.enums.VoiceCommand;
+import eus.healthit.bchef.core.controllers.implementations.KitchenController;
+import eus.healthit.bchef.core.controllers.input.AudioInputController;
+import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.view.WindowFrame;
 
@@ -15,18 +16,27 @@ public class Principal {
 		windowFrame = new WindowFrame();
 	}
 
-
 	public static void main(String[] args) {
-		CommandController commandController = CommandController.getInstance();
-		String cmdString = "quita de la lista buscar 2 psicólogos".toLowerCase();
-		VoiceCommand command = StringParser.parseCommand(cmdString);
-		cmdString = StringParser.deleteCommandWords(cmdString, command);
-		commandController.selectCommand(command, cmdString);
+//		CommandController commandController = CommandController.getInstance();
+//		String cmdString = "quita de la lista buscar 2 psicólogos".toLowerCase();
+//		VoiceCommand command = StringParser.parseCommand(cmdString);
+//		cmdString = StringParser.deleteCommandWords(cmdString, command);
+//		commandController.selectCommand(command, cmdString);
+
 		
-		//Separador
+		String string = StringParser.stripSpaces("bchef buscame una receta de croquetas rellenas de abuela");
+		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);
 		
+//		AudioInputController inputController = AudioInputController.getInstance();
+//		inputController.start();
+//		inputController.startRecon();
+
+//		KitchenController controller = new KitchenController();
+//		controller.setFire(0, 0);
 		
-		//Principal principal = new Principal();
+		// Separador
+
+//		Principal principal = new Principal();
 //		List<Ingredient> ings = new ArrayList<>();
 //		ings.add(new Ingredient("Zanahoria", "Carb", "3 3 YUJU"));
 //		List<RecipeStep> steps = new ArrayList<>();

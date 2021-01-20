@@ -17,30 +17,30 @@ import eus.healthit.bchef.core.enums.KitchenUtil;
 public class KitchenAlarm implements ActionListener {
 
 	Duration time;
-	
+
 	KitchenUtil util;
 	int utilIndex;
 	boolean rung = false;
-	
+
 	LocalTime startTime;
 	LocalTime endTime;
 	PropertyChangeSupport connector;
 	Timer timer;
-	
+
 	public KitchenAlarm(KitchenUtil util, int utilId, Duration time, PropertyChangeListener listener) {
 		this.util = util;
 		this.utilIndex = utilId;
 		this.time = time;
 		this.timer = null;
 		connector = new PropertyChangeSupport(this);
-		//connector.addPropertyChangeListener(listener);
+		// connector.addPropertyChangeListener(listener);
 		connector.addPropertyChangeListener(BChefController.getInstance());
 		startTime = null;
 		endTime = null;
 	}
-	
+
 	public void start() {
-		if(!rung && startTime == null) {
+		if (!rung && startTime == null) {
 			startTime = LocalTime.now();
 			endTime = startTime.plus(time);
 			timer = new Timer(1000, this);
@@ -50,11 +50,10 @@ public class KitchenAlarm implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if(endTime.isAfter(LocalTime.now()) && !rung) {
+		if (endTime.isAfter(LocalTime.now()) && !rung) {
 			Duration res = Duration.between(LocalTime.now(), endTime);
 			connector.firePropertyChange("ALARM_UPDATE", null, res);
-		}
-		else if (!rung && timer != null) {
+		} else if (!rung && timer != null) {
 			timer.stop();
 			timer = null;
 			rung = true;
@@ -69,6 +68,5 @@ public class KitchenAlarm implements ActionListener {
 	public int getUtilIndex() {
 		return utilIndex;
 	}
-	
-	
+
 }

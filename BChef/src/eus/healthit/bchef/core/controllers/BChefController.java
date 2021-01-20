@@ -11,16 +11,18 @@ import java.util.Set;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.controllers.implementations.RecipeAssistantController;
+import eus.healthit.bchef.core.controllers.input.AudioInputController;
 import eus.healthit.bchef.core.controllers.interfaces.IBoardController;
-import eus.healthit.bchef.core.controllers.interfaces.IInputController;
 import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.controllers.interfaces.IOutputController;
 import eus.healthit.bchef.core.controllers.interfaces.IRecipeAssistantController;
 import eus.healthit.bchef.core.controllers.interfaces.IViewController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
+import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.models.KitchenAlarm;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.util.TextBuilder;
 import eus.healthit.bchef.core.util.func.FunctionCall;
 import eus.healthit.bchef.core.util.func.NewAlarmCall;
@@ -37,6 +39,8 @@ public class BChefController implements PropertyChangeListener {
 		recipeAssitantController = new RecipeAssistantController();
 		kitchenController = new KitchenController();
 		connector = new PropertyChangeSupport(this);
+		inputController = AudioInputController.getInstance();
+		commandController = CommandController.getInstance();
 		System.out.println("inic");
 	}
 
@@ -45,11 +49,11 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	IBoardController boardController;
-	IInputController inputController;
+	AudioInputController inputController;
 	IOutputController outputController;
 	IViewController viewController;
 	IKitchenController kitchenController;
-	// CommandController commandController;
+	CommandController commandController;
 	IRecipeAssistantController recipeAssitantController;
 
 	List<Recipe> searchedRecipes;
@@ -61,7 +65,7 @@ public class BChefController implements PropertyChangeListener {
 		case OVEN:
 			if (value == null) {
 				errorMessage("MISSUNDERSTOOD");
-				break;
+				return;
 			}
 			if (index == null)
 				kitchenController.setOven(0, value);
@@ -70,7 +74,7 @@ public class BChefController implements PropertyChangeListener {
 			break;
 		case STOVE:
 			if (value == null) {
-				errorMessage("MISSUNDERSTOOD");
+				//errorMessage("MISSUNDERSTOOD");
 				break;
 			}
 			if (index == null)
@@ -79,9 +83,12 @@ public class BChefController implements PropertyChangeListener {
 				kitchenController.setFire(index, value);
 			break;
 		case MISUNDERSTOOD:
+		default:
 			errorMessage("MISSUNDERSTOOD");
-			break;
+			return;
 		}
+		
+		OutputController.getInstance().send(TextBuilder.kitchenSwitchMessage(util, value, index));
 	}
 
 	public void nextStep() {
@@ -148,13 +155,25 @@ public class BChefController implements PropertyChangeListener {
 		recipeAssitantController.setRecipe(recipe);
 		recipeAssitantController.nextStep();
 	}
-
-	public void fireIngredientSearch(Set<String> ingredients) {
-		//TODO: Query de search
-		searchedRecipes = new ArrayList<>();
+	
+	public void startSearchOffer() {
 		searchedRecipesIndex = 0;
 		if(searchedRecipes.size() == 0) errorMessage("RECIPES_NOT_FOUND");
 		else nextRecipe();
+	}
+
+	public void searchRecipe(String string) {
+		//TODO: Query de search
+		OutputController.getInstance().send("Buscando receta de: " + string);
+		searchedRecipes = new ArrayList<>();
+		startSearchOffer();
+	}
+
+	public void searchRecipeByIngredient(Set<String> ingredients) {
+		//TODO: Query de search
+		outputController.send("Buscando recetas con: " + String.join(", ", ingredients));
+		searchedRecipes = new ArrayList<>();
+		startSearchOffer();
 	}
 	
 	public void nextRecipe() {
@@ -210,6 +229,9 @@ public class BChefController implements PropertyChangeListener {
 			if (alarm.getUtil() != null)
 				outputController.send(TextBuilder.alarmDeactivateMessage(alarm.getUtil(), alarm.getUtilIndex()));
 			break;
+		case "NEW_COMMAND":
+			processNewCommand((String) evt.getNewValue()); 
+			break;
 		default:
 			break;
 		}
@@ -218,5 +240,22 @@ public class BChefController implements PropertyChangeListener {
 	public void addPropertyChangeListner(PropertyChangeListener listener) {
 		connector.addPropertyChangeListener(listener);
 	}
+	
+	public void processNewCommand(String string) {
+		VoiceCommand command = StringParser.parseCommand(string);
+		commandController.selectCommand(command, string);
+	}
 
+	public void addToList(String string) {
+		OutputController.getInstance().send("He añadido " + string + " a la lista.");
+	}
+
+	public void deleteFromList(String string) {
+		//se ha borrado bien
+		if(true)
+		OutputController.getInstance().send("He quitado " + string + " de la lista.");
+		//not found
+		else outputController.send(TextBuilder.listItemNotFound(string));
+	}
+	
 }

@@ -5,12 +5,17 @@ import java.util.List;
 
 public class Kitchen {
 
+	static final int NUM_STOVES = 4;
+	static final int NUM_OVENS = 1;
+	
 	List<Stove> stoves;
 	List<Oven> ovens;
 	
 	public Kitchen() {
 		stoves = new ArrayList<>();
+		for(int i = 0; i < NUM_STOVES; i++) stoves.add(new Stove());
 		ovens = new ArrayList<>();
+		for(int i = 0; i < NUM_OVENS; i++) ovens.add(new Oven());
 	}
 	
 	public boolean setFire(int index, int power) {

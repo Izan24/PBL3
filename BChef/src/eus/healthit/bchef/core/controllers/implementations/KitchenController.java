@@ -18,8 +18,7 @@ public class KitchenController implements IKitchenController {
 
 	@Override
 	public void setOven(int index, int temp) {
-		kitchen.setOven(index, temp);
-		
+		kitchen.setOven(index, temp);		
 	}
 
 }
