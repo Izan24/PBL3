@@ -29,7 +29,8 @@ public class JSONutils {
 		String pString = jsonReturn.getString("profilepic");
 		Image profilepic = null;
 		try {
-			profilepic = (pString.equals("default"))?ImageIO.read(new File("resources/user/default_user.png")):ImageRepository.decodeImage(pString);
+			profilepic = (pString.equals("default")) ? ImageIO.read(new File("resources/user/default_user.png"))
+					: ImageRepository.decodeImage(pString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,13 +141,14 @@ public class JSONutils {
 		for (RecipeStep step : instructions) {
 			JSONObject ste = new JSONObject();
 			ste.put("id", step.getId()).put("action", step.getAction()).put("value", step.getValue())
-					.put("image", ImageRepository.encodeImage(step.getImagePath())).put("text", step.getText()).put("num", step.getNum());
+					.put("image", ImageRepository.encodeImage(step.getImagePath())).put("text", step.getText())
+					.put("num", step.getNum());
 			JSONlist.add(ste);
 		}
 
 		return JSONlist;
 	}
-	
+
 	public static List<JSONObject> ingredientsToJSON(List<Ingredient> ingredients) {
 		List<JSONObject> JSONlist = new ArrayList<>();
 

@@ -17,14 +17,14 @@ public class NorthView extends JPanel {
 
 	RoundedTextField searchBar;
 	NorthViewController controller;
-	
-	public static final String DEFAULT_SEARCH_TEXT_STRING =	"Buscar una receta";
+
+	public static final String DEFAULT_SEARCH_TEXT_STRING = "Buscar una receta";
 
 	public NorthView() {
 		super(new BorderLayout(50, 50));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-		
+
 		controller = new NorthViewController(this);
 
 		this.add(createSearchBar(), BorderLayout.CENTER);
@@ -40,11 +40,11 @@ public class NorthView extends JPanel {
 		panelSearch.setSize(new Dimension(2002, 2002));
 
 		searchBar = new RoundedTextField(DEFAULT_SEARCH_TEXT_STRING);
-		searchBar.setToolTipText("Search");
+		//searchBar.setToolTipText("Search");
 		searchBar.setPreferredSize(new Dimension(550, 35));
 		searchBar.addActionListener(controller);
 		searchBar.setActionCommand(NorthViewControllerAC.SEARCH);
-		searchBar.setBorder(new SearchBorder(30, new Color(200, 200, 200),true));
+		searchBar.setBorder(new SearchBorder(30, new Color(200, 200, 200), true));
 
 		panelSearch.add(searchBar);
 

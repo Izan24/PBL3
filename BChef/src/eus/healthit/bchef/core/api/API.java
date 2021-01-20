@@ -5,14 +5,13 @@ import java.io.IOException;
 import org.json.JSONObject;
 
 public class API {
- 
-	
-	/*########################			GET			#############################*/
-	public static JSONObject searchRecipe(String kw, int page) throws IOException {
+
+	/* ######################## GET ############################# */
+	public static JSONObject searchRecipe(String kw, int page){
 		return APIutils.getRequest("/api/search?like=" + kw + "&page=" + page);
 	}
 
-	public static JSONObject searchIngredient(String kw) throws IOException {
+	public static JSONObject searchIngredient(String kw) {
 		return APIutils.getRequest("/api/ingredient?like=" + kw);
 	}
 
@@ -32,10 +31,13 @@ public class API {
 		return APIutils.getRequest("/api/register/check?username=" + username);
 	}
 
-	
-	/*########################			PUT			#############################*/
+	/* ######################## PUT ############################# */
 	public static JSONObject auth(JSONObject json) {
 		return APIutils.putRequest("/api/auth", json);
+	}
+
+	public static JSONObject reauth(JSONObject json) {
+		return APIutils.putRequest("/api/user/reauth", json);
 	}
 
 	public static JSONObject rate(JSONObject json) {
@@ -43,7 +45,7 @@ public class API {
 	}
 
 	public static JSONObject updateUserConfig(JSONObject json) {
-		return APIutils.putRequest("/api/user/rate", json);
+		return APIutils.putRequest("/api/user/config", json);
 	}
 
 	public static JSONObject addToHistory(JSONObject json) {
@@ -77,7 +79,8 @@ public class API {
 	public static JSONObject unfollow(JSONObject json) {
 		return APIutils.putRequest("/api/user/unfollow", json);
 	}
-	/*########################			POST		#############################*/
+
+	/* ######################## POST ############################# */
 	public static JSONObject addRecipe(JSONObject json) {
 		return APIutils.postRequest("/api/register/recipe", json);
 	}

@@ -21,12 +21,7 @@ public class Principal {
 		Principal principal = new Principal();
 		KitchenController kc = new KitchenController();
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
+		
 
 	}
 }

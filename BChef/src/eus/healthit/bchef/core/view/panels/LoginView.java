@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
 import eus.healthit.bchef.core.controllers.view.LoginViewController;
 import eus.healthit.bchef.core.controllers.view.LoginViewControllerAC;
 import eus.healthit.bchef.core.controllers.view.WindowFrameController;
@@ -53,9 +54,11 @@ public class LoginView extends JPanel {
 		this.setPreferredSize(new Dimension(480, 640));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
-
+		
 		controller = new LoginViewController(this, windowFrameController, window);
+		this.addKeyListener(controller);
 
+		
 		initTextFields();
 		initButtons();
 		initJLabels();
@@ -71,6 +74,7 @@ public class LoginView extends JPanel {
 		loginButton.setFont(textFont);
 		loginButton.setBorder(BorderFactory.createEmptyBorder());
 		loginButton.setFocusable(false);
+		//this.getRootPane().setDefaultButton(loginButton);
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, LoginViewControllerAC.LOGIN));
 
@@ -90,17 +94,19 @@ public class LoginView extends JPanel {
 	private void initTextFields() {
 		username = new RoundedTextField(DEFAULT_USERNAME_TEXT);
 		username.setPreferredSize(new Dimension(350, 40));
-		username.setBorder(new SearchBorder(20, new Color(200, 200, 200),false));
+		username.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		username.setText(DEFAULT_USERNAME_TEXT);
 		username.setForeground(Color.gray);
 		username.setOpaque(false);
 
 		password = new RoundedJPasswordField(DEFAULT_PASSWORD_TEXT);
 		password.setPreferredSize(new Dimension(350, 40));
-		password.setBorder(new SearchBorder(20, new Color(200, 200, 200),false));
+		password.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		password.setText(DEFAULT_PASSWORD_TEXT);
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.gray);
+		password.addKeyListener(controller);
+		//password.setActionCommand(LoginViewControllerAC.LOGIN);
 	}
 
 	private void initJLabels() {
@@ -214,7 +220,5 @@ public class LoginView extends JPanel {
 	public String getPassword() {
 		return String.valueOf(password.getPassword());
 	}
-
-
 
 }

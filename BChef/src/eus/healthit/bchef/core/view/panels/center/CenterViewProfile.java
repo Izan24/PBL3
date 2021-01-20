@@ -164,7 +164,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		scroll.setBackground(bgColor);
 		scroll.setOpaque(false);
-		
+
 		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
@@ -296,7 +296,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(false);
-		
+
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());

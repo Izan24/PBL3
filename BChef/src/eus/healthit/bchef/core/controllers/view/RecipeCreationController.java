@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
@@ -53,15 +54,18 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		switch (command) {
 
 		case RecipeCreationControllerAC.ADD_IMAGE:
+			FileChooser file = null;
 			System.out.println("ADD IMAGE");
-			FileChooser file = new FileChooser();
 			try {
-				try {
-					createRecipeView.setImage(ImageIO.read(file.getSelectedFile()));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} catch (NullPointerException e) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				file = new FileChooser();
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} catch (Exception e) {
+				System.out.println("Die");
+			}
+			try {
+				createRecipeView.setImage(ImageIO.read(file.getSelectedFile()));
+			} catch (Exception e) {
 			}
 			break;
 
@@ -179,8 +183,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	public void addStep() {
 		RecipeStep step = null;
 		try {
-			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(), ImageIO.read(new File("proba3.jfif")),
-					createRecipeView.getInstruction(), createRecipeView.getValue());
+			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
+					ImageIO.read(new File("proba3.jfif")), createRecipeView.getInstruction(),
+					createRecipeView.getValue());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

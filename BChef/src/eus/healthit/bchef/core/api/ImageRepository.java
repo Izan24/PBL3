@@ -40,9 +40,12 @@ public class ImageRepository {
 
 	public static String encodeImage(String pathString) {
 		try {
-			File file = new File(pathString);
-			String string = Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
-			return string;
+			if (!pathString.equals("nochange")) {
+				File file = new File(pathString);
+				String string = Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
+				return string;
+			}
+			return "nochange";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

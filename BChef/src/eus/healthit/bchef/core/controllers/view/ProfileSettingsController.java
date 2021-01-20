@@ -2,6 +2,7 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.Printable;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -9,6 +10,7 @@ import javax.swing.ImageIcon;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import eus.healthit.bchef.core.api.ImageRepository;
 import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
@@ -58,7 +60,9 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				user.setProfilePic(settingsView.getImage());
 				user.setEmail(settingsView.getEmail());
 				user.setUsername(settingsView.getUsername());
-				user.setImgString(settingsView.getImagePath());
+				String pathString = settingsView.getImagePath();
+				user.setImgString((pathString != null) ? pathString : "nochange");
+				// System.out.println(user.getImgString());
 				JSONParser.updateUser(user);
 			}
 			break;
@@ -85,13 +89,12 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				|| !validator.isValid(settingsView.getEmail())) {
 			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
 			return false;
-		}
-//		else if (checkUsername(createAccountView.getUsername())) { en chekusername mira que no sea "" con trim y que no exista
-//			new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
-//			return false;
-//			PETICION A LA DATABASE PARA QUE MIRE SI EXISTE
-//		}
-		else if (passwordVerify()) {
+		} else if (!settingsView.getUsername().equals(user.getUsername())) {
+			if (!JSONParser.checkUser(settingsView.getUsername())) {
+				new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
+				return false;
+			}
+		} else if (!passwordVerify()) {
 			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");
 			return false;
 		}
@@ -100,11 +103,17 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 
 	@SuppressWarnings("static-access")
 	private boolean passwordVerify() {
-		if (!settingsView.getNewPwd().trim().equals("")
-				&& !settingsView.getNewPwd().equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
-			if (!settingsView.getPwd().trim().equals("")
-					&& !settingsView.getPwd().equals(settingsView.DEFAULT_PWD_TEXT)) {
-				// quety de verificacción retur true/false
+		if (!settingsView.getPwd().trim().equals("") && !settingsView.getPwd().equals(settingsView.DEFAULT_PWD_TEXT)) {
+			if (JSONParser.reauth(user.getUsername(), settingsView.getPwd())) {
+				if (!settingsView.getNewPwd().trim().equals("")
+						&& !settingsView.getNewPwd().equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
+					user.setPassword(settingsView.getNewPwd());
+					return true;
+				}
+				else {
+					user.setPassword(settingsView.getPwd());
+					return true;
+				}
 			}
 		}
 		return false;

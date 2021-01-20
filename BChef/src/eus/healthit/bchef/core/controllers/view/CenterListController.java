@@ -16,6 +16,7 @@ public class CenterListController {
 	public static void setShowList(List<Recipe> recipesList) {
 		viewList.getListModel().setList(recipesList);
 		viewList.repaint();
+		viewList.revalidate();
 	}
 
 }

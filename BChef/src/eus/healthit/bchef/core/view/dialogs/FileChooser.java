@@ -1,7 +1,9 @@
 package eus.healthit.bchef.core.view.dialogs;
 
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.metal.MetalFileChooserUI;
 
 public class FileChooser extends JFileChooser {
 

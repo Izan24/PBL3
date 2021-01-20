@@ -2,12 +2,16 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import eus.healthit.bchef.core.api.JSONParser;
+import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.panels.NorthView;
 
 public class NorthViewController implements ActionListener {
 
 	NorthView view;
+
 
 	public NorthViewController(NorthView view) {
 		this.view = view;
@@ -19,10 +23,9 @@ public class NorthViewController implements ActionListener {
 		switch (e.getActionCommand()) {
 		case NorthViewControllerAC.SEARCH:
 
-			if (!view.getText().equals(view.DEFAULT_SEARCH_TEXT_STRING)) {
-				System.out.println(view.getText());
-				// aqui abajo le tienes que pasar lo que te devuelve el query de urko
-				// CenterListController.setShowList();
+			if (!view.getText().equals(NorthView.DEFAULT_SEARCH_TEXT_STRING)) {
+				List<Recipe> list = JSONParser.search(view.getText(), 0);
+				CenterListController.setShowList(list);
 			}
 			break;
 		default:

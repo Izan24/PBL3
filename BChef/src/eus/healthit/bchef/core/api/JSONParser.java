@@ -164,14 +164,47 @@ public class JSONParser {
 	public static StatusCode updateUser(User user) {
 		JSONObject json = new JSONObject();
 		json.put("name", user.getName()).put("surname", user.getSurname())
-		.put("email", user.getEmail()).put("username", user.getUsername())
-				.put("password", user.getPassword()).put("profilepic", (user.getImgString().equals("default"))?"default":ImageRepository.encodeImage(user.getImgString()));
-		JSONObject jsonReturn = API.addUser(json);
+		.put("email", user.getEmail()).put("username", user.getUsername()).put("id_user", user.getId())
+				.put("password", user.getPassword()).put("profilepic", (user.getImgString().equals("default"))?"default":(user.getImgString().equals("nochange"))?"nochange":ImageRepository.encodeImage(user.getImgString()));
+		JSONObject jsonReturn = API.updateUserConfig(json);
 
 		String status = jsonReturn.getString("status");
-
 		return StatusCode.valueOf(status);
 		
 	}
+	
+	public static boolean checkUser(String username) {
+		JSONObject json = API.checkUser(username);
+		if (StatusCode.valueOf(json.getString("status")) == StatusCode.SUCCESSFUL) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static boolean reauth(String username, String pwd) {
+		JSONObject json = new JSONObject().put("username", username).put("password", pwd);
+		JSONObject jsonRet = API.reauth(json);
+		if (StatusCode.valueOf(jsonRet.getString("status")) == StatusCode.SUCCESSFUL) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+
+	public static List<Recipe> search(String text, int page) {
+		JSONArray json = API.searchRecipe(text, page).getJSONArray("recipes");
+		List<Recipe> list  =new ArrayList<>();
+		for (Object obj : json) {
+			JSONObject jObject = (JSONObject)obj;
+			list.add(JSONutils.getRecipe(jObject));
+		}
+		return list;
+		
+	}
+
 
 }
