@@ -54,8 +54,6 @@ public class CenterViewProfileSettings extends JPanel {
 	User user;
 
 	String imagePath;
-	
-	
 
 	ProfileSettingsController controller;
 
@@ -241,29 +239,29 @@ public class CenterViewProfileSettings extends JPanel {
 		JPanel flowPanel = new JPanel(new FlowLayout());
 		flowPanel.setBackground(bgColor);
 
-		flowPanel.add(createContent());
+		flowPanel.add(createMainPanel());
 
 		return flowPanel;
 	}
 
-	private JScrollPane createContent() {
-		JScrollPane scroll = new JScrollPane();
-		scroll.setBackground(bgColor);
-
-		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
-		scroll.setBackground(bgColor);
-		scroll.setOpaque(false);
-
-		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
-		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
-		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-
-		scroll.setViewportView(createMainPanel());
-
-		return scroll;
-	}
+//	private JScrollPane createContent() {
+//		JScrollPane scroll = new JScrollPane();
+//		scroll.setBackground(bgColor);
+//
+//		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		scroll.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
+//		scroll.setBackground(bgColor);
+//		scroll.setOpaque(false);
+//
+//		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+//		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+//		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+//		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+//
+//		scroll.setViewportView(createMainPanel());
+//
+//		return scroll;
+//	}
 
 	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new GridLayout(1, 1));
@@ -469,7 +467,7 @@ public class CenterViewProfileSettings extends JPanel {
 	public String getNewPwd() {
 		return String.valueOf(newPwd.getPassword());
 	}
-	
+
 	public String getImagePath() {
 		return imagePath;
 	}
