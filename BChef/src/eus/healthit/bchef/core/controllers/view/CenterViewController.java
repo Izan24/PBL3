@@ -71,7 +71,10 @@ public class CenterViewController implements ActionListener {
 			stepView.setStep(new RecipeStep(RecipeStepActions.OVEN, 100,
 					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(325, 325,
 							Image.SCALE_SMOOTH),
-					"Calienta el horno durante 10 minutos hasta que el pollo se queme", 1));
+					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
+							+ "slide y  aver que tal va a ver si va bien porfa porfa porfa porfa parece que tenfo que es"
+							+ "cribir un pooco mas para uqe se active a bver ahota",
+					1));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

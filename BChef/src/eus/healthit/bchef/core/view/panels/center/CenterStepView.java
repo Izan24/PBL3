@@ -16,11 +16,13 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 
 public class CenterStepView extends JPanel {
 
@@ -111,7 +113,7 @@ public class CenterStepView extends JPanel {
 
 		centerPanel.add(createImagePanel(), constraints);
 		constraints.gridx = 1;
-		centerPanel.add(createStepTextPanel(), constraints);
+		centerPanel.add(createStepTextSlide(), constraints);
 
 		return centerPanel;
 	}
@@ -125,8 +127,27 @@ public class CenterStepView extends JPanel {
 		return imagePanel;
 	}
 
+	private Component createStepTextSlide() {
+		JScrollPane stepSlide = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		stepSlide.setBackground(bgColor);
+		stepSlide.setOpaque(true);
+		stepSlide.setPreferredSize(new Dimension(439, 130));
+
+		stepSlide.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		stepSlide.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		stepSlide.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		stepSlide.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+
+		stepSlide.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+		stepSlide.setViewportView(instruction);
+
+		return stepSlide;
+	}
+
 	private Component createStepTextPanel() {
-		JPanel stepTextPanel = new JPanel(new GridLayout());
+		JPanel stepTextPanel = new JPanel(new FlowLayout());
 		stepTextPanel.setBackground(bgColor);
 		stepTextPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
 				new SearchBorder(20, new Color(200, 200, 200), false)));
