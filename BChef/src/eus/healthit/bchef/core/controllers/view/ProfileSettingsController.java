@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -38,7 +39,14 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 	public void actionPerformed(String command) {
 		switch (command) {
 		case ProfileSettingsControllerAC.UPLOAD_IMAGE:
-			FileChooser file = new FileChooser();
+			FileChooser file = null;
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				file = new FileChooser();
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} catch (Exception e) {
+				System.out.println("Die");
+			}
 			try {
 				try {
 					settingsView.setImagePath(file.getSelectedFile().getPath());
