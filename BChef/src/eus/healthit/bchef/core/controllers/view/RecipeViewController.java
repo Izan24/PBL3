@@ -1,15 +1,17 @@
 package eus.healthit.bchef.core.controllers.view;
 
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
 
 public class RecipeViewController implements IRoundButtonListener {
 
+	CenterViewController centerController;
 	CenterViewRecipe centerViewRecipe;
 	User user;
 
-	public RecipeViewController(CenterViewRecipe centerViewRecipe, User user) {
+	public RecipeViewController(CenterViewRecipe centerViewRecipe, User user, CenterViewController centerController) {
 		this.centerViewRecipe = centerViewRecipe;
 		this.user = user;
 	}
@@ -30,10 +32,9 @@ public class RecipeViewController implements IRoundButtonListener {
 			break;
 		case RecipeViewControllerAC.START:
 			System.out.println("Start recipe");
-			/*
-			 * TIENES QUE LLAMAR A UN METODO ESTATICO DE CENTERCONTROLLER O TENER AQUI AL
-			 * CENTERCONTROLLER PARA CAMBIAR LA VISTA A EMPEZAR RECETA
-			 */
+//			System.out.println(centerViewRecipe.getRecipe().toString());
+			Recipe recipe = centerViewRecipe.getRecipe();
+			centerController.setRecipeView(recipe);
 			break;
 		}
 	}

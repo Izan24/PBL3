@@ -200,7 +200,7 @@ public class CreateAccountView extends JPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
-		contentPanel.add(createTittlePanel(), constraints);
+		contentPanel.add(createTitlePanel(), constraints);
 		constraints.gridy = 1;
 		contentPanel.add(createNameSurnamePanel(), constraints);
 		constraints.gridy = 2;
@@ -217,7 +217,7 @@ public class CreateAccountView extends JPanel {
 		return contentPanel;
 	}
 
-	private Box createTittlePanel() {
+	private Box createTitlePanel() {
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		horizontalBox.add(logoLabel);
