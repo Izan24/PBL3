@@ -24,13 +24,13 @@ public class WindowFrameController {
 	}
 
 	private void initViews() {
-		loginView = new LoginView(this,window);
+		loginView = new LoginView(this, window);
 		createAccountView = new CreateAccountView(this, window);
 	}
 
 	private void setStartView() {
-		setLoginView();
-		//setAppView(JSONParser.getUserById(6));
+//		setLoginView();
+		setAppView(new User(0, "Izan", "izan", "izan@gmail.com", "Izan24", "aaaa"));
 		window.setVisible(true);
 	}
 

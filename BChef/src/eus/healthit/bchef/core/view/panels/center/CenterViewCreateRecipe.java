@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.text.html.parser.DTD;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -225,6 +226,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		title.setText(TITLE_DEFAULT_TEXT);
 		title.addFocusListener(new DefaultTextController(title, TITLE_DEFAULT_TEXT));
 		title.setForeground(Color.gray);
+		title.setPreferredSize(new Dimension(544, 31));
 
 		description = new JTextField();
 		description.setFont(textFont);
@@ -232,15 +234,15 @@ public class CenterViewCreateRecipe extends JPanel {
 		description.setText(DESCRIPTION_DEFAULT_TEXT);
 		description.addFocusListener(new DefaultTextController(description, DESCRIPTION_DEFAULT_TEXT));
 		description.setForeground(Color.gray);
+		description.setPreferredSize(new Dimension(544, 31));
 
 		instruction = new JTextArea();
 		instruction.setFont(textFont);
-		instruction.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
+//		instruction.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
 		instruction.setMargin(new Insets(20, 20, 20, 20));
-		instruction.setPreferredSize(new Dimension(314, 79));
 		instruction.setLineWrap(true);
 		instruction.setWrapStyleWord(true);
 
@@ -528,12 +530,21 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private Component createInstructionTextPanel() {
-		JPanel instructionTextPanel = new JPanel(new GridLayout());
-		instructionTextPanel.setBackground(bgColor);
+		JScrollPane slide = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		slide.setBackground(bgColor);
+		slide.setOpaque(true);
+		slide.setPreferredSize(new Dimension(314, 79));
+		slide.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 
-		instructionTextPanel.add(instruction);
+		slide.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		slide.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		slide.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
+		slide.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
-		return instructionTextPanel;
+		slide.setViewportView(instruction);
+
+		return slide;
 	}
 
 	private Component createStepButtonPanel() {
@@ -727,15 +738,12 @@ public class CenterViewCreateRecipe extends JPanel {
 			controller.removeIngredient(ingredients.getSelectedValue());
 		} catch (IndexOutOfBoundsException e) {
 		}
-
 	}
 
 	public void removeStep() {
-		if (steps.getSelectedValue() != null) {
-			try {
-				controller.removeStep(steps.getSelectedValue());
-			} catch (IndexOutOfBoundsException e) {
-			}
+		try {
+			controller.removeStep(steps.getSelectedValue());
+		} catch (IndexOutOfBoundsException e) {
 		}
 	}
 
@@ -773,6 +781,10 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public String getTime() {
+		return String.valueOf(timeSpinnerModel.getValue());
 	}
 
 	public RecipeStepActions getAction() {

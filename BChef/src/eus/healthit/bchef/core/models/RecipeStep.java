@@ -91,6 +91,10 @@ public class RecipeStep {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	
+	public Image getImage() {
+		return image;
+	}
 
 	public int getNum() {
 		return num;
