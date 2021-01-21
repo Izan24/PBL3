@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core.api;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +179,7 @@ public class JSONCalls {
 	}
 	
 	public static List<Recipe> getHistoryBetween(int userId, LocalDate from, LocalDate until) {
-		JSONObject json = API.getHistoryBetween(userId, from.toString(), until.toString());
+		JSONObject json = API.getHistoryBetween(userId, Timestamp.valueOf(from.atStartOfDay()), Timestamp.valueOf(until.atStartOfDay()));
 		JSONArray array = json.getJSONArray("history");
 		List<Recipe> history = new ArrayList<>();
 		for (Object obj : array) {
