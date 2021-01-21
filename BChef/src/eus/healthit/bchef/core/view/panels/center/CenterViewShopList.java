@@ -30,7 +30,6 @@ import eus.healthit.bchef.core.view.items.ItemRenderer;
 
 public class CenterViewShopList extends JPanel implements IClickable {
 
-	JTextField newElementField;
 	User user;
 
 	JButton buttonAdd, deleteButton;
@@ -38,6 +37,8 @@ public class CenterViewShopList extends JPanel implements IClickable {
 	JList<Item> itemList;
 	ItemList listModel;
 	ItemRenderer renderer;
+
+	JTextField newElementField;
 
 	ShopListButtonController buttonController;
 	ShopListController listController;
@@ -60,6 +61,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		 * TIENE EL USER
 		 */
 		initButtons();
+		initTextFields();
 		initList();
 
 		this.add(createNorthPanel(), BorderLayout.NORTH);
@@ -88,11 +90,21 @@ public class CenterViewShopList extends JPanel implements IClickable {
 
 	}
 
+	private void initTextFields() {
+		newElementField = new JTextField();
+		newElementField.setText("Nuevo elemento");
+		newElementField.setForeground(Color.GRAY);
+		newElementField.setToolTipText("Nuevo elemento");
+		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
+		newElementField.setPreferredSize(new Dimension(300, 40));
+		newElementField.setBorder(new SearchBorder(20, Color.GRAY, false));
+		newElementField.setFont(textFont);
+	}
+
 	private void initList() {
 		itemList = new JList<>();
-
 		listModel = new ItemList();
-		// listModel.setList(user.getShopList());
+		listModel.setList(user.getShopList());
 
 		renderer = new ItemRenderer(buttonController);
 		listener = new DoubleClickListener(this);
@@ -106,15 +118,6 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		JPanel northPanel = new JPanel(new FlowLayout());
 		northPanel.setBackground(Color.white);
 		northPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-		newElementField = new JTextField();
-		newElementField.setText("Nuevo elemento");
-		newElementField.setForeground(Color.GRAY);
-		newElementField.setToolTipText("Nuevo elemento");
-		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
-		newElementField.setPreferredSize(new Dimension(300, 40));
-		newElementField.setBorder(new SearchBorder(20, Color.GRAY, false));
-		newElementField.setFont(textFont);
 
 		northPanel.add(newElementField);
 		northPanel.add(buttonAdd);
@@ -131,7 +134,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setViewportView(itemList);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		
+
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
@@ -151,20 +154,20 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		return southPanel;
 	}
 
-	public void addElement() {
-		listController.addElement(newElementField.getText());
-		newElementField.setText("");
-	}
-
-	public void removeElement() {
-		try {
-			listModel.deleteElement(itemList.getSelectedValue());
-		} catch (IndexOutOfBoundsException e) {
-		}
-	}
-
 	public ItemList getListModel() {
 		return listModel;
+	}
+
+	public String getNewElementname() {
+		return newElementField.getText();
+	}
+	
+	public int getUserID() {
+		return user.getId();
+	}
+	
+	public Item getSelectedItem() {
+		return itemList.getSelectedValue();
 	}
 
 	@Override

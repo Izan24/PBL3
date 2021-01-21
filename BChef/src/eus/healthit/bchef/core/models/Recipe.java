@@ -66,6 +66,17 @@ public class Recipe {
 
 	}
 
+	public Recipe(String title, String author, int id, String description2, List<Ingredient> list,
+			List<RecipeStep> list2, String imagePath2) {
+		this.name = title;
+		this.author = author;
+		this.authorID = id;
+		this.rating = 0;
+		this.ingredients = list;
+		this.steps = list2;
+		this.imagePath = imagePath2;
+	}
+
 	public UUID getUUID() {
 		return uuid;
 	}

@@ -43,7 +43,7 @@ public class JSONParser {
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
 				.put("publish_date", recipe.getPublishDate()).put("duration", recipe.getDuration())
-				.put("img", ImageCoder.decodeImage(recipe.getImagePath()));
+				.put("img", ImageCoder.encodeImage(recipe.getImagePath()));
 
 		json.put("ingredients", JSONutils.ingredientsToJSON(recipe.getIngredients()));
 		json.put("instructions", JSONutils.instructionsToJSON(recipe.getSteps()));
@@ -136,15 +136,15 @@ public class JSONParser {
 		return StatusCode.valueOf(status);
 	}
 
-	public static StatusCode shoplistAdd(Item item, Integer userid) {
+	public static Integer shoplistAdd(Item item, Integer userid) {
 		JSONObject json = new JSONObject();
 
 		json.put("name", item.getName()).put("id_user", userid);
 
 		JSONObject jsonReturn = API.shoplistAdd(json);
-		String status = jsonReturn.getString("status");
+		Integer id = jsonReturn.getInt("id");
 
-		return StatusCode.valueOf(status);
+		return id;
 	}
 
 	public static List<Recipe> getPage(int i) {

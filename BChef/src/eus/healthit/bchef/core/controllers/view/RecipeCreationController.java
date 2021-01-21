@@ -1,16 +1,19 @@
 package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import eus.healthit.bchef.core.api.JSONParser;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
@@ -65,7 +68,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				System.out.println("Die");
 			}
 			try {
-				createRecipeView.setImage(ImageIO.read(file.getSelectedFile()));
+				Image img = ImageIO.read(file.getSelectedFile());
+				createRecipeView.setImage(img);
+				createRecipeView.setImagePath(file.getSelectedFile().getAbsolutePath());
 			} catch (Exception e) {
 			}
 			break;
@@ -97,7 +102,12 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 //					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
 			System.out.println(createRecipeView.getImage());
 			if (recipeValid()) {
-
+				addStepNumbers();
+				Recipe recipe = new Recipe(createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
+						createRecipeView.getDescription(), createRecipeView.getIngredientListModel().getList(),
+						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
+				JSONParser.addRecipe(recipe);
+				user.addPublication(recipe);
 			}
 			break;
 
@@ -105,6 +115,14 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			openPreviewWindow();
 			break;
 		}
+	}
+
+	private void addStepNumbers() {
+		List<RecipeStep> ls = createRecipeView.getStepListModel().getList();
+		for (int i = 0; i < ls.size() ; i++) {
+			ls.get(i).setNum(i+1);
+		}
+		//createRecipeView.getStepListModel().setList(ls);
 	}
 
 	private boolean recipeValid() {

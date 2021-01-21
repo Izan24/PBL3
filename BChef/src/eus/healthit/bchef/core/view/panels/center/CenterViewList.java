@@ -17,7 +17,6 @@ import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 
-
 public class CenterViewList extends JScrollPane implements IClickable {
 
 	/*
@@ -51,6 +50,12 @@ public class CenterViewList extends JScrollPane implements IClickable {
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 
+		initJList();
+
+		this.setViewportView(recipes);
+	}
+
+	private void initJList() {
 		recipes = new JList<>();
 		listModel = new RecipesList();
 		listModel.setList(JSONParser.getPage(0));
@@ -59,8 +64,6 @@ public class CenterViewList extends JScrollPane implements IClickable {
 		recipes.setModel(listModel);
 		recipes.setCellRenderer(renderer);
 		recipes.addMouseListener(listener);
-
-		this.setViewportView(recipes);
 	}
 
 	public JScrollPane getScrollPane() {
