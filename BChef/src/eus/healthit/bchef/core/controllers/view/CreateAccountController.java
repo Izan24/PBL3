@@ -7,7 +7,7 @@ import java.sql.DatabaseMetaData;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.json.JSONObject;
 
-import eus.healthit.bchef.core.api.JSONParser;
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -32,7 +32,7 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 		switch (command) {
 		case CreateAccountControllerAC.CREATEACC:
 			if (verifyParams()) {
-				JSONParser.registerUser(createAccountView.getName(), createAccountView.getSurname(),
+				JSONCalls.registerUser(createAccountView.getName(), createAccountView.getSurname(),
 						createAccountView.getEmail(), createAccountView.getUsername(),
 						createAccountView.getPwd(), "default");
 				windowFrameController.setLoginView();

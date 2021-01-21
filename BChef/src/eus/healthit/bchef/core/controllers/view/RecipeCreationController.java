@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import eus.healthit.bchef.core.api.JSONParser;
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
@@ -106,7 +106,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				Recipe recipe = new Recipe(createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
 						createRecipeView.getDescription(), createRecipeView.getIngredientListModel().getList(),
 						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
-				JSONParser.addRecipe(recipe);
+				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
 			}
 			break;

@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import eus.healthit.bchef.core.api.ImageRepository;
-import eus.healthit.bchef.core.api.JSONParser;
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -71,7 +71,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				String pathString = settingsView.getImagePath();
 				user.setImgString((pathString != null) ? pathString : "nochange");
 				// System.out.println(user.getImgString());
-				JSONParser.updateUser(user);
+				JSONCalls.updateUser(user);
 			}
 			break;
 
@@ -98,7 +98,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
 			return false;
 		} else if (!settingsView.getUsername().equals(user.getUsername())) {
-			if (!JSONParser.checkUser(settingsView.getUsername())) {
+			if (!JSONCalls.checkUser(settingsView.getUsername())) {
 				new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
 				return false;
 			}
@@ -112,7 +112,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 	@SuppressWarnings("static-access")
 	private boolean passwordVerify() {
 		if (!settingsView.getPwd().trim().equals("") && !settingsView.getPwd().equals(settingsView.DEFAULT_PWD_TEXT)) {
-			if (JSONParser.reauth(user.getUsername(), settingsView.getPwd())) {
+			if (JSONCalls.reauth(user.getUsername(), settingsView.getPwd())) {
 				if (!settingsView.getNewPwd().trim().equals("")
 						&& !settingsView.getNewPwd().equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
 					user.setPassword(settingsView.getNewPwd());
