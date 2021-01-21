@@ -7,6 +7,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
@@ -24,6 +28,7 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfileSettings;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
+import eus.healthit.bchef.core.view.panels.center.CenterViewRecipeRating;
 import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
 import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
 
@@ -40,6 +45,7 @@ public class CenterViewController implements ActionListener {
 	CenterViewStep stepView;
 	CenterViewVisitProfile visitProfile;
 	CenterViewProfileSettings settingsView;
+	CenterViewRecipeRating recipeRatingView;
 
 	CenterView centerView;
 	User user;
@@ -64,22 +70,38 @@ public class CenterViewController implements ActionListener {
 		stepView = new CenterViewStep();
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
+		recipeRatingView = new CenterViewRecipeRating(this);
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(stepView);
+		principalView.changeCenterView(recipeRatingView);
+//		try {
+//
+//			RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 100,
+//					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(200, 200,
+//							Image.SCALE_SMOOTH),
+//					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
+//							+ "slide y a ver que tal va a ver si va bien porfa porfa porfa porfa parece que tengo que es"
+//							+ "cribir un pooco mas para que se active a ver ahora",
+//					1);
+//			step.setId(1);
+
 		try {
+			List<RecipeStep> steps = new ArrayList<>();
+			for (int i = 0; i < 10; i++) {
+				RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 2,
+						ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")), "Esti es ek texto " + i, i);
+				step.setId(i);
+				Duration duration = Duration.ofSeconds(20);
+				duration = duration.plusMinutes(90);
+				duration = duration.plusHours(23);
+				step.setDuration(duration);
+				steps.add(step);
+			}
 
-			RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 100,
-					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(200, 200,
-							Image.SCALE_SMOOTH),
-					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
-							+ "slide y a ver que tal va a ver si va bien porfa porfa porfa porfa parece que tengo que es"
-							+ "cribir un pooco mas para que se active a ver ahora",
-					1);
-			step.setId(1);
-
-			stepView.setStep(step);
+			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null, null, null, steps,
+					ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
+			recipeRatingView.setRecipe(recipe);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

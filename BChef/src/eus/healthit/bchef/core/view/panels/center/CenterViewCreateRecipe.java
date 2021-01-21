@@ -11,7 +11,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,16 +31,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.text.JTextComponent;
-
-import org.jdesktop.swingx.SwingXUtilities;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControllerAC;
-import eus.healthit.bchef.core.controllers.view.StepViewController;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -157,7 +151,7 @@ public class CenterViewCreateRecipe extends JPanel {
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
 		addStepImageButton = new JButton("Añadir imagen");
-		addStepImageButton.setPreferredSize(new Dimension(150, 40));
+		addStepImageButton.setPreferredSize(new Dimension(125, 75));
 		addStepImageButton.setBackground(bgColor);
 		addStepImageButton.setForeground(new Color(28, 162, 243));
 		addStepImageButton.setFont(textFont);

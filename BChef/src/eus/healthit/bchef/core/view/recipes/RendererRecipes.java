@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -76,8 +78,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		JLabel image;
 
 		try {
-			image = new JLabel(new ImageIcon(value.getImage()));
-
+			image = new JLabel(new ImageIcon(value.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			image = new JLabel("MalformedxD");
 		}

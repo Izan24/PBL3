@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
@@ -229,7 +230,7 @@ public class CenterViewStep extends JPanel {
 
 	private void updateView(RecipeStep step) {
 		instruction.setText(step.getText());
-		imageLabel.setIcon(new ImageIcon(step.getImage()));
+		imageLabel.setIcon(new ImageIcon(step.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		titleLabel.setText("Paso Nº " + step.getId());
 
 		try {
