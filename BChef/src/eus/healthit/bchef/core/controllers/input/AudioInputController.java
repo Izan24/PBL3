@@ -125,7 +125,6 @@ public class AudioInputController extends Thread {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("this bitch in'ere");
 			} finally {
 				if (targetDataLine != null) {
 					targetDataLine.stop();

@@ -34,7 +34,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 	public void sendText(StreamingRecognizeResponse response) {
 		StreamingRecognitionResult result = response.getResultsList().get(0);
 		SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-		System.out.printf("Transcript : %s\n", alternative.getTranscript());
+//		System.out.printf("Transcript : %s\n", alternative.getTranscript());
 		connector.firePropertyChange("NEW_COMMAND", null, alternative.getTranscript());
 	}
 
@@ -42,7 +42,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 		for (StreamingRecognizeResponse response : responses) {
 			StreamingRecognitionResult result = response.getResultsList().get(0);
 			SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-			System.out.printf("Final Transcript : %s\n", alternative.getTranscript());
+//			System.out.printf("Final Transcript : %s\n", alternative.getTranscript());
 		}
 	}
 

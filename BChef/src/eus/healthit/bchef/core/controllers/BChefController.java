@@ -41,7 +41,6 @@ public class BChefController implements PropertyChangeListener {
 		connector = new PropertyChangeSupport(this);
 		inputController = AudioInputController.getInstance();
 		commandController = CommandController.getInstance();
-		System.out.println("inic");
 	}
 
 	public static BChefController getInstance() {
@@ -164,14 +163,14 @@ public class BChefController implements PropertyChangeListener {
 
 	public void searchRecipe(String string) {
 		//TODO: Query de search
-		OutputController.getInstance().send("Buscando receta de: " + string);
+		OutputController.getInstance().send(" " + string);
 		searchedRecipes = new ArrayList<>();
 		startSearchOffer();
 	}
 
 	public void searchRecipeByIngredient(Set<String> ingredients) {
 		//TODO: Query de search
-		outputController.send("Buscando recetas con: " + String.join(", ", ingredients));
+		outputController.send(TextBuilder.findingRecipeByIngredientMessage(ingredients));
 		searchedRecipes = new ArrayList<>();
 		startSearchOffer();
 	}
@@ -247,13 +246,15 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void addToList(String string) {
-		OutputController.getInstance().send("He añadido " + string + " a la lista.");
+		//TODO: Query de add
+		OutputController.getInstance().send(TextBuilder.addedToList(string));
 	}
 
 	public void deleteFromList(String string) {
+		//TODO: Query de borrar
 		//se ha borrado bien
 		if(true)
-		OutputController.getInstance().send("He quitado " + string + " de la lista.");
+		OutputController.getInstance().send(TextBuilder.removedFromList(string));
 		//not found
 		else outputController.send(TextBuilder.listItemNotFound(string));
 	}

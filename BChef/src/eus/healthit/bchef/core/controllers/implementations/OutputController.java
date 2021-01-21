@@ -67,7 +67,7 @@ public class OutputController implements IOutputController {
 					// Perform the text-to-speech request on the text input with the selected voice
 					// parameters and
 					// audio file type
-					SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
+//					SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
 
 					// Get the audio contents from the response
 					// ByteString audioContents = response.getAudioContent();

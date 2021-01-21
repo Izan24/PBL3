@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,14 @@ public class TextBuilder {
 		}
 		texto = texto + "?";
 		return texto;
+	}
+	
+	public static String findingRecipeMessage(String string) {
+		return rb.getString("find_recipe") + " " + string;
+	}
+	
+	public static String findingRecipeByIngredientMessage(Set<String> ingredients) {
+		return rb.getString("find_recipe_ingredients") + " " + String.join(", ", ingredients);
 	}
 
 	public static String recipeFoundMessage(Recipe recipe) {
@@ -139,9 +148,16 @@ public class TextBuilder {
 		return StringParser.stripSpaces(txt.toString());
 	}
 
+	public static String addedToList(String string) {
+		return rb.getString("list_item_add_1") + " " + string + " " + rb.getString("list_item_add_2");
+	}
+
+	public static String removedFromList(String string) {
+		return rb.getString("list_item_remove_1") + " " + string + " " + rb.getString("list_item_remove_2");
+	}
+
 	public static String listItemNotFound(String string) {
 		return StringParser.stripSpaces(
 				rb.getString("list_item_not_found_1") + " " + string + " " + rb.getString("list_item_not_found_2"));
 	}
-
 }
