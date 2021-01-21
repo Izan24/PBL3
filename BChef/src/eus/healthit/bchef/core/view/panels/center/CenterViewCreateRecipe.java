@@ -309,7 +309,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	}
 
-	public void setAutoCompleteList(List<String> list) {
+	public void setAutoCompleteList(List<Ingredient> list) {
 		List<String> strings = list.stream().map(object -> Objects.toString(object, null)).collect(Collectors.toList());
 
 		ingredient.setPossibilities(strings);
