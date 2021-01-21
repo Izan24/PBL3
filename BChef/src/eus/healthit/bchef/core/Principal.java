@@ -5,6 +5,13 @@ import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.input.AudioInputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.util.StringParser;
+
+import java.io.IOException;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -18,7 +25,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 //		CommandController commandController = CommandController.getInstance();
-//		String cmdString = "quita de la lista buscar 2 psicólogos".toLowerCase();
+//		String cmdString = "quita de la lista buscar 2 psicï¿½logos".toLowerCase();
 //		VoiceCommand command = StringParser.parseCommand(cmdString);
 //		cmdString = StringParser.deleteCommandWords(cmdString, command);
 //		commandController.selectCommand(command, cmdString);
@@ -51,5 +58,6 @@ public class Principal {
 		// RecipeRepository.delete(rep);
 		// QueryCon.closeConn();
 
+
+
 	}
-}

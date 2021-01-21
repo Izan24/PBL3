@@ -45,4 +45,8 @@ public class IngredientList extends AbstractListModel<Ingredient> {
 	public int getSize() {
 		return list.size();
 	}
+
+	public List<Ingredient> getList() {
+		return list;
+	}
 }

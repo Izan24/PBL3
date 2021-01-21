@@ -18,6 +18,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
+import eus.healthit.bchef.core.view.borders.TransparentRoundBackgroundBorder;
+
 public class RoundTransparentButton extends BasicButtonUI implements MouseListener, KeyListener {
 
 	
@@ -77,7 +79,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		g2.setColor(b.getFontColor());
 		String caption = b.getFrontText();
 
-		int dimy = (d.height + fm.getHeight() / 2) / 2;
+		int dimy = ((int)d.getHeight() + fm.getHeight() / 2) / 2;
 		int dimXStr;
 		int dimXImg;
 		
@@ -144,7 +146,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
 			JComponent c = (JComponent) e.getComponent();
-			c.setBorder(new EmptyBorder(0, 0, 0, 0));
+			//c.setBorder(new EmptyBorder(0, 0, 0, 0));
 			// c.setBackground(m_backgroundPressed);
 		}
 	}
@@ -153,7 +155,7 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
 			JComponent c = (JComponent) e.getComponent();
-			c.setBorder(border);
+			//c.setBorder(border);
 			// c.setBackground(m_backgroundNormal);
 		}
 	}

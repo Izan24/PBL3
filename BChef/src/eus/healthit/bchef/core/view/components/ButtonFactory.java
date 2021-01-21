@@ -63,7 +63,7 @@ public class ButtonFactory {
 			super.setActionCommand(command);
 			super.addActionListener(listener);
 			super.setIcon(icon);
-			super.setBorder(new RoundedBorder(30));
+			super.setBorder(new RoundedBorder(30, Color.black));
 			super.setSize(new Dimension(50, 100));
 			super.setBackground(bgColor);
 			super.setForeground(fgColor);

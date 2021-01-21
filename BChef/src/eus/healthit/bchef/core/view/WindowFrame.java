@@ -2,56 +2,34 @@ package eus.healthit.bchef.core.view;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.view.panels.LoginView;
+import eus.healthit.bchef.core.controllers.view.WindowFrameController;
 
 public class WindowFrame extends JFrame {
 
-	PrincipalView principalView;
-	LoginView loginView;
-	User user;
+	WindowFrameController windowController;
 
 	public WindowFrame() {
 		super("B-Chef");
 
-		// AQUI HAY QUE HACER QUE NOS SALGA LA LOGIN SCREEN Y QUE TENGAS QUE CREAR O
-		// LOGEAR CON UN USER SI O SI SI QUIERES USAR LA APP.
-		// TENEMOS QUE PASAR TODO ESTO DEL LOGIN A UN LoginView para que aqui no haya
-		// nada de codigo.
-		// user = new LoginScreen();
-
-		// Esto es provisional hasta que se haya creado el login y funcione
-		user = new User(0, "Test", "TestUser777", "test.user@gmail.com", "User", "User");
-
 		setWindow();
 
-		//loginWindow();
-
-		appWindow();
-	}
-
-	private void loginWindow() {
-		loginView = new LoginView();
-		this.setContentPane(loginView);
-		this.setVisible(true);
-	}
-
-	private void appWindow() {
-		principalView = new PrincipalView(user);
-		this.setContentPane(principalView);
-		this.setVisible(true);
+		windowController = new WindowFrameController(this);
 	}
 
 	private void setWindow() {
-		this.setSize(1250, 750);
+		this.setSize(1275, 760);
 		this.setLocation(300, 150);
 		this.setResizable(true);
 		this.setBackground(Color.white);
+		ImageIcon img = new ImageIcon("resources/menuIcons/bchef_icon.png");
+		this.setIconImage(img.getImage());
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
 
-//		this.setUndecorated(true);
+	public void setContentPane(PrincipalView principalView, WindowFrameController windowFrameController) {
 	}
 }

@@ -1,33 +1,80 @@
 package eus.healthit.bchef.core.models;
 
+import java.awt.Image;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
+
 public class Recipe {
 
 	String name, author;
+	int authorID;
+	String description;
 	int rating; // 0 to 10 in 5 stars
 	Timestamp publishDate;
 	Time duration;
+	String imagePath;
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
 
-	String imageURL;
+	Image image;
 	UUID uuid;
 
+	@SuppressWarnings("deprecation")
 	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
-			List<Ingredient> ingredients, List<RecipeStep> steps, String imageUrl) {
+			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
+//		this.description = description;
 		this.author = author;
+		// this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
 		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.imageURL = imageUrl;
+		this.image = image;
+	}
+
+	public Recipe(UUID uuid, String name, String author, int authorID, String description, int rating,
+			Timestamp publishDate, Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
+		this.uuid = uuid;
+		this.name = name;
+		this.description = description;
+		this.author = author;
+		this.authorID = authorID;
+		this.rating = rating;
+		this.publishDate = publishDate;
+		this.duration = duration;
+		this.ingredients = ingredients;
+		this.steps = steps;
+		this.image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+	}
+
+	public Recipe(String name, String author, int authorID, String description, int rating,
+			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
+		this.name = name;
+		this.author = author;
+		this.authorID = authorID;
+		this.rating = rating;
+		this.ingredients = ingredients;
+		this.steps = steps;
+		this.image = image;
+
+	}
+
+	public Recipe(String title, String author, int id, String description2, List<Ingredient> list,
+			List<RecipeStep> list2, String imagePath2) {
+		this.name = title;
+		this.author = author;
+		this.authorID = id;
+		this.rating = 0;
+		this.ingredients = list;
+		this.steps = list2;
+		this.imagePath = imagePath2;
 	}
 
 	public UUID getUUID() {
@@ -74,6 +121,14 @@ public class Recipe {
 		this.duration = duration;
 	}
 
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -90,12 +145,12 @@ public class Recipe {
 		this.steps = steps;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImage(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public int getIngredientNumber() {
@@ -108,10 +163,36 @@ public class Recipe {
 
 	public int getStepCount() {
 		try {
-			return this.steps.size();						
+			return this.steps.size();
 		} catch (NullPointerException e) {
 			return 0;
 		}
 	}
 
+	public int getAuthorID() {
+		return authorID;
+	}
+
+	public void setAuthorID(int authorID) {
+		this.authorID = authorID;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Recipe o = (Recipe) obj;
+		return uuid.equals(o.getUUID());
+	}
+
+	@Override
+	public String toString() {
+		return name + author;
+	}
 }

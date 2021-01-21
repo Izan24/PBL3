@@ -4,26 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 import eus.healthit.bchef.core.models.Recipe;
-import eus.healthit.bchef.core.view.components.ButtonFactory;
 
 public class RendererRecipes implements ListCellRenderer<Recipe> {
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Recipe> list, Recipe value, int index,
 			boolean isSelected, boolean cellHasFocus) {
+
+//		Color bgColor = new Color(244, 249, 255);
+		Color bgColor = Color.white;
 
 		JPanel panelList = new JPanel(new BorderLayout());
 		JPanel textPanel = new JPanel(new GridLayout());
@@ -43,19 +43,19 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		panelList.setOpaque(true);
 
 		if (!isSelected) {
-			panelList.setBackground(Color.white);
-			textPanel.setBackground(Color.white);
-			panelImage.setBackground(Color.white);
-			dataPanel.setBackground(Color.white);
-			southPanel.setBackground(Color.white);
-			starPanel.setBackground(Color.white);
+			panelList.setBackground(bgColor);
+			textPanel.setBackground(bgColor);
+			panelImage.setBackground(bgColor);
+			dataPanel.setBackground(bgColor);
+			southPanel.setBackground(bgColor);
+			starPanel.setBackground(bgColor);
 		} else {
-			panelList.setBackground(new Color(232, 232, 232));
-			textPanel.setBackground(new Color(232, 232, 232));
-			panelImage.setBackground(new Color(232, 232, 232));
-			dataPanel.setBackground(new Color(232, 232, 232));
-			southPanel.setBackground(new Color(232, 232, 232));
-			starPanel.setBackground(new Color(232, 232, 232));
+			panelList.setBackground(new Color(225, 252, 254));
+			textPanel.setBackground(new Color(225, 252, 254));
+			panelImage.setBackground(new Color(225, 252, 254));
+			dataPanel.setBackground(new Color(225, 252, 254));
+			southPanel.setBackground(new Color(225, 252, 254));
+			starPanel.setBackground(new Color(225, 252, 254));
 		}
 
 		// --------------------------------------------------------------------------
@@ -74,21 +74,21 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 
 		panelImage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 30));
 		JLabel image;
-		
+
 		try {
-			image = new JLabel(new ImageIcon(new URL(value.getImageURL())));
-			
+			image = new JLabel(new ImageIcon(value.getImage()));
+
 		} catch (Exception e) {
 			image = new JLabel("MalformedxD");
 		}
-		
+
 		panelImage.add(image);
 
 		// --------------------------------------------------------------------------
 		// The Recipe info panel
 		// --------------------------------------------------------------------------
 
-		JLabel text = new JLabel(value.getName());
+		JLabel text = new JLabel(value.getDescription());
 
 		// --------------------------------------------------------------------------
 		// The bottom part of the panel
@@ -114,7 +114,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		}
 
 		southPanel.add(starPanel);
-		
+
 		dataPanel.add(text, BorderLayout.CENTER);
 		dataPanel.add(southPanel, BorderLayout.SOUTH);
 

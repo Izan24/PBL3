@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -16,11 +17,11 @@ import eus.healthit.bchef.core.view.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
 
-	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe;
+	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe, buttonSettings;
 	ActionListener listener;
 
 	public LeftMenuView(ActionListener listener) {
-		super(new FlowLayout(10, 10, 10));
+		super(new GridLayout(1, 1, 10, 10));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
@@ -63,8 +64,8 @@ public class LeftMenuView extends JPanel {
 		buttonList.addActionListener(listener);
 		buttonList.setActionCommand(CenterControllerAC.LIST);
 
-		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\home_normal_32.png",
-				"resources\\menuIcons\\home_active_32.png", new Color(15, 20, 25), new Color(29, 161, 242),
+		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\create_recipe_64.png",
+				"resources\\menuIcons\\create_recipe_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonCreateRecipe.setPreferredSize(new Dimension(180, 40));
 		buttonCreateRecipe.addActionListener(listener);
@@ -77,7 +78,12 @@ public class LeftMenuView extends JPanel {
 		buttonChef.addActionListener(listener);
 		buttonChef.setActionCommand(CenterControllerAC.BCHEF);
 
-
+		buttonSettings = new CustomButton("Ajustes", "resources\\menuIcons\\settings_normal_64.png",
+				"resources\\menuIcons\\settings_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
+				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
+		buttonSettings.setPreferredSize(new Dimension(200, 40));
+		buttonSettings.addActionListener(listener);
+		buttonSettings.setActionCommand(CenterControllerAC.SETTINGS);
 	}
 
 	private JPanel createMenuBar() {
@@ -89,15 +95,15 @@ public class LeftMenuView extends JPanel {
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonHome);
 		leftMenu.add(Box.createVerticalStrut(30));
-		leftMenu.add(buttonProfile);
+		leftMenu.add(buttonCreateRecipe);
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonList);
 		leftMenu.add(Box.createVerticalStrut(30));
-		leftMenu.add(buttonCreateRecipe);
+		leftMenu.add(buttonProfile);
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonChef);
-
-		// this.add(leftMenu, BorderLayout.CENTER);
+		leftMenu.add(Box.createVerticalGlue());
+		leftMenu.add(buttonSettings);
 
 		return leftMenu;
 	}

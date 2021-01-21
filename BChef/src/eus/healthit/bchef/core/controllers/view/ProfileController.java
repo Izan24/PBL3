@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import eus.healthit.bchef.core.view.panels.center.CenterViewProfile;
 
-public class ProfileController implements ActionListener{
-	
+public class ProfileController implements ActionListener {
+
 	CenterViewProfile profileView;
-	
+
 	public ProfileController(CenterViewProfile profileView) {
 		this.profileView = profileView;
 	}
@@ -21,9 +21,6 @@ public class ProfileController implements ActionListener{
 			break;
 		case ProfileControllerAC.SAVED:
 			profileView.changeListView(ProfileControllerAC.SAVED);
-			break;
-
-		default:
 			break;
 		}
 	}

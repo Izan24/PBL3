@@ -1,43 +1,75 @@
 package eus.healthit.bchef.core.models;
 
+
+import java.awt.Image;
 import java.time.Duration;
 
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 
 public class RecipeStep {
 
-
-	Long id;
+	Integer id;
 	RecipeStepActions action;
 	int value;
-	String imageURL;
+
     String text;
     long num;
     Duration time;
 
-    public RecipeStep(long id, RecipeStepActions action, int value, String imageURL, String text, long num) {
+
+	
+	public RecipeStep(Integer id, RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
 	}
-    
-    public RecipeStep(RecipeStepActions action, int value, String imageURL, String text, long num) {
+
+	public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
-		this.imageURL = imageURL;
+		this.image = image;
 		this.text = text;
 		this.num = num;
+	}
+
+	public RecipeStep(RecipeStepActions action, int value, Image image, String text) {
+		this.id = null;
+		this.action = action;
+		this.value = value;
+		this.image = image;
+		this.text = text;
+	}
+	
+	public RecipeStep(RecipeStepActions action, int value, String imagePath, String text, int num) {
+		this.id = null;
+		this.action = action;
+		this.value = value;
+		this.imagePath = imagePath;
+		this.text = text;
+		this.num = num;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	public String getImagePath() {
+		return imagePath;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -57,17 +89,16 @@ public class RecipeStep {
 		this.value = value;
 	}
 
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 	
-
-	public String getImageURL() {
-		return imageURL;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
-
-	public long getNum() {
+	public int getNum() {
 		return num;
 	}
 
@@ -80,9 +111,8 @@ public class RecipeStep {
 	}
 
 	public String getText() {
-        return text;
-    }
-
+		return text;
+	}
 
   public Duration getTime() {
 		return time;
@@ -92,5 +122,5 @@ public class RecipeStep {
 	public String toString() {
 		return text;
 	}
-  
+
 }
