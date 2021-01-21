@@ -14,6 +14,7 @@ public class RecipeViewController implements IRoundButtonListener {
 	public RecipeViewController(CenterViewRecipe centerViewRecipe, User user, CenterViewController centerController) {
 		this.centerViewRecipe = centerViewRecipe;
 		this.user = user;
+		this.centerController = centerController;
 	}
 
 	@Override
@@ -34,7 +35,8 @@ public class RecipeViewController implements IRoundButtonListener {
 			System.out.println("Start recipe");
 //			System.out.println(centerViewRecipe.getRecipe().toString());
 			Recipe recipe = centerViewRecipe.getRecipe();
-			centerController.setRecipeView(recipe);
+			System.out.println(recipe.toString());
+			centerController.setStepView(recipe);
 			break;
 		}
 	}

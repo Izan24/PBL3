@@ -10,7 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.JobAttributes;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,12 +18,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.plaf.SliderUI;
 
+import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
+import eus.healthit.bchef.core.view.components.CustomTimer;
 
 public class CenterStepView extends JPanel {
 
@@ -32,6 +32,7 @@ public class CenterStepView extends JPanel {
 
 	Color bgColor = Color.white;
 
+	JPanel southPanel;
 	JTextArea instruction;
 	JLabel imageLabel, titleLabel, logoLabel;
 
@@ -43,8 +44,14 @@ public class CenterStepView extends JPanel {
 
 		initJLabels();
 		initTextAreas();
+		initJpanel();
 
 		this.add(createScrollPanel());
+	}
+
+	private void initJpanel() {
+		southPanel = new JPanel(new FlowLayout());
+		southPanel.setBackground(bgColor);
 	}
 
 	private void initJLabels() {
@@ -208,9 +215,11 @@ public class CenterStepView extends JPanel {
 	}
 
 	private Component createCounterPanel() {
-		JPanel southPanel = new JPanel(new GridLayout());
-
 		return southPanel;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		updateView(recipe.getSteps().get(0));
 	}
 
 	public void setStep(RecipeStep step) {
@@ -223,8 +232,12 @@ public class CenterStepView extends JPanel {
 		imageLabel.setIcon(new ImageIcon(step.getImage()));
 		titleLabel.setText("Paso Nº " + step.getId());
 
-//		if (step.getDuration().toMillis() != 0) {
-//			// Crear un panel de timer con el tiempo
-//		}
+		try {
+			if (step.getDuration().toMillis() != 0) {
+				southPanel.add(new CustomTimer(step.getDuration(), textFont));
+			}
+		} catch (Exception e) {
+			System.out.println("no tiene owo");
+		}
 	}
 }
