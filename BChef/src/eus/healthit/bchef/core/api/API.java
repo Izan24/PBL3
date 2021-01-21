@@ -16,7 +16,7 @@ public class API {
 		return APIutils.getRequest("/api/user/allusers");
 	}
 	public static JSONObject getHistoryBetween(int userId, String from, String until) {
-		return APIutils.getRequest("/api/user/history");
+		return APIutils.getRequest("/api/user/history?userid="+userId+"&from="+from+"&until="+until);
 	}
 
 	public static JSONObject searchIngredient(String kw) {
