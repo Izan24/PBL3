@@ -103,6 +103,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		halfStar.setIcon(new ImageIcon("resources/recipeIcons/halfStar.png"));
 
 		int i = value.getRating();
+		int emptyStars = Math.round(10 - i);
 
 		while ((i - 2) >= 0) {
 			JLabel fullStar = new JLabel();
@@ -112,6 +113,16 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		}
 		if (i == 1) {
 			starPanel.add(halfStar);
+		}
+		if (emptyStars != 0) {
+			while (emptyStars - 2 >= 0) {
+				JLabel emptyStar = new JLabel();
+				emptyStar.setIcon(new ImageIcon("resources/recipeIcons/emptyStar.png"));
+				emptyStar.setHorizontalAlignment(JLabel.CENTER);
+
+				starPanel.add(emptyStar);
+				emptyStars = emptyStars - 2;
+			}
 		}
 
 		southPanel.add(starPanel);

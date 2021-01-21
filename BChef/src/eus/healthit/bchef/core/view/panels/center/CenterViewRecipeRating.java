@@ -270,6 +270,8 @@ public class CenterViewRecipeRating extends JPanel {
 	}
 
 	public void setStarView(int rating) {
+		int emptyStars = Math.round(10 - rating);
+
 		starPanel.removeAll();
 		starPanel.revalidate();
 
@@ -287,6 +289,17 @@ public class CenterViewRecipeRating extends JPanel {
 		}
 		if (rating == 1) {
 			starPanel.add(halfStar);
+		}
+
+		if (emptyStars != 0) {
+			while (emptyStars - 2 >= 0) {
+				JLabel emptyStar = new JLabel();
+				emptyStar.setIcon(new ImageIcon("resources/recipeIcons/emptyStar64.png"));
+				emptyStar.setHorizontalAlignment(JLabel.CENTER);
+
+				starPanel.add(emptyStar);
+				emptyStars = emptyStars - 2;
+			}
 		}
 
 		this.repaint();
