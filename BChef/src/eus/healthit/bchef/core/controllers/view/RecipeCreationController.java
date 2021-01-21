@@ -67,14 +67,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -101,12 +98,28 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				file = new FileChooser();
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			} catch (Exception e) {
-				System.out.println("Die");
 			}
 			try {
 				Image img = ImageIO.read(file.getSelectedFile());
 				createRecipeView.setImage(img);
 				createRecipeView.setImagePath(file.getSelectedFile().getAbsolutePath());
+			} catch (Exception e) {
+			}
+			break;
+
+		case RecipeCreationControllerAC.ADD_IMAGE_STEP:
+			FileChooser fileImage = null;
+			System.out.println("ADD IMAGE");
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				fileImage = new FileChooser();
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} catch (Exception e) {
+			}
+			try {
+				Image img = ImageIO.read(fileImage.getSelectedFile());
+				createRecipeView.setStepImage(img);
+				createRecipeView.setStepImagePath(fileImage.getSelectedFile().getAbsolutePath());
 			} catch (Exception e) {
 			}
 			break;
@@ -146,7 +159,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		case RecipeCreationControllerAC.CREATE_RECIPE:
 //			System.out.println(
 //					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
-			System.out.println(createRecipeView.getImage());
 			if (recipeValid()) {
 				addStepNumbers();
 				Recipe recipe = new Recipe(createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
@@ -165,10 +177,10 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	private void addStepNumbers() {
 		List<RecipeStep> ls = createRecipeView.getStepListModel().getList();
-		for (int i = 0; i < ls.size() ; i++) {
-			ls.get(i).setNum(i+1);
+		for (int i = 0; i < ls.size(); i++) {
+			ls.get(i).setNum(i + 1);
 		}
-		//createRecipeView.getStepListModel().setList(ls);
+		// createRecipeView.getStepListModel().setList(ls);
 	}
 
 	private void addIngredient(Ingredient ingredient) {
@@ -268,14 +280,16 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	public void addStep() {
 		RecipeStep step = null;
-		try {
-			step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
-					ImageIO.read(new File("proba3.jfif")), createRecipeView.getInstruction(),
-					createRecipeView.getValue());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
+				createRecipeView.getStepImage(), createRecipeView.getInstruction(), createRecipeView.getValue());
+
+		step.setImagePath(createRecipeView.getStepImagePath());
+
 		createRecipeView.getStepListModel().addElement(step);
+
+		createRecipeView.setStepImage(null);
+		createRecipeView.setStepImagePath("");
 	}
 
 	public boolean checkStep() {

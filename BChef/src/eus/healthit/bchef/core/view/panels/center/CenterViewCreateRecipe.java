@@ -72,12 +72,12 @@ public class CenterViewCreateRecipe extends JPanel {
 	Color bgColor = Color.white;
 
 	User user;
-	
-	String imagePath;
-	Image image;
 	RecipeCreationController controller;
 
-	JButton addImageButton;
+	String imagePath, stepImagePath;
+	Image image, stepImage;
+
+	JButton addImageButton, addStepImageButton;
 	JButton addStepButton, removeStepButton;
 	JButton addIngredientButton, removeIngredientButton;
 	JButton createButton, previewButton;
@@ -154,6 +154,18 @@ public class CenterViewCreateRecipe extends JPanel {
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
 				RecipeCreationControllerAC.ADD_IMAGE, "Añadir imagen", "Añadir imagen"));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
+				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
+
+		addStepImageButton = new JButton("Añadir imagen");
+		addStepImageButton.setPreferredSize(new Dimension(150, 40));
+		addStepImageButton.setBackground(bgColor);
+		addStepImageButton.setForeground(new Color(28, 162, 243));
+		addStepImageButton.setFont(textFont);
+		addStepImageButton.setFocusable(false);
+		addStepImageButton.setUI(new UIRoundButton(addStepImageButton, 30, bgColor, new Color(234, 246, 254),
+				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
+				RecipeCreationControllerAC.ADD_IMAGE_STEP, "Añadir imagen", "Añadir imagen"));
+		addStepImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
 		addIngredientButton = new JButton("Añadir");
@@ -564,13 +576,31 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private Component createStepButtonPanel() {
-		JPanel stepButtonPanel = new JPanel(new GridLayout(2, 1, 5, 5));
-		stepButtonPanel.setBackground(bgColor);
+		JPanel stepButtonPanel = new JPanel(new BorderLayout());
 
-		stepButtonPanel.add(addStepButton);
-		stepButtonPanel.add(removeStepButton);
+		stepButtonPanel.add(createAddRemoveStepPanel(), BorderLayout.CENTER);
+		stepButtonPanel.add(createAddStepImagePanel(), BorderLayout.EAST);
 
 		return stepButtonPanel;
+	}
+
+	private Component createAddRemoveStepPanel() {
+		JPanel addRemoveStepPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+		addRemoveStepPanel.setBackground(bgColor);
+
+		addRemoveStepPanel.add(addStepButton);
+		addRemoveStepPanel.add(removeStepButton);
+
+		return addRemoveStepPanel;
+	}
+
+	private Component createAddStepImagePanel() {
+		JPanel addStepImagePanel = new JPanel(new GridLayout());
+		addStepImagePanel.setBackground(bgColor);
+
+		addStepImagePanel.add(addStepImageButton);
+
+		return addStepImagePanel;
 	}
 
 	private Component createStepListPanel() {
@@ -800,6 +830,14 @@ public class CenterViewCreateRecipe extends JPanel {
 		this.image = image;
 	}
 
+	public Image getStepImage() {
+		return stepImage;
+	}
+
+	public void setStepImage(Image stepImage) {
+		this.stepImage = stepImage;
+	}
+
 	public String getTime() {
 		return String.valueOf(timeSpinnerModel.getValue());
 	}
@@ -815,10 +853,6 @@ public class CenterViewCreateRecipe extends JPanel {
 	public String getInstruction() {
 		return instruction.getText();
 	}
-
-//	public Object getTime() {
-//		return time.getValue();
-//	}
 
 	public void changeValueLimits() {
 		if (actions.getSelectedItem().equals(RecipeStepActions.OVEN)) {
@@ -867,22 +901,28 @@ public class CenterViewCreateRecipe extends JPanel {
 			instruction.setForeground(Color.gray);
 		}
 	}
-	
+
 	public String getImagePath() {
 		return imagePath;
+	}
+
+	public String getStepImagePath() {
+		return stepImagePath;
 	}
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
 
+	public void setStepImagePath(String stepImagePath) {
+		this.stepImagePath = stepImagePath;
+	}
+
 	public String getIngredientName() {
 		return ingredient.getText();
 	}
+
 	public String getIngredientQuantity() {
 		return quantity.getText();
 	}
-
-
-	
 }

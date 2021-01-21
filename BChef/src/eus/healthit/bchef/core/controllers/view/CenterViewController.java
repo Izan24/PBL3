@@ -16,7 +16,7 @@ import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
 import eus.healthit.bchef.core.view.WindowFrame;
-import eus.healthit.bchef.core.view.panels.center.CenterStepView;
+import eus.healthit.bchef.core.view.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewBchef;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
@@ -37,7 +37,7 @@ public class CenterViewController implements ActionListener {
 	CenterViewBchef bchefView;
 	CenterViewShopList shopListView;
 	CenterViewCreateRecipe createRecipeView;
-	CenterStepView stepView;
+	CenterViewStep stepView;
 	CenterViewVisitProfile visitProfile;
 	CenterViewProfileSettings settingsView;
 
@@ -61,7 +61,7 @@ public class CenterViewController implements ActionListener {
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user, window);
-		stepView = new CenterStepView();
+		stepView = new CenterViewStep();
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
 	}

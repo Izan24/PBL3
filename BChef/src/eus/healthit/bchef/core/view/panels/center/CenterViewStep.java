@@ -26,7 +26,7 @@ import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.CustomTimer;
 
-public class CenterStepView extends JPanel {
+public class CenterViewStep extends JPanel {
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 25);
 
@@ -36,7 +36,7 @@ public class CenterStepView extends JPanel {
 	JTextArea instruction;
 	JLabel imageLabel, titleLabel, logoLabel;
 
-	public CenterStepView() {
+	public CenterViewStep() {
 		super(new GridLayout());
 		this.setBackground(bgColor);
 
