@@ -94,6 +94,21 @@ public class JSONutils {
 
 		return user;
 	}
+	
+	public static List<Ingredient> getIntreientList(JSONArray array){
+		List<Ingredient> ingredientes = new ArrayList<>();
+
+		for (Object obj2 : array) {
+			JSONObject ingrediente = (JSONObject) obj2;
+			int id2 = ingrediente.getInt("id");
+			String nameI = ingrediente.getString("name");
+			String type = ingrediente.getString("type");
+			String amount = ingrediente.getString("amount");
+			Ingredient ingre = new Ingredient(id2, nameI, type, amount);
+			ingredientes.add(ingre);
+		}
+		return ingredientes;
+	}
 
 	public static Recipe getRecipe(JSONObject published) {
 		UUID uuid = UUID.fromString(published.getString("uuid"));

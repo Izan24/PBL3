@@ -72,7 +72,8 @@ public class CenterViewCreateRecipe extends JPanel {
 	Color bgColor = Color.white;
 
 	User user;
-
+	
+	String imagePath;
 	Image image;
 	RecipeCreationController controller;
 
@@ -866,12 +867,15 @@ public class CenterViewCreateRecipe extends JPanel {
 			instruction.setForeground(Color.gray);
 		}
 	}
-
-	public String getIngredientName() {
-		return ingredient.getText();
+	
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public String getIngredientQuantity() {
-		return quantity.getText();
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
+
+
+	
 }

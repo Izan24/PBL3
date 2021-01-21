@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core.api;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -7,11 +8,12 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
-public class JSONParser {
+public class JSONCalls {
 	public static StatusCode registerUser(String name, String surname, String email, String username, String password,
 			String path) {
 		JSONObject json = new JSONObject();
@@ -43,7 +45,7 @@ public class JSONParser {
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
 				.put("publish_date", recipe.getPublishDate()).put("duration", recipe.getDuration())
-				.put("img", ImageCoder.decodeImage(recipe.getImagePath()));
+				.put("img", ImageCoder.encodeImage(recipe.getImagePath()));
 
 		json.put("ingredients", JSONutils.ingredientsToJSON(recipe.getIngredients()));
 		json.put("instructions", JSONutils.instructionsToJSON(recipe.getSteps()));
@@ -52,6 +54,13 @@ public class JSONParser {
 		String status = jsonReturn.getString("status");
 
 		return StatusCode.valueOf(status);
+	}
+	
+	public static List<Ingredient> ingredientLike(String kw) {
+		JSONObject json = API.searchIngredient(kw);
+		JSONArray array = json.getJSONArray("ingredients");
+		List<Ingredient> ingredientes = JSONutils.getIntreientList(array);
+		return ingredientes;
 	}
 
 	public static StatusCode follow(Integer user, Integer followed) {
@@ -136,15 +145,15 @@ public class JSONParser {
 		return StatusCode.valueOf(status);
 	}
 
-	public static StatusCode shoplistAdd(Item item, Integer userid) {
+	public static Integer shoplistAdd(Item item, Integer userid) {
 		JSONObject json = new JSONObject();
 
 		json.put("name", item.getName()).put("id_user", userid);
 
 		JSONObject jsonReturn = API.shoplistAdd(json);
-		String status = jsonReturn.getString("status");
+		Integer id = jsonReturn.getInt("id");
 
-		return StatusCode.valueOf(status);
+		return id;
 	}
 
 	public static List<Recipe> getPage(int i) {
@@ -159,6 +168,27 @@ public class JSONParser {
 			recipeList.add(JSONutils.getRecipe(recipe));
 		}
 		return recipeList;
+	}
+	
+	public static List<Recipe> getHistoryBetween(int userId, LocalDate from, LocalDate until) {
+		JSONObject json = API.getHistoryBetween(userId, from.toString(), until.toString());
+		JSONArray array = json.getJSONArray("history");
+		List<Recipe> history = new ArrayList<>();
+		for (Object obj : array) {
+			JSONObject recipe = (JSONObject)obj;
+			history.add(JSONutils.getRecipe(recipe));
+		}
+		return history;
+	}
+	public static List<User> getAllUsers() {
+		JSONObject json = API.getAllUsers();
+		JSONArray userArray = json.getJSONArray("users");
+		List<User> users = new ArrayList<>();
+		for (Object object : userArray) {
+			JSONObject user = (JSONObject)object;
+			users.add(new User(user.getInt("id"), user.getString("name"), user.getString("surname"), user.getString("email")));
+		}
+		return users;
 	}
 
 	public static StatusCode updateUser(User user) {

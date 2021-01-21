@@ -1,6 +1,7 @@
 package eus.healthit.bchef.core.api;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.json.JSONObject;
 
@@ -9,6 +10,13 @@ public class API {
 	/* ######################## GET ############################# */
 	public static JSONObject searchRecipe(String kw, int page){
 		return APIutils.getRequest("/api/search?like=" + kw + "&page=" + page);
+	}
+	
+	public static JSONObject getAllUsers() {
+		return APIutils.getRequest("/api/user/allusers");
+	}
+	public static JSONObject getHistoryBetween(int userId, String from, String until) {
+		return APIutils.getRequest("/api/user/history");
 	}
 
 	public static JSONObject searchIngredient(String kw) {

@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 import javax.management.Query;
 
-import eus.healthit.bchef.core.api.JSONParser;
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -67,7 +67,7 @@ public class LoginViewController implements IRoundButtonListener, KeyListener {
 	}
 
 	public void login() {
-		User user = JSONParser.authenticate(loginView.getUsername(), loginView.getPassword());
+		User user = JSONCalls.authenticate(loginView.getUsername(), loginView.getPassword());
 
 		if (user == null) {
 			new CreationErrorDialog(window, "Inicio de sesión incorrecto", true,
