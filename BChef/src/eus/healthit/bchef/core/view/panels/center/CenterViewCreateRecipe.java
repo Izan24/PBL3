@@ -310,7 +310,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	}
 
-	public void setAutoCompleteList(List<String> list) {
+	public void setAutoCompleteList(List<Ingredient> list) {
 		List<String> strings = list.stream().map(object -> Objects.toString(object, null)).collect(Collectors.toList());
 
 		ingredient.setPossibilities(strings);
@@ -874,6 +874,13 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getIngredientName() {
+		return ingredient.getText();
+	}
+	public String getIngredientQuantity() {
+		return quantity.getText();
 	}
 
 
