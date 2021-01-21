@@ -1,8 +1,9 @@
 package eus.healthit.bchef.core.api;
 
-import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.json.JSONObject;
 
@@ -34,6 +35,15 @@ public class API {
 
 	public static JSONObject getUserById(int i) {
 		return APIutils.getRequest("/api/user/byId?id=" + i);
+	}
+	
+	public static JSONObject searchByIngredients(Set<String> set) {
+		int i = 0;
+		List<String> list = new ArrayList<>();
+		for (String string : set) {
+			list.add("ing"+i+"="+string);
+		}
+		return APIutils.getRequest("/api/byingredients?"+String.join("&", list));
 	}
 
 	public static JSONObject checkUser(String username) {
