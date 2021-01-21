@@ -67,7 +67,7 @@ public class CenterViewController implements ActionListener {
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
 		createRecipeView = new CenterViewCreateRecipe(user, window);
-		stepView = new CenterViewStep();
+		stepView = new CenterViewStep(this, user);
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
 		recipeRatingView = new CenterViewRecipeRating(this);

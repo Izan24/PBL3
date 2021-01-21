@@ -20,14 +20,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import eus.healthit.bchef.core.controllers.view.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.StepViewController;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.CustomTimer;
 
 public class CenterViewStep extends JPanel {
+
+	Recipe recipe;
+
+	StepViewController controller;
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 25);
 
@@ -37,11 +44,13 @@ public class CenterViewStep extends JPanel {
 	JTextArea instruction;
 	JLabel imageLabel, titleLabel, logoLabel;
 
-	public CenterViewStep() {
+	public CenterViewStep(CenterViewController centerController, User user) {
 		super(new GridLayout());
 		this.setBackground(bgColor);
 
 		this.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+		controller = new StepViewController(this, centerController, user);
 
 		initJLabels();
 		initTextAreas();
@@ -220,12 +229,16 @@ public class CenterViewStep extends JPanel {
 	}
 
 	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 		updateView(recipe.getSteps().get(0));
 	}
 
 	public void setStep(RecipeStep step) {
 		updateView(step);
-		System.out.println("Update view");
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
 	}
 
 	private void updateView(RecipeStep step) {
@@ -241,4 +254,5 @@ public class CenterViewStep extends JPanel {
 			System.out.println("no tiene owo");
 		}
 	}
+
 }
