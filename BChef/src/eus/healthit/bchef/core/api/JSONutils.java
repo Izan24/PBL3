@@ -155,7 +155,7 @@ public class JSONutils {
 
 		for (RecipeStep step : instructions) {
 			JSONObject ste = new JSONObject();
-			ste.put("id", step.getId()).put("action", step.getAction()).put("value", step.getValue())
+			ste.put("action", step.getAction()).put("value", step.getValue())
 					.put("image", ImageRepository.encodeImage(step.getImagePath())).put("text", step.getText())
 					.put("num", step.getNum());
 			JSONlist.add(ste);

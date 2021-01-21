@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -149,9 +150,10 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			System.out.println(createRecipeView.getImage());
 			if (recipeValid()) {
 				addStepNumbers();
-				Recipe recipe = new Recipe(createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
+				Recipe recipe = new Recipe(UUID.randomUUID(),createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
 						createRecipeView.getDescription(), createRecipeView.getIngredientListModel().getList(),
 						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
+				
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
 			}

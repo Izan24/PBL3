@@ -66,8 +66,9 @@ public class Recipe {
 
 	}
 
-	public Recipe(String title, String author, int id, String description2, List<Ingredient> list,
+	public Recipe(UUID uuid, String title, String author, int id, String description2, List<Ingredient> list,
 			List<RecipeStep> list2, String imagePath2) {
+		this.uuid = uuid;
 		this.name = title;
 		this.author = author;
 		this.authorID = id;
