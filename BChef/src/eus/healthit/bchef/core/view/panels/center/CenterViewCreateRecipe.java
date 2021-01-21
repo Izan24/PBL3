@@ -11,9 +11,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -25,16 +28,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
-import javax.swing.text.html.parser.DTD;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.text.JTextComponent;
+
+import org.jdesktop.swingx.SwingXUtilities;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationController;
 import eus.healthit.bchef.core.controllers.view.RecipeCreationControllerAC;
+import eus.healthit.bchef.core.controllers.view.StepViewController;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -42,6 +49,7 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.AutoCompleteTextField;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
@@ -77,7 +85,8 @@ public class CenterViewCreateRecipe extends JPanel {
 	JLabel recipeCreationTitle, ingredientTitle, stepsTitleJLabel;
 
 	JTextField title, description;
-	JTextField ingredient, quantity;
+	AutoCompleteTextField ingredient;
+	JTextField quantity;
 	JTextArea instruction;
 
 	JComboBox<RecipeStepActions> actions;
@@ -247,13 +256,14 @@ public class CenterViewCreateRecipe extends JPanel {
 		instruction.setLineWrap(true);
 		instruction.setWrapStyleWord(true);
 
-		ingredient = new JTextField();
+		ingredient = new AutoCompleteTextField();
 		ingredient.setFont(textFont);
 		ingredient.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
 		ingredient.addFocusListener(new DefaultTextController(ingredient, INGREDIENT_DEFAULT_TEXT));
 		ingredient.setForeground(Color.gray);
 		ingredient.setPreferredSize(new Dimension(258, 37));
+		ingredient.addKeyListener(controller);
 
 		quantity = new JTextField();
 		quantity.setFont(textFont);
@@ -261,7 +271,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		quantity.setText(QUANTITY_DEFAULT_TEXT);
 		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
 		quantity.setForeground(Color.gray);
-
 	}
 
 	private void initJComboBoxes() {
@@ -299,6 +308,12 @@ public class CenterViewCreateRecipe extends JPanel {
 		DateEditor editor = new DateEditor(time, "HH:mm:ss");
 		time.setEditor(editor);
 
+	}
+
+	public void setAutoCompleteList(List<String> list) {
+		List<String> strings = list.stream().map(object -> Objects.toString(object, null)).collect(Collectors.toList());
+
+		ingredient.setPossibilities(strings);
 	}
 
 	private Component createContent() {
@@ -725,9 +740,10 @@ public class CenterViewCreateRecipe extends JPanel {
 		return scrollPane;
 	}
 
-	public void addIngredient() {
-		controller.addIngredient(ingredient.getText(), quantity.getText());
-	}
+//	public void addIngredient() {
+//		controller.addIngredient(ingredient.getText(), quantity.getText());
+//	}
+//	
 
 //	public void addStep(String imageURL, int num) {
 //		controller.addStep(instruction.getText(), (int) values.getValue(),

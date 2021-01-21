@@ -29,8 +29,8 @@ public class WindowFrameController {
 	}
 
 	private void setStartView() {
-		setLoginView();
-		//setAppView(new User(0, "Izan", "izan", "izan@gmail.com", "Izan24", "aaaa"));
+//		setLoginView();
+		setAppView(new User(0, "Izan", "izan", "izan@gmail.com", "Izan24", "aaaa"));
 		window.setVisible(true);
 	}
 

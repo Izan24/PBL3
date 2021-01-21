@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -26,19 +28,52 @@ import eus.healthit.bchef.core.view.dialogs.FileChooser;
 import eus.healthit.bchef.core.view.panels.center.CenterPreviewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
 
-public class RecipeCreationController implements IRoundButtonListener, ActionListener {
+public class RecipeCreationController implements IRoundButtonListener, ActionListener, KeyListener {
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
 	WindowFrame window;
 	User user;
 
+	String oldIngredientName;
+	List<Ingredient> suggestionIngredientList;
+
 	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window, User user) {
 		this.createRecipeView = createRecipeView;
 		this.window = window;
 		this.user = user;
 
+		oldIngredientName = "";
+
+		suggestionIngredientList = new ArrayList<>();
+
 		createPreviewWindow();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("keypressed");
+		if (!createRecipeView.getIngredientName().equals(oldIngredientName)) {
+
+			// suggestionIngredientList = JSONArray.class..
+
+			createRecipeView.setAutoCompleteList(suggestionIngredientList);
+
+			System.out.println("query");
+		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -76,8 +111,17 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			break;
 
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
-			createRecipeView.addIngredient();
-			createRecipeView.resetIngredientFields();
+
+			if (checkIngredient()) {
+				Ingredient ingredient = ingredientExists();
+				if (ingredient == null) {
+					new CreationErrorDialog(window, "Invalid ingredient", true,
+							"El ingrediente introducido no está en la base de datos");
+				} else {
+					addIngredient(ingredient);
+					createRecipeView.resetIngredientFields();
+				}
+			}
 			break;
 
 		case RecipeCreationControllerAC.REMOVE_INGREDIENT:
@@ -123,6 +167,10 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			ls.get(i).setNum(i+1);
 		}
 		//createRecipeView.getStepListModel().setList(ls);
+	}
+
+	private void addIngredient(Ingredient ingredient) {
+		createRecipeView.getIngredientListModel().getList().add(ingredient);
 	}
 
 	private boolean recipeValid() {
@@ -174,7 +222,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			description = createRecipeView.getName();
 		}
 
-		Recipe recipe = new Recipe(title, createRecipeView.getAuthor(), 2, description, 5,
+		Recipe recipe = new Recipe(title, createRecipeView.getAuthor(), 2, description, 0,
 				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
 
 		return (recipe);
@@ -190,14 +238,30 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		framePreview.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	public void addIngredient(String name, String quantity) {
+	private boolean checkIngredient() {
+		if (createRecipeView.getIngredientName().trim().equals("")
+				|| createRecipeView.getIngredientName().equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, "Invalid ingredient", true, "El ingrediente introducido no es valido");
+			return false;
+		} else if (createRecipeView.getIngredientQuantity().trim().equals("")
+				|| createRecipeView.getIngredientQuantity().equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, "Invalid quantity", true, "La cantidad introducida no es valida");
+			return false;
+		}
+		return true;
+	}
 
-		if (!name.equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT)
-				&& !quantity.equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
-			Ingredient ingredient = new Ingredient(name, "uwu", quantity);
-			createRecipeView.getIngredientListModel().addElement(ingredient);
+	private Ingredient ingredientExists() {
+		if (suggestionIngredientList == null) {
+			return null;
 		}
 
+		for (Ingredient i : suggestionIngredientList) {
+			if (i.getName().toUpperCase().equals(createRecipeView.getIngredientName().toUpperCase())) {
+				return i;
+			}
+		}
+		return null;
 	}
 
 	public void addStep() {
@@ -213,7 +277,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	public boolean checkStep() {
-		if (createRecipeView.getInstruction().equals("")
+		if (createRecipeView.getInstruction().trim().equals("")
 				|| createRecipeView.getInstruction().equals(CenterViewCreateRecipe.STEP_DEFAULT_TEXT)) {
 			new CreationErrorDialog(window, "Invalid instruction", true, "La instrucción no es valida");
 			return false;

@@ -62,7 +62,7 @@ public class CreationErrorDialog extends JDialog implements IRoundButtonListener
 
 	private void initJlabels() {
 		textlabel = new JLabel();
-		textlabel.setSize(new Dimension(100, 90));
+//		textlabel.setSize(new Dimension(100, 90));
 		textlabel.setFont(new Font("Roboto", Font.PLAIN, 15));
 		textlabel.setBackground(Color.white);
 		textlabel.setFocusable(false);
@@ -76,7 +76,7 @@ public class CreationErrorDialog extends JDialog implements IRoundButtonListener
 
 	private Container createContent() {
 		JPanel errorPanel = new JPanel(new BorderLayout());
-		errorPanel.setPreferredSize(new Dimension(320, 110));
+//		errorPanel.setPreferredSize(new Dimension(320, 110));
 		errorPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		errorPanel.setBackground(bgColor);
 

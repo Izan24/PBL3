@@ -3,9 +3,10 @@ package eus.healthit.bchef.core.controllers.view;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.nio.channels.NonReadableChannelException;
 
 import javax.imageio.ImageIO;
 
@@ -66,18 +67,22 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(listView);
-//		try {
-//			stepView.setStep(new RecipeStep(RecipeStepActions.OVEN, 100,
-//					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(200, 200,
-//							Image.SCALE_SMOOTH),
-//					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
-//							+ "slide y  aver que tal va a ver si va bien porfa porfa porfa porfa parece que tenfo que es"
-//							+ "cribir un pooco mas para uqe se active a bver ahota",
-//					1));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		principalView.changeCenterView(stepView);
+		try {
+
+			RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 100,
+					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(200, 200,
+							Image.SCALE_SMOOTH),
+					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
+							+ "slide y a ver que tal va a ver si va bien porfa porfa porfa porfa parece que tengo que es"
+							+ "cribir un pooco mas para que se active a ver ahora",
+					1);
+			step.setId(1);
+
+			stepView.setStep(step);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -131,9 +136,13 @@ public class CenterViewController implements ActionListener {
 		principalView.changeCenterView(visitProfile);
 	}
 
-	public void setStepView(RecipeStep step) {
-		stepView.setStep(step);
+	public void startRecipe() {
+//		stepView.setStep(recipe.getSteps().get(0));
 		principalView.changeCenterView(stepView);
 	}
 
+	public void setStepView(Recipe recipe) {
+		stepView.setRecipe(recipe);
+		principalView.changeCenterView(stepView);
+	}
 }

@@ -69,7 +69,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		this.user = user;
 
 		listener = new DoubleClickListener(this);
-		controller = new RecipeViewController(this, user);
+		controller = new RecipeViewController(this, user, centerController);
 
 		initJlabels();
 		initJPanels();
@@ -140,7 +140,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
-		
+
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
