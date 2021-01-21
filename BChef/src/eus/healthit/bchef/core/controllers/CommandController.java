@@ -1,71 +1,30 @@
 package eus.healthit.bchef.core.controllers;
 
-import java.util.List;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
+import java.time.Duration;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import eus.healthit.bchef.core.Configuration;
+import com.google.common.base.Enums;
+
+import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
+import eus.healthit.bchef.core.util.StringParser;
 
 public class CommandController {
 	
-	private static CommandController obj = new CommandController();
+	private static CommandController instance = new CommandController();
+	
+	//private BChefController BChefController.getInstance();
+	
+	//Variables para guardar el comando anterior
+
 	
 	private CommandController() {
+		//BChefController.getInstance() = BChefController.getInstance();
 	}
 	
-	public static CommandController getCommandController() {
-		return obj;
-	}
-
-	private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe", "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta", "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus", "via"};
-	private static final String[] ARTICULOS = {"el", "la", "los", "las", "un", "uno", "una", "unos", "unas"};
-	private static final String[] PALABRAS = {"receta", "cocina", "y", "e", "recetas", "algo", ",", "poco", "mucho"};
-	
-	
-	BChefController controller;
-	
-	public CommandController(BChefController controller) {
-		this.controller = controller;
-	}
-	
-	public static VoiceCommand parseCommand(String command) {
-		Collator c = Collator.getInstance(new Locale(Configuration.getLocale()));
-		c.setStrength(Collator.SECONDARY);
-		for (VoiceCommand cmd : VoiceCommand.values()) {
-			for (String str : cmd.getCommands()) {
-				str = str.toLowerCase();
-				Pattern p = Pattern.compile("\\b" + str + "\\b", Pattern.CASE_INSENSITIVE);
-				Matcher m = p.matcher(command);
-				if (m.find()) {				
-					return cmd;
-				}
-			}
-		}
-
-		try {
-			return VoiceCommand.NUMBER;
-		} catch (Exception e) {
-			return VoiceCommand.MISUNDERSTOOD;
-		}
-	}
-	
-	
-
-	public static Integer [] parseInt(String string) throws NumberFormatException, IllegalStateException {
-		Matcher matcher = Pattern.compile("\\d+").matcher(string);
-		List<Integer> numsList = new ArrayList<>();
-		while(matcher.find()) {
-			numsList.add(Integer.valueOf(matcher.group()));
-		}
-		return numsList.toArray(new Integer [0]);
+	public static CommandController getInstance() {
+		return instance;
 	}
 
 	public boolean selectCommand(VoiceCommand command, String string) {
@@ -75,76 +34,94 @@ public class CommandController {
 			searchIngredient(string);
 			break;
 		case SEARCH_RECIPE:
-			searchIngredient(string);
+			//TODO: Queryes
+			BChefController.getInstance().searchRecipe(StringParser.deleteCommandWords(string, command));
 			break;
 		case SWITCH_KITCHEN:
+		case POWER_OFF:
 			switchKitchen(string);
 			break;
 		case RECIPE_PREVIOUS:
+			BChefController.getInstance().prevStep();
 			break;
 		case RECIPE_NEXT:
+			BChefController.getInstance().nextStep();
 			break;
 		case ALARM:
+			setAlarm(string);
 			break;
 		case LIST_ADD:
+			//TODO
+			try {
+				BChefController.getInstance().addToList(StringParser.deleteCommandWords(string, command));
+			} catch (ArrayIndexOutOfBoundsException e) {
+				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+			}
 			break;
 		case LIST_REMOVE:
-			break;
-		case POWER_OFF:
+			//TODO
+			BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
 			break;
 		case YES:
+			BChefController.getInstance().confirmCall();
 			break;
 		case NO:
+			BChefController.getInstance().cancellCall();
 			break;
 		case NUMBER:
-			break;
-		case MISUNDERSTOOD:
-			controller.notifyMisunderstood();
-			break;
+			//En desuso
 		default:
-
+			BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 			break;
 		}
+		return true;
+	}
+	
 
-		return true;
-	}
-	
-	private boolean searchIngredient(String string) {
-		Set<String> ingredients = parseWords(string);
-		return true;
-	}
-	
-	private static Set<String> parseWords(String string) {
-		String numberless = string.replace("\\d", "");
-		Set<String> ingredients = Arrays.stream(numberless.split(" +")).collect(Collectors.toSet());
-		ingredients.removeIf(s -> Arrays.stream(PREPOSICIONES).anyMatch(m -> m.equals(s)));
-		ingredients.removeIf(s -> Arrays.stream(ARTICULOS).anyMatch(m -> m.equals(s)));
-		ingredients.removeIf(s -> Arrays.stream(PALABRAS).anyMatch(m -> m.equals(s)));
-		return ingredients;
+	private void searchIngredient(String string) {
+		Set<String> ingredients = StringParser.parseIngredients(string);
+		BChefController.getInstance().searchRecipeByIngredient(ingredients);
+		System.out.println("Ingres: ");
+		ingredients.stream().forEach(System.out::println);
 	}
 	
 	private void switchKitchen(String string) {
-		KitchenUtil util = getKitchenUtil(parseWords(string));
+		KitchenUtil util = StringParser.parseKitchenUtil(string);
+		Integer value = null;
+		Integer index = null;
 		if(util != KitchenUtil.MISUNDERSTOOD) {
-			try {
-				Integer[] nums = parseInt(string);
-				controller.switchKitchen(util, nums);
-			} catch (Exception e) {
-				//TODO: preguntar numero
+			Integer[] nums = StringParser.parseInt(string);
+			for(int i : nums) System.out.println("num " + i);
+			if(nums.length == 0) {
+				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+				return;
 			}
+			if(nums.length == 1) value = nums[0];
+			else {
+				index = nums[0] - 1;
+				value = nums[1];
+				System.out.println("entre");
+			}
+			BChefController.getInstance().switchKitchen(util, index, value);
 		}
-		else controller.notifyMisunderstood();
+		else BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 	}
 	
-	private KitchenUtil getKitchenUtil(Set<String> words) {
-		for(KitchenUtil util : KitchenUtil.values()) {
-			for(String keyword : util.getKeywords()) {
-				if(words.contains(keyword)) return util;
-			}
+	private void setAlarm(String string) {
+		KitchenUtil util = StringParser.parseKitchenUtil(string);
+		int index = 0;
+		if(util.equals(KitchenUtil.MISUNDERSTOOD)) {
+			util = null;
+			index = -1;
 		}
 		
-		return KitchenUtil.MISUNDERSTOOD;
+		Duration time = StringParser.parseTime(string);
+		if(time.isZero() || time.isNegative()) {
+			BChefController.getInstance().errorMessage("INVALID_TIME");
+			return;
+		}
 		
+		BChefController.getInstance().setAlarm(util, index, time);	
 	}
-
+		
 }

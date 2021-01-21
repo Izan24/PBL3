@@ -98,7 +98,7 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		elaborationTitleLabel = new JLabel("Elaboración");
+		elaborationTitleLabel = new JLabel("ElaboraciÃ³n");
 		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
@@ -323,8 +323,10 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private void setSteps(Recipe recipe) {
 
-		stepPanel = new JPanel(new GridLayout(recipe.getStepNumber(), 1, 20, 20));
-		stepPanel.setBackground(bgColor);
+
+		stepPanel = new JPanel(new GridLayout(recipe.getStepCount(), 1, 20, 20));
+		stepPanel.setBackground(Color.white);
+
 		stepPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
 
 		fullStepPanel.add(stepPanel, BorderLayout.CENTER);

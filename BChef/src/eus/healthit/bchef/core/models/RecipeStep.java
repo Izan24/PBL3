@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core.models;
 
+
 import java.awt.Image;
 import java.time.Duration;
 
@@ -10,11 +11,12 @@ public class RecipeStep {
 	Integer id;
 	RecipeStepActions action;
 	int value;
-	String text;
-	int num;
-	Image image;
-	String imagePath;
-	Duration duration;
+
+    String text;
+    long num;
+    Duration time;
+
+
 	
 	public RecipeStep(Integer id, RecipeStepActions action, int value, Image image, String text, int num) {
 		this.id = id;
@@ -112,9 +114,11 @@ public class RecipeStep {
 		return text;
 	}
 
-	
-	
-	@Override
+  public Duration getTime() {
+		return time;
+	}
+
+@Override
 	public String toString() {
 		return text;
 	}

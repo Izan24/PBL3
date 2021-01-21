@@ -7,15 +7,18 @@ public class KitchenController implements IKitchenController {
 
 	Kitchen kitchen;
 	
+	public KitchenController() {
+		kitchen = new Kitchen();
+	}
+	
 	@Override
 	public void setFire(int index, int power) {
 		kitchen.setFire(index, power);
 	}
 
 	@Override
-	public void setOven(double temp) {
-		kitchen.setOven(temp);
-		
+	public void setOven(int index, int temp) {
+		kitchen.setOven(index, temp);		
 	}
 
 }
