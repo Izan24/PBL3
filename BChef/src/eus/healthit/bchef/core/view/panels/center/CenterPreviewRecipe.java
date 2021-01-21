@@ -256,7 +256,7 @@ public class CenterPreviewRecipe extends JPanel {
 	}
 
 	private void setSteps(Recipe recipe) {
-		stepPanel = new JPanel(new GridLayout(recipe.getStepNumber(), 1, 20, 20));
+		stepPanel = new JPanel(new GridLayout(recipe.getStepCount(), 1, 20, 20));
 		stepPanel.setBackground(bgColor);
 		stepPanel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 75));
 

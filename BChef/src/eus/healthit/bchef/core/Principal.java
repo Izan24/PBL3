@@ -3,6 +3,7 @@ package eus.healthit.bchef.core;
 import eus.healthit.bchef.core.controllers.CommandController;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.input.AudioInputController;
+import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.util.StringParser;
 
@@ -24,23 +25,24 @@ public class Principal {
 	}
 
 	public static void main(String[] args) {
+		Principal principal = new Principal();
+		//IKitchenController = new KitchenController();
 //		CommandController commandController = CommandController.getInstance();
 //		String cmdString = "quita de la lista buscar 2 psic�logos".toLowerCase();
 //		VoiceCommand command = StringParser.parseCommand(cmdString);
 //		cmdString = StringParser.deleteCommandWords(cmdString, command);
 //		commandController.selectCommand(command, cmdString);
 
-		
-		String string = StringParser.stripSpaces("bchef buscame una receta de croquetas rellenas de abuela");
-		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);
-		
+//		String string = StringParser.stripSpaces("bchef buscame una receta de heiko moro");
+//		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);
+
 //		AudioInputController inputController = AudioInputController.getInstance();
 //		inputController.start();
 //		inputController.startRecon();
 
 //		KitchenController controller = new KitchenController();
 //		controller.setFire(0, 0);
-		
+
 		// Separador
 
 //		Principal principal = new Principal();
@@ -58,6 +60,5 @@ public class Principal {
 		// RecipeRepository.delete(rep);
 		// QueryCon.closeConn();
 
-
-
 	}
+}

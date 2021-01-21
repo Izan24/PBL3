@@ -15,9 +15,10 @@ public class Ingredient {
 		this.quantity = amount;
 	}
 
-	public Ingredient(String name, String type) {
+	public Ingredient(Integer id, String name, String type) {
 		this.name = name;
 		this.type = type;
+		this.id = id;
 	}
 
 	public Ingredient(String name, String type, String amount) {
@@ -46,5 +47,10 @@ public class Ingredient {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public String setQuantity(String ingredientQuantity) {
+		return quantity;
+		
 	}
 }

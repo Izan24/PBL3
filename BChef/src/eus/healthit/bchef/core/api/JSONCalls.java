@@ -59,7 +59,14 @@ public class JSONCalls {
 	public static List<Ingredient> ingredientLike(String kw) {
 		JSONObject json = API.searchIngredient(kw);
 		JSONArray array = json.getJSONArray("ingredients");
-		List<Ingredient> ingredientes = JSONutils.getIntreientList(array);
+		List<Ingredient> ingredientes = new ArrayList<>();
+		for (Object object : array) {
+			JSONObject ingr = (JSONObject)object;
+			int id = ingr.getInt("id");
+			String name = ingr.getString("name");
+			String type = ingr.getString("type");
+			ingredientes.add(new Ingredient(id, name, type));
+		}
 		return ingredientes;
 	}
 

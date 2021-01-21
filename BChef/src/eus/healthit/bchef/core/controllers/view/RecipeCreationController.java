@@ -56,7 +56,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		System.out.println("keypressed");
 		if (!createRecipeView.getIngredientName().equals(oldIngredientName)) {
 
-			// suggestionIngredientList = JSONArray.class..
+			suggestionIngredientList = JSONCalls.ingredientLike(createRecipeView.getIngredientName());
 
 			createRecipeView.setAutoCompleteList(suggestionIngredientList);
 
@@ -119,6 +119,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 					new CreationErrorDialog(window, "Invalid ingredient", true,
 							"El ingrediente introducido no está en la base de datos");
 				} else {
+					ingredient.setQuantity(createRecipeView.getIngredientQuantity());
 					addIngredient(ingredient);
 					createRecipeView.resetIngredientFields();
 				}

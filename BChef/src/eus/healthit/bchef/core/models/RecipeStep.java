@@ -11,10 +11,11 @@ public class RecipeStep {
 	Integer id;
 	RecipeStepActions action;
 	int value;
-
+	Image image;
     String text;
-    long num;
+    int num;
     Duration time;
+    String imagePath;
 
 
 	
@@ -54,11 +55,11 @@ public class RecipeStep {
 	}
 
 	public Duration getDuration() {
-		return duration;
+		return time;
 	}
 
 	public void setDuration(Duration duration) {
-		this.duration = duration;
+		this.time = duration;
 	}
 
 	public String getImagePath() {
