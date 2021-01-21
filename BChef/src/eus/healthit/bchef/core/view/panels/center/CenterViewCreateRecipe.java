@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +26,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
-import javax.swing.text.html.parser.DTD;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.text.JTextComponent;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
@@ -42,6 +45,7 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
+import eus.healthit.bchef.core.view.components.AutoSuggestor;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.ingredients.IngredientList;
@@ -79,6 +83,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	JTextField ingredient, quantity;
 	JTextArea instruction;
 
+	JComboBox<Object> ingredientsBox;
 	JComboBox<RecipeStepActions> actions;
 	JSpinner values, time;
 	SpinnerNumberModel valueSpinnerModel;
@@ -92,6 +97,8 @@ public class CenterViewCreateRecipe extends JPanel {
 
 	IngredientRenderer ingredientRenderer;
 	RecipeStepRenderer stepRenderer;
+
+	AutoSuggestor suggestor;
 
 	public CenterViewCreateRecipe(User user, WindowFrame window) {
 		super(new GridLayout());
@@ -107,8 +114,31 @@ public class CenterViewCreateRecipe extends JPanel {
 		initJLabels();
 		initJLists();
 		initTextFields();
+//		initSuggestor(window);
 		initJSpinners();
 		initJComboBoxes();
+
+		List<String> list = new ArrayList<>();
+		list.add("Holia");
+		list.add("Hola");
+		list.add("Hoa");
+		list.add("Ho");
+		list.add("Holabuuuenas");
+		list.add("Holea");
+		list.add("Hue");
+		list.add("hoe");
+		list.add("Heo");
+		list.add("Pan");
+		list.add("Pechugas");
+		list.add("Pechuga");
+		list.add("Perrito");
+		list.add("Palomitas");
+		list.add("Panceta");
+		list.add("Pepitas");
+		list.add("Pepino");
+		list.add("Pepperoni");
+
+		decorate(ingredient, list, false);
 
 		this.add(createMainScrollPanel());
 	}
@@ -260,7 +290,6 @@ public class CenterViewCreateRecipe extends JPanel {
 		quantity.setText(QUANTITY_DEFAULT_TEXT);
 		quantity.addFocusListener(new DefaultTextController(quantity, QUANTITY_DEFAULT_TEXT));
 		quantity.setForeground(Color.gray);
-
 	}
 
 	private void initJComboBoxes() {
@@ -275,6 +304,19 @@ public class CenterViewCreateRecipe extends JPanel {
 		actions.addItem(RecipeStepActions.OVEN);
 		actions.addItem(RecipeStepActions.STOVE);
 		actions.addItem(RecipeStepActions.TIMER);
+
+		ingredientsBox = new JComboBox<>();
+		ingredientsBox.setBackground(bgColor);
+		ingredientsBox.setBorder(new RoundedBorder(20, new Color(200, 200, 200)));
+		ingredientsBox.setFocusable(false);
+		Object[] elements = new Object[] { "Cat", "Dog", "Lion", "Mouse" };
+
+//		AutoCompleteSupport.install(ingredientsBox, GlazedLists.eventListOf(elements));
+//        AutoCompleteDecorator.decorate(ingredientsBox);
+	}
+
+	public static void decorate(JTextComponent textComponent, List<?> items, boolean strictMatching) {
+		AutoCompleteDecorator.decorate(textComponent, items, strictMatching, null);
 	}
 
 	private void initJSpinners() {
