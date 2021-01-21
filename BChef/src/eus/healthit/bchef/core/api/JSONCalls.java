@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.json.JSONArray;
@@ -55,6 +56,18 @@ public class JSONCalls {
 		String status = jsonReturn.getString("status");
 
 		return StatusCode.valueOf(status);
+	}
+	
+	
+	public static List<Recipe> searchByIngredient(Set<String> set) {
+		JSONObject json = API.searchByIngredients(set);
+		JSONArray array = json.getJSONArray("recipes");
+		List<Recipe> list= new ArrayList<>();
+		for (Object object : array) {
+			JSONObject recipe = (JSONObject)object;
+			list.add(JSONutils.getRecipe(recipe));
+		}
+		return list;
 	}
 	
 	public static List<Ingredient> ingredientLike(String kw) {
