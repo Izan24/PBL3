@@ -20,7 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
-import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
 import eus.healthit.bchef.core.controllers.view.RecipeRatingController;
 import eus.healthit.bchef.core.controllers.view.RecipeRatingControllerAC;
 import eus.healthit.bchef.core.models.Recipe;

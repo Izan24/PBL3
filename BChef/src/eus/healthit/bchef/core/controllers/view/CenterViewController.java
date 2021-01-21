@@ -99,8 +99,8 @@ public class CenterViewController implements ActionListener {
 				steps.add(step);
 			}
 
-			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null, null, null, steps,
-					ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
+			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null, null,
+					null, steps, ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
 			recipeRatingView.setRecipe(recipe);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -158,13 +158,14 @@ public class CenterViewController implements ActionListener {
 		principalView.changeCenterView(visitProfile);
 	}
 
-	public void startRecipe() {
-//		stepView.setStep(recipe.getSteps().get(0));
-		principalView.changeCenterView(stepView);
-	}
-
 	public void setStepView(Recipe recipe) {
 		stepView.setRecipe(recipe);
 		principalView.changeCenterView(stepView);
 	}
+
+	public void rateRecipe(Recipe recipe) {
+		recipeRatingView.setRecipe(recipe);
+		principalView.changeCenterView(recipeRatingView);
+	}
+
 }
