@@ -44,11 +44,12 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	}
 
 	@Override
-	public void setAlarm(KitchenUtil util, int index, Duration time) {
+	public KitchenAlarm setAlarm(KitchenUtil util, int index, Duration time) {
 		//TODO: Listener panel
 		KitchenAlarm alarm = new KitchenAlarm(util, index, time, BChefController.getInstance());
 		alarms.add(alarm);
 		alarm.start();
+		return alarm;
 	}
 
 	@Override

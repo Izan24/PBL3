@@ -8,6 +8,8 @@ import java.time.Duration;
 
 import javax.swing.JLabel;
 
+import eus.healthit.bchef.core.models.KitchenAlarm;
+
 public class CustomTimer extends JLabel implements PropertyChangeListener {
 
 	public static final String COLON = ":";
@@ -15,16 +17,19 @@ public class CustomTimer extends JLabel implements PropertyChangeListener {
 	private Color red = Color.red;
 	private Color gray = Color.DARK_GRAY;
 	private boolean tick = true;
+	
+	KitchenAlarm alarm;
 
-	public CustomTimer(Duration duration, Font font) {
-		super(durationToString(duration));
+	public CustomTimer(KitchenAlarm alarm, Font font) {
+		super(durationToString(alarm.getResTime()));
+		this.alarm = alarm;
 		this.setFont(font);
 		this.setForeground(gray);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		Duration newDuration = (Duration) evt.getNewValue();
+		Duration newDuration = ((KitchenAlarm) evt.getNewValue()).getResTime();
 		String timeToShow = durationToString(newDuration);
 		System.out.println("Pi: "+timeToShow);
 		if (newDuration.getSeconds() <= 0) {

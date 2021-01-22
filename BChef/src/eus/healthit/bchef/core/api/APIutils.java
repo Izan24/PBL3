@@ -12,7 +12,8 @@ import org.json.JSONObject;
 import eus.healthit.bchef.core.enums.StatusCode;
 
 public class APIutils {
-	public static final String URL = "http://localhost";
+	public static final String URL = "http://172.17.20.241";
+//	public static final String URL = "http://healthit.eus";
 	public static final int PORT = 80;
 
 	private static HttpURLConnection getConnection(String url, String method, int port) throws IOException {

@@ -1,19 +1,8 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.CommandController;
-import eus.healthit.bchef.core.controllers.implementations.KitchenController;
-import eus.healthit.bchef.core.controllers.input.AudioInputController;
-import eus.healthit.bchef.core.controllers.interfaces.IKitchenController;
-import eus.healthit.bchef.core.enums.KitchenUtil;
+import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.util.StringParser;
-
-import java.io.IOException;
-
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -25,15 +14,16 @@ public class Principal {
 		windowFrame = new WindowFrame();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		//BChefController.getInstance().startVoiceRecon();
 		Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
-//		CommandController commandController = CommandController.getInstance();
-//		String cmdString = "quita de la lista buscar 2 psic�logos".toLowerCase();
-//		VoiceCommand command = StringParser.parseCommand(cmdString);
-//		cmdString = StringParser.deleteCommandWords(cmdString, command);
-//		commandController.selectCommand(command, cmdString);
+		Thread.sleep(36000);
+		CommandController commandController = CommandController.getInstance();
+		String cmdString = "leeme la lista".toLowerCase();
+		VoiceCommand command = StringParser.parseCommand(cmdString);
+		cmdString = StringParser.deleteCommandWords(cmdString, command);
+		commandController.selectCommand(command, cmdString);
 
 //		String string = StringParser.stripSpaces("bchef buscame una receta de heiko moro");
 //		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);
