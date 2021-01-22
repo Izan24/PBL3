@@ -6,8 +6,15 @@ import java.beans.PropertyChangeSupport;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import org.apache.commons.collections.functors.IfClosure;
+
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.controllers.implementations.RecipeAssistantController;
@@ -19,9 +26,12 @@ import eus.healthit.bchef.core.controllers.interfaces.IRecipeAssistantController
 import eus.healthit.bchef.core.controllers.interfaces.IViewController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
+import eus.healthit.bchef.core.models.Ingredient;
+import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.KitchenAlarm;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.util.TextBuilder;
 import eus.healthit.bchef.core.util.func.FunctionCall;
@@ -31,6 +41,7 @@ import eus.healthit.bchef.core.util.func.NextRecipeCall;
 public class BChefController implements PropertyChangeListener {
 
 	PropertyChangeSupport connector;
+	User user;
 
 	private static BChefController instance = new BChefController();
 
@@ -57,7 +68,10 @@ public class BChefController implements PropertyChangeListener {
 
 	List<Recipe> searchedRecipes;
 	int searchedRecipesIndex;
+	int searchedRecipesPage;
 	FunctionCall nextFunction;
+	Set<String> lastSearchIngredients;
+	String lastSearch;
 
 	public void switchKitchen(KitchenUtil util, Integer index, Integer value) {
 		switch (util) {
@@ -73,7 +87,7 @@ public class BChefController implements PropertyChangeListener {
 			break;
 		case STOVE:
 			if (value == null) {
-				//errorMessage("MISSUNDERSTOOD");
+				errorMessage("MISSUNDERSTOOD");
 				break;
 			}
 			if (index == null)
@@ -86,7 +100,7 @@ public class BChefController implements PropertyChangeListener {
 			errorMessage("MISSUNDERSTOOD");
 			return;
 		}
-		
+
 		OutputController.getInstance().send(TextBuilder.kitchenSwitchMessage(util, value, index));
 	}
 
@@ -154,31 +168,49 @@ public class BChefController implements PropertyChangeListener {
 		recipeAssitantController.setRecipe(recipe);
 		recipeAssitantController.nextStep();
 	}
-	
+
 	public void startSearchOffer() {
 		searchedRecipesIndex = 0;
-		if(searchedRecipes.size() == 0) errorMessage("RECIPES_NOT_FOUND");
-		else nextRecipe();
+		if (searchedRecipes.size() == 0)
+			errorMessage("RECIPES_NOT_FOUND");
+		else
+			nextRecipe();
 	}
 
 	public void searchRecipe(String string) {
-		//TODO: Query de search
-		OutputController.getInstance().send(" " + string);
+		System.out.println("searcheando recipe normal");
+		OutputController.getInstance().send(TextBuilder.findingRecipeMessage(string));
+		System.out.println("pre json");
+		JSONCalls.search(string, searchedRecipesPage);
+		System.out.println("post json");
 		searchedRecipes = new ArrayList<>();
+		lastSearch = string;
+		lastSearchIngredients = null;
 		startSearchOffer();
 	}
 
 	public void searchRecipeByIngredient(Set<String> ingredients) {
-		//TODO: Query de search
 		outputController.send(TextBuilder.findingRecipeByIngredientMessage(ingredients));
+		// TODO: Query
 		searchedRecipes = new ArrayList<>();
+		lastSearchIngredients = ingredients;
+		lastSearch = null;
 		startSearchOffer();
 	}
-	
+
 	public void nextRecipe() {
 		if (searchedRecipesIndex < searchedRecipes.size()) {
 			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(searchedRecipesIndex++)));
-		} else
+		} else {
+			if (lastSearch != null) {
+				searchedRecipesPage++;
+				searchRecipe(lastSearch);
+			} else if (lastSearchIngredients != null) {
+				searchedRecipesPage++;
+				searchRecipe(lastSearch);
+			}
+		}
+		if (searchedRecipes == null || searchedRecipes.size() == 0)
 			errorMessage("NO_MORE_RECIPES");
 	}
 
@@ -229,7 +261,11 @@ public class BChefController implements PropertyChangeListener {
 				outputController.send(TextBuilder.alarmDeactivateMessage(alarm.getUtil(), alarm.getUtilIndex()));
 			break;
 		case "NEW_COMMAND":
-			processNewCommand((String) evt.getNewValue()); 
+			processNewCommand((String) evt.getNewValue());
+			break;
+		case "ALARM_UPDATE":
+		case "ALARM_FISNISH":
+			connector.firePropertyChange(evt);
 			break;
 		default:
 			break;
@@ -239,24 +275,65 @@ public class BChefController implements PropertyChangeListener {
 	public void addPropertyChangeListner(PropertyChangeListener listener) {
 		connector.addPropertyChangeListener(listener);
 	}
-	
+
 	public void processNewCommand(String string) {
 		VoiceCommand command = StringParser.parseCommand(string);
 		commandController.selectCommand(command, string);
 	}
 
 	public void addToList(String string) {
-		//TODO: Query de add
+		System.out.println("entrado en func");
+		JSONCalls.shoplistAdd(new Item(string), user.getId());
+		System.out.println("salido de json");
 		OutputController.getInstance().send(TextBuilder.addedToList(string));
+		System.out.println("audios xd");
 	}
 
 	public void deleteFromList(String string) {
-		//TODO: Query de borrar
-		//se ha borrado bien
-		if(true)
-		OutputController.getInstance().send(TextBuilder.removedFromList(string));
-		//not found
-		else outputController.send(TextBuilder.listItemNotFound(string));
+		boolean removed = false;
+		String reg = "\\s*\\b" + string.toLowerCase() + "\\b\\s*";
+		Pattern pattern = Pattern.compile(reg);
+		for (Item item : user.getShopList()) {
+			Matcher matcher = pattern.matcher(item.getName());
+			if (matcher.find()) {
+				JSONCalls.shoplistRemove(item);
+				OutputController.getInstance().send(TextBuilder.removedFromList(string));
+				removed = true;
+			}
+		}
+		if (!removed)
+			outputController.send(TextBuilder.listItemNotFound(string));
+	}
+
+	public void readList() {
+		for(Item item : user.getShopList()) System.out.println("item: " + item.getName());
+		
+//		List<String> complete = user.getShopList().stream().map(object -> Objects.toString(object, null))
+//				.collect(Collectors.toList());
+//		System.out.println(".-.---");
+//		List<String> incomplete = user.getShopList().stream().map(object -> Objects.toString(object, null))
+//				.collect(Collectors.toList());
+
+//		complete.stream().forEach(System.out::println);
+//		incomplete.stream().forEach(System.out::println);
+//
+//		outputController.send(TextBuilder.readListMessage(complete, incomplete));
+	}
+
+	public void startVoiceRecon() {
+		inputController.start();
+		inputController.startRecon();
+	}
+	public void stopVoiceRecon() {
+		inputController.stopRecon();
 	}
 	
+	public void resumeVoiceRecon() {
+		inputController.startRecon();
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

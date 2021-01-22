@@ -4,14 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalTime;
 
 import javax.swing.Timer;
 
 import eus.healthit.bchef.core.controllers.BChefController;
-import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
 public class KitchenAlarm implements ActionListener {

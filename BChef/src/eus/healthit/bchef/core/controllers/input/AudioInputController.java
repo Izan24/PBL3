@@ -17,21 +17,35 @@ import com.google.cloud.speech.v1.StreamingRecognizeRequest;
 import com.google.protobuf.ByteString;
 
 import eus.healthit.bchef.core.controllers.BChefController;
-import eus.healthit.bchef.core.controllers.implementations.OutputController;
-import io.grpc.StatusRuntimeException;
 
 public class AudioInputController extends Thread {
 
-	private static boolean reconOn;
+	private boolean reconOn;
+	private boolean broken;
 
 	private static AudioInputController instance = new AudioInputController();
 	private RealtimeResponseObserver responseObserver;
 
 	private AudioInputController() {
+
 	}
 
 	public static AudioInputController getInstance() {
 		return instance;
+	}
+	
+	public void repair() {
+		broken = true;
+	}
+
+	public void run() {
+		while (true)
+			try {
+				streamingMicRecognize();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	public void stopRecon() {
@@ -40,12 +54,12 @@ public class AudioInputController extends Thread {
 
 	public void startRecon() {
 		reconOn = true;
-		try {
-			streamingMicRecognize();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			streamingMicRecognize();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@Deprecated
@@ -56,12 +70,12 @@ public class AudioInputController extends Thread {
 	}
 
 	private void streamingMicRecognize() {
-		while (reconOn) {
+		while (true) {
 			TargetDataLine targetDataLine = null;
 			System.out.println("out again");
 			try (SpeechClient client = SpeechClient.create()) {
 
-				responseObserver = new RealtimeResponseObserver();
+				responseObserver = new RealtimeResponseObserver(this);
 				responseObserver.addPropertyChangeListeners(BChefController.getInstance());
 
 				ClientStream<StreamingRecognizeRequest> clientStream = client.streamingRecognizeCallable()
@@ -76,18 +90,14 @@ public class AudioInputController extends Thread {
 				StreamingRecognizeRequest request = StreamingRecognizeRequest.newBuilder()
 						.setStreamingConfig(streamingRecognitionConfig).build(); // The first request in a streaming
 																					// call
-																					// has to be a config
-
 				clientStream.send(request);
 				// SampleRate:16000Hz, SampleSizeInBits: 16, Number of channels: 1, Signed:
 				// true,
 				// bigEndian: false
 				AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
+
 				DataLine.Info targetInfo = new Info(TargetDataLine.class, audioFormat); // Set the system information to
 																						// read from the microphone
-																						// audio
-																						// stream
-
 				if (!AudioSystem.isLineSupported(targetInfo)) {
 					System.out.println("Microphone not supported");
 					System.exit(0);
@@ -102,22 +112,20 @@ public class AudioInputController extends Thread {
 //			long startTime = System.currentTimeMillis();
 				// Audio Input Stream
 				AudioInputStream audio = new AudioInputStream(targetDataLine);
-				while (true) {
-					if (!reconOn) {
-						System.out.println("Stop speaking.");
-						break;
-					}
-
-					if (!OutputController.isComplete()) {
-						Thread.sleep(100);
-						continue;
-					}
-//				long estimatedTime = System.currentTimeMillis() - startTime;
+				while (!broken) {
+//					if (OutputController.isComplete() && reconOn) {
 					byte[] data = new byte[6400];
 					audio.read(data);
-					request = StreamingRecognizeRequest.newBuilder().setAudioContent(ByteString.copyFrom(data)).build();
+						if (reconOn) {
+//				long estimatedTime = System.currentTimeMillis() - startTime;
+//						if (reconOn && OutputController.isComplete()) {
+						request = StreamingRecognizeRequest.newBuilder().setAudioContent(ByteString.copyFrom(data))
+								.build();
+						
+						clientStream.send(request);
 
-					clientStream.send(request);
+//						}
+					}
 
 //				if (estimatedTime > 60000) { // 60 seconds
 
@@ -129,9 +137,16 @@ public class AudioInputController extends Thread {
 				if (targetDataLine != null) {
 					targetDataLine.stop();
 					targetDataLine.close();
+					responseObserver.onComplete();
 				}
 			}
-			responseObserver.onComplete();
+			try {
+				this.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			broken = false;
 		}
 	}
 }

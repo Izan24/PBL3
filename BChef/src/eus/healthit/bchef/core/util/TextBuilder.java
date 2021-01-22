@@ -1,6 +1,7 @@
 package eus.healthit.bchef.core.util;
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,11 +39,11 @@ public class TextBuilder {
 		texto = texto + "?";
 		return texto;
 	}
-	
+
 	public static String findingRecipeMessage(String string) {
 		return rb.getString("find_recipe") + " " + string;
 	}
-	
+
 	public static String findingRecipeByIngredientMessage(Set<String> ingredients) {
 		return rb.getString("find_recipe_ingredients") + " " + String.join(", ", ingredients);
 	}
@@ -98,12 +99,12 @@ public class TextBuilder {
 
 	public static String durationToString(Duration time) {
 		String durationString = "";
-		if (time.toHoursPart() != 0)
-			durationString = durationString + time.toHoursPart() + " " + rb.getString("hours") + " ";
-		if (time.toMinutesPart() != 0)
-			durationString = durationString + time.toMinutesPart() + " " + rb.getString("minutes") + " ";
-		if (time.toSecondsPart() != 0)
-			durationString = durationString + time.toSecondsPart() + " " + rb.getString("seconds") + " ";
+		if (time.toHours() % 24 != 0)
+			durationString = durationString + time.toHours() % 24 + " " + rb.getString("hours") + " ";
+		if (time.toMinutesPart() % 60 != 0)
+			durationString = durationString + time.toMinutes() % 60 + " " + rb.getString("minutes") + " ";
+		if (time.toSecondsPart() % 60 != 0)
+			durationString = durationString + time.toSeconds() % 60 + " " + rb.getString("seconds") + " ";
 
 		return durationString;
 	}
@@ -159,5 +160,19 @@ public class TextBuilder {
 	public static String listItemNotFound(String string) {
 		return StringParser.stripSpaces(
 				rb.getString("list_item_not_found_1") + " " + string + " " + rb.getString("list_item_not_found_2"));
+	}
+
+	public static String readListMessage(List<String> complete, List<String> incomplete) {
+		boolean empty = true;
+		String txt = "";
+		if (complete.size() > 0) {
+			empty = false;
+			txt = rb.getString("list_item_read_complete") + " " + String.join(", ", complete) + ".";
+		}
+		if (incomplete.size() > 0) {
+			empty = false;
+			txt = rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
+		}
+		return (empty) ? rb.getString("list_item_read_empty") : txt;
 	}
 }

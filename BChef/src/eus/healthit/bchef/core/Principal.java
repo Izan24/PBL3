@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core;
 
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.CommandController;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.input.AudioInputController;
@@ -25,6 +26,7 @@ public class Principal {
 	}
 
 	public static void main(String[] args) {
+		//BChefController.getInstance().startVoiceRecon();
 		Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
 //		CommandController commandController = CommandController.getInstance();

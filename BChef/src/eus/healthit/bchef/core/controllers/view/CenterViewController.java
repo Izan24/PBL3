@@ -1,10 +1,7 @@
 package eus.healthit.bchef.core.controllers.view;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -20,7 +17,6 @@ import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
 import eus.healthit.bchef.core.view.WindowFrame;
-import eus.healthit.bchef.core.view.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.view.panels.center.CenterView;
 import eus.healthit.bchef.core.view.panels.center.CenterViewBchef;
 import eus.healthit.bchef.core.view.panels.center.CenterViewCreateRecipe;
@@ -30,6 +26,7 @@ import eus.healthit.bchef.core.view.panels.center.CenterViewProfileSettings;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipeRating;
 import eus.healthit.bchef.core.view.panels.center.CenterViewShopList;
+import eus.healthit.bchef.core.view.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
 
 public class CenterViewController implements ActionListener {
@@ -99,7 +96,11 @@ public class CenterViewController implements ActionListener {
 				steps.add(step);
 			}
 
+<<<<<<< HEAD
 			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10,  null,
+=======
+			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null,
+>>>>>>> branch 'main' of https://github.com/Izan24/PBL3.git
 					null, steps, ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
 			recipeRatingView.setRecipe(recipe);
 		} catch (IOException e) {

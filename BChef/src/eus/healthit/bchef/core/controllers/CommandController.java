@@ -29,51 +29,59 @@ public class CommandController {
 
 	public boolean selectCommand(VoiceCommand command, String string) {
 		System.out.println("command: " + command);
+		//BChefController.getInstance().stopVoiceRecon();
 		switch (command) {
 		case SEARCH_INGREDIENT:
-			searchIngredient(string);
+			searchIngredient(StringParser.deleteCommandWords(string, command));
 			break;
 		case SEARCH_RECIPE:
-			//TODO: Queryes
+			//TODO: Queryes PETA
 			BChefController.getInstance().searchRecipe(StringParser.deleteCommandWords(string, command));
 			break;
-		case SWITCH_KITCHEN:
-		case POWER_OFF:
-			switchKitchen(string);
-			break;
-		case RECIPE_PREVIOUS:
-			BChefController.getInstance().prevStep();
-			break;
-		case RECIPE_NEXT:
-			BChefController.getInstance().nextStep();
-			break;
-		case ALARM:
-			setAlarm(string);
-			break;
-		case LIST_ADD:
-			//TODO
-			try {
-				BChefController.getInstance().addToList(StringParser.deleteCommandWords(string, command));
-			} catch (ArrayIndexOutOfBoundsException e) {
-				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
-			}
-			break;
-		case LIST_REMOVE:
-			//TODO
-			BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
-			break;
-		case YES:
-			BChefController.getInstance().confirmCall();
-			break;
-		case NO:
-			BChefController.getInstance().cancellCall();
-			break;
-		case NUMBER:
-			//En desuso
+//		case SWITCH_KITCHEN:
+//		case POWER_OFF:
+//			switchKitchen(string);
+//			break;
+//		case RECIPE_PREVIOUS:
+//			BChefController.getInstance().prevStep();
+//			break;
+//		case RECIPE_NEXT:
+//			BChefController.getInstance().nextStep();
+//			break;
+//		case ALARM:
+//			setAlarm(string);
+//			break;
+//		case LIST_ADD:
+//			//TODO
+//			String txtString = "";
+//			try {
+//				txtString=StringParser.deleteCommandWords(string, command);
+//			} catch (ArrayIndexOutOfBoundsException e) {
+//				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+//			}
+//			System.out.println(txtString);
+//			BChefController.getInstance().addToList(txtString);
+//			break;
+//		case LIST_REMOVE:
+//			//TODO
+//			BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
+//			break;
+//		case LIST_READ:
+//			System.out.println("entering");
+//			BChefController.getInstance().readList();
+//		case YES:
+//			BChefController.getInstance().confirmCall();
+//			break;
+//		case NO:
+//			BChefController.getInstance().cancellCall();
+//			break;
+//		case NUMBER:
+//			//En desuso
 		default:
-			BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+			//BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 			break;
 		}
+//		BChefController.getInstance().resumeVoiceRecon();
 		return true;
 	}
 	

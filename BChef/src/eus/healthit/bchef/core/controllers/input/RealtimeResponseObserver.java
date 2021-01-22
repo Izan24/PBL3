@@ -13,9 +13,10 @@ import com.google.cloud.speech.v1.StreamingRecognizeResponse;
 public class RealtimeResponseObserver implements ResponseObserver<StreamingRecognizeResponse> {
 	PropertyChangeSupport connector;
 	ArrayList<StreamingRecognizeResponse> responses = new ArrayList<>();
+	AudioInputController parent;
 
-	public RealtimeResponseObserver() {
-		// TODO Auto-generated constructor stub
+	public RealtimeResponseObserver(AudioInputController parent) {
+		this.parent = parent;
 		connector = new PropertyChangeSupport(this);
 	}
 
@@ -34,7 +35,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 	public void sendText(StreamingRecognizeResponse response) {
 		StreamingRecognitionResult result = response.getResultsList().get(0);
 		SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-//		System.out.printf("Transcript : %s\n", alternative.getTranscript());
+		System.out.printf("Transcript : %s\n", alternative.getTranscript());
 		connector.firePropertyChange("NEW_COMMAND", null, alternative.getTranscript());
 	}
 
@@ -42,12 +43,14 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 		for (StreamingRecognizeResponse response : responses) {
 			StreamingRecognitionResult result = response.getResultsList().get(0);
 			SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-//			System.out.printf("Final Transcript : %s\n", alternative.getTranscript());
+			System.out.printf("Final Transcript : %s\n", alternative.getTranscript());
 		}
 	}
 
 	public void onError(Throwable t) {
 		System.out.println(t);
+		t.printStackTrace();
+		parent.repair();
 	}
 
 }
