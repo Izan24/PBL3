@@ -2,8 +2,10 @@ package eus.healthit.bchef.core.api;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.json.JSONArray;
@@ -13,6 +15,7 @@ import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.util.func.NewAlarmCall;
 
 public class JSONCalls {
 	public static StatusCode registerUser(String name, String surname, String email, String username, String password,
@@ -45,7 +48,7 @@ public class JSONCalls {
 		JSONObject json = new JSONObject();
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
-				.put("publish_date", recipe.getPublishDate()).put("duration", recipe.getDuration())
+				.put("publish_date", Timestamp.valueOf(LocalDate.now().atStartOfDay()))
 				.put("img", ImageCoder.encodeImage(recipe.getImagePath()));
 
 		json.put("ingredients", JSONutils.ingredientsToJSON(recipe.getIngredients()));
@@ -55,6 +58,18 @@ public class JSONCalls {
 		String status = jsonReturn.getString("status");
 
 		return StatusCode.valueOf(status);
+	}
+	
+	
+	public static List<Recipe> searchByIngredient(Set<String> set) {
+		JSONObject json = API.searchByIngredients(set);
+		JSONArray array = json.getJSONArray("recipes");
+		List<Recipe> list= new ArrayList<>();
+		for (Object object : array) {
+			JSONObject recipe = (JSONObject)object;
+			list.add(JSONutils.getRecipe(recipe));
+		}
+		return list;
 	}
 	
 	public static List<Ingredient> ingredientLike(String kw) {

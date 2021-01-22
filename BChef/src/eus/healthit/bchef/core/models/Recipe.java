@@ -1,12 +1,9 @@
 package eus.healthit.bchef.core.models;
 
 import java.awt.Image;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
-
-import javax.imageio.ImageIO;
 
 public class Recipe {
 
@@ -15,7 +12,6 @@ public class Recipe {
 	String description;
 	int rating; // 0 to 10 in 5 stars
 	Timestamp publishDate;
-	Time duration;
 	String imagePath;
 	List<Ingredient> ingredients;
 	List<RecipeStep> steps;
@@ -23,8 +19,7 @@ public class Recipe {
 	Image image;
 	UUID uuid;
 
-	@SuppressWarnings("deprecation")
-	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate, Time duration,
+	public Recipe(UUID uuid, String name, String author, int rating, Timestamp publishDate,
 			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
@@ -33,14 +28,13 @@ public class Recipe {
 		// this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
-		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
 		this.image = image;
 	}
 
 	public Recipe(UUID uuid, String name, String author, int authorID, String description, int rating,
-			Timestamp publishDate, Time duration, List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
+			Timestamp publishDate, List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
 		this.description = description;
@@ -48,7 +42,6 @@ public class Recipe {
 		this.authorID = authorID;
 		this.rating = rating;
 		this.publishDate = publishDate;
-		this.duration = duration;
 		this.ingredients = ingredients;
 		this.steps = steps;
 		this.image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
@@ -66,8 +59,9 @@ public class Recipe {
 
 	}
 
-	public Recipe(String title, String author, int id, String description2, List<Ingredient> list,
+	public Recipe(UUID uuid, String title, String author, int id, String description2, List<Ingredient> list,
 			List<RecipeStep> list2, String imagePath2) {
+		this.uuid = uuid;
 		this.name = title;
 		this.author = author;
 		this.authorID = id;
@@ -111,14 +105,6 @@ public class Recipe {
 
 	public void setPublishDate(Timestamp publishDate) {
 		this.publishDate = publishDate;
-	}
-
-	public Time getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Time duration) {
-		this.duration = duration;
 	}
 
 	public String getImagePath() {

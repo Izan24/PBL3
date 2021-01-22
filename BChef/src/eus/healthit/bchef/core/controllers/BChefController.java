@@ -263,6 +263,10 @@ public class BChefController implements PropertyChangeListener {
 		case "NEW_COMMAND":
 			processNewCommand((String) evt.getNewValue());
 			break;
+		case "ALARM_UPDATE":
+		case "ALARM_FISNISH":
+			connector.firePropertyChange(evt);
+			break;
 		default:
 			break;
 		}

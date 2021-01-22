@@ -26,8 +26,8 @@ public class Principal {
 	}
 
 	public static void main(String[] args) {
-		BChefController.getInstance().startVoiceRecon();
-		//Principal principal = new Principal();
+		//BChefController.getInstance().startVoiceRecon();
+		Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
 //		CommandController commandController = CommandController.getInstance();
 //		String cmdString = "quita de la lista buscar 2 psic�logos".toLowerCase();
