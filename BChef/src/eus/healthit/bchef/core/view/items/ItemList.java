@@ -17,16 +17,16 @@ public class ItemList extends AbstractListModel<Item>{
 	 */
 	public ItemList() {
 		list = new ArrayList<>();
-		initList();
+//		initList();
 	}
 
-	private void initList() {
-		list.add(new Item("Azucar"));
-		list.add(new Item("Pan"));
-		list.add(new Item("Sal"));
-		list.add(new Item("Porvoraaah"));
-		list.add(new Item("Arroz"));
-	}
+//	private void initList() {
+//		list.add(new Item("Azucar"));
+//		list.add(new Item("Pan"));
+//		list.add(new Item("Sal"));
+//		list.add(new Item("Porvoraaah"));
+//		list.add(new Item("Arroz"));
+//	}
 	
 	public void setList(List<Item> list) {
 		this.list = list;

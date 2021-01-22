@@ -2,14 +2,11 @@ package eus.healthit.bchef.core.controllers.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.DatabaseMetaData;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.json.JSONObject;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
-import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.view.panels.CreateAccountView;
@@ -75,7 +72,7 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 	private boolean verifyParams() {
 		EmailValidator validator = EmailValidator.getInstance();
 		if (createAccountView.getName().trim().equals("")
-				|| createAccountView.getName().equals(createAccountView.DEFAULT_NAME_TEXT)) {
+				|| createAccountView.getName().equals(CreateAccountView.DEFAULT_NAME_TEXT)) {
 			new CreationErrorDialog(window, "Invalid name", true, "El nombre introducido no es valido");
 			return false;
 		} else if (createAccountView.getSurname().trim().equals("")

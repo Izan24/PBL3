@@ -96,11 +96,9 @@ public class CenterViewController implements ActionListener {
 				steps.add(step);
 			}
 
-<<<<<<< HEAD
+
 			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10,  null,
-=======
-			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null,
->>>>>>> branch 'main' of https://github.com/Izan24/PBL3.git
+
 					null, steps, ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
 			recipeRatingView.setRecipe(recipe);
 		} catch (IOException e) {
