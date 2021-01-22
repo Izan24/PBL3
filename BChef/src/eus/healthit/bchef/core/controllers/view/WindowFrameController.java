@@ -1,6 +1,5 @@
 package eus.healthit.bchef.core.controllers.view;
 
-import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.PrincipalView;
 import eus.healthit.bchef.core.view.WindowFrame;

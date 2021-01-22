@@ -10,15 +10,17 @@ import org.json.JSONObject;
 public class API {
 
 	/* ######################## GET ############################# */
-	public static JSONObject searchRecipe(String kw, int page){
+	public static JSONObject searchRecipe(String kw, int page) {
 		return APIutils.getRequest("/api/search?like=" + kw + "&page=" + page);
 	}
-	
+
 	public static JSONObject getAllUsers() {
 		return APIutils.getRequest("/api/user/allusers");
 	}
+
 	public static JSONObject getHistoryBetween(int userId, Timestamp timestamp, Timestamp timestamp2) {
-		return APIutils.getRequest("/api/user/history?userid="+userId+"&from="+timestamp+"&until="+timestamp2);
+		return APIutils
+				.getRequest("/api/user/history?userid=" + userId + "&from=" + timestamp + "&until=" + timestamp2);
 	}
 
 	public static JSONObject searchIngredient(String kw) {
@@ -36,14 +38,14 @@ public class API {
 	public static JSONObject getUserById(int i) {
 		return APIutils.getRequest("/api/user/byId?id=" + i);
 	}
-	
+
 	public static JSONObject searchByIngredients(Set<String> set) {
 		int i = 0;
 		List<String> list = new ArrayList<>();
 		for (String string : set) {
-			list.add("ing"+i+"="+string);
+			list.add("ing" + i + "=" + string);
 		}
-		return APIutils.getRequest("/api/byingredients?"+String.join("&", list));
+		return APIutils.getRequest("/api/byingredients?" + String.join("&", list));
 	}
 
 	public static JSONObject checkUser(String username) {

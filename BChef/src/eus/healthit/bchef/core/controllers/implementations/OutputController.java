@@ -36,10 +36,8 @@ public class OutputController implements IOutputController {
 
 	public static boolean isComplete() {
 		if (playMP3 == null) {
-			System.out.println("Complete: true");
 			return true;
 		}
-		System.out.println("Complete: " + playMP3.isComplete());
 		return playMP3.isComplete();
 	}
 

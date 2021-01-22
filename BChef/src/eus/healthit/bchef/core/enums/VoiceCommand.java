@@ -2,10 +2,11 @@
 
 public enum VoiceCommand {
 	ALARM("Alarma", "Cuenta atras", "Cronometro", "Aviso", "Temporizador", "Temporizar", "Contador", "Cronometrar", "Avisame", "Avisar"),
+	LIST_READ("Leeme", "Lee", "Leer"),
 	LIST_ADD("Añade", "Añadir", "Escribe", "Escribir", "Anota", "Anotar", "Apunta", "Apuntar", "Agrega", "Agregar", "A la lista", "En la lista"),
 	LIST_REMOVE("Elimina", "Eliminar", "Eliminame", "Borrar", "Borra", "Borrame", "Quitar", "Quita", "Quitame", "Desapunta", "Desapuntar", "Desapuntame", "De la lista"),
 	SEARCH_INGREDIENT("Que tenga", "Que contenga", "Usando", "Receta con", "Con", "Contenga", "Tenga", "Posea", "Use", "Utilice", "Receta con"),
-	SEARCH_RECIPE ("Busca", "Buscar", "Buscame", "Busques", "Encuentra", "Receta de", "Quiero"),
+	SEARCH_RECIPE ("Busca", "Buscar", "Buscame", "Busques", "Encuentra", "Receta de", "Recetas de", "Quiero"),
 	SWITCH_KITCHEN("Apaga", "Enciende", "Fuego", "Horno", "Induccion", "Vitroceramica", "Vitro"),
 	RECIPE_PREVIOUS("Anterior", "Antes", "Repite", "Repeticion", "Olvidado"),
 	RECIPE_NEXT("Siguiente", "Ahora que", "Tengo que hacer", "Continua"),

@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import javax.management.Query;
 
 import eus.healthit.bchef.core.api.JSONCalls;
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
@@ -74,6 +75,7 @@ public class LoginViewController implements IRoundButtonListener, KeyListener {
 					"El usuario o contrasña introducidos no son correctos.");
 
 		} else {
+			BChefController.getInstance().setUser(user);
 			windowFrameController.setAppView(user);
 
 		}

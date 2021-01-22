@@ -1,5 +1,6 @@
 package eus.healthit.bchef.core;
 
+import eus.healthit.bchef.core.controllers.BChefController;
 import eus.healthit.bchef.core.controllers.CommandController;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.input.AudioInputController;
@@ -25,7 +26,8 @@ public class Principal {
 	}
 
 	public static void main(String[] args) {
-		Principal principal = new Principal();
+		BChefController.getInstance().startVoiceRecon();
+		//Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
 //		CommandController commandController = CommandController.getInstance();
 //		String cmdString = "quita de la lista buscar 2 psic�logos".toLowerCase();
