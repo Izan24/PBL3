@@ -59,7 +59,7 @@ public class Recipe {
 
 	}
 
-	public Recipe(UUID uuid, String title, String author, int id, String description2, List<Ingredient> list,
+	public Recipe(UUID uuid, String title, String author, int id, String description, List<Ingredient> list,
 			List<RecipeStep> list2, String imagePath2) {
 		this.uuid = uuid;
 		this.name = title;
@@ -68,6 +68,7 @@ public class Recipe {
 		this.rating = 0;
 		this.ingredients = list;
 		this.steps = list2;
+		this.description = description;
 		this.imagePath = imagePath2;
 	}
 

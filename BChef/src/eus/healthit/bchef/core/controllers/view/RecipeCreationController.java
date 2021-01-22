@@ -98,13 +98,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				file = new FileChooser();
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception e) {
-			}
-			try {
 				Image img = ImageIO.read(file.getSelectedFile());
 				createRecipeView.setImage(img);
 				createRecipeView.setImagePath(file.getSelectedFile().getAbsolutePath());
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			break;
 
@@ -115,14 +113,12 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				fileImage = new FileChooser();
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception e) {
-			}
-			try {
 				Image img = ImageIO.read(fileImage.getSelectedFile());
 				createRecipeView.setStepImage(img);
 				createRecipeView.setStepImagePath(fileImage.getSelectedFile().getAbsolutePath());
 			} catch (Exception e) {
 			}
+
 			break;
 
 		case RecipeCreationControllerAC.ADD_INGREDIENT:
@@ -133,6 +129,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 					new CreationErrorDialog(window, "Invalid ingredient", true,
 							"El ingrediente introducido no está en la base de datos");
 				} else {
+					System.out.println();
 					ingredient.setQuantity(createRecipeView.getIngredientQuantity());
 					addIngredient(ingredient);
 					createRecipeView.resetIngredientFields();
@@ -162,6 +159,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 //					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
 			if (recipeValid()) {
 				addStepNumbers();
+				System.out.println(createRecipeView.getDescription());
 				Recipe recipe = new Recipe(UUID.randomUUID(),createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
 						createRecipeView.getDescription(), createRecipeView.getIngredientListModel().getList(),
 						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
@@ -186,7 +184,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	private void addIngredient(Ingredient ingredient) {
-		createRecipeView.getIngredientListModel().getList().add(ingredient);
+		//createRecipeView.getIngredientListModel().getList().add(ingredient);
+		createRecipeView.getIngredientListModel().addElement(ingredient);
 	}
 
 	private boolean recipeValid() {
@@ -291,7 +290,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		createRecipeView.getStepListModel().addElement(step);
 
 		createRecipeView.setStepImage(null);
-		createRecipeView.setStepImagePath("");
+		createRecipeView.setStepImagePath(null);
 	}
 
 	public boolean checkStep() {
