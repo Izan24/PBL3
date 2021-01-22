@@ -48,7 +48,7 @@ public class JSONCalls {
 		JSONObject json = new JSONObject();
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
-				.put("publish_date", Timestamp.valueOf(LocalDate.now().atStartOfDay())).put("duration", recipe.getDuration())
+				.put("publish_date", Timestamp.valueOf(LocalDate.now().atStartOfDay()))
 				.put("img", ImageCoder.encodeImage(recipe.getImagePath()));
 
 		json.put("ingredients", JSONutils.ingredientsToJSON(recipe.getIngredients()));

@@ -118,7 +118,6 @@ public class JSONutils {
 		String description = published.getString("description");
 		int rating = published.getInt("rating");
 		Timestamp publishDate = Timestamp.valueOf(published.getString("publish_date"));
-		Time duration = Time.valueOf(published.getString("duration"));
 		List<Ingredient> ingredientes = new ArrayList<>();
 
 		JSONArray arrayJson2 = published.getJSONArray("ingredients");
@@ -146,7 +145,7 @@ public class JSONutils {
 		}
 
 		Image image = ImageCoder.decodeImage(published.getString("img"));
-		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, duration, ingredientes,
+		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes,
 				listaPasos, image);
 	}
 
