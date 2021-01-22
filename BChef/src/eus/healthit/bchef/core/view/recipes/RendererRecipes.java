@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -76,8 +78,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		JLabel image;
 
 		try {
-			image = new JLabel(new ImageIcon(value.getImage()));
-
+			image = new JLabel(new ImageIcon(value.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 			image = new JLabel("MalformedxD");
 		}
@@ -102,6 +103,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		halfStar.setIcon(new ImageIcon("resources/recipeIcons/halfStar.png"));
 
 		int i = value.getRating();
+		int emptyStars = Math.round(10 - i);
 
 		while ((i - 2) >= 0) {
 			JLabel fullStar = new JLabel();
@@ -111,6 +113,16 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		}
 		if (i == 1) {
 			starPanel.add(halfStar);
+		}
+		if (emptyStars != 0) {
+			while (emptyStars - 2 >= 0) {
+				JLabel emptyStar = new JLabel();
+				emptyStar.setIcon(new ImageIcon("resources/recipeIcons/emptyStar.png"));
+				emptyStar.setHorizontalAlignment(JLabel.CENTER);
+
+				starPanel.add(emptyStar);
+				emptyStars = emptyStars - 2;
+			}
 		}
 
 		southPanel.add(starPanel);
