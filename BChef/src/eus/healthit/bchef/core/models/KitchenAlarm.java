@@ -22,8 +22,10 @@ public class KitchenAlarm implements ActionListener {
 
 	LocalTime startTime;
 	LocalTime endTime;
+	Duration resTime;
 	PropertyChangeSupport connector;
 	Timer timer;
+	
 
 	public KitchenAlarm(KitchenUtil util, int utilId, Duration time, PropertyChangeListener listener) {
 		this.util = util;
@@ -49,9 +51,10 @@ public class KitchenAlarm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		if (endTime.isAfter(LocalTime.now()) && !rung) {
-			Duration res = Duration.between(LocalTime.now(), endTime);
-			connector.firePropertyChange("ALARM_UPDATE", null, res);
+			resTime = Duration.between(LocalTime.now(), endTime);
+			connector.firePropertyChange("ALARM_UPDATE", null, this);
 		} else if (!rung && timer != null) {
+			resTime = Duration.ZERO;
 			timer.stop();
 			timer = null;
 			rung = true;
@@ -65,6 +68,10 @@ public class KitchenAlarm implements ActionListener {
 
 	public int getUtilIndex() {
 		return utilIndex;
+	}
+	
+	public Duration getResTime() {
+		return resTime;
 	}
 
 }

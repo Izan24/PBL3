@@ -246,13 +246,13 @@ public class CenterViewStep extends JPanel {
 		imageLabel.setIcon(new ImageIcon(step.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		titleLabel.setText("Paso Nº " + step.getId());
 
-		try {
-			if (step.getDuration().toMillis() != 0) {
-				southPanel.add(new CustomTimer(step.getDuration(), textFont));
-			}
-		} catch (Exception e) {
-			System.out.println("no tiene owo");
-		}
+//		try {
+//			if (step.getDuration().toMillis() != 0) {
+//				southPanel.add(new CustomTimer(step.getDuration(), textFont));
+//			}
+//		} catch (Exception e) {
+//			System.out.println("no tiene owo");
+//		}
 	}
 
 }

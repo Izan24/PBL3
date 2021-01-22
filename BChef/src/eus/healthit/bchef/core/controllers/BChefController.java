@@ -167,6 +167,10 @@ public class BChefController implements PropertyChangeListener {
 	public void startRecipe(Recipe recipe) {
 		recipeAssitantController.setRecipe(recipe);
 		recipeAssitantController.nextStep();
+		lastSearch = null;
+		lastSearchIngredients = null;
+		searchedRecipesIndex = 0;
+		searchedRecipesPage = 0;
 	}
 
 	public void startSearchOffer() {
@@ -202,21 +206,16 @@ public class BChefController implements PropertyChangeListener {
 		if (searchedRecipesIndex < searchedRecipes.size()) {
 			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(searchedRecipesIndex++)));
 		} else {
+			searchedRecipesPage++;
 			if (lastSearch != null) {
-				searchedRecipesPage++;
 				searchRecipe(lastSearch);
 			} else if (lastSearchIngredients != null) {
-				searchedRecipesPage++;
 				searchRecipe(lastSearch);
 			}
+			searchedRecipesIndex = 0;
 		}
 		if (searchedRecipes == null || searchedRecipes.size() == 0)
 			errorMessage("NO_MORE_RECIPES");
-	}
-
-	public void setAlarm(KitchenUtil util, Integer index, Duration time) {
-		recipeAssitantController.setAlarm(util, index, time);
-		outputController.send(TextBuilder.newAlarmMessage(time, util, index));
 	}
 
 	public void confirmCall() {
@@ -250,30 +249,10 @@ public class BChefController implements PropertyChangeListener {
 		outputController.send(TextBuilder.errorMessage(reason));
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		switch (evt.getPropertyName()) {
-		case "ALARM_FINISH":
-			System.out.println(evt.getSource());
-			outputController.soundAlarm();
-			KitchenAlarm alarm = (KitchenAlarm) evt.getNewValue();
-			if (alarm.getUtil() != null)
-				outputController.send(TextBuilder.alarmDeactivateMessage(alarm.getUtil(), alarm.getUtilIndex()));
-			break;
-		case "NEW_COMMAND":
-			processNewCommand((String) evt.getNewValue());
-			break;
-		case "ALARM_UPDATE":
-		case "ALARM_FISNISH":
-			connector.firePropertyChange(evt);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public void addPropertyChangeListner(PropertyChangeListener listener) {
-		connector.addPropertyChangeListener(listener);
+	public void setAlarm(KitchenUtil util, Integer index, Duration time) {
+		KitchenAlarm alarm = recipeAssitantController.setAlarm(util, index, time);
+		outputController.send(TextBuilder.newAlarmMessage(time, util, index));
+		connector.firePropertyChange("ALARM_NEW", null, alarm);
 	}
 
 	public void processNewCommand(String string) {
@@ -306,8 +285,9 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void readList() {
-		for(Item item : user.getShopList()) System.out.println("item: " + item.getName());
-		
+		for (Item item : user.getShopList())
+			System.out.println("item: " + item.getName());
+
 //		List<String> complete = user.getShopList().stream().map(object -> Objects.toString(object, null))
 //				.collect(Collectors.toList());
 //		System.out.println(".-.---");
@@ -324,16 +304,41 @@ public class BChefController implements PropertyChangeListener {
 		inputController.start();
 		inputController.startRecon();
 	}
+
 	public void stopVoiceRecon() {
 		inputController.stopRecon();
 	}
-	
+
 	public void resumeVoiceRecon() {
 		inputController.startRecon();
 	}
 
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		switch (evt.getPropertyName()) {
+		case "NEW_COMMAND":
+			processNewCommand((String) evt.getNewValue());
+			break;
+		case "ALARM_FINISH":
+			outputController.soundAlarm();
+			KitchenAlarm alarm = (KitchenAlarm) evt.getNewValue();
+			if (alarm.getUtil() != null)
+				outputController.send(TextBuilder.alarmDeactivateMessage(alarm.getUtil(), alarm.getUtilIndex()));
+		case "ALARM_UPDATE":
+			connector.firePropertyChange(evt);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void addPropertyChangeListner(PropertyChangeListener listener) {
+		connector.addPropertyChangeListener(listener);
+	}
+
 	public void setUser(User user) {
 		this.user = user;
+		System.out.println("user set");
 	}
 
 }
