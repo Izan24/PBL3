@@ -46,10 +46,11 @@ public class JSONCalls {
 
 	public static StatusCode addRecipe(Recipe recipe) {
 		JSONObject json = new JSONObject();
+		System.out.println(recipe.getDescription());
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
 				.put("publish_date", Timestamp.valueOf(LocalDate.now().atStartOfDay()))
-				.put("img", ImageCoder.encodeImage(recipe.getImagePath()));
+				.put("img", ImageRepository.encodeImage(recipe.getImagePath()));
 
 		json.put("ingredients", JSONutils.ingredientsToJSON(recipe.getIngredients()));
 		json.put("instructions", JSONutils.instructionsToJSON(recipe.getSteps()));

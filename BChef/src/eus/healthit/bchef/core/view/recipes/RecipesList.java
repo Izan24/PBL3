@@ -23,7 +23,7 @@ public class RecipesList extends AbstractListModel<Recipe> {
 
 	public RecipesList() {
 		list = new ArrayList<>();
-		initList();
+		//initList();
 	}
 
 	private void initList() {
@@ -40,7 +40,7 @@ public class RecipesList extends AbstractListModel<Recipe> {
 				steps.add(step);
 			}
 
-			list.add(new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null, null, null,
+			list.add(new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10, null, null,
 					steps, ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg"))));
 		} catch (IOException e) {
 			e.printStackTrace();

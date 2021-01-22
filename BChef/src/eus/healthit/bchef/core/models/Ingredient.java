@@ -49,8 +49,8 @@ public class Ingredient {
 		return name;
 	}
 
-	public String setQuantity(String ingredientQuantity) {
-		return quantity;
+	public void setQuantity(String ingredientQuantity) {
+		this.quantity = ingredientQuantity;
 		
 	}
 }

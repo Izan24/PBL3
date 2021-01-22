@@ -54,12 +54,6 @@ public class JSONutils {
 			user.addSaved(getRecipe(saved));
 		}
 
-		arrayJSON = jsonReturn.getJSONArray("history");
-		for (Object obj : arrayJSON) {
-			JSONObject history = (JSONObject) obj;
-			user.addHistory(getRecipe(history));
-		}
-
 		arrayJSON = jsonReturn.getJSONArray("shoplist");
 		for (Object obj : arrayJSON) {
 			JSONObject item = (JSONObject) obj;
@@ -144,7 +138,7 @@ public class JSONutils {
 			listaPasos.add(new RecipeStep(idS, recipeS, value, image, text, num));
 		}
 
-		Image image = ImageCoder.decodeImage(published.getString("img"));
+		Image image = ImageRepository.decodeImage(published.getString("img"));
 		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes,
 				listaPasos, image);
 	}
