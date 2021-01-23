@@ -72,6 +72,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				user.setImgString((pathString != null) ? pathString : "nochange");
 				// System.out.println(user.getImgString());
 				JSONCalls.updateUser(user);
+				settingsView.updateView();
 			}
 			break;
 
@@ -117,8 +118,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 						&& !settingsView.getNewPwd().equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
 					user.setPassword(settingsView.getNewPwd());
 					return true;
-				}
-				else {
+				} else {
 					user.setPassword(settingsView.getPwd());
 					return true;
 				}
