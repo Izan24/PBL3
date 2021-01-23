@@ -30,8 +30,8 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 		case CreateAccountControllerAC.CREATEACC:
 			if (verifyParams()) {
 				JSONCalls.registerUser(createAccountView.getName(), createAccountView.getSurname(),
-						createAccountView.getEmail(), createAccountView.getUsername(),
-						createAccountView.getPwd(), "default");
+						createAccountView.getEmail(), createAccountView.getUsername(), createAccountView.getPwd(),
+						"default");
 				windowFrameController.setLoginView();
 			} else {
 				// error dialog diciendo que es lo que ha pasado, tambien lo puedes hacer desde
@@ -84,17 +84,19 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 				|| !validator.isValid(createAccountView.getEmail())) {
 			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
 			return false;
-		}
-//		else if (checkUsername(createAccountView.getUsername())) {
-//			new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
-//			return false;
-//			PETICION A LA DATABASE PARA QUE MIRE SI EXISTE
-//		}
-		else if (!passwordVerify()) {
+		} else if (!checkUsername(createAccountView.getUsername())) {
+			new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
+			return false;
+		} else if (!passwordVerify()) {
 			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");
 			return false;
 		}
 		return true;
+	}
+
+	private boolean checkUsername(String username) {
+		System.out.println(JSONCalls.checkUser(username));
+		return JSONCalls.checkUser(username);
 	}
 
 	private boolean passwordVerify() {

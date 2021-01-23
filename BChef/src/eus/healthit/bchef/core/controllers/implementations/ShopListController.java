@@ -29,6 +29,5 @@ public class ShopListController implements IShopListController {
 		if (!spaceless.equals("") && !name.equals("Nuevo elemento")) {
 			shopListView.getListModel().addElement(new Item(name));
 		}
-		// aqui falta mandar la info a la DB
 	}
 }

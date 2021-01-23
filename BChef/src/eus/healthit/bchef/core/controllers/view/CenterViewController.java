@@ -71,39 +71,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStartView() {
-		principalView.changeCenterView(recipeRatingView);
-//		try {
-//
-//			RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 100,
-//					ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")).getScaledInstance(200, 200,
-//							Image.SCALE_SMOOTH),
-//					"Calienta el horno durante 10 minutos hasta que el pollo se queme esto es una prueba para ver el "
-//							+ "slide y a ver que tal va a ver si va bien porfa porfa porfa porfa parece que tengo que es"
-//							+ "cribir un pooco mas para que se active a ver ahora",
-//					1);
-//			step.setId(1);
-
-		try {
-			List<RecipeStep> steps = new ArrayList<>();
-			for (int i = 0; i < 10; i++) {
-				RecipeStep step = new RecipeStep(RecipeStepActions.OVEN, 2,
-						ImageIO.read(new File("resources/recipeIcons/calentarHorno.jpg")), "Esti es ek texto " + i, i);
-				step.setId(i);
-				Duration duration = Duration.ofSeconds(20);
-				duration = duration.plusMinutes(90);
-				duration = duration.plusHours(23);
-				step.setDuration(duration);
-				steps.add(step);
-			}
-
-
-			Recipe recipe = new Recipe(UUID.randomUUID(), "Prueba", "Rkolay", 2, "REceta de prueba woo", 10,  null,
-
-					null, steps, ImageIO.read(new File("resources/recipeIcons/recetaBonita.jpg")));
-			recipeRatingView.setRecipe(recipe);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		principalView.changeCenterView(listView);
 	}
 
 	@Override
@@ -153,7 +121,6 @@ public class CenterViewController implements ActionListener {
 
 	public void setVisitProfileView(User visitUser) {
 		visitProfile.setVisitUser(visitUser);
-		System.out.println("Tienes que usar el metodo setVIsitUser para setear todas las cosas que te pasa con el ");
 		principalView.changeCenterView(visitProfile);
 	}
 
@@ -165,6 +132,11 @@ public class CenterViewController implements ActionListener {
 	public void rateRecipe(Recipe recipe) {
 		recipeRatingView.setRecipe(recipe);
 		principalView.changeCenterView(recipeRatingView);
+	}
+
+	public void setProfileView() {
+		profileView.updateView();
+		principalView.changeCenterView(profileView);
 	}
 
 }

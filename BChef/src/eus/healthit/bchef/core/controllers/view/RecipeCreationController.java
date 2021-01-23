@@ -160,10 +160,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			if (recipeValid()) {
 				addStepNumbers();
 				System.out.println(createRecipeView.getDescription());
-				Recipe recipe = new Recipe(UUID.randomUUID(),createRecipeView.getTitle(), createRecipeView.getAuthor(), user.getId(),
-						createRecipeView.getDescription(), createRecipeView.getIngredientListModel().getList(),
+				Recipe recipe = new Recipe(UUID.randomUUID(), createRecipeView.getTitle(), createRecipeView.getAuthor(),
+						user.getId(), createRecipeView.getDescription(),
+						createRecipeView.getIngredientListModel().getList(),
 						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
-				
+
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
 			}
@@ -184,7 +185,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	private void addIngredient(Ingredient ingredient) {
-		//createRecipeView.getIngredientListModel().getList().add(ingredient);
+		// createRecipeView.getIngredientListModel().getList().add(ingredient);
 		createRecipeView.getIngredientListModel().addElement(ingredient);
 	}
 
@@ -221,10 +222,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		String title;
 		String description;
 
-		/*
-		 * PASA ESTO A UN METODO
-		 */
-
 		if (createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
 			title = "";
 		} else {
@@ -237,7 +234,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			description = createRecipeView.getName();
 		}
 
-		Recipe recipe = new Recipe(title, createRecipeView.getAuthor(), 2, description, 0,
+		Recipe recipe = new Recipe(title, createRecipeView.getAuthor(), 2, description, 5,
 				createRecipeView.getIngredients(), createRecipeView.getSteps(), createRecipeView.getImage());
 
 		return (recipe);

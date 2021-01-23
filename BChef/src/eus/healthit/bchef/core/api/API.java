@@ -1,5 +1,8 @@
 package eus.healthit.bchef.core.api;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,13 @@ public class API {
 
 	/* ######################## GET ############################# */
 	public static JSONObject searchRecipe(String kw, int page) {
-		return APIutils.getRequest("/api/search?like=" + kw + "&page=" + page);
+		try {
+			return APIutils.getRequest(
+					"/api/search?like=" + URLEncoder.encode(kw, StandardCharsets.UTF_8.toString()) + "&page=" + page);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static JSONObject getAllUsers() {
@@ -24,7 +33,13 @@ public class API {
 	}
 
 	public static JSONObject searchIngredient(String kw) {
-		return APIutils.getRequest("/api/ingredient?like=" + kw);
+		try {
+			return APIutils
+					.getRequest("/api/ingredient?like=" + URLEncoder.encode(kw, StandardCharsets.UTF_8.toString()));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static JSONObject getPage(int i) {
@@ -90,7 +105,7 @@ public class API {
 	}
 
 	public static JSONObject shoplistTick(JSONObject json) {
-		return APIutils.putRequest("/api/user/shoplist/remove", json);
+		return APIutils.putRequest("/api/user/shoplist/tick", json);
 	}
 
 	public static JSONObject follow(JSONObject json) {

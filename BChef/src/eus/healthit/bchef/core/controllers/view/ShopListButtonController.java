@@ -25,7 +25,9 @@ public class ShopListButtonController implements ActionListener {
 			if (checkItem()) {
 				Item newItem = new Item(listView.getNewElementname());
 				newItem.setID(JSONCalls.shoplistAdd(newItem, listView.getUserID()));
+				System.out.println(newItem.getId());
 				listView.getListModel().addElement(newItem);
+				listView.resetText();
 			}
 
 			break;
@@ -40,7 +42,8 @@ public class ShopListButtonController implements ActionListener {
 	}
 
 	private boolean checkItem() {
-		if (listView.getNewElementname().trim().equals("")) {
+		String trimmedString = listView.getNewElementname().trim();
+		if (trimmedString.equals("") || trimmedString.equals(CenterViewShopList.DEFAULT_ADD_ELEMENT_TEXT)) {
 			return false;
 		} else {
 			return true;

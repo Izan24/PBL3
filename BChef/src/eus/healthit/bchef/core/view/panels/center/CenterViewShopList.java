@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.implementations.ShopListController;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
@@ -29,6 +30,8 @@ import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
 public class CenterViewShopList extends JPanel implements IClickable {
+
+	public static final String DEFAULT_ADD_ELEMENT_TEXT = "Nuevo elemento";
 
 	User user;
 
@@ -56,10 +59,6 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		listController = ShopListController.getShopListController();
 		listController.setShopListView(this);
 
-		/*
-		 * AQUI TE TIENEN QUE PASAR EL USER E INICIAR LA LISTA DE ITEMS DE LA LISTA QUE
-		 * TIENE EL USER
-		 */
 		initButtons();
 		initTextFields();
 		initList();
@@ -71,7 +70,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 
 	private void initButtons() {
 		buttonAdd = new JButton();
-		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon.png"));
+		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon_default32.png"));
 		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
 		buttonAdd.addActionListener(buttonController);
 		buttonAdd.setFocusable(false);
@@ -94,8 +93,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		newElementField = new JTextField();
 		newElementField.setText("Nuevo elemento");
 		newElementField.setForeground(Color.GRAY);
-		newElementField.setToolTipText("Nuevo elemento");
-		newElementField.addFocusListener(new DefaultTextController(newElementField, "Nuevo elemento"));
+		newElementField.addFocusListener(new DefaultTextController(newElementField, DEFAULT_ADD_ELEMENT_TEXT));
 		newElementField.setPreferredSize(new Dimension(300, 40));
 		newElementField.setBorder(new SearchBorder(20, Color.GRAY, false));
 		newElementField.setFont(textFont);
@@ -161,11 +159,11 @@ public class CenterViewShopList extends JPanel implements IClickable {
 	public String getNewElementname() {
 		return newElementField.getText();
 	}
-	
+
 	public int getUserID() {
 		return user.getId();
 	}
-	
+
 	public Item getSelectedItem() {
 		return itemList.getSelectedValue();
 	}
@@ -174,7 +172,12 @@ public class CenterViewShopList extends JPanel implements IClickable {
 	public void clicked() {
 		Item selectedItem = itemList.getSelectedValue();
 		selectedItem.flipBought();
+		JSONCalls.shoplistTicked(selectedItem);
 		this.repaint();
+	}
+
+	public void resetText() {
+		newElementField.setText("");
 	}
 
 }

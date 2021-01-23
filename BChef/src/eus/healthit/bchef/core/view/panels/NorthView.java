@@ -40,7 +40,7 @@ public class NorthView extends JPanel {
 		panelSearch.setSize(new Dimension(2002, 2002));
 
 		searchBar = new RoundedTextField(DEFAULT_SEARCH_TEXT_STRING);
-		//searchBar.setToolTipText("Search");
+		// searchBar.setToolTipText("Search");
 		searchBar.setPreferredSize(new Dimension(550, 35));
 		searchBar.addActionListener(controller);
 		searchBar.setActionCommand(NorthViewControllerAC.SEARCH);

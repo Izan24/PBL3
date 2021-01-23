@@ -22,7 +22,8 @@ public class JSONCalls {
 			String path) {
 		JSONObject json = new JSONObject();
 		json.put("name", name).put("surname", surname).put("email", email).put("username", username)
-				.put("password", password).put("profilepic", (path.equals("default"))?"default":ImageRepository.encodeImage(path));
+				.put("password", password)
+				.put("profilepic", (path.equals("default")) ? "default" : ImageRepository.encodeImage(path));
 		JSONObject jsonReturn = API.addUser(json);
 
 		String status = jsonReturn.getString("status");
@@ -60,25 +61,24 @@ public class JSONCalls {
 
 		return StatusCode.valueOf(status);
 	}
-	
-	
+
 	public static List<Recipe> searchByIngredient(Set<String> set) {
 		JSONObject json = API.searchByIngredients(set);
 		JSONArray array = json.getJSONArray("recipes");
-		List<Recipe> list= new ArrayList<>();
+		List<Recipe> list = new ArrayList<>();
 		for (Object object : array) {
-			JSONObject recipe = (JSONObject)object;
+			JSONObject recipe = (JSONObject) object;
 			list.add(JSONutils.getRecipe(recipe));
 		}
 		return list;
 	}
-	
+
 	public static List<Ingredient> ingredientLike(String kw) {
 		JSONObject json = API.searchIngredient(kw);
 		JSONArray array = json.getJSONArray("ingredients");
 		List<Ingredient> ingredientes = new ArrayList<>();
 		for (Object object : array) {
-			JSONObject ingr = (JSONObject)object;
+			JSONObject ingr = (JSONObject) object;
 			int id = ingr.getInt("id");
 			String name = ingr.getString("name");
 			String type = ingr.getString("type");
@@ -106,7 +106,7 @@ public class JSONCalls {
 	public static StatusCode unfollow(Integer user, Integer unfollowed) {
 		JSONObject json = new JSONObject();
 
-		json.put("id", user).put("idToUnfollow", unfollowed);
+		json.put("id", user).put("id_followed", unfollowed);
 
 		JSONObject jsonReturn = API.unfollow(json);
 		String status = jsonReturn.getString("status");
@@ -117,7 +117,7 @@ public class JSONCalls {
 	public static StatusCode save(Integer userID, UUID recipeID) {
 		JSONObject json = new JSONObject();
 
-		json.put("id_user", userID).put("uuid_recipe", recipeID);
+		json.put("id", userID).put("uuid", recipeID);
 
 		JSONObject jsonReturn = API.save(json);
 		String status = jsonReturn.getString("status");
@@ -147,10 +147,10 @@ public class JSONCalls {
 		return StatusCode.valueOf(status);
 	}
 
-	public static StatusCode shoplistTicked(Item item, Integer userid) {
+	public static StatusCode shoplistTicked(Item item) {
 		JSONObject json = new JSONObject();
 
-		json.put("name", item.getName()).put("ticked", item.isBought()).put("id", userid);
+		json.put("ticked", item.isBought()).put("id", item.getId());
 
 		JSONObject jsonReturn = API.shoplistTick(json);
 		String status = jsonReturn.getString("status");
@@ -193,46 +193,51 @@ public class JSONCalls {
 		}
 		return recipeList;
 	}
-	
+
 	public static List<Recipe> getHistoryBetween(int userId, LocalDate from, LocalDate until) {
-		JSONObject json = API.getHistoryBetween(userId, Timestamp.valueOf(from.atStartOfDay()), Timestamp.valueOf(until.atStartOfDay()));
+		JSONObject json = API.getHistoryBetween(userId, Timestamp.valueOf(from.atStartOfDay()),
+				Timestamp.valueOf(until.atStartOfDay()));
 		JSONArray array = json.getJSONArray("history");
 		List<Recipe> history = new ArrayList<>();
 		for (Object obj : array) {
-			JSONObject recipe = (JSONObject)obj;
+			JSONObject recipe = (JSONObject) obj;
 			history.add(JSONutils.getRecipe(recipe));
 		}
 		return history;
 	}
+
 	public static List<User> getAllUsers() {
 		JSONObject json = API.getAllUsers();
 		JSONArray userArray = json.getJSONArray("users");
 		List<User> users = new ArrayList<>();
 		for (Object object : userArray) {
-			JSONObject user = (JSONObject)object;
-			users.add(new User(user.getInt("id"), user.getString("name"), user.getString("surname"), user.getString("email")));
+			JSONObject user = (JSONObject) object;
+			users.add(new User(user.getInt("id"), user.getString("name"), user.getString("surname"),
+					user.getString("email")));
 		}
 		return users;
 	}
 
 	public static StatusCode updateUser(User user) {
 		JSONObject json = new JSONObject();
-		json.put("name", user.getName()).put("surname", user.getSurname())
-		.put("email", user.getEmail()).put("username", user.getUsername()).put("id_user", user.getId())
-				.put("password", user.getPassword()).put("profilepic", (user.getImgString().equals("default"))?"default":(user.getImgString().equals("nochange"))?"nochange":ImageRepository.encodeImage(user.getImgString()));
+		json.put("name", user.getName()).put("surname", user.getSurname()).put("email", user.getEmail())
+				.put("username", user.getUsername()).put("id_user", user.getId()).put("password", user.getPassword())
+				.put("profilepic",
+						(user.getImgString().equals("default")) ? "default"
+								: (user.getImgString().equals("nochange")) ? "nochange"
+										: ImageRepository.encodeImage(user.getImgString()));
 		JSONObject jsonReturn = API.updateUserConfig(json);
 
 		String status = jsonReturn.getString("status");
 		return StatusCode.valueOf(status);
-		
+
 	}
-	
+
 	public static boolean checkUser(String username) {
 		JSONObject json = API.checkUser(username);
 		if (StatusCode.valueOf(json.getString("status")) == StatusCode.SUCCESSFUL) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -242,23 +247,21 @@ public class JSONCalls {
 		JSONObject jsonRet = API.reauth(json);
 		if (StatusCode.valueOf(jsonRet.getString("status")) == StatusCode.SUCCESSFUL) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	public static List<Recipe> search(String text, int page) {
 		JSONArray json = API.searchRecipe(text, page).getJSONArray("recipes");
-		List<Recipe> list  =new ArrayList<>();
+		List<Recipe> list = new ArrayList<>();
 		for (Object obj : json) {
-			JSONObject jObject = (JSONObject)obj;
+			JSONObject jObject = (JSONObject) obj;
 			list.add(JSONutils.getRecipe(jObject));
 		}
 		return list;
-		
-	}
 
+	}
 
 }
