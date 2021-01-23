@@ -244,7 +244,7 @@ public class CenterViewStep extends JPanel {
 	private void updateView(RecipeStep step) {
 		instruction.setText(step.getText());
 		imageLabel.setIcon(new ImageIcon(step.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-		titleLabel.setText("Paso Nº " + step.getId());
+		titleLabel.setText("Paso Nº " + step.getNum());
 
 //		try {
 //			if (step.getDuration().toMillis() != 0) {
