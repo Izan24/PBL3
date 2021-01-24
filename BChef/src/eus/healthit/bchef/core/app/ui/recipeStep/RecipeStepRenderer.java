@@ -55,7 +55,7 @@ public class RecipeStepRenderer implements ListCellRenderer<RecipeStep> {
 		if (value.getAction().equals(RecipeStepActions.OVEN)) {
 			action.setIcon(new ImageIcon("resources/menuIcons/oven.png"));
 		} else if (value.getAction().equals(RecipeStepActions.STOVE)) {
-			action.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
+			action.setIcon(new ImageIcon("resources/menuIcons/stove.png"));
 		} else if (value.getAction().equals(RecipeStepActions.TIMER)) {
 			action.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
 		}
