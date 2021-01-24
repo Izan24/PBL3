@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 import javax.swing.Timer;
 
-import eus.healthit.bchef.core.controllers.BChefController;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
 public class KitchenAlarm implements ActionListener {

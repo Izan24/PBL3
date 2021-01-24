@@ -2,7 +2,7 @@ package eus.healthit.bchef.core.util.func;
 
 import java.time.Duration;
 
-import eus.healthit.bchef.core.controllers.BChefController;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 
 public class NewAlarmCall implements FunctionCall {

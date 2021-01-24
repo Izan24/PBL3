@@ -1,6 +1,6 @@
 package eus.healthit.bchef.core.util.func;
 
-import eus.healthit.bchef.core.controllers.BChefController;
+import eus.healthit.bchef.core.assistant.BChefController;
 
 public class NextRecipeCall implements FunctionCall {
 

@@ -1,7 +1,7 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.BChefController;
-import eus.healthit.bchef.core.view.WindowFrame;
+import eus.healthit.bchef.core.app.ui.WindowFrame;
+import eus.healthit.bchef.core.assistant.BChefController;
 
 public class Principal {
 
