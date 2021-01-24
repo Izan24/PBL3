@@ -1,21 +1,12 @@
 package eus.healthit.bchef.core.util;
 
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.google.api.LabelDescriptor.ValueType;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import com.google.protobuf.NullValue;
 
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.models.Recipe;
-import io.grpc.alts.internal.AltsContextProto;
 
 public class TextBuilder {
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
