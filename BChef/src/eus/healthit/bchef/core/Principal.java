@@ -1,13 +1,9 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.CommandController;
-import eus.healthit.bchef.core.enums.VoiceCommand;
-import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
 
-	WindowActions actions;
 	WindowFrame windowFrame;
 
 	public Principal() {
@@ -15,7 +11,6 @@ public class Principal {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-//		BChefController.getInstance();
 		Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
 //		Thread.sleep(10000);
@@ -56,6 +51,5 @@ public class Principal {
 		// Recipe rep = RecipeRepository.get("2a961214-ae24-49ec-a350-f0582c8a1e9e");
 		// RecipeRepository.delete(rep);
 		// QueryCon.closeConn();
-
 	}
 }
