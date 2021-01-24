@@ -101,9 +101,9 @@ public class TextBuilder {
 		String durationString = "";
 		if (time.toHours() % 24 != 0)
 			durationString = durationString + time.toHours() % 24 + " " + rb.getString("hours") + " ";
-		if (time.toMinutesPart() % 60 != 0)
+		if (time.toMinutes() % 60 != 0)
 			durationString = durationString + time.toMinutes() % 60 + " " + rb.getString("minutes") + " ";
-		if (time.toSecondsPart() % 60 != 0)
+		if (time.toSeconds() % 60 != 0)
 			durationString = durationString + time.toSeconds() % 60 + " " + rb.getString("seconds") + " ";
 
 		return durationString;
@@ -167,11 +167,11 @@ public class TextBuilder {
 		String txt = "";
 		if (complete.size() > 0) {
 			empty = false;
-			txt = rb.getString("list_item_read_complete") + " " + String.join(", ", complete) + ".";
+			txt = rb.getString("list_item_read_complete") + " " + String.join(", ", complete) + ". ";
 		}
 		if (incomplete.size() > 0) {
 			empty = false;
-			txt = rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
+			txt = txt + rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
 		}
 		return (empty) ? rb.getString("list_item_read_empty") : txt;
 	}
