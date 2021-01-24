@@ -80,7 +80,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		try {
 			image = new JLabel(new ImageIcon(value.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
-			image = new JLabel("MalformedxD");
+			image = new JLabel();
 		}
 
 		panelImage.add(image);
