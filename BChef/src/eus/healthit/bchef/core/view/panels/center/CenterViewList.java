@@ -39,6 +39,8 @@ public class CenterViewList extends JScrollPane {
 		controller = new CenterListController(this, centerController);
 		listener = new DoubleClickListener(controller);
 
+		this.getVerticalScrollBar().addAdjustmentListener(controller);
+
 		this.setBorder(BorderFactory.createEmptyBorder());
 
 		initJList();
