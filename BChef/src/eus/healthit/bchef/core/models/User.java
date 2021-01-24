@@ -27,7 +27,7 @@ public class User {
 	String username;
 	String password;
 	String imgString;
-	List<User> followed;
+	List<Integer> followed;
 	int followers;
 	List<Recipe> published;
 	List<Recipe> saved;
@@ -52,10 +52,11 @@ public class User {
 		shopList = new ArrayList<>();
 		history = new ArrayList<>();
 	}
+
 	/**
 	 * Creates a ppipippip user
 	 */
-	
+
 	public User(int id, String name, String surname, String email) {
 		this.id = id;
 		this.name = name;
@@ -110,7 +111,7 @@ public class User {
 	 * Load an existing user
 	 */
 	public User(int id, String name, String surname, Image profilePic, String email, String username, String password,
-			List<User> followed, int followers, List<Recipe> published, List<Recipe> saved, List<Item> shopList,
+			List<Integer> followed, int followers, List<Recipe> published, List<Recipe> saved, List<Item> shopList,
 			List<Recipe> history) {
 
 		this.id = id;
@@ -211,39 +212,43 @@ public class User {
 
 	// ------------------------------------------------------------------------
 
-	public List<User> getFollowed() {
+	public List<Integer> getFollowed() {
 		return followed;
 	}
 
-	public void addFollowedUser(User user) {
-		followed.add(user);
+	public void addFollowedUser(Integer userID) {
+		followed.add(userID);
 	}
 
-	public void removeFollowedUser(User user) {
-		followed.remove(user);
+	public void removeFollowedUser(Integer userID) {
+		followed.remove(userID);
 	}
 
 	public int getFollowedNumber() {
 		return followed.size();
 	}
-	
-	public void setFollowed(List<User> followed) {
+
+	public void setFollowed(List<Integer> followed) {
 		this.followed = followed;
-		
+
 	}
+
+	// ------------------------------------------------------------------------
 
 	public void setFollowers(int followers) {
 		this.followers = followers;
-		
+
 	}
-	// ------------------------------------------------------------------------
 
 	public int getFollowers() {
 		return followers;
 	}
-	
 
-	public void removeFollower(User user) {
+	public void addFollower() {
+		followers++;
+	}
+
+	public void removeFollower() {
 		followers--;
 	}
 
@@ -319,7 +324,4 @@ public class User {
 		return name + "\n" + surname + "\n" + username + "\n" + email;
 	}
 
-
-
 }
-

@@ -12,7 +12,6 @@ public class NorthViewController implements ActionListener {
 
 	NorthView view;
 
-
 	public NorthViewController(NorthView view) {
 		this.view = view;
 	}
@@ -22,7 +21,6 @@ public class NorthViewController implements ActionListener {
 
 		switch (e.getActionCommand()) {
 		case NorthViewControllerAC.SEARCH:
-
 			if (!view.getText().equals(NorthView.DEFAULT_SEARCH_TEXT_STRING)) {
 				List<Recipe> list = JSONCalls.search(view.getText(), 0);
 				CenterListController.setShowList(list);

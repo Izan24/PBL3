@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.controllers.view.RecipeViewController;
@@ -31,7 +30,7 @@ import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 
-public class CenterViewRecipe extends JPanel implements IClickable {
+public class CenterViewRecipe extends JPanel {
 
 	DoubleClickListener listener;
 
@@ -68,8 +67,8 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 		this.centerController = centerController;
 		this.user = user;
 
-		listener = new DoubleClickListener(this);
 		controller = new RecipeViewController(this, user, centerController);
+		listener = new DoubleClickListener(controller);
 
 		initJlabels();
 		initJPanels();
@@ -323,7 +322,6 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	private void setSteps(Recipe recipe) {
 
-
 		stepPanel = new JPanel(new GridLayout(recipe.getStepCount(), 1, 20, 20));
 		stepPanel.setBackground(Color.white);
 
@@ -358,12 +356,5 @@ public class CenterViewRecipe extends JPanel implements IClickable {
 
 	public Recipe getRecipe() {
 		return recipe;
-	}
-
-	@Override
-	public void clicked() {
-//		centerController.setVisitProfileView(Query.GetUserById(recipe.getAuthorID()));
-		centerController.setVisitProfileView(user);
-		System.out.println("Falta el query");
 	}
 }

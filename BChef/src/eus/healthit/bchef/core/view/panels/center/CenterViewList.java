@@ -8,24 +8,17 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 
 import eus.healthit.bchef.core.api.JSONCalls;
-import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.recipes.RecipesList;
 import eus.healthit.bchef.core.view.recipes.RendererRecipes;
-import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 
-public class CenterViewList extends JScrollPane implements IClickable {
+public class CenterViewList extends JScrollPane {
 
-	/*
-	 * HAY QUE DARLE EL JLIST AL CONTROLADOR, DE MOMENTO ESTÁ AQUI PORQUE NO ESTA EL
-	 * CONTROLADOR
-	 */
-
-	CenterViewController centerController;
-	CenterListController listController;
+	CenterListController controller;
 
 	JList<Recipe> recipes;
 	RecipesList listModel;
@@ -43,10 +36,10 @@ public class CenterViewList extends JScrollPane implements IClickable {
 		this.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
 		this.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
 
-		this.centerController = centerController;
+		controller = new CenterListController(this, centerController);
+		listener = new DoubleClickListener(controller);
 
-		listener = new DoubleClickListener(this);
-		listController = new CenterListController(this);
+		this.getVerticalScrollBar().addAdjustmentListener(controller);
 
 		this.setBorder(BorderFactory.createEmptyBorder());
 
@@ -74,9 +67,8 @@ public class CenterViewList extends JScrollPane implements IClickable {
 		return listModel;
 	}
 
-	@Override
-	public void clicked() {
-		centerController.setRecipeView(recipes.getSelectedValue());
+	public Recipe getSelecterRecipe() {
+		return recipes.getSelectedValue();
 	}
 
 }

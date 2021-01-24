@@ -38,7 +38,7 @@ public class JSONutils {
 		User user = new User(id, name, surname, profilepic, email);
 
 		JSONArray arrayJSON = jsonReturn.getJSONArray("followed");
-		user.setFollowed(getFollowers(arrayJSON));
+		user.setFollowed(getFollowed(arrayJSON));
 		user.setFollowers(jsonReturn.getInt("followers"));
 		user.setUsername(jsonReturn.getString("username"));
 		arrayJSON = jsonReturn.getJSONArray("published");
@@ -65,17 +65,22 @@ public class JSONutils {
 
 	public static Item getListItem(JSONObject item) {
 		String name = item.getString("name");
+		Integer id = item.getInt("id");
+		Boolean ticked = item.getBoolean("ticked");
 		Item itemShop = new Item(name);
+		itemShop.setID(id);
+		itemShop.setBought(ticked);
+
 		return itemShop;
 	}
 
-	public static List<User> getFollowers(JSONArray arrayJSON) {
-		List<User> followers = new ArrayList<>();
-		for (Object obj : arrayJSON) {
-			followers.add(getSimpleUser((JSONObject) obj));
+	public static List<Integer> getFollowed(JSONArray json) {
+		List<Integer> followed = new ArrayList<>();
+		for (Object obj : json) {
+			followed.add((Integer) obj);
 		}
 
-		return followers;
+		return followed;
 	}
 
 	public static User getSimpleUser(JSONObject followedUser) {
@@ -88,8 +93,8 @@ public class JSONutils {
 
 		return user;
 	}
-	
-	public static List<Ingredient> getIntreientList(JSONArray array){
+
+	public static List<Ingredient> getIntreientList(JSONArray array) {
 		List<Ingredient> ingredientes = new ArrayList<>();
 
 		for (Object obj2 : array) {
@@ -139,8 +144,8 @@ public class JSONutils {
 		}
 
 		Image image = ImageRepository.decodeImage(published.getString("img"));
-		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes,
-				listaPasos, image);
+		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes, listaPasos,
+				image);
 	}
 
 	public static List<JSONObject> instructionsToJSON(List<RecipeStep> instructions) {

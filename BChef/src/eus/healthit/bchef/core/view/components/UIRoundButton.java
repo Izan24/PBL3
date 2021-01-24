@@ -158,9 +158,28 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 		this.primaryText = primaryText;
 	}
 
+	public void setSecondaryText(String secondaryText) {
+		this.secondaryText = secondaryText;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		listener.actionPerformed(actionCommand);
+	}
+
+	public void setBackgroundColorPrimary(Color color) {
+		this.backGroundColor = color;
+	}
+
+	public void setBackgrounSecondary(Color color) {
+		this.backGroundColorActive = color;
+		this.backGroundColorPressed = color.darker();
+	}
+
+	public void serBackgroundSimple(Color color) {
+		this.backGroundColor = color;
+		this.backGroundColorActive = backGroundColor.darker();
+		this.backGroundColorPressed = backGroundColorActive.darker();
 	}
 
 }

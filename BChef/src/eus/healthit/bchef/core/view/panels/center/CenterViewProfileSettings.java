@@ -422,6 +422,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	public void updateView() {
+		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(125, 125, Image.SCALE_SMOOTH)));
 		username.setText(user.getUsername());
 		name.setText(user.getName());
 		surname.setText(user.getSurname());
@@ -491,5 +492,4 @@ public class CenterViewProfileSettings extends JPanel {
 			newPwd.setEchoChar((char) 0);
 		}
 	}
-
 }

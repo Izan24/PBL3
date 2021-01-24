@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -28,6 +29,7 @@ import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.RoundedJPasswordField;
+import eus.healthit.bchef.core.view.components.RoundedJPasswordFieldShow;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
 import eus.healthit.bchef.core.view.components.UIRoundButton;
 
@@ -40,13 +42,16 @@ public class LoginView extends JPanel {
 	Color bgColor = Color.white;
 //	Color bgColor = new Color(145, 238, 255);
 
+	User user;
+
 	LoginViewController controller;
 
 	JTextField username;
 	JPasswordField password;
 	JButton loginButton, createAccButton;
 	JLabel textLabel;
-	User user;
+
+	JCheckBox showPWDBox;
 
 	public LoginView(WindowFrameController windowFrameController, WindowFrame window) {
 		super(new GridLayout());
@@ -54,11 +59,11 @@ public class LoginView extends JPanel {
 		this.setPreferredSize(new Dimension(480, 640));
 		this.setBackground(bgColor);
 		this.setOpaque(true);
-		
+
 		controller = new LoginViewController(this, windowFrameController, window);
 		this.addKeyListener(controller);
 
-		
+		initCheckBoxes();
 		initTextFields();
 		initButtons();
 		initJLabels();
@@ -74,7 +79,7 @@ public class LoginView extends JPanel {
 		loginButton.setFont(textFont);
 		loginButton.setBorder(BorderFactory.createEmptyBorder());
 		loginButton.setFocusable(false);
-		//this.getRootPane().setDefaultButton(loginButton);
+		// this.getRootPane().setDefaultButton(loginButton);
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, LoginViewControllerAC.LOGIN));
 
@@ -99,14 +104,13 @@ public class LoginView extends JPanel {
 		username.setForeground(Color.gray);
 		username.setOpaque(false);
 
-		password = new RoundedJPasswordField(DEFAULT_PASSWORD_TEXT);
+		password = new RoundedJPasswordFieldShow(DEFAULT_PASSWORD_TEXT, showPWDBox);
 		password.setPreferredSize(new Dimension(350, 40));
 		password.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		password.setText(DEFAULT_PASSWORD_TEXT);
 		password.setEchoChar((char) 0);
 		password.setForeground(Color.gray);
 		password.addKeyListener(controller);
-		//password.setActionCommand(LoginViewControllerAC.LOGIN);
 	}
 
 	private void initJLabels() {
@@ -114,6 +118,20 @@ public class LoginView extends JPanel {
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 32));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
+	}
+
+	private void initCheckBoxes() {
+		showPWDBox = new JCheckBox("Mostrar contraseña");
+		showPWDBox.addActionListener(controller);
+		showPWDBox.setActionCommand(LoginViewControllerAC.SHOW_PWD);
+		showPWDBox.setBackground(bgColor);
+		showPWDBox.setForeground(Color.LIGHT_GRAY);
+		showPWDBox.setBorder(BorderFactory.createEmptyBorder());
+		showPWDBox.setIcon(new ImageIcon("resources/menuicons/unChecked.png"));
+		showPWDBox.setSelectedIcon(new ImageIcon("resources/menuicons/checked.png"));
+		showPWDBox.setRolloverSelectedIcon(new ImageIcon("resources/menuicons/checkedMouseOver.png"));
+		showPWDBox.setRolloverIcon(new ImageIcon("resources/menuicons/unCheckedMouseOver.png"));
+		showPWDBox.setFocusable(false);
 	}
 
 	private Component createBoxPanel() {
@@ -139,7 +157,7 @@ public class LoginView extends JPanel {
 
 		loginPanel.setBackground(bgColor);
 		loginPanel.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
-				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
+				BorderFactory.createEmptyBorder(50, 40, 50, 40)));
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -184,7 +202,7 @@ public class LoginView extends JPanel {
 
 	private JPanel createCenterPanel() {
 
-		JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+		JPanel centerPanel = new JPanel(new GridLayout(3, 1, 10, 10));
 
 		centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
 		centerPanel.setBackground(bgColor);
@@ -200,8 +218,19 @@ public class LoginView extends JPanel {
 
 		centerPanel.add(panelUsername);
 		centerPanel.add(panelPassword);
+		centerPanel.add(createShowPwdPanel());
 
 		return centerPanel;
+	}
+
+	private Component createShowPwdPanel() {
+		JPanel showPwd = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		showPwd.setBackground(bgColor);
+		showPwd.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		showPwd.add(showPWDBox);
+
+		return showPwd;
 	}
 
 	private Component createSouthPanel() {
@@ -219,6 +248,14 @@ public class LoginView extends JPanel {
 
 	public String getPassword() {
 		return String.valueOf(password.getPassword());
+	}
+
+	public void changePwdState() {
+		if (password.getEchoChar() == (char) 0) {
+			password.setEchoChar('*');
+		} else if (password.getEchoChar() == '*') {
+			password.setEchoChar((char) 0);
+		}
 	}
 
 }
