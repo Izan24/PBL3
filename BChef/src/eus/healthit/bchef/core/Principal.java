@@ -1,8 +1,5 @@
 package eus.healthit.bchef.core;
 
-import eus.healthit.bchef.core.controllers.CommandController;
-import eus.healthit.bchef.core.enums.VoiceCommand;
-import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.view.WindowFrame;
 
 public class Principal {
@@ -15,15 +12,15 @@ public class Principal {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		//BChefController.getInstance().startVoiceRecon();
+//		BChefController.getInstance();
 		Principal principal = new Principal();
 		//IKitchenController = new KitchenController();
-		Thread.sleep(36000);
-		CommandController commandController = CommandController.getInstance();
-		String cmdString = "leeme la lista".toLowerCase();
-		VoiceCommand command = StringParser.parseCommand(cmdString);
-		cmdString = StringParser.deleteCommandWords(cmdString, command);
-		commandController.selectCommand(command, cmdString);
+//		Thread.sleep(6000);
+//		CommandController commandController = CommandController.getInstance();
+//		String cmdString = "lee".toLowerCase();
+//		VoiceCommand command = StringParser.parseCommand(cmdString);
+//		cmdString = StringParser.deleteCommandWords(cmdString, command);
+//		commandController.selectCommand(command, cmdString);
 
 //		String string = StringParser.stripSpaces("bchef buscame una receta de heiko moro");
 //		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);

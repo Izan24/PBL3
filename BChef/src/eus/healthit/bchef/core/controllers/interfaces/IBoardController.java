@@ -1,9 +1,14 @@
 package eus.healthit.bchef.core.controllers.interfaces;
 
-import eus.healthit.bchef.core.enums.KitchenUtil;
+import java.beans.PropertyChangeListener;
+
+import eus.healthit.bchef.core.models.Kitchen;
 
 public interface IBoardController {
 
 	//TODO :D
-	public void switchKitchen(KitchenUtil util, int index, int value);
+	public void updateKitchen(Kitchen kitchen);
+	
+	public void addPropertyChangeListener(PropertyChangeListener listener);
+	
 }
