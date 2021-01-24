@@ -94,7 +94,7 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 					"El usuario o contrasña introducidos no son correctos.");
 
 		} else {
-			BChefController.getInstance().setUser(user);
+//			BChefController.getInstance().setUser(user);
 			windowFrameController.setAppView(user);
 
 		}
