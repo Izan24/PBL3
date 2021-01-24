@@ -12,7 +12,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.models.Item;
 
 public class ItemRenderer implements ListCellRenderer<Item> {

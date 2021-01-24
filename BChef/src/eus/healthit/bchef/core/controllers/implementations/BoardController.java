@@ -39,7 +39,6 @@ public class BoardController implements SerialPortDataListener, IBoardController
 		serialPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
 		serialPort.setParity(SerialPort.NO_PARITY);
 		serialPort.setNumDataBits(8);
-
 		serialPort.openPort();
 		save = new String("");
 		serialPort.addDataListener(this);

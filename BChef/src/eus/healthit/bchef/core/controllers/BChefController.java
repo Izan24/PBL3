@@ -56,9 +56,9 @@ public class BChefController implements PropertyChangeListener {
 		connector = new PropertyChangeSupport(this);
 		inputController = AudioInputController.getInstance();
 		commandController = CommandController.getInstance();
-		boardController = new BoardController();
-		boardController.addPropertyChangeListener(this);
-		boardController.updateKitchen(kitchenController.getKitchen());
+		//boardController = new BoardController();
+		//boardController.addPropertyChangeListener(this);
+		//boardController.updateKitchen(kitchenController.getKitchen());
 	}
 
 	public static BChefController getInstance() {

@@ -36,7 +36,7 @@ import eus.healthit.bchef.core.view.components.UIRoundButton;
 public class LoginView extends JPanel {
 
 	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PASSWORD_TEXT = "Contraseña";
+	public static final String DEFAULT_PASSWORD_TEXT = "ContraseÃ±a";
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Color bgColor = Color.white;
@@ -114,14 +114,14 @@ public class LoginView extends JPanel {
 	}
 
 	private void initJLabels() {
-		textLabel = new JLabel("Iniciar sesión");
+		textLabel = new JLabel("Iniciar sesiÃ³n");
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 32));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contraseña");
+		showPWDBox = new JCheckBox("Mostrar contraseÃ±a");
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(LoginViewControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);
