@@ -97,7 +97,7 @@ public class CenterViewRecipe extends JPanel {
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		elaborationTitleLabel = new JLabel("ElaboraciÃ³n");
+		elaborationTitleLabel = new JLabel("Elaboración");
 		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));

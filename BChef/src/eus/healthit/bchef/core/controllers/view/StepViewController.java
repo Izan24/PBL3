@@ -19,7 +19,7 @@ public class StepViewController implements PropertyChangeListener {
 		this.stepView = recipeView;
 		this.centerController = centerController;
 		this.user = user;
-		BChefController.getInstance().addPropertyChangeListener(this);
+//		BChefController.getInstance().addPropertyChangeListener(this);
 		currentStep = 0;
 	}
 
