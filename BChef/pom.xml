@@ -88,24 +88,9 @@
 			<artifactId>commons-validator</artifactId>
 			<version>1.7</version>
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.18</version>
-		</dependency>
 
-		<dependency>
-			<groupId>com.glazedlists</groupId>
-			<artifactId>glazedlists</artifactId>
-			<version>1.11.0</version>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.swinglabs/swingx -->
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>swingx</artifactId>
-			<version>1.6.1</version>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.fazecast/jSerialComm -->
 		<dependency>
 			<groupId>com.fazecast</groupId>
