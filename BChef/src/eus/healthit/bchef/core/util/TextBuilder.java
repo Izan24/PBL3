@@ -103,8 +103,8 @@ public class TextBuilder {
 			durationString = durationString + time.toHours() % 24 + " " + rb.getString("hours") + " ";
 		if (time.toMinutes() % 60 != 0)
 			durationString = durationString + time.toMinutes() % 60 + " " + rb.getString("minutes") + " ";
-		if (time.toSeconds() % 60 != 0)
-			durationString = durationString + time.toSeconds() % 60 + " " + rb.getString("seconds") + " ";
+		if (time.getSeconds() % 60 != 0)
+			durationString = durationString + time.getSeconds() % 60 + " " + rb.getString("seconds") + " ";
 
 		return durationString;
 	}

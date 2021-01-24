@@ -32,6 +32,7 @@ public class APIutils {
 			StringBuilder response = new StringBuilder();
 			String line;
 			while ((line = in.readLine()) != null) {
+				//System.out.println(line);
 				response.append(line);
 			}
 			return new JSONObject(response.toString());

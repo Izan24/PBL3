@@ -139,8 +139,8 @@ public class CenterViewRecipe extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
-
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
+		scrollPane.getVerticalScrollBar().setUnitIncrement(8);
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
 		scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));

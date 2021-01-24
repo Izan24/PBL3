@@ -1,12 +1,16 @@
 package eus.healthit.bchef.core.api;
 
 import java.awt.Image;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -120,31 +124,35 @@ public class JSONutils {
 		List<Ingredient> ingredientes = new ArrayList<>();
 
 		JSONArray arrayJson2 = published.getJSONArray("ingredients");
-		for (Object obj2 : arrayJson2) {
-			JSONObject ingrediente = (JSONObject) obj2;
-			int id2 = ingrediente.getInt("id");
-			String nameI = ingrediente.getString("name");
-			String type = ingrediente.getString("type");
-			String amount = ingrediente.getString("amount");
+		
+		for (int i = 0; i < arrayJson2.length(); i++) {
+			JSONObject ingredient = arrayJson2.getJSONObject(i);
+			int id2 = ingredient.getInt("id");
+			String nameI = ingredient.getString("name");
+			String type = ingredient.getString("type");
+			String amount = ingredient.getString("amount");
 			Ingredient ingre = new Ingredient(id2, nameI, type, amount);
 			ingredientes.add(ingre);
 		}
 
-		List<RecipeStep> listaPasos = new ArrayList<>();
+		List<RecipeStep> stepList = new ArrayList<>();
 		arrayJson2 = published.getJSONArray("instructions");
-		for (Object obj2 : arrayJson2) {
-			JSONObject step = (JSONObject) obj2;
+		
+		for (int i = 0; i < arrayJson2.length(); i++) {
+			JSONObject step = arrayJson2.getJSONObject(i);
 			int idS = step.getInt("id");
 			RecipeStepActions recipeS = RecipeStepActions.valueOf(step.getString("action"));
 			int value = step.getInt("value");
 			Image image = ImageRepository.decodeImage(step.getString("img"));
 			String text = step.getString("txt");
+			System.out.println("JSONUTILS: "+text);
 			int num = step.getInt("num");
-			listaPasos.add(new RecipeStep(idS, recipeS, value, image, text, num));
+			stepList.add(new RecipeStep(idS, recipeS, value, image, text, num));
 		}
-
+		
+		
 		Image image = ImageRepository.decodeImage(published.getString("img"));
-		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes, listaPasos,
+		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes, stepList,
 				image);
 	}
 
