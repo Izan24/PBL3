@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.centerView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -78,37 +79,37 @@ public class CenterViewController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
 		switch (e.getActionCommand()) {
-		case CenterControllerAC.HOME:
+		case CenterViewControllerAC.HOME:
 			principalView.changeCenterView(listView);
 			break;
 
-		case CenterControllerAC.LIST:
+		case CenterViewControllerAC.LIST:
 			principalView.changeCenterView(shopListView);
 			break;
 
-		case CenterControllerAC.PROFILE:
+		case CenterViewControllerAC.PROFILE:
 			profileView.updateView();
 			principalView.changeCenterView(profileView);
 			break;
 
-		case CenterControllerAC.PROFILE_VISIT:
+		case CenterViewControllerAC.PROFILE_VISIT:
 			principalView.changeCenterView(visitProfile);
 			break;
 
-		case CenterControllerAC.BCHEF:
+		case CenterViewControllerAC.BCHEF:
 			principalView.changeCenterView(bchefView);
 			break;
 
-		case CenterControllerAC.SETTINGS:
+		case CenterViewControllerAC.SETTINGS:
 			settingsView.updateView();
 			principalView.changeCenterView(settingsView);
 			break;
 
-		case CenterControllerAC.CREATE_RECIPE:
+		case CenterViewControllerAC.CREATE_RECIPE:
 			principalView.changeCenterView(createRecipeView);
 			break;
 
-		case CenterControllerAC.RECIPE_STEP:
+		case CenterViewControllerAC.RECIPE_STEP:
 			principalView.changeCenterView(stepView);
 			break;
 		}

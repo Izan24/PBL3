@@ -1,10 +1,11 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.recipeRating;
 
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.view.panels.center.CenterViewRecipeRating;
 
 public class RecipeRatingController implements ChangeListener, IRoundButtonListener {

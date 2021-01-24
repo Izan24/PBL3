@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.createAccount;
 
 public class CreateAccountControllerAC {
 	public static final String CREATEACC = "create_acc";

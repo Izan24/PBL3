@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import eus.healthit.bchef.core.controllers.view.WindowFrameController;
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 
 public class WindowFrame extends JFrame {
 

@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.recipeCreation;
 
 public class RecipeCreationControllerAC {
 

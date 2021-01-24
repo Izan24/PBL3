@@ -1,8 +1,9 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.profileVisit;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.view.panels.center.CenterViewVisitProfile;
 
 public class ProfileVisitController implements IRoundButtonListener, IClickable {

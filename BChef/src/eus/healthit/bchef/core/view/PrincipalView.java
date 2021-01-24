@@ -5,8 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
-import eus.healthit.bchef.core.controllers.view.WindowFrameController;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.panels.LeftMenuView;
 import eus.healthit.bchef.core.view.panels.NorthView;

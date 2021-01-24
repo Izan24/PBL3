@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.RecipeViewController;
-import eus.healthit.bchef.core.controllers.view.RecipeViewControllerAC;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.recipeView.RecipeViewController;
+import eus.healthit.bchef.core.controllers.view.recipeView.RecipeViewControllerAC;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;

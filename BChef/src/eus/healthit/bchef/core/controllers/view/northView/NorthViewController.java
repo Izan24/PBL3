@@ -1,10 +1,11 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.northView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import eus.healthit.bchef.core.api.JSONCalls;
+import eus.healthit.bchef.core.controllers.view.CenterListController;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.panels.NorthView;
 

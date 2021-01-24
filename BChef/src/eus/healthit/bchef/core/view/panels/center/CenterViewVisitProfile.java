@@ -17,10 +17,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.ProfileVisitController;
-import eus.healthit.bchef.core.controllers.view.ProfileVisitControllerAC;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.profileVisit.ProfileVisitController;
+import eus.healthit.bchef.core.controllers.view.profileVisit.ProfileVisitControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;

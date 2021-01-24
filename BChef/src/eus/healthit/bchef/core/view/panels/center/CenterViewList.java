@@ -9,8 +9,8 @@ import javax.swing.JScrollPane;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.view.CenterListController;
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.view.recipes.RecipesList;

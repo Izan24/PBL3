@@ -34,8 +34,8 @@ import javax.swing.SpinnerNumberModel;
 
 import eus.healthit.bchef.core.controllers.view.DefaultTextAreaController;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
-import eus.healthit.bchef.core.controllers.view.RecipeCreationController;
-import eus.healthit.bchef.core.controllers.view.RecipeCreationControllerAC;
+import eus.healthit.bchef.core.controllers.view.recipeCreation.RecipeCreationController;
+import eus.healthit.bchef.core.controllers.view.recipeCreation.RecipeCreationControllerAC;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.RecipeStep;

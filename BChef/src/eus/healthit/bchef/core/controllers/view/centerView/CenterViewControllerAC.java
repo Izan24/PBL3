@@ -1,6 +1,6 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.centerView;
 
-public class CenterControllerAC {
+public class CenterViewControllerAC {
 	
 	
 	/*

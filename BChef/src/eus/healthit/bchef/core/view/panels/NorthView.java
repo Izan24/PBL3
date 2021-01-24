@@ -8,8 +8,8 @@ import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.view.NorthViewController;
-import eus.healthit.bchef.core.controllers.view.NorthViewControllerAC;
+import eus.healthit.bchef.core.controllers.view.northView.NorthViewController;
+import eus.healthit.bchef.core.controllers.view.northView.NorthViewControllerAC;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.RoundedTextField;
 

@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import eus.healthit.bchef.core.controllers.view.CreateAccountController;
-import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
-import eus.healthit.bchef.core.controllers.view.WindowFrameController;
+import eus.healthit.bchef.core.controllers.view.createAccount.CreateAccountController;
+import eus.healthit.bchef.core.controllers.view.createAccount.CreateAccountControllerAC;
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.borders.SearchBorder;

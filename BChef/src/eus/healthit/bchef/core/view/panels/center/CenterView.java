@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 
 public class CenterView extends JPanel {
 

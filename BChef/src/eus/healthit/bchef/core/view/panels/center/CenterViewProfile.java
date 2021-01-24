@@ -21,10 +21,10 @@ import javax.swing.JViewport;
 import javax.swing.SwingConstants;
 
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.ProfileController;
-import eus.healthit.bchef.core.controllers.view.ProfileControllerAC;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.profileView.ProfileViewController;
+import eus.healthit.bchef.core.controllers.view.profileView.ProfileViewControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
@@ -42,7 +42,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	JButton uploadedButton, savedButton;
 
-	ProfileController controller;
+	ProfileViewController controller;
 
 	JList<Recipe> saved, uploaded;
 	RecipesList savedModel, uploadedModel;
@@ -66,7 +66,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		this.user = user;
 		this.centerController = centerController;
 
-		controller = new ProfileController(this);
+		controller = new ProfileViewController(this);
 
 		initJlabels();
 		initJButtons();
@@ -119,7 +119,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		uploadedButton.setBackground(bgColor);
 		uploadedButton.setForeground(selectedColor);
 		uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
-		uploadedButton.setActionCommand(ProfileControllerAC.UPLOADED);
+		uploadedButton.setActionCommand(ProfileViewControllerAC.UPLOADED);
 		uploadedButton.addActionListener(controller);
 		uploadedButton.setFocusable(false);
 
@@ -127,7 +127,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		savedButton.setFont(textFont);
 		savedButton.setBackground(bgColor);
 		savedButton.setBorder(BorderFactory.createEmptyBorder());
-		savedButton.setActionCommand(ProfileControllerAC.SAVED);
+		savedButton.setActionCommand(ProfileViewControllerAC.SAVED);
 		savedButton.addActionListener(controller);
 		savedButton.setFocusable(false);
 
@@ -309,7 +309,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	public void changeListView(String selection) {
 		switch (selection) {
-		case ProfileControllerAC.UPLOADED:
+		case ProfileViewControllerAC.UPLOADED:
 			uploadedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
 			savedButton.setBorder(BorderFactory.createEmptyBorder());
 
@@ -319,7 +319,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 			scrollPane.setViewportView(uploaded);
 			break;
 
-		case ProfileControllerAC.SAVED:
+		case ProfileViewControllerAC.SAVED:
 			uploadedButton.setBorder(BorderFactory.createEmptyBorder());
 			savedButton.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, selectedColor));
 
@@ -354,7 +354,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		profilePicture.setIcon(new ImageIcon(user.getProfilePic().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 		username.setText(user.getUsername());
 
-		changeListView(ProfileControllerAC.UPLOADED);
+		changeListView(ProfileViewControllerAC.UPLOADED);
 	}
 
 	@Override

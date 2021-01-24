@@ -19,9 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
-import eus.healthit.bchef.core.controllers.view.CenterViewController;
-import eus.healthit.bchef.core.controllers.view.RecipeRatingController;
-import eus.healthit.bchef.core.controllers.view.RecipeRatingControllerAC;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
+import eus.healthit.bchef.core.controllers.view.recipeRating.RecipeRatingController;
+import eus.healthit.bchef.core.controllers.view.recipeRating.RecipeRatingControllerAC;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;

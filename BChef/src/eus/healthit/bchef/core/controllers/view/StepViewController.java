@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import eus.healthit.bchef.core.controllers.BChefController;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.panels.center.CenterViewStep;
 

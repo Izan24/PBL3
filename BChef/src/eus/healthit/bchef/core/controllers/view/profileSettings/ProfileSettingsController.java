@@ -1,4 +1,4 @@
-package eus.healthit.bchef.core.controllers.view;
+package eus.healthit.bchef.core.controllers.view.profileSettings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +14,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 import eus.healthit.bchef.core.api.ImageRepository;
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
+import eus.healthit.bchef.core.controllers.view.createAccount.CreateAccountControllerAC;
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
@@ -104,7 +106,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				return false;
 			}
 		} else if (!passwordVerify()) {
-			new CreationErrorDialog(window, "Invalid password", true, "Las contraseñas no coinciden");
+			new CreationErrorDialog(window, "Invalid password", true, "Las contraseï¿½as no coinciden");
 			return false;
 		}
 		return true;

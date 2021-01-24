@@ -6,6 +6,7 @@ import java.util.List;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.view.panels.center.CenterViewList;
 
@@ -42,13 +43,10 @@ public class CenterListController implements IClickable, AdjustmentListener {
 
 		if (actual == max) {
 			if (checkPage()) {
-
 				List<Recipe> searchList = JSONCalls.getPage(actualPage + 1);
-				int recipeSize = max / viewList.getListModel().getSize();
-
-				viewList.getVerticalScrollBar().setValue(max - (searchList.size() * recipeSize));
 
 				searchList.stream().forEach((recipe) -> viewList.getListModel().addElement(recipe));
+				viewList.getVerticalScrollBar().setValue(max);
 				viewList.repaint();
 				viewList.revalidate();
 				actualPage++;

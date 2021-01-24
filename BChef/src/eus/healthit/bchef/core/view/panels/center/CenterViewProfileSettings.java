@@ -22,10 +22,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import eus.healthit.bchef.core.controllers.view.CreateAccountControllerAC;
-import eus.healthit.bchef.core.controllers.view.ProfileSettingsController;
-import eus.healthit.bchef.core.controllers.view.ProfileSettingsControllerAC;
-import eus.healthit.bchef.core.controllers.view.WindowFrameController;
+import eus.healthit.bchef.core.controllers.view.createAccount.CreateAccountControllerAC;
+import eus.healthit.bchef.core.controllers.view.profileSettings.ProfileSettingsController;
+import eus.healthit.bchef.core.controllers.view.profileSettings.ProfileSettingsControllerAC;
+import eus.healthit.bchef.core.controllers.view.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.borders.RoundedBorder;
@@ -41,8 +41,8 @@ public class CenterViewProfileSettings extends JPanel {
 	public static final String DEFAULT_SURNAME_TEXT = "Apellido";
 	public static final String DEFAULT_EMAIL_TEXT = "Correo electronico";
 	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PWD_TEXT = "Contraseña actual";
-	public static final String DEFAULT_CONFPWD_TEXT = "Nueva contraseña";
+	public static final String DEFAULT_PWD_TEXT = "Contraseï¿½a actual";
+	public static final String DEFAULT_CONFPWD_TEXT = "Nueva contraseï¿½a";
 
 	Color bgColor = Color.white;
 	Color textColor = new Color(129, 145, 160);
@@ -90,7 +90,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contraseña");
+		showPWDBox = new JCheckBox("Mostrar contraseï¿½a");
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(CreateAccountControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);
@@ -164,7 +164,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	private void initJButtons() {
-		addImageButton = new JButton("Añadir imagen");
+		addImageButton = new JButton("Aï¿½adir imagen");
 		addImageButton.setPreferredSize(new Dimension(125, 45));
 		addImageButton.setBackground(bgColor);
 		addImageButton.setForeground(new Color(28, 162, 243));
@@ -172,7 +172,7 @@ public class CenterViewProfileSettings extends JPanel {
 		addImageButton.setFocusable(false);
 		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				ProfileSettingsControllerAC.UPLOAD_IMAGE, "Añadir imagen", "Añadir imagen"));
+				ProfileSettingsControllerAC.UPLOAD_IMAGE, "Aï¿½adir imagen", "Aï¿½adir imagen"));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
@@ -186,7 +186,7 @@ public class CenterViewProfileSettings extends JPanel {
 		saveChanges.setUI(new UIRoundButton(saveChanges, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.SAVE_CHANGES));
 
-		logOut = new JButton("Cerrar sesión");
+		logOut = new JButton("Cerrar sesiï¿½n");
 		logOut.setPreferredSize(new Dimension(150, 40));
 		logOut.setBackground(bgColor);
 		logOut.setForeground(new Color(28, 162, 243));
