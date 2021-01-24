@@ -24,6 +24,7 @@ public class CenterListController implements IClickable, AdjustmentListener {
 	public static void setShowList(List<Recipe> recipesList) {
 		viewList.getListModel().setList(recipesList);
 		actualPage = 0;
+		viewList.getVerticalScrollBar().setValue(0);
 		viewList.repaint();
 		viewList.revalidate();
 	}
@@ -40,10 +41,14 @@ public class CenterListController implements IClickable, AdjustmentListener {
 		int max = viewList.getVerticalScrollBar().getMaximum();
 
 		if (actual == max) {
-			System.out.println("abajito");
 			if (checkPage()) {
-				System.out.println("pidiendo");
-				JSONCalls.getPage(actualPage + 1).stream().forEach((recipe)->viewList.getListModel().addElement(recipe));
+
+				List<Recipe> searchList = JSONCalls.getPage(actualPage + 1);
+				int recipeSize = max / viewList.getListModel().getSize();
+
+				viewList.getVerticalScrollBar().setValue(max - (searchList.size() * recipeSize));
+
+				searchList.stream().forEach((recipe) -> viewList.getListModel().addElement(recipe));
 				viewList.repaint();
 				viewList.revalidate();
 				actualPage++;
