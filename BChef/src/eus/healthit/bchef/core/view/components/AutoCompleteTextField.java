@@ -192,7 +192,7 @@ public class AutoCompleteTextField extends JTextField implements KeyListener, Do
 			int centeredY = ((getHeight() / 2) + (int) (subGuessBounds.getHeight() / 2));
 
 			g.setColor(this.incompleteColor);
-			g.drawString(subGuess, (int) (enteredBounds.getWidth()) + 2, centeredY - 2);
+			g.drawString(subGuess, (int) (enteredBounds.getWidth()) + 7, centeredY - 4);
 		}
 	}
 

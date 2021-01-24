@@ -69,6 +69,7 @@ public class CommandController {
 		case LIST_READ:
 			System.out.println("entering");
 			BChefController.getInstance().readList();
+			break;
 		case YES:
 			BChefController.getInstance().confirmCall();
 			break;

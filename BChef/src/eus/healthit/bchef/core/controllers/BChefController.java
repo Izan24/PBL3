@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.Duration;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.functors.IfClosure;
 
 import eus.healthit.bchef.core.api.JSONCalls;
+import eus.healthit.bchef.core.controllers.implementations.BoardController;
 import eus.healthit.bchef.core.controllers.implementations.KitchenController;
 import eus.healthit.bchef.core.controllers.implementations.OutputController;
 import eus.healthit.bchef.core.controllers.implementations.RecipeAssistantController;
@@ -29,8 +31,10 @@ import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.KitchenAlarm;
+import eus.healthit.bchef.core.models.Oven;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
+import eus.healthit.bchef.core.models.Stove;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.util.StringParser;
 import eus.healthit.bchef.core.util.TextBuilder;
@@ -52,6 +56,9 @@ public class BChefController implements PropertyChangeListener {
 		connector = new PropertyChangeSupport(this);
 		inputController = AudioInputController.getInstance();
 		commandController = CommandController.getInstance();
+		boardController = new BoardController();
+		boardController.addPropertyChangeListener(this);
+		boardController.updateKitchen(kitchenController.getKitchen());
 	}
 
 	public static BChefController getInstance() {
@@ -91,9 +98,9 @@ public class BChefController implements PropertyChangeListener {
 				break;
 			}
 			if (index == null)
-				kitchenController.setFire(0, value);
+				kitchenController.setStove(0, value);
 			else
-				kitchenController.setFire(index, value);
+				kitchenController.setStove(index, value);
 			break;
 		case MISUNDERSTOOD:
 		default:
@@ -288,16 +295,16 @@ public class BChefController implements PropertyChangeListener {
 		for (Item item : user.getShopList())
 			System.out.println("item: " + item.getName());
 
-//		List<String> complete = user.getShopList().stream().map(object -> Objects.toString(object, null))
-//				.collect(Collectors.toList());
-//		System.out.println(".-.---");
-//		List<String> incomplete = user.getShopList().stream().map(object -> Objects.toString(object, null))
-//				.collect(Collectors.toList());
+		List<String> complete = user.getShopList().stream().filter(o -> !o.isBought()).map(x -> x.getName())
+				.collect(Collectors.toList());
+		System.out.println(".-.---");
+		List<String> incomplete = user.getShopList().stream().filter(o -> o.isBought()).map(x -> x.getName())
+				.collect(Collectors.toList());
 
-//		complete.stream().forEach(System.out::println);
-//		incomplete.stream().forEach(System.out::println);
-//
-//		outputController.send(TextBuilder.readListMessage(complete, incomplete));
+		complete.stream().forEach(System.out::println);
+		incomplete.stream().forEach(System.out::println);
+
+		outputController.send(TextBuilder.readListMessage(complete, incomplete));
 	}
 
 	public void startVoiceRecon() {
@@ -327,12 +334,23 @@ public class BChefController implements PropertyChangeListener {
 		case "ALARM_UPDATE":
 			connector.firePropertyChange(evt);
 			break;
+		case "UPDATE_OVENS":
+			System.out.println("estoy ovens");
+			kitchenController.setOvens((List<Oven>) evt.getNewValue());
+			break;
+		case "UPDATE_STOVES":
+			System.out.println("estoy stoves");
+			kitchenController.setStoves((List<Stove>) evt.getNewValue());
+			break;
+		case "KITCHEN_UPDATE":
+			boardController.updateKitchen(kitchenController.getKitchen());
+			break;
 		default:
 			break;
 		}
 	}
 
-	public void addPropertyChangeListner(PropertyChangeListener listener) {
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		connector.addPropertyChangeListener(listener);
 	}
 
