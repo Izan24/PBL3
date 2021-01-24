@@ -118,7 +118,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private void initButtons() {
-		addStepButton = new JButton("Añadir");
+		addStepButton = new JButton("Aï¿½adir");
 		addStepButton.setPreferredSize(new Dimension(150, 35));
 		addStepButton.setBackground(greenButtonColor);
 		addStepButton.setForeground(Color.white);
@@ -138,7 +138,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		removeStepButton.setUI(new UIRoundButton(removeStepButton, 30, redButtonColor, Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.REMOVE_STEP));
 
-		addImageButton = new JButton("Añadir imagen");
+		addImageButton = new JButton("Aï¿½adir imagen");
 		addImageButton.setPreferredSize(new Dimension(150, 40));
 		addImageButton.setBackground(bgColor);
 		addImageButton.setForeground(new Color(28, 162, 243));
@@ -146,11 +146,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		addImageButton.setFocusable(false);
 		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.ADD_IMAGE, "Añadir imagen", "Añadir imagen"));
+				RecipeCreationControllerAC.ADD_IMAGE, "Aï¿½adir imagen", "Aï¿½adir imagen"));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		addStepImageButton = new JButton("Añadir imagen");
+		addStepImageButton = new JButton("Aï¿½adir imagen");
 		addStepImageButton.setPreferredSize(new Dimension(125, 75));
 		addStepImageButton.setBackground(bgColor);
 		addStepImageButton.setForeground(new Color(28, 162, 243));
@@ -158,11 +158,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		addStepImageButton.setFocusable(false);
 		addStepImageButton.setUI(new UIRoundButton(addStepImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.ADD_IMAGE_STEP, "Añadir imagen", "Añadir imagen"));
+				RecipeCreationControllerAC.ADD_IMAGE_STEP, "Aï¿½adir imagen", "Aï¿½adir imagen"));
 		addStepImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		addIngredientButton = new JButton("Añadir");
+		addIngredientButton = new JButton("Aï¿½adir");
 		addIngredientButton.setPreferredSize(new Dimension(150, 35));
 		addIngredientButton.setBackground(new Color(28, 162, 243));
 		addIngredientButton.setForeground(Color.white);
@@ -288,6 +288,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		actions.addActionListener(controller);
 		actions.setActionCommand(RecipeCreationControllerAC.ACTION_CHANGE);
 
+		actions.addItem(RecipeStepActions.TEXT);
 		actions.addItem(RecipeStepActions.OVEN);
 		actions.addItem(RecipeStepActions.STOVE);
 		actions.addItem(RecipeStepActions.TIMER);
@@ -856,6 +857,7 @@ public class CenterViewCreateRecipe extends JPanel {
 			valueSpinnerModel.setValue(0);
 
 			values.setEnabled(true);
+			time.setEnabled(true);
 
 		} else if (actions.getSelectedItem().equals(RecipeStepActions.STOVE)) {
 			valueSpinnerModel.setMinimum(0);
@@ -864,9 +866,15 @@ public class CenterViewCreateRecipe extends JPanel {
 			valueSpinnerModel.setValue(0);
 
 			values.setEnabled(true);
+			time.setEnabled(true);
 
 		} else if (actions.getSelectedItem().equals(RecipeStepActions.TIMER)) {
 			values.setEnabled(false);
+			time.setEnabled(true);
+
+		} else if (actions.getSelectedItem().equals(RecipeStepActions.TEXT)) {
+			values.setEnabled(false);
+			time.setEnabled(false);
 		}
 	}
 

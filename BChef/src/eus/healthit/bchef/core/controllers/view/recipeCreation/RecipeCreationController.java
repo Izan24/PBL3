@@ -127,7 +127,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				Ingredient ingredient = ingredientExists();
 				if (ingredient == null) {
 					new CreationErrorDialog(window, "Invalid ingredient", true,
-							"El ingrediente introducido no está en la base de datos");
+							"El ingrediente introducido no estï¿½ en la base de datos");
 				} else {
 					System.out.println();
 					ingredient.setQuantity(createRecipeView.getIngredientQuantity());
@@ -197,7 +197,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			return false;
 		} else if (createRecipeView.getDescription().trim().equals("")
 				|| createRecipeView.getDescription().equals(CenterViewCreateRecipe.DESCRIPTION_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid description", true, "La descripción no es valida");
+			new CreationErrorDialog(window, "Invalid description", true, "La descripciï¿½n no es valida");
 			return false;
 		} else if (createRecipeView.getIngredientListModel().getSize() == 0) {
 			new CreationErrorDialog(window, "Invalid ingredients", true, "Introduce minimo un ingrediente");
@@ -294,7 +294,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	public boolean checkStep() {
 		if (createRecipeView.getInstruction().trim().equals("")
 				|| createRecipeView.getInstruction().equals(CenterViewCreateRecipe.STEP_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid instruction", true, "La instrucción no es valida");
+			new CreationErrorDialog(window, "Invalid instruction", true, "La instrucciï¿½n no es valida");
 			return false;
 		} else {
 			if (createRecipeView.getAction().equals(RecipeStepActions.TIMER)) {
@@ -303,7 +303,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 					new CreationErrorDialog(window, "Invalid time", true, "El tiempo no puede ser 0");
 					return false;
 				}
-			} else {
+			} else if (createRecipeView.getAction().equals(RecipeStepActions.OVEN)
+					|| createRecipeView.getAction().equals(RecipeStepActions.STOVE)) {
 				if (createRecipeView.getValue() == 0) {
 					new CreationErrorDialog(window, "Invalid value", true, "El valor no puede ser 0");
 					return false;
