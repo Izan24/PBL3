@@ -13,9 +13,10 @@ import eus.healthit.bchef.core.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.WindowFrame;
 import eus.healthit.bchef.core.view.dialogs.CreationErrorDialog;
+import eus.healthit.bchef.core.view.panels.CreateAccountView;
 import eus.healthit.bchef.core.view.panels.LoginView;
 
-public class LoginViewController implements IRoundButtonListener, KeyListener {
+public class LoginViewController implements IRoundButtonListener, KeyListener, ActionListener {
 
 	LoginView loginView;
 	WindowFrameController windowFrameController;
@@ -42,8 +43,26 @@ public class LoginViewController implements IRoundButtonListener, KeyListener {
 	}
 
 	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+		case LoginViewControllerAC.SHOW_PWD:
+			changePasswordFieldState();
+			break;
+
+		}
+	}
+
+	private void changePasswordFieldState() {
+		String pwd = loginView.getPassword();
+
+		if (!pwd.equals(CreateAccountView.DEFAULT_PWD_TEXT)) {
+			loginView.changePwdState();
+		}
+	}
+
+	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("KEYPRESS: "+ e.getKeyCode());
+		System.out.println("KEYPRESS: " + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ENTER:
 			login();
@@ -80,5 +99,4 @@ public class LoginViewController implements IRoundButtonListener, KeyListener {
 
 		}
 	}
-
 }
