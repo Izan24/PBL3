@@ -140,4 +140,8 @@ public class CenterViewController implements ActionListener {
 		principalView.changeCenterView(profileView);
 	}
 
+	public void setListView() {
+		principalView.changeCenterView(listView);
+	}
+
 }

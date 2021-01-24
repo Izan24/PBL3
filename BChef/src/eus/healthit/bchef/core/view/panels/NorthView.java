@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import eus.healthit.bchef.core.controllers.view.centerView.CenterViewController;
 import eus.healthit.bchef.core.controllers.view.northView.NorthViewController;
 import eus.healthit.bchef.core.controllers.view.northView.NorthViewControllerAC;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
@@ -20,12 +21,12 @@ public class NorthView extends JPanel {
 
 	public static final String DEFAULT_SEARCH_TEXT_STRING = "Buscar una receta";
 
-	public NorthView() {
+	public NorthView(CenterViewController centerController) {
 		super(new BorderLayout(50, 50));
 		this.setBackground(Color.white);
 		this.setOpaque(true);
 
-		controller = new NorthViewController(this);
+		controller = new NorthViewController(this, centerController);
 
 		this.add(createSearchBar(), BorderLayout.CENTER);
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),

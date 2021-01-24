@@ -30,7 +30,7 @@ public class PrincipalView extends JPanel {
 		centerController.setStartView();
 
 		leftMenuView = new LeftMenuView(centerController);
-		northView = new NorthView();
+		northView = new NorthView(centerController);
 
 		setContent();
 	}
