@@ -67,7 +67,6 @@ public class CommandController {
 			BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
 			break;
 		case LIST_READ:
-			System.out.println("entering");
 			BChefController.getInstance().readList();
 			break;
 		case YES:

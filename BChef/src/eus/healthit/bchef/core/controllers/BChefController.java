@@ -276,19 +276,21 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void deleteFromList(String string) {
-		boolean removed = false;
 		String reg = "\\s*\\b" + string.toLowerCase() + "\\b\\s*";
 		Pattern pattern = Pattern.compile(reg);
+		Item deletedItem = null;
 		for (Item item : user.getShopList()) {
-			Matcher matcher = pattern.matcher(item.getName());
+			Matcher matcher = pattern.matcher(item.getName().toLowerCase());
 			if (matcher.find()) {
 				JSONCalls.shoplistRemove(item);
-				OutputController.getInstance().send(TextBuilder.removedFromList(string));
-				removed = true;
+				deletedItem = item;
 			}
 		}
-		if (!removed)
+		
+		if (deletedItem == null)
 			outputController.send(TextBuilder.listItemNotFound(string));
+		else
+			OutputController.getInstance().send(TextBuilder.removedFromList(deletedItem.getName()));
 	}
 
 	public void readList() {

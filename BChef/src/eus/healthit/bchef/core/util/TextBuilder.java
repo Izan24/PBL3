@@ -167,11 +167,11 @@ public class TextBuilder {
 		String txt = "";
 		if (complete.size() > 0) {
 			empty = false;
-			txt = rb.getString("list_item_read_complete") + " " + String.join(", ", complete) + ".";
+			txt = rb.getString("list_item_read_complete") + " " + String.join(", ", complete) + ". ";
 		}
 		if (incomplete.size() > 0) {
 			empty = false;
-			txt = rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
+			txt = txt + rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
 		}
 		return (empty) ? rb.getString("list_item_read_empty") : txt;
 	}
