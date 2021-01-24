@@ -4,10 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import eus.healthit.bchef.core.controllers.BChefController;
-import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.view.panels.center.CenterViewRecipe;
-import eus.healthit.bchef.core.view.panels.center.CenterViewRecipeRating;
 import eus.healthit.bchef.core.view.panels.center.CenterViewStep;
 
 public class StepViewController implements PropertyChangeListener {

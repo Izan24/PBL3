@@ -919,4 +919,20 @@ public class CenterViewCreateRecipe extends JPanel {
 	public String getIngredientQuantity() {
 		return quantity.getText();
 	}
+
+	public void resetAllFields() {
+		imagePath = null;
+		stepImagePath = null;
+		image = null;
+		stepImage = null;
+
+		title.setText("");
+		description.setText("");
+		ingredient.setText("");
+		quantity.setText("");
+		instruction.setText("");
+
+		ingredientModel.removeAllList();
+		stepModel.removeAllList();
+	}
 }

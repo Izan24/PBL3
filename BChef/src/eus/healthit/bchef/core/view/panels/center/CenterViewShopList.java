@@ -20,12 +20,12 @@ import eus.healthit.bchef.core.controllers.implementations.ShopListController;
 import eus.healthit.bchef.core.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.controllers.view.DefaultTextController;
 import eus.healthit.bchef.core.controllers.view.DoubleClickListener;
-import eus.healthit.bchef.core.controllers.view.ShopListButtonController;
 import eus.healthit.bchef.core.controllers.view.ShopListControllerAC;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.view.borders.SearchBorder;
 import eus.healthit.bchef.core.view.components.CustomScrollbarUI;
+import eus.healthit.bchef.core.view.components.UIRoundButton;
 import eus.healthit.bchef.core.view.items.ItemList;
 import eus.healthit.bchef.core.view.items.ItemRenderer;
 
@@ -43,8 +43,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 
 	JTextField newElementField;
 
-	ShopListButtonController buttonController;
-	ShopListController listController;
+	ShopListController controller;
 	DoubleClickListener listener;
 
 	Font textFont = new Font("Roboto", Font.PLAIN, 20);
@@ -54,10 +53,8 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		this.setBackground(Color.white);
 		this.user = user;
 
-		buttonController = new ShopListButtonController(this);
-
-		listController = ShopListController.getShopListController();
-		listController.setShopListView(this);
+		controller = ShopListController.getShopListController();
+		controller.setShopListView(this);
 
 		initButtons();
 		initTextFields();
@@ -72,7 +69,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		buttonAdd = new JButton();
 		buttonAdd.setIcon(new ImageIcon("resources/menuIcons/add_icon_default32.png"));
 		buttonAdd.setActionCommand(ShopListControllerAC.ADD);
-		buttonAdd.addActionListener(buttonController);
+		buttonAdd.addActionListener(controller);
 		buttonAdd.setFocusable(false);
 		buttonAdd.setBorder(BorderFactory.createEmptyBorder());
 		buttonAdd.setBackground(Color.white);
@@ -81,11 +78,14 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		buttonAdd.setBackground(new Color(224, 224, 224));
 
 		deleteButton = new JButton("Eliminar");
-		deleteButton.setBackground(new Color(202, 0, 0));
-		deleteButton.setActionCommand(ShopListControllerAC.REMOVE);
-		deleteButton.addActionListener(buttonController);
+		deleteButton.setPreferredSize(new Dimension(150, 35));
+		deleteButton.setBackground(new Color(243, 69, 65));
 		deleteButton.setForeground(Color.white);
+		deleteButton.setFont(textFont);
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setFocusable(false);
+		deleteButton.setUI(new UIRoundButton(deleteButton, 30, new Color(243, 69, 65), Color.white,
+				new Font("Segoe UI", Font.BOLD, 15), controller, ShopListControllerAC.REMOVE));
 
 	}
 
@@ -104,7 +104,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		listModel = new ItemList();
 		listModel.setList(user.getShopList());
 
-		renderer = new ItemRenderer(buttonController);
+		renderer = new ItemRenderer();
 		listener = new DoubleClickListener(this);
 
 		itemList.setModel(listModel);

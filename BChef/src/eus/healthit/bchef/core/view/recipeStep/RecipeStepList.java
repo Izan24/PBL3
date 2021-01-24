@@ -48,4 +48,8 @@ public class RecipeStepList extends AbstractListModel<RecipeStep> {
 	public List<RecipeStep> getList() {
 		return list;
 	}
+
+	public void removeAllList() {
+		list = new ArrayList<>();
+	}
 }

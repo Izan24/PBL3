@@ -17,10 +17,7 @@ import eus.healthit.bchef.core.models.Item;
 
 public class ItemRenderer implements ListCellRenderer<Item> {
 
-	ShopListButtonController controller;
-
-	public ItemRenderer(ShopListButtonController controller) {
-		this.controller = controller;
+	public ItemRenderer() {
 	}
 
 	@Override
