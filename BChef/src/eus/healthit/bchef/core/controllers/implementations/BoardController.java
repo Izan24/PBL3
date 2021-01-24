@@ -34,15 +34,17 @@ public class BoardController implements SerialPortDataListener, IBoardController
 				break;
 			}
 		}
+		if (serialPort != null) {
 
-		serialPort.setBaudRate(115200);
-		serialPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
-		serialPort.setParity(SerialPort.NO_PARITY);
-		serialPort.setNumDataBits(8);
+			serialPort.setBaudRate(115200);
+			serialPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
+			serialPort.setParity(SerialPort.NO_PARITY);
+			serialPort.setNumDataBits(8);
 
-		serialPort.openPort();
-		save = new String("");
-		serialPort.addDataListener(this);
+			serialPort.openPort();
+			save = new String("");
+			serialPort.addDataListener(this);
+		}
 	}
 
 	public String serialRead() {
@@ -127,6 +129,7 @@ public class BoardController implements SerialPortDataListener, IBoardController
 	}
 
 	public void allLetters(String frase) {
+		if(serialPort == null) return;
 		for (int i = 0; i < frase.length(); i++) {
 			String s = Character.toString(frase.charAt(i));
 			serialWrite(s);
