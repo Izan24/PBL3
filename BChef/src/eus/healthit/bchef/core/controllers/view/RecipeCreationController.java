@@ -164,6 +164,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 						user.getId(), createRecipeView.getDescription(),
 						createRecipeView.getIngredientListModel().getList(),
 						createRecipeView.getStepListModel().getList(), createRecipeView.getImagePath());
+				recipe.setImage(createRecipeView.getImage());
 
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);

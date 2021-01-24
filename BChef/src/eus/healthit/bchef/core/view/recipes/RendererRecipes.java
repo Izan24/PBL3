@@ -89,7 +89,11 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// The Recipe info panel
 		// --------------------------------------------------------------------------
 
-		JLabel text = new JLabel(value.getDescription());
+		String description = value.getDescription();
+		if (description.length() > 50) {
+			description = value.getDescription().substring(0, 100) + "...";
+		}
+		JLabel text = new JLabel(description);
 
 		// --------------------------------------------------------------------------
 		// The bottom part of the panel
