@@ -11,7 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import eus.healthit.bchef.core.api.API;
 import eus.healthit.bchef.core.api.JSONCalls;
+import eus.healthit.bchef.core.assistant.implementations.BoardController;
 import eus.healthit.bchef.core.assistant.implementations.KitchenController;
 import eus.healthit.bchef.core.assistant.implementations.OutputController;
 import eus.healthit.bchef.core.assistant.implementations.RecipeAssistantController;
@@ -49,9 +51,9 @@ public class BChefController implements PropertyChangeListener {
 		connector = new PropertyChangeSupport(this);
 		inputController = AudioInputController.getInstance();
 		commandController = CommandController.getInstance();
-		//boardController = new BoardController();
-		//boardController.addPropertyChangeListener(this);
-		//boardController.updateKitchen(kitchenController.getKitchen());
+		boardController = new BoardController();
+		boardController.addPropertyChangeListener(this);
+		boardController.updateKitchen(kitchenController.getKitchen());
 	}
 
 	public static BChefController getInstance() {
@@ -111,10 +113,15 @@ public class BChefController implements PropertyChangeListener {
 
 		RecipeStep nextStep = recipeAssitantController.nextStep();
 		if (nextStep == null) {
+			System.out.println("nextStep = null");
+			if (recipeAssitantController.isFinished()) {
+				System.out.println("isFinished");
+				connector.firePropertyChange("FINISH_RECIPE", null, null);
+			}
 			errorMessage("MISSING_NEXTSTEP");
 			return;
 		}
-
+		connector.firePropertyChange("UPDATE_STEP", null, nextStep);
 		outputController.send(nextStep.getText());
 
 		Duration stepDuration = nextStep.getTime();
@@ -161,11 +168,14 @@ public class BChefController implements PropertyChangeListener {
 			errorMessage("MISSING_PREVSTEP");
 			return;
 		}
+		connector.firePropertyChange("UPDATE_STEP", null, prevStep);
 	}
 
 	public void startRecipe(Recipe recipe) {
+		System.out.println("starting receta");
 		recipeAssitantController.setRecipe(recipe);
-		recipeAssitantController.nextStep();
+		outputController.send(recipeAssitantController.getRecipe().getSteps().get(recipeAssitantController.getCurrentStep()).toString());
+		System.out.println("pues eso");
 		lastSearch = null;
 		lastSearchIngredients = null;
 		searchedRecipesIndex = 0;
@@ -176,17 +186,16 @@ public class BChefController implements PropertyChangeListener {
 		searchedRecipesIndex = 0;
 		if (searchedRecipes.size() == 0)
 			errorMessage("RECIPES_NOT_FOUND");
-		else
+		else {
 			nextRecipe();
+			nextFunction = new NextRecipeCall();
+		}
 	}
 
 	public void searchRecipe(String string) {
 		System.out.println("searcheando recipe normal");
 		OutputController.getInstance().send(TextBuilder.findingRecipeMessage(string));
-		System.out.println("pre json");
-		JSONCalls.search(string, searchedRecipesPage);
-		System.out.println("post json");
-		searchedRecipes = new ArrayList<>();
+		searchedRecipes = JSONCalls.search(string, searchedRecipesPage);
 		lastSearch = string;
 		lastSearchIngredients = null;
 		startSearchOffer();
@@ -221,7 +230,8 @@ public class BChefController implements PropertyChangeListener {
 		if (nextFunction != null)
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
-				startRecipe(searchedRecipes.get(searchedRecipesIndex));
+				System.out.println("si soy empezando");
+				startRecipe(searchedRecipes.get(searchedRecipesIndex - 1));
 				break;
 			default:
 				break;
@@ -278,7 +288,7 @@ public class BChefController implements PropertyChangeListener {
 				deletedItem = item;
 			}
 		}
-		
+
 		if (deletedItem == null)
 			outputController.send(TextBuilder.listItemNotFound(string));
 		else
@@ -351,6 +361,10 @@ public class BChefController implements PropertyChangeListener {
 	public void setUser(User user) {
 		this.user = user;
 		System.out.println("user set");
+	}
+
+	public void lumbra() {
+		outputController.send(API.lumbra());
 	}
 
 }

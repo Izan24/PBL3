@@ -26,6 +26,7 @@ import eus.healthit.bchef.core.app.ui.borders.RoundedBorder;
 import eus.healthit.bchef.core.app.ui.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 import eus.healthit.bchef.core.models.Recipe;
+import eus.healthit.bchef.core.models.User;
 
 public class CenterViewRecipeRating extends JPanel {
 
@@ -34,6 +35,8 @@ public class CenterViewRecipeRating extends JPanel {
 	Color bgColor = Color.white;
 
 	RecipeRatingController controller;
+	
+	Recipe recipe;
 
 	JButton rateButton, skipButton;
 
@@ -41,13 +44,13 @@ public class CenterViewRecipeRating extends JPanel {
 	JLabel imageLabel, titleLabel, logoLabel, halfStar, fullStar;
 	JPanel starPanel;
 
-	public CenterViewRecipeRating(CenterViewController centerController) {
+	public CenterViewRecipeRating(CenterViewController centerController, User user) {
 		super(new GridLayout());
 		this.setBackground(bgColor);
 
 		this.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-		controller = new RecipeRatingController(this, centerController);
+		controller = new RecipeRatingController(this, centerController, user);
 
 		initJLabels();
 		initJSliders();
@@ -261,6 +264,7 @@ public class CenterViewRecipeRating extends JPanel {
 	}
 
 	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 		updateView(recipe);
 	}
 
@@ -304,5 +308,13 @@ public class CenterViewRecipeRating extends JPanel {
 
 		this.repaint();
 		this.revalidate();
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public int getRating() {
+		return slider.getValue();
 	}
 }

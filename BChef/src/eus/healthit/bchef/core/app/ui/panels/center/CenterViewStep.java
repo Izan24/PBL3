@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -43,6 +44,7 @@ public class CenterViewStep extends JPanel {
 	JPanel southPanel;
 	JTextArea instruction;
 	JLabel imageLabel, titleLabel, logoLabel;
+	
 
 	public CenterViewStep(CenterViewController centerController, User user) {
 		super(new GridLayout());
@@ -245,14 +247,17 @@ public class CenterViewStep extends JPanel {
 		instruction.setText(step.getText());
 		imageLabel.setIcon(new ImageIcon(step.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 		titleLabel.setText("Paso N� " + step.getNum());
+	}
 
-//		try {
-//			if (step.getDuration().toMillis() != 0) {
-//				southPanel.add(new CustomTimer(step.getDuration(), textFont));
-//			}
-//		} catch (Exception e) {
-//			System.out.println("no tiene owo");
-//		}
+	public void addNewAlarm(CustomTimer alarm) {
+		southPanel.add(alarm);
+	}
+	
+	public void removeAlarm(List<CustomTimer> timers) {
+		southPanel.removeAll();
+		for(CustomTimer timer : timers) southPanel.add(timer);
+		southPanel.repaint();
+		southPanel.revalidate();
 	}
 
 }

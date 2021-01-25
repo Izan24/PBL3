@@ -39,6 +39,7 @@ public class CommandController {
 			BChefController.getInstance().searchRecipe(StringParser.deleteCommandWords(string, command));
 			break;
 		case SWITCH_KITCHEN:
+			//TODO: POWER OFF DIFERENTE PQ SIEMPRE ES VALUE 0
 		case POWER_OFF:
 			switchKitchen(string);
 			break;
@@ -74,6 +75,9 @@ public class CommandController {
 			break;
 		case NO:
 			BChefController.getInstance().cancellCall();
+			break;
+		case LUMBRA:
+			BChefController.getInstance().lumbra();
 			break;
 		case NUMBER:
 			//En desuso

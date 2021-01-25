@@ -13,6 +13,7 @@ public enum VoiceCommand {
 	POWER_OFF("Apagate", "Adios", "Desconecta", "Desconectate"),
 	YES("Si", "Afirmativo", "Correcto", "Bien", "Vale", "Ok", "Okay", "Dale"),
 	NO("No", "Negativo", "Que va", "Cancela", "Cancelar", "Calla", "Silencio", "Para"),
+	LUMBRA("Lumbra"),
 	NUMBER,
 	MISUNDERSTOOD;
 

@@ -2,6 +2,7 @@ package eus.healthit.bchef.core;
 
 import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.assistant.BChefController;
+import eus.healthit.bchef.core.assistant.implementations.input.AudioInputController;
 
 public class Principal {
 
@@ -30,9 +31,9 @@ public class Principal {
 //		String string = StringParser.stripSpaces("bchef buscame una receta de heiko moro");
 //		CommandController.getInstance().selectCommand(StringParser.parseCommand(string), string);
 
-//		AudioInputController inputController = AudioInputController.getInstance();
-//		inputController.start();
-//		inputController.startRecon();
+		AudioInputController inputController = AudioInputController.getInstance();
+		inputController.start();
+		inputController.startRecon();
 
 //		KitchenController controller = new KitchenController();
 //		controller.setFire(0, 0);

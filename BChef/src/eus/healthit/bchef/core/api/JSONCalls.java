@@ -264,4 +264,15 @@ public class JSONCalls {
 
 	}
 
+	public static boolean rateRecipe(int userId, UUID recipeUUID, int rating) {
+		JSONObject json = new JSONObject().put("id_user", userId).put("uuid_recipe", recipeUUID.toString())
+				.put("rating", rating);
+		JSONObject jsonRet = API.rate(json);
+		if (StatusCode.valueOf(jsonRet.getString("status")) == StatusCode.SUCCESSFUL) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

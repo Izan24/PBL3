@@ -5,6 +5,7 @@ import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewRecipe;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
@@ -42,6 +43,7 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 			Recipe recipe = centerViewRecipe.getRecipe();
 			System.out.println(recipe.toString());
 			centerController.setStepView(recipe);
+			BChefController.getInstance().startRecipe(recipe);
 			break;
 		}
 	}

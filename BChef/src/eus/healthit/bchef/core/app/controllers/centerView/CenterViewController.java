@@ -68,7 +68,7 @@ public class CenterViewController implements ActionListener {
 		stepView = new CenterViewStep(this, user);
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
-		recipeRatingView = new CenterViewRecipeRating(this);
+		recipeRatingView = new CenterViewRecipeRating(this, user);
 	}
 
 	public void setStartView() {
@@ -142,6 +142,10 @@ public class CenterViewController implements ActionListener {
 
 	public void setListView() {
 		principalView.changeCenterView(listView);
+	}
+
+	public void setBChefView() {
+		principalView.changeCenterView(bchefView);
 	}
 
 }

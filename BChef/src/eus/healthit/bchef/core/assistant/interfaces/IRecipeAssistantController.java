@@ -22,5 +22,7 @@ public interface IRecipeAssistantController {
 	public void finishRecipe();
 	
 	public int getCurrentStep();
+	
+	public boolean isFinished();
 
 }
