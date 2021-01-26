@@ -2,15 +2,20 @@ package eus.healthit.bchef.core.app.ui.components;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.Duration;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.KitchenAlarm;
 
-public class CustomTimer extends JLabel {
+public class CustomTimer extends JPanel {
 
 	public static final String COLON = ":";
 
@@ -20,32 +25,33 @@ public class CustomTimer extends JLabel {
 
 	KitchenAlarm alarm;
 
+	JLabel timerLabel, timerIcon;
+
 	public CustomTimer(KitchenAlarm alarm, Font font) {
-		super(durationToString(alarm.getResTime()));
+		super(new GridLayout());
 		this.alarm = alarm;
-		this.setFont(font);
-		this.setForeground(gray);
+		this.setBackground(Color.white);
+
+		initJLabels(font);
+
+		this.add(timerIcon);
+		this.add(timerLabel);
 	}
-//
-//	@Override
-//	public void propertyChange(PropertyChangeEvent evt) {
-//		Duration newDuration = ((KitchenAlarm) evt.getNewValue()).getResTime();
-//		String timeToShow = durationToString(newDuration);
-//		System.out.println("Pi: "+timeToShow);
-//		if (newDuration.getSeconds() <= 0) {
-//			this.setText(durationToString(Duration.ZERO));
-//			if (tick) {
-//				this.setForeground(red);
-//				tick = false;
-//			} else {
-//				this.setForeground(gray);
-//				tick = true;
-//			}
-//		} else {
-//			this.setText(timeToShow);
-//		}
-//
-//	}
+
+	private void initJLabels(Font font) {
+		timerLabel = new JLabel(durationToString(alarm.getResTime()));
+		timerLabel.setFont(font);
+		timerLabel.setForeground(gray);
+
+		timerIcon = new JLabel();
+		if (alarm.getUtil().equals(RecipeStepActions.OVEN)) {
+			timerIcon.setIcon(new ImageIcon("resources/menuIcons/oven.png"));
+		} else if (alarm.getUtil().equals(RecipeStepActions.STOVE)) {
+			timerIcon.setIcon(new ImageIcon("resources/menuIcons/stove.png"));
+		} else if (alarm.getUtil().equals(RecipeStepActions.TIMER)) {
+			timerIcon.setIcon(new ImageIcon("resources/menuIcons/timer.png"));
+		}
+	}
 
 	public static String durationToString(Duration duration) {
 		long seconds = duration.getSeconds();
@@ -59,7 +65,7 @@ public class CustomTimer extends JLabel {
 	}
 
 	public void updateTime(Duration duration) {
-		this.setText(durationToString(duration));
+		timerLabel.setText(durationToString(duration));
 	}
 
 }
