@@ -18,14 +18,14 @@ import javax.swing.JTextField;
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.DefaultTextController;
 import eus.healthit.bchef.core.app.controllers.DoubleClickListener;
-import eus.healthit.bchef.core.app.controllers.ShopListControllerAC;
 import eus.healthit.bchef.core.app.controllers.interfaces.IClickable;
+import eus.healthit.bchef.core.app.controllers.shoplist.ShopListController;
+import eus.healthit.bchef.core.app.controllers.shoplist.ShopListControllerAC;
 import eus.healthit.bchef.core.app.ui.borders.SearchBorder;
 import eus.healthit.bchef.core.app.ui.components.CustomScrollbarUI;
 import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 import eus.healthit.bchef.core.app.ui.items.ItemList;
 import eus.healthit.bchef.core.app.ui.items.ItemRenderer;
-import eus.healthit.bchef.core.assistant.implementations.ShopListController;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.User;
 

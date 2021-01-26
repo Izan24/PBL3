@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -125,7 +126,9 @@ public class BChefController implements PropertyChangeListener {
 		outputController.send(nextStep.getText());
 
 		Duration stepDuration = nextStep.getTime();
+		System.out.println("Duration: " + stepDuration);
 		if (stepDuration != null && stepDuration != Duration.ZERO) {
+			System.out.println("inside heuehehuehuheu");
 			switch (nextStep.getAction()) {
 			case OVEN:
 				nextFunction = new NewAlarmCall(KitchenUtil.OVEN, null, nextStep.getTime());
@@ -143,6 +146,7 @@ public class BChefController implements PropertyChangeListener {
 				break;
 			}
 		} else {
+			System.out.println("outside heuehheuehehuhu also");
 			switch (nextStep.getAction()) {
 			case OVEN:
 				outputController.send(TextBuilder.askKitchenSwitch(KitchenUtil.OVEN, nextStep.getValue()));
@@ -173,8 +177,9 @@ public class BChefController implements PropertyChangeListener {
 
 	public void startRecipe(Recipe recipe) {
 		System.out.println("starting receta");
+		connector.firePropertyChange("START_RECIPE", null, recipe);
 		recipeAssitantController.setRecipe(recipe);
-		outputController.send(recipeAssitantController.getRecipe().getSteps().get(recipeAssitantController.getCurrentStep()).toString());
+		outputController.send(recipeAssitantController.getCurrentStep().toString());
 		System.out.println("pues eso");
 		lastSearch = null;
 		lastSearchIngredients = null;
@@ -212,7 +217,7 @@ public class BChefController implements PropertyChangeListener {
 
 	public void nextRecipe() {
 		if (searchedRecipesIndex < searchedRecipes.size()) {
-			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(searchedRecipesIndex++)));
+			outputController.send(TextBuilder.recipeFoundMessage(searchedRecipes.get(searchedRecipesIndex)));
 		} else {
 			searchedRecipesPage++;
 			if (lastSearch != null) {
@@ -231,7 +236,7 @@ public class BChefController implements PropertyChangeListener {
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
 				System.out.println("si soy empezando");
-				startRecipe(searchedRecipes.get(searchedRecipesIndex - 1));
+				startRecipe(searchedRecipes.get(searchedRecipesIndex));
 				break;
 			default:
 				break;
@@ -244,6 +249,7 @@ public class BChefController implements PropertyChangeListener {
 		if (nextFunction != null) {
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
+				searchedRecipesIndex++;
 				nextFunction.executeCall();
 				break;
 			default:
@@ -270,11 +276,10 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void addToList(String string) {
-		System.out.println("entrado en func");
-		JSONCalls.shoplistAdd(new Item(string), user.getId());
-		System.out.println("salido de json");
+		Item item = new Item(string);
+		connector.firePropertyChange("LIST_ADD", null, item);
+		JSONCalls.shoplistAdd(item, user.getId());
 		OutputController.getInstance().send(TextBuilder.addedToList(string));
-		System.out.println("audios xd");
 	}
 
 	public void deleteFromList(String string) {
@@ -284,6 +289,7 @@ public class BChefController implements PropertyChangeListener {
 		for (Item item : user.getShopList()) {
 			Matcher matcher = pattern.matcher(item.getName().toLowerCase());
 			if (matcher.find()) {
+				connector.firePropertyChange("LIST_REMOVE", null, item);
 				JSONCalls.shoplistRemove(item);
 				deletedItem = item;
 			}
@@ -312,12 +318,14 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void startVoiceRecon() {
-		inputController.start();
+		if (!inputController.isAlive())
+			inputController.start();
 		inputController.startRecon();
 	}
 
 	public void stopVoiceRecon() {
-		inputController.stopRecon();
+		if (inputController.isAlive())
+			inputController.stopRecon();
 	}
 
 	public void resumeVoiceRecon() {
@@ -367,4 +375,15 @@ public class BChefController implements PropertyChangeListener {
 		outputController.send(API.lumbra());
 	}
 
+	public RecipeStep getCurrentStep() {
+		return recipeAssitantController.getCurrentStep();
+	}
+
+	public void sayTime() {
+		outputController.send(TextBuilder.timeMessage(LocalTime.now()));
+	}
+
+	public void sayWelcome() {
+		outputController.send(TextBuilder.thankMessage());
+	}
 }

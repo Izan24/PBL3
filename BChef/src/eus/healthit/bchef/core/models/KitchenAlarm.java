@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.PrimitiveIterator.OfDouble;
 
 import javax.swing.Timer;
 
@@ -73,5 +74,20 @@ public class KitchenAlarm implements ActionListener {
 	public Duration getResTime() {
 		return resTime;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)  return false;
+		if(!(obj instanceof KitchenAlarm)) return false;
+		KitchenAlarm alarm = (KitchenAlarm) obj;
+		if(alarm.hashCode() == this.hashCode()) return true;
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return ("" + util + utilIndex + time.toString() + startTime.toString()).hashCode();
+	}
+	
 
 }

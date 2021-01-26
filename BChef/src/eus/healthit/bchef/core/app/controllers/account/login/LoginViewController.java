@@ -12,6 +12,7 @@ import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.app.ui.dialogs.CreationErrorDialog;
 import eus.healthit.bchef.core.app.ui.panels.CreateAccountView;
 import eus.healthit.bchef.core.app.ui.panels.LoginView;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.User;
 
 public class LoginViewController implements IRoundButtonListener, KeyListener, ActionListener {
@@ -92,7 +93,7 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 					"El usuario o contras�a introducidos no son correctos.");
 
 		} else {
-//			BChefController.getInstance().setUser(user);
+			BChefController.getInstance().setUser(user);
 			windowFrameController.setAppView(user);
 
 		}

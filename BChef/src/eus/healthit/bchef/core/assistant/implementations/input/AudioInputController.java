@@ -17,6 +17,7 @@ import com.google.cloud.speech.v1.StreamingRecognizeRequest;
 import com.google.protobuf.ByteString;
 
 import eus.healthit.bchef.core.assistant.BChefController;
+import eus.healthit.bchef.core.assistant.implementations.OutputController;
 
 public class AudioInputController extends Thread {
 
@@ -71,6 +72,7 @@ public class AudioInputController extends Thread {
 
 	private void streamingMicRecognize() {
 		while (true) {
+			if(!OutputController.getInstance().isComplete()) continue;
 			TargetDataLine targetDataLine = null;
 			System.out.println("out again");
 			try (SpeechClient client = SpeechClient.create()) {
@@ -112,7 +114,8 @@ public class AudioInputController extends Thread {
 //			long startTime = System.currentTimeMillis();
 				// Audio Input Stream
 				AudioInputStream audio = new AudioInputStream(targetDataLine);
-				while (!broken) {
+				while (true) {
+					if(!OutputController.getInstance().isComplete()) break;
 //					if (OutputController.isComplete() && reconOn) {
 					byte[] data = new byte[6400];
 					audio.read(data);
@@ -139,12 +142,6 @@ public class AudioInputController extends Thread {
 					targetDataLine.close();
 					responseObserver.onComplete();
 				}
-			}
-			try {
-				this.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			broken = false;
 		}

@@ -25,6 +25,7 @@ import eus.healthit.bchef.core.app.ui.panels.center.CenterViewRecipeRating;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewShopList;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewVisitProfile;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
@@ -81,36 +82,48 @@ public class CenterViewController implements ActionListener {
 		switch (e.getActionCommand()) {
 		case CenterViewControllerAC.HOME:
 			principalView.changeCenterView(listView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.LIST:
 			principalView.changeCenterView(shopListView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.PROFILE:
 			profileView.updateView();
 			principalView.changeCenterView(profileView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.PROFILE_VISIT:
 			principalView.changeCenterView(visitProfile);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.BCHEF:
-			principalView.changeCenterView(bchefView);
+			RecipeStep step = BChefController.getInstance().getCurrentStep();
+			if(step != null) {
+				principalView.changeCenterView(stepView);
+			}
+			else principalView.changeCenterView(bchefView);
+			BChefController.getInstance().startVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.SETTINGS:
 			settingsView.updateView();
 			principalView.changeCenterView(settingsView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.CREATE_RECIPE:
 			principalView.changeCenterView(createRecipeView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 
 		case CenterViewControllerAC.RECIPE_STEP:
 			principalView.changeCenterView(stepView);
+			BChefController.getInstance().stopVoiceRecon();
 			break;
 		}
 	}
@@ -126,6 +139,7 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStepView(Recipe recipe) {
+		System.out.println("El recipe cambio a " + recipe);
 		stepView.setRecipe(recipe);
 		principalView.changeCenterView(stepView);
 	}

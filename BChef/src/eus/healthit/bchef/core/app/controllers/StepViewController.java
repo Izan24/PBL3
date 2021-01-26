@@ -12,6 +12,7 @@ import eus.healthit.bchef.core.app.ui.components.CustomTimer;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.KitchenAlarm;
+import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 
@@ -56,6 +57,9 @@ public class StepViewController implements PropertyChangeListener {
 		case "FINISH_RECIPE":
 			System.out.println("termino usted su recipe maestro");
 			recipeEnded();
+			break;
+		case "START_RECIPE":
+			centerController.setStepView((Recipe) evt.getNewValue());
 		default:
 			break;
 		}
@@ -80,7 +84,10 @@ public class StepViewController implements PropertyChangeListener {
 	}
 
 	private void removeAlarm(KitchenAlarm alarm) {
+		System.out.println("length antes de: " + alarms.size());
 		alarms.removeIf(x -> x.getAlarm().equals(alarm));
+		stepView.removeAlarm(alarms);
+		System.out.println("length despues de: " + alarms.size());
 	}
 
 	private void updateAlarm(KitchenAlarm alarm) {

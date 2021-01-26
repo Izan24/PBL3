@@ -11,35 +11,34 @@ import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.util.StringParser;
 
 public class CommandController {
-	
-	private static CommandController instance = new CommandController();
-	
-	//private BChefController BChefController.getInstance();
-	
-	//Variables para guardar el comando anterior
 
-	
+	private static CommandController instance = new CommandController();
+
+	// private BChefController BChefController.getInstance();
+
+	// Variables para guardar el comando anterior
+
 	private CommandController() {
-		//BChefController.getInstance() = BChefController.getInstance();
+		// BChefController.getInstance() = BChefController.getInstance();
 	}
-	
+
 	public static CommandController getInstance() {
 		return instance;
 	}
 
 	public boolean selectCommand(VoiceCommand command, String string) {
 		System.out.println("command: " + command);
-		//BChefController.getInstance().stopVoiceRecon();
+		// BChefController.getInstance().stopVoiceRecon();
 		switch (command) {
 		case SEARCH_INGREDIENT:
 			searchIngredient(StringParser.deleteCommandWords(string, command));
 			break;
 		case SEARCH_RECIPE:
-			//TODO: Queryes PETA
+			// TODO: Queryes PETA
 			BChefController.getInstance().searchRecipe(StringParser.deleteCommandWords(string, command));
 			break;
 		case SWITCH_KITCHEN:
-			//TODO: POWER OFF DIFERENTE PQ SIEMPRE ES VALUE 0
+			// TODO: POWER OFF DIFERENTE PQ SIEMPRE ES VALUE 0
 		case POWER_OFF:
 			switchKitchen(string);
 			break;
@@ -53,10 +52,10 @@ public class CommandController {
 			setAlarm(string);
 			break;
 		case LIST_ADD:
-			//TODO
+			// TODO
 			String txtString = "";
 			try {
-				txtString=StringParser.deleteCommandWords(string, command);
+				txtString = StringParser.deleteCommandWords(string, command);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 			}
@@ -64,8 +63,13 @@ public class CommandController {
 			BChefController.getInstance().addToList(txtString);
 			break;
 		case LIST_REMOVE:
-			//TODO
-			BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
+			// TODO
+			try {
+				BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		case LIST_READ:
 			BChefController.getInstance().readList();
@@ -76,19 +80,24 @@ public class CommandController {
 		case NO:
 			BChefController.getInstance().cancellCall();
 			break;
+		case TIME:
+			BChefController.getInstance().sayTime();
+			break;
+		case THANKS:
+			BChefController.getInstance().sayWelcome();
+			break;
 		case LUMBRA:
 			BChefController.getInstance().lumbra();
 			break;
 		case NUMBER:
-			//En desuso
+			// En desuso
 		default:
-			//BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+			BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 			break;
 		}
 //		BChefController.getInstance().resumeVoiceRecon();
 		return true;
 	}
-	
 
 	private void searchIngredient(String string) {
 		Set<String> ingredients = StringParser.parseIngredients(string);
@@ -96,44 +105,44 @@ public class CommandController {
 		System.out.println("Ingres: ");
 		ingredients.stream().forEach(System.out::println);
 	}
-	
+
 	private void switchKitchen(String string) {
 		KitchenUtil util = StringParser.parseKitchenUtil(string);
 		Integer value = null;
 		Integer index = null;
-		if(util != KitchenUtil.MISUNDERSTOOD) {
+		if (util != KitchenUtil.MISUNDERSTOOD) {
 			Integer[] nums = StringParser.parseInt(string);
-			for(int i : nums) System.out.println("num " + i);
-			if(nums.length == 0) {
+			for (int i : nums)
+			if (nums.length == 0) {
 				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 				return;
 			}
-			if(nums.length == 1) value = nums[0];
+			if (nums.length == 1)
+				value = nums[0];
 			else {
 				index = nums[0] - 1;
 				value = nums[1];
-				System.out.println("entre");
 			}
 			BChefController.getInstance().switchKitchen(util, index, value);
-		}
-		else BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
+		} else
+			BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 	}
-	
+
 	private void setAlarm(String string) {
 		KitchenUtil util = StringParser.parseKitchenUtil(string);
 		int index = 0;
-		if(util.equals(KitchenUtil.MISUNDERSTOOD)) {
+		if (util.equals(KitchenUtil.MISUNDERSTOOD)) {
 			util = null;
 			index = -1;
 		}
-		
+
 		Duration time = StringParser.parseTime(string);
-		if(time.isZero() || time.isNegative()) {
+		if (time.isZero() || time.isNegative()) {
 			BChefController.getInstance().errorMessage("INVALID_TIME");
 			return;
 		}
-		
-		BChefController.getInstance().setAlarm(util, index, time);	
+
+		BChefController.getInstance().setAlarm(util, index, time);
 	}
-		
+
 }

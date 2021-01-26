@@ -1,6 +1,9 @@
 package eus.healthit.bchef.core.util;
 
 import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -122,15 +125,16 @@ public class TextBuilder {
 		txt.append(((value > 0) ? rb.getString("kitchen_switch_2") : rb.getString("kitchen_switch_3")) + " ");
 		txt.append(util.getKeywords()[0]);
 		if (value != null && value >= 0)
-			txt.append(" " + (index + 1));
+			if (index != null)
+				txt.append(" " + (index + 1));
 		if (value > 0)
 			switch (util) {
 			case OVEN:
-				txt.append(" " + rb.getString("kitchen_switch_4") + " " + value + " " + rb.getString("kitchen_switch_5")
-						+ " ");
+				txt.append(
+						" " + rb.getString("kitchen_switch_4") + " " + value + " " + rb.getString("kitchen_switch_5"));
 				break;
 			case STOVE:
-				txt.append(" " + rb.getString("kitchen_swtich_6") + " " + value);
+				txt.append(" " + rb.getString("kitchen_switch_6") + " " + value);
 				break;
 			default:
 				break;
@@ -165,5 +169,13 @@ public class TextBuilder {
 			txt = txt + rb.getString("list_item_read_incomplete") + " " + String.join(", ", incomplete) + ".";
 		}
 		return (empty) ? rb.getString("list_item_read_empty") : txt;
+	}
+
+	public static String timeMessage(LocalTime time) {
+		return String.join(":", String.valueOf(time.getHour()), String.valueOf(time.getMinute()));
+	}
+
+	public static String thankMessage() {
+		return rb.getString("you_are_welcome");
 	}
 }

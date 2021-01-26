@@ -1,22 +1,26 @@
-package eus.healthit.bchef.core.assistant.implementations;
+package eus.healthit.bchef.core.app.controllers.shoplist;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import eus.healthit.bchef.core.api.JSONCalls;
-import eus.healthit.bchef.core.app.controllers.ShopListControllerAC;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.app.controllers.interfaces.IShopListController;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewShopList;
+import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.Item;
 
-public class ShopListController implements ActionListener, IShopListController, IRoundButtonListener {
+public class ShopListController
+		implements ActionListener, IShopListController, IRoundButtonListener, PropertyChangeListener {
 
 	CenterViewShopList shopListView;
 
 	static ShopListController obj = new ShopListController();
 
 	private ShopListController() {
+		BChefController.getInstance().addPropertyChangeListener(this);
 	}
 
 	public static ShopListController getShopListController() {
@@ -25,6 +29,7 @@ public class ShopListController implements ActionListener, IShopListController, 
 
 	public void setShopListView(CenterViewShopList shopListView) {
 		this.shopListView = shopListView;
+
 	}
 
 	@Override
@@ -74,5 +79,20 @@ public class ShopListController implements ActionListener, IShopListController, 
 		} else {
 			return true;
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		switch (evt.getPropertyName()) {
+		case "LIST_ADD":
+			shopListView.getListModel().addElement((Item) evt.getNewValue());
+			break;
+		case "LIST_REMOVE":
+			shopListView.getListModel().deleteElement((Item) evt.getNewValue());
+			break;
+		default:
+			break;
+		}
+
 	}
 }

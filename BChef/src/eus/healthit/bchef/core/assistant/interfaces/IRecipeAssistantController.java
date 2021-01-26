@@ -21,7 +21,9 @@ public interface IRecipeAssistantController {
 	
 	public void finishRecipe();
 	
-	public int getCurrentStep();
+	public int getCurrentStepCount();
+	
+	public RecipeStep getCurrentStep();
 	
 	public boolean isFinished();
 
