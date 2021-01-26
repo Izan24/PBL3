@@ -34,6 +34,7 @@ import javax.swing.SpinnerNumberModel;
 
 import eus.healthit.bchef.core.app.controllers.DefaultTextAreaController;
 import eus.healthit.bchef.core.app.controllers.DefaultTextController;
+import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.recipe.creation.RecipeCreationController;
 import eus.healthit.bchef.core.app.controllers.recipe.creation.RecipeCreationControllerAC;
 import eus.healthit.bchef.core.app.ui.WindowFrame;
@@ -97,7 +98,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	IngredientRenderer ingredientRenderer;
 	RecipeStepRenderer stepRenderer;
 
-	public CenterViewCreateRecipe(User user, WindowFrame window) {
+	public CenterViewCreateRecipe(User user, WindowFrame window, CenterViewController centerController) {
 		super(new GridLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 		this.setBackground(bgColor);
@@ -105,7 +106,7 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		this.user = user;
 
-		controller = new RecipeCreationController(this, window, user);
+		controller = new RecipeCreationController(this, window, user, centerController);
 
 		initButtons();
 		initJLabels();
@@ -934,13 +935,25 @@ public class CenterViewCreateRecipe extends JPanel {
 		image = null;
 		stepImage = null;
 
-		title.setText("");
-		description.setText("");
-		ingredient.setText("");
-		quantity.setText("");
-		instruction.setText("");
+		title.setText(TITLE_DEFAULT_TEXT);
+		title.setForeground(Color.gray);
+
+		description.setText(DESCRIPTION_DEFAULT_TEXT);
+		description.setForeground(Color.gray);
+
+		ingredient.setText(INGREDIENT_DEFAULT_TEXT);
+		ingredient.setForeground(Color.gray);
+
+		quantity.setText(QUANTITY_DEFAULT_TEXT);
+		quantity.setForeground(Color.gray);
+
+		instruction.setText(STEP_DEFAULT_TEXT);
+		instruction.setForeground(Color.gray);
 
 		ingredientModel.removeAllList();
 		stepModel.removeAllList();
+
+		this.repaint();
+		this.revalidate();
 	}
 }

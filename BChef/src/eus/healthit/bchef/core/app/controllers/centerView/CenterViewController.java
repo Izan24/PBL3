@@ -46,14 +46,12 @@ public class CenterViewController implements ActionListener {
 	CenterViewProfileSettings settingsView;
 	CenterViewRecipeRating recipeRatingView;
 
-	CenterView centerView;
 	User user;
 
-	public CenterViewController(PrincipalView principalView, CenterView centerView, User user,
-			WindowFrameController windowController, WindowFrame window) {
+	public CenterViewController(PrincipalView principalView, User user, WindowFrameController windowController,
+			WindowFrame window) {
 
 		this.principalView = principalView;
-		this.centerView = centerView;
 		this.user = user;
 
 		initViews(windowController, window);
@@ -65,7 +63,7 @@ public class CenterViewController implements ActionListener {
 		recipeView = new CenterViewRecipe(this, user);
 		bchefView = new CenterViewBchef();
 		shopListView = new CenterViewShopList(user);
-		createRecipeView = new CenterViewCreateRecipe(user, window);
+		createRecipeView = new CenterViewCreateRecipe(user, window, this);
 		stepView = new CenterViewStep(this, user);
 		visitProfile = new CenterViewVisitProfile(user, this);
 		settingsView = new CenterViewProfileSettings(user, windowController, window);
@@ -103,10 +101,10 @@ public class CenterViewController implements ActionListener {
 
 		case CenterViewControllerAC.BCHEF:
 			RecipeStep step = BChefController.getInstance().getCurrentStep();
-			if(step != null) {
+			if (step != null) {
 				principalView.changeCenterView(stepView);
-			}
-			else principalView.changeCenterView(bchefView);
+			} else
+				principalView.changeCenterView(bchefView);
 			BChefController.getInstance().startVoiceRecon();
 			break;
 

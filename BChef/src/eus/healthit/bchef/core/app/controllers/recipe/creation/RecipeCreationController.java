@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import eus.healthit.bchef.core.api.JSONCalls;
+import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.app.ui.dialogs.CreationErrorDialog;
@@ -35,15 +36,18 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
 	WindowFrame window;
+	CenterViewController centerController;
 	User user;
 
 	String oldIngredientName;
 	List<Ingredient> suggestionIngredientList;
 
-	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window, User user) {
+	public RecipeCreationController(CenterViewCreateRecipe createRecipeView, WindowFrame window, User user,
+			CenterViewController centerController) {
 		this.createRecipeView = createRecipeView;
 		this.window = window;
 		this.user = user;
+		this.centerController = centerController;
 
 		oldIngredientName = "";
 
@@ -168,9 +172,11 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
-				createRecipeView.resetAllFields();
+
 				new CreationErrorDialog(window, "Receta creada", true, "La receta se ha creado correctamente.");
-				
+				createRecipeView.resetAllFields();
+				centerController.setListView();
+
 			}
 			break;
 
@@ -284,7 +290,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		RecipeStep step = null;
 
 		step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
-				createRecipeView.getStepImage(), createRecipeView.getInstruction(), createRecipeView.getValue(), parseDuration());
+				createRecipeView.getStepImage(), createRecipeView.getInstruction(), createRecipeView.getValue(),
+				parseDuration());
 
 		step.setImagePath(createRecipeView.getStepImagePath());
 

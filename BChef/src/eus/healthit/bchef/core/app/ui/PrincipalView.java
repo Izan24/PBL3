@@ -26,7 +26,7 @@ public class PrincipalView extends JPanel {
 
 		centerView = new CenterView();
 
-		centerController = new CenterViewController(this, centerView, user, windowFrameController, window);
+		centerController = new CenterViewController(this, user, windowFrameController, window);
 		centerController.setStartView();
 
 		leftMenuView = new LeftMenuView(centerController);

@@ -51,6 +51,7 @@ public class IngredientList extends AbstractListModel<Ingredient> {
 	}
 
 	public void removeAllList() {
+//		list.removeAll(list);
 		list = new ArrayList<>();
 	}
 }

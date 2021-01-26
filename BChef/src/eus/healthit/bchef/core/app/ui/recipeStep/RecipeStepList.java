@@ -50,6 +50,7 @@ public class RecipeStepList extends AbstractListModel<RecipeStep> {
 	}
 
 	public void removeAllList() {
+//		list.removeAll(list);
 		list = new ArrayList<>();
 	}
 }
