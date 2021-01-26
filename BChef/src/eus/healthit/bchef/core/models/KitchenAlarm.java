@@ -28,13 +28,12 @@ public class KitchenAlarm implements ActionListener {
 	Timer timer;
 	
 
-	public KitchenAlarm(KitchenUtil util, int utilId, Duration time, PropertyChangeListener listener) {
+	public KitchenAlarm(KitchenUtil util, int utilId, Duration time) {
 		this.util = util;
 		this.utilIndex = utilId;
 		this.time = time;
 		this.timer = null;
 		connector = new PropertyChangeSupport(this);
-		// connector.addPropertyChangeListener(listener);
 		connector.addPropertyChangeListener(BChefController.getInstance());
 		startTime = null;
 		endTime = null;

@@ -20,15 +20,15 @@ public class TextBuilder {
 		if (util != null) {
 			texto = texto + rb.getString("new_alarm_2") + " " + util.getKeywords()[0];
 			if (index != null && index > 0)
-				texto = texto + " " + index;
+				texto = texto + " " + (index + 1);
 		}
 		return texto;
 	}
 
 	public static String alarmDeactivateMessage(KitchenUtil util, Integer index) {
 		String texto = rb.getString("alarm_deactivate_1") + " " + util.getKeywords()[0];
-		if (index != null && index != -1) {
-			texto = texto + " " + index;
+		if (index != null) {
+			texto = texto + " " + (index + 1);
 		}
 		texto = texto + "?";
 		return texto;
@@ -85,9 +85,10 @@ public class TextBuilder {
 			txt = txt + " " + rb.getString("ask_alarm_6");
 		}
 
-		if (time != null && time.isZero())
-			txt = txt + durationToString(time) + "?";
+		if (time != null && !time.isZero())
+			txt = txt + durationToString(time);
 
+		txt = txt + "?";
 		return StringParser.stripSpaces(txt);
 	}
 

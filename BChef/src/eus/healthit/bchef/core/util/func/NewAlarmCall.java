@@ -21,6 +21,7 @@ public class NewAlarmCall implements FunctionCall {
 	
 	@Override
 	public void executeCall() {
+		System.out.println("executing alarma" + util+index+time);
 		BChefController.getInstance().setAlarm(util, index, time);;
 	}
 
