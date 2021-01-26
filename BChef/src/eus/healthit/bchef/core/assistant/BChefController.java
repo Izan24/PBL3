@@ -242,9 +242,11 @@ public class BChefController implements PropertyChangeListener {
 			switch (nextFunction.getId()) {
 			case NextRecipeCall.ID_STRING:
 				startRecipe(searchedRecipes.get(searchedRecipesIndex));
+				nextFunction = null;
 				break;
 			default:
 				nextFunction.executeCall();
+				nextFunction = null;
 				break;
 			}
 		else
@@ -259,9 +261,9 @@ public class BChefController implements PropertyChangeListener {
 				nextFunction.executeCall();
 				break;
 			default:
+				nextFunction = null;
 				break;
 			}
-			nextFunction = null;
 		} else
 			errorMessage("MISSUNDERSTOOD");
 	}
