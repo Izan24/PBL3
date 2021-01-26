@@ -168,6 +168,9 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
+				createRecipeView.resetAllFields();
+				new CreationErrorDialog(window, "Receta creada", true, "La receta se ha creado correctamente.");
+				
 			}
 			break;
 
@@ -281,7 +284,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		RecipeStep step = null;
 
 		step = new RecipeStep(createRecipeView.getAction(), createRecipeView.getValue(),
-				createRecipeView.getStepImage(), createRecipeView.getInstruction(), createRecipeView.getValue());
+				createRecipeView.getStepImage(), createRecipeView.getInstruction(), createRecipeView.getValue(), parseDuration());
 
 		step.setImagePath(createRecipeView.getStepImagePath());
 

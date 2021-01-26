@@ -25,6 +25,7 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public RecipeStep nextStep() {
+		System.out.println("---------------------------ASSISTANT CONTROLLER -----------------------");
 		if (recipe == null)
 			return null;
 		List<RecipeStep> steps = recipe.getSteps();
@@ -41,8 +42,9 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public RecipeStep prevStep() {
-		List<RecipeStep> steps= recipe.getSteps();
-		if(--currentStepCount > steps.size()) return null;
+		List<RecipeStep> steps = recipe.getSteps();
+		if (--currentStepCount > steps.size())
+			return null;
 		return steps.get(currentStepCount);
 	}
 
@@ -70,8 +72,14 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public RecipeStep getCurrentStep() {
-		if (recipe == null)
+		if (recipe == null) {
 			return null;
+		}
+		System.out.println("RECETA COMPLETA: ");
+		for(RecipeStep step : recipe.getSteps()) {
+			System.out.println(step.toString());
+		}
+		System.out.println("CURRENTSTEPCOUNT: " + currentStepCount);
 		return recipe.getSteps().get(currentStepCount);
 	}
 

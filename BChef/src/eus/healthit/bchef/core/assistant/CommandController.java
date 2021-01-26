@@ -47,6 +47,7 @@ public class CommandController {
 			break;
 		case RECIPE_NEXT:
 			BChefController.getInstance().nextStep();
+			System.out.println("SWITCH");
 			break;
 		case ALARM:
 			setAlarm(string);

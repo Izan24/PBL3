@@ -107,6 +107,7 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void nextStep() {
+		System.out.println("next ->>>>>>>>>>>>>>>>> step");
 		if (recipeAssitantController.getRecipe() == null) {
 			errorMessage("MISSING_RECIPE");
 			return;
@@ -116,7 +117,6 @@ public class BChefController implements PropertyChangeListener {
 		if (nextStep == null) {
 			System.out.println("nextStep = null");
 			if (recipeAssitantController.isFinished()) {
-				System.out.println("isFinished");
 				connector.firePropertyChange("FINISH_RECIPE", null, null);
 			}
 			errorMessage("MISSING_NEXTSTEP");
@@ -125,7 +125,7 @@ public class BChefController implements PropertyChangeListener {
 		connector.firePropertyChange("UPDATE_STEP", null, nextStep);
 		outputController.send(nextStep.getText());
 
-		Duration stepDuration = nextStep.getTime();
+		Duration stepDuration = nextStep.getDuration();
 		System.out.println("Duration: " + stepDuration);
 		if (stepDuration != null && stepDuration != Duration.ZERO) {
 			System.out.println("inside heuehehuehuheu");
@@ -161,6 +161,10 @@ public class BChefController implements PropertyChangeListener {
 		}
 	}
 
+	public RecipeStep getCurrentStep() {
+		return recipeAssitantController.getCurrentStep();
+	}
+
 	public void prevStep() {
 		if (recipeAssitantController.getRecipe() == null) {
 			errorMessage("MISSING_RECIPE");
@@ -176,11 +180,11 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void startRecipe(Recipe recipe) {
-		System.out.println("starting receta");
-		connector.firePropertyChange("START_RECIPE", null, recipe);
 		recipeAssitantController.setRecipe(recipe);
+		System.out.println("step: " + recipeAssitantController.getCurrentStep());
+		connector.firePropertyChange("START_RECIPE", null, recipe);
+		System.out.println("///////////////////////////////////////////STARTRECIPE BCHEFCONTROLLER ///////////////////////////");
 		outputController.send(recipeAssitantController.getCurrentStep().toString());
-		System.out.println("pues eso");
 		lastSearch = null;
 		lastSearchIngredients = null;
 		searchedRecipesIndex = 0;
@@ -208,8 +212,7 @@ public class BChefController implements PropertyChangeListener {
 
 	public void searchRecipeByIngredient(Set<String> ingredients) {
 		outputController.send(TextBuilder.findingRecipeByIngredientMessage(ingredients));
-		// TODO: Query
-		searchedRecipes = new ArrayList<>();
+		searchedRecipes = JSONCalls.searchByIngredient(ingredients);
 		lastSearchIngredients = ingredients;
 		lastSearch = null;
 		startSearchOffer();
@@ -373,10 +376,6 @@ public class BChefController implements PropertyChangeListener {
 
 	public void lumbra() {
 		outputController.send(API.lumbra());
-	}
-
-	public RecipeStep getCurrentStep() {
-		return recipeAssitantController.getCurrentStep();
 	}
 
 	public void sayTime() {

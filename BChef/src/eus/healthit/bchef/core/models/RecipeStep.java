@@ -16,22 +16,25 @@ public class RecipeStep {
 	Duration time;
 	String imagePath;
 
-	public RecipeStep(Integer id, RecipeStepActions action, int value, Image image, String text, int num) {
+	public RecipeStep(Integer id, RecipeStepActions action, int value, Image image, String text, int num, Duration time) {
 		this.id = id;
 		this.action = action;
 		this.value = value;
 		this.image = image;
 		this.text = text;
 		this.num = num;
+		this.time = time;
 	}
 
-	public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num) {
+
+	public RecipeStep(RecipeStepActions action, int value, Image image, String text, int num, Duration time) {
 		this.id = null;
 		this.action = action;
 		this.value = value;
 		this.image = image;
 		this.text = text;
 		this.num = num;
+		this.time = time;
 	}
 
 	public RecipeStep(RecipeStepActions action, int value, Image image, String text) {
@@ -50,6 +53,7 @@ public class RecipeStep {
 		this.text = text;
 		this.num = num;
 	}
+
 
 	public Duration getDuration() {
 		return time;

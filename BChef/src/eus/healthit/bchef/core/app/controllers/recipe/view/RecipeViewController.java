@@ -41,12 +41,14 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 //			System.out.println("Start recipe");
 //			System.out.println(centerViewRecipe.getRecipe().toString());
 			Recipe recipe = centerViewRecipe.getRecipe();
-			System.out.println(recipe.toString());
+			//System.out.println(recipe.toString());
 			centerController.setStepView(recipe);
 			System.out.println("action performed START");
 			BChefController controller = BChefController.getInstance();
-			controller.startRecipe(recipe);
 			controller.startVoiceRecon();
+			System.out.println("entrando en  ----------------------->");
+			controller.startRecipe(recipe);
+			System.out.println("<---------------------------- saliendo de");
 			
 			break;
 		}

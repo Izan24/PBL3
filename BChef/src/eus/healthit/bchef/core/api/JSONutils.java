@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -145,9 +147,9 @@ public class JSONutils {
 			int value = step.getInt("value");
 			Image image = ImageRepository.decodeImage(step.getString("img"));
 			String text = step.getString("txt");
-			System.out.println("JSONUTILS: "+text);
 			int num = step.getInt("num");
-			stepList.add(new RecipeStep(idS, recipeS, value, image, text, num));
+			Duration time = Duration.ofMillis(step.getLong("duration"));
+			stepList.add(new RecipeStep(idS, recipeS, value, image, text, num, time));
 		}
 		
 		
@@ -163,7 +165,7 @@ public class JSONutils {
 			JSONObject ste = new JSONObject();
 			ste.put("action", step.getAction()).put("value", step.getValue())
 					.put("image", ImageRepository.encodeImage(step.getImagePath())).put("text", step.getText())
-					.put("num", step.getNum());
+					.put("num", step.getNum()).put("duration", step.getTime().toMillis());
 			JSONlist.add(ste);
 		}
 
