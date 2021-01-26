@@ -11,7 +11,7 @@ public class KitchenSwitchCall implements FunctionCall {
 	int index;
 	int value;
 	
-	public KitchenSwitchCall(KitchenUtil util, int index, int value) {
+	public KitchenSwitchCall(KitchenUtil util, Integer index, int value) {
 		this.util = util;
 		this.index = index;
 		this.value = value;

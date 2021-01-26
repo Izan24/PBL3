@@ -17,7 +17,7 @@ public interface IRecipeAssistantController {
 	
 	public void setRecipe(Recipe recipe);
 	
-	public KitchenAlarm setAlarm(KitchenUtil util, int index, Duration time);
+	public KitchenAlarm setAlarm(KitchenUtil util, Integer index, Duration time);
 	
 	public void finishRecipe();
 	

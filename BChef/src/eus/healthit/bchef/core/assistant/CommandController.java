@@ -67,8 +67,8 @@ public class CommandController {
 			// TODO
 			try {
 				BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
-				
-			} catch(Exception e) {
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
@@ -113,7 +113,6 @@ public class CommandController {
 		Integer index = null;
 		if (util != KitchenUtil.MISUNDERSTOOD) {
 			Integer[] nums = StringParser.parseInt(string);
-			for (int i : nums)
 			if (nums.length == 0) {
 				BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 				return;

@@ -56,9 +56,10 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 	}
 
 	@Override
-	public KitchenAlarm setAlarm(KitchenUtil util, int index, Duration time) {
+	public KitchenAlarm setAlarm(KitchenUtil util, Integer index, Duration time) {
 		// TODO: Listener panel
-		KitchenAlarm alarm = new KitchenAlarm(util, index, time, BChefController.getInstance());
+		if(index == null) index = 0;
+		KitchenAlarm alarm = new KitchenAlarm(util, index, time);
 		alarms.add(alarm);
 		alarm.start();
 		return alarm;
@@ -75,11 +76,6 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 		if (recipe == null) {
 			return null;
 		}
-		System.out.println("RECETA COMPLETA: ");
-		for(RecipeStep step : recipe.getSteps()) {
-			System.out.println(step.toString());
-		}
-		System.out.println("CURRENTSTEPCOUNT: " + currentStepCount);
 		return recipe.getSteps().get(currentStepCount);
 	}
 
