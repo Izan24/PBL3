@@ -16,7 +16,7 @@ public class RecipeRatingController implements ChangeListener, IRoundButtonListe
 
 	CenterViewRecipeRating ratingView;
 	CenterViewController centerController;
-	
+
 	User user;
 
 	public RecipeRatingController(CenterViewRecipeRating ratingView, CenterViewController centerController, User user) {
@@ -29,8 +29,6 @@ public class RecipeRatingController implements ChangeListener, IRoundButtonListe
 	public void stateChanged(ChangeEvent e) {
 		JSlider slider = (JSlider) e.getSource();
 		ratingView.setStarView(slider.getValue());
-		System.out.println(slider.getValue());
-
 	}
 
 	@Override
@@ -39,10 +37,8 @@ public class RecipeRatingController implements ChangeListener, IRoundButtonListe
 		case RecipeRatingControllerAC.SUBMIT_RATING:
 			JSONCalls.rateRecipe(user.getId(), ratingView.getRecipe().getUUID(), ratingView.getRating());
 			centerController.setBChefView();
-			System.out.println("Rated");
 			break;
 		case RecipeRatingControllerAC.SKIP_RATING:
-			System.out.println("rating skipped");
 			centerController.setBChefView();
 			break;
 
