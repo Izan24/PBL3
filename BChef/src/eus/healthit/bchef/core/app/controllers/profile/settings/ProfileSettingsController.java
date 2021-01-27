@@ -2,17 +2,14 @@ package eus.healthit.bchef.core.app.controllers.profile.settings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.Printable;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import eus.healthit.bchef.core.api.ImageRepository;
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.account.register.CreateAccountControllerAC;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
@@ -57,7 +54,6 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				file = new FileChooser();
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			} catch (Exception e) {
-				System.out.println("Windows lookAndFeel error");
 			}
 			try {
 				try {
@@ -74,7 +70,6 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 
 		case ProfileSettingsControllerAC.SAVE_CHANGES:
 			if (verifyParameters()) {
-				System.out.println("Put del nuevo user");
 				user.setName(settingsView.getName());
 				user.setSurname(settingsView.getSurname());
 				user.setProfilePic(settingsView.getImage());

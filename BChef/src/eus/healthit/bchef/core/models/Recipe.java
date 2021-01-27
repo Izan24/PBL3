@@ -10,7 +10,7 @@ public class Recipe {
 	String name, author;
 	int authorID;
 	String description;
-	int rating; // 0 to 10 in 5 stars
+	int rating;
 	Timestamp publishDate;
 	String imagePath;
 	List<Ingredient> ingredients;
@@ -23,9 +23,7 @@ public class Recipe {
 			List<Ingredient> ingredients, List<RecipeStep> steps, Image image) {
 		this.uuid = uuid;
 		this.name = name;
-//		this.description = description;
 		this.author = author;
-		// this.fullAuthor = fullAuthor;
 		this.rating = rating;
 		this.publishDate = publishDate;
 		this.ingredients = ingredients;

@@ -49,7 +49,6 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 			break;
 
 		case CreateAccountControllerAC.GOTO_LOGIN:
-//			createAccountView.resetAllFields();
 			windowFrameController.setLoginView();
 			break;
 		}
@@ -106,7 +105,6 @@ public class CreateAccountController implements IRoundButtonListener, ActionList
 	}
 
 	private boolean checkUsername(String username) {
-		System.out.println(JSONCalls.checkUser(username));
 		return JSONCalls.checkUser(username);
 	}
 

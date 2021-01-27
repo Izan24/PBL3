@@ -7,9 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -26,7 +24,6 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 	public Component getListCellRendererComponent(JList<? extends Recipe> list, Recipe value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
-//		Color bgColor = new Color(244, 249, 255);
 		Color bgColor = Color.white;
 		titleFont = new Font("Segoe UI", Font.BOLD, 22);
 		normal = new Font("Segoe UI", Font.PLAIN, 14);
@@ -42,10 +39,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// --------------------------------------------------------------------------
 		// The panel
 		// --------------------------------------------------------------------------
-
-//		panelList.setBorder(
-//				BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
-//						BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
 		panelList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		panelList.setOpaque(true);
 

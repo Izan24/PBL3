@@ -38,6 +38,8 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewProfileSettings extends JPanel {
 
+	private static final long serialVersionUID = 1138503141486221824L;
+
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	String DEFAULT_NAME_TEXT = rb.getString("name_text");

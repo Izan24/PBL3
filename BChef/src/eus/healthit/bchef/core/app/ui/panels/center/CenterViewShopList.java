@@ -32,6 +32,8 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewShopList extends JPanel implements IClickable {
 
+	private static final long serialVersionUID = 8838096527575742391L;
+
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	String DEFAULT_ADD_ELEMENT_TEXT = rb.getString("add_element_text");

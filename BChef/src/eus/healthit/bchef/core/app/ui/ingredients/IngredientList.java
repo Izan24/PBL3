@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
-import javax.swing.ImageIcon;
 
 import eus.healthit.bchef.core.models.Ingredient;
-import eus.healthit.bchef.core.models.Recipe;
-import eus.healthit.bchef.core.models.RecipeStep;
 
 public class IngredientList extends AbstractListModel<Ingredient> {
 
+	private static final long serialVersionUID = -8570767743467757165L;
 	List<Ingredient> list;
 
 	public IngredientList() {

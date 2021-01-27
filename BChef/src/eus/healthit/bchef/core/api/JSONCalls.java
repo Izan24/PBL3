@@ -2,7 +2,6 @@ package eus.healthit.bchef.core.api;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,6 @@ import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Item;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
-import eus.healthit.bchef.core.util.func.NewAlarmCall;
 
 public class JSONCalls {
 	public static StatusCode registerUser(String name, String surname, String email, String username, String password,
@@ -47,7 +45,6 @@ public class JSONCalls {
 
 	public static StatusCode addRecipe(Recipe recipe) {
 		JSONObject json = new JSONObject();
-		System.out.println(recipe.getDescription());
 		json.put("uuid", recipe.getUUID()).put("name", recipe.getName()).put("author", recipe.getAuthorID())
 				.put("description", recipe.getDescription()).put("rating", recipe.getRating())
 				.put("publish_date", Timestamp.valueOf(LocalDate.now().atStartOfDay()))

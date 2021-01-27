@@ -2,15 +2,12 @@ package eus.healthit.bchef.core.app.controllers;
 
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.interfaces.IClickable;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewList;
-import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.Recipe;
 
 public class CenterListController implements IClickable, AdjustmentListener {
@@ -20,7 +17,7 @@ public class CenterListController implements IClickable, AdjustmentListener {
 	static int actualPage;
 
 	public CenterListController(CenterViewList viewList, CenterViewController centerController) {
-		this.viewList = viewList;
+		CenterListController.viewList = viewList;
 		this.centerController = centerController;
 		actualPage = 0;
 	}

@@ -7,27 +7,15 @@ import javax.swing.AbstractListModel;
 
 import eus.healthit.bchef.core.models.Item;
 
-public class ItemList extends AbstractListModel<Item>{
+public class ItemList extends AbstractListModel<Item> {
 
+	private static final long serialVersionUID = 1132372113184744871L;
 	List<Item> list;
 
-	
-	/*
-	 * EN EL CONSTRUCTOR LE TENEMOS QUE PASAR LA LISTA DEL USUARIO O SI ES NULL CREAR UNA Y A�ADIRSELA AL USUARIO Y A ESTO
-	 */
 	public ItemList() {
 		list = new ArrayList<>();
-//		initList();
 	}
 
-//	private void initList() {
-//		list.add(new Item("Azucar"));
-//		list.add(new Item("Pan"));
-//		list.add(new Item("Sal"));
-//		list.add(new Item("Porvoraaah"));
-//		list.add(new Item("Arroz"));
-//	}
-	
 	public void setList(List<Item> list) {
 		this.list = list;
 	}

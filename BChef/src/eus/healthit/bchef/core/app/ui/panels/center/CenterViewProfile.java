@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,6 +32,8 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewProfile extends JPanel implements IClickable {
+
+	private static final long serialVersionUID = -2374838402080666927L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
@@ -57,7 +58,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	RecipesList savedModel, uploadedModel;
 	RendererRecipes renderer;
 
-//	Color bgColor = new Color(244, 249, 255);
 	Color bgColor = Color.white;
 
 	Color textColor = new Color(129, 145, 160);
@@ -340,6 +340,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	public void openSelectedRecipe() {
 		JViewport viewport = scrollPane.getViewport();
+		@SuppressWarnings("unchecked")
 		JList<Recipe> tmp = (JList<Recipe>) viewport.getView();
 
 		try {

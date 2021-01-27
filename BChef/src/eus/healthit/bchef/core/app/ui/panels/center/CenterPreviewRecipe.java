@@ -28,6 +28,7 @@ import eus.healthit.bchef.core.util.TextFormatter;
 
 public class CenterPreviewRecipe extends JPanel {
 
+	private static final long serialVersionUID = 7192275620000066495L;
 	Recipe recipe;
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
@@ -256,7 +257,6 @@ public class CenterPreviewRecipe extends JPanel {
 				ingredientPanel.add(tmpIngPanel);
 			}
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
 		}
 	}
 
@@ -280,15 +280,12 @@ public class CenterPreviewRecipe extends JPanel {
 				JPanel tmpStepPanel = new JPanel(new GridBagLayout());
 				tmpStepPanel.setBackground(bgColor);
 
-				// JLabel stepText = new JLabel(TextFormatter.format(step.getText(), 40));
-
 				JTextPane stepText = new JTextPane();
 				stepText.setText(TextFormatter.format(step.getText(), 40));
 				stepText.setForeground(Color.DARK_GRAY);
 				stepText.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
 				stepText.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 				stepText.setBorder(BorderFactory.createEmptyBorder());
-				// stepText.setFocusable(false);
 				stepText.setEditable(false);
 				tmpStepPanel.add(stepText);
 

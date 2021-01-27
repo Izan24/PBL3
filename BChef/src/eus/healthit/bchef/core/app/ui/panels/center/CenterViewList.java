@@ -18,6 +18,8 @@ import eus.healthit.bchef.core.models.Recipe;
 
 public class CenterViewList extends JScrollPane {
 
+	private static final long serialVersionUID = 1268430398412911715L;
+
 	CenterListController controller;
 
 	JList<Recipe> recipes;

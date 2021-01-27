@@ -26,10 +26,12 @@ import javax.swing.event.DocumentListener;
  * completed word and consider itself "finished," and if Enter is pressed a
  * second time, then it will fire a KeyEvent normally.
  * 
- * @author Brandon Buck
+ * @author Brandon Bucket
  * @version 1.0
  */
 public class AutoCompleteTextField extends JTextField implements KeyListener, DocumentListener {
+
+	private static final long serialVersionUID = 3986446562664315334L;
 	private List<String> possibilities;
 	private int currentGuess;
 	private Color incompleteColor;

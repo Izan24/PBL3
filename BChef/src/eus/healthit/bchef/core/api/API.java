@@ -41,10 +41,10 @@ public class API {
 			return null;
 		}
 	}
-	
+
 	public static String lumbra() {
 		return APIutils.getRequest("/api/lumbra").getString("lumbra");
-				
+
 	}
 
 	public static JSONObject getPage(int i) {

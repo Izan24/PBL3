@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,7 +12,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
 
 import eus.healthit.bchef.core.app.controllers.DoubleClickListener;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
@@ -38,6 +35,8 @@ import eus.healthit.bchef.core.models.User;
 import eus.healthit.bchef.core.util.TextFormatter;
 
 public class CenterViewRecipe extends JPanel {
+
+	private static final long serialVersionUID = -3365102984794740342L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 

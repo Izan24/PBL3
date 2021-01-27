@@ -55,7 +55,6 @@ public class ShopListController
 			if (checkItem()) {
 				Item newItem = new Item(shopListView.getNewElementname());
 				newItem.setID(JSONCalls.shoplistAdd(newItem, shopListView.getUserID()));
-				System.out.println(newItem.getId());
 				shopListView.getListModel().addElement(newItem);
 				shopListView.resetText();
 			}

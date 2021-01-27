@@ -3,7 +3,6 @@ package eus.healthit.bchef.core.app.ui.panels.center;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
@@ -11,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CenterViewBchef extends JPanel {
+
+	private static final long serialVersionUID = 1699522822652412636L;
 
 	public CenterViewBchef() {
 		super(new GridLayout());

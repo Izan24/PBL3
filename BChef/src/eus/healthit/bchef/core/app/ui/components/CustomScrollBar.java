@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JScrollBar;
 
 public class CustomScrollBar extends JScrollBar implements MouseListener {
-
+	private static final long serialVersionUID = -1358620585245872951L;
 	boolean expanded;
 	boolean pressed;
 	boolean ontop;
@@ -34,16 +34,12 @@ public class CustomScrollBar extends JScrollBar implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		this.expanded = true;
 		this.ontop = true;
-		// this.setPreferredSize(new Dimension(8,0));
-
 	}
 
 	@Override

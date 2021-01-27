@@ -2,19 +2,10 @@ package eus.healthit.bchef.core.app.controllers.centerView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
 
 import eus.healthit.bchef.core.app.controllers.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.app.ui.PrincipalView;
 import eus.healthit.bchef.core.app.ui.WindowFrame;
-import eus.healthit.bchef.core.app.ui.panels.center.CenterView;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewBchef;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewCreateRecipe;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewList;
@@ -26,7 +17,6 @@ import eus.healthit.bchef.core.app.ui.panels.center.CenterViewShopList;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewStep;
 import eus.healthit.bchef.core.app.ui.panels.center.CenterViewVisitProfile;
 import eus.healthit.bchef.core.assistant.BChefController;
-import eus.healthit.bchef.core.enums.RecipeStepActions;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
@@ -76,7 +66,6 @@ public class CenterViewController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
 		switch (e.getActionCommand()) {
 		case CenterViewControllerAC.HOME:
 			principalView.changeCenterView(listView);

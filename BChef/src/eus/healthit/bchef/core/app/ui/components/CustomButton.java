@@ -10,6 +10,9 @@ import javax.swing.JButton;
 
 public class CustomButton extends JButton {
 
+
+	private static final long serialVersionUID = 6765253974090856039L;
+
 	public static final int LEFT_ALIGN = 0;
 
 	public static final int CENTER_ALIGN = 1;

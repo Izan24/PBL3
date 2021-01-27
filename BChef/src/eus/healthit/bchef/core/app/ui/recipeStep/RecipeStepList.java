@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
-import javax.swing.ImageIcon;
 
-import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 
 public class RecipeStepList extends AbstractListModel<RecipeStep> {
 
+	private static final long serialVersionUID = -7471192142375377250L;
 	List<RecipeStep> list;
 
 	public RecipeStepList() {
@@ -50,7 +49,6 @@ public class RecipeStepList extends AbstractListModel<RecipeStep> {
 	}
 
 	public void removeAllList() {
-//		list.removeAll(list);
 		list = new ArrayList<>();
 	}
 }

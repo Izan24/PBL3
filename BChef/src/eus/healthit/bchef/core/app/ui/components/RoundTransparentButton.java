@@ -15,14 +15,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import eus.healthit.bchef.core.app.ui.borders.TransparentRoundBackgroundBorder;
 
 public class RoundTransparentButton extends BasicButtonUI implements MouseListener, KeyListener {
-
-	
 
 	private Border border;
 
@@ -79,23 +76,21 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		g2.setColor(b.getFontColor());
 		String caption = b.getFrontText();
 
-		int dimy = ((int)d.getHeight() + fm.getHeight() / 2) / 2;
+		int dimy = ((int) d.getHeight() + fm.getHeight() / 2) / 2;
 		int dimXStr;
 		int dimXImg;
-		
+
 		Image image = b.getImage();
 		if (b.getAlign() == CustomButton.LEFT_ALIGN) {
 			dimXImg = 10;
-			dimXStr = c.getX()+45;
-		}
-		else {
-			dimXStr = (c.getWidth()/2 + fm.stringWidth(caption))/2;
-			dimXImg = dimXStr - (fm.stringWidth(caption)/2) - 20 ;
+			dimXStr = c.getX() + 45;
+		} else {
+			dimXStr = (c.getWidth() / 2 + fm.stringWidth(caption)) / 2;
+			dimXImg = dimXStr - (fm.stringWidth(caption) / 2) - 20;
 		}
 		g2.drawImage(image.getScaledInstance(24, 24, Image.SCALE_SMOOTH), dimXImg, 7, null);
 		g2.drawString(caption, dimXStr, dimy + 2);
 	}
-
 
 	public Dimension getPreferredSize(JComponent c) {
 		Dimension d = super.getPreferredSize(c);
@@ -110,15 +105,9 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 	}
 
 	public void mousePressed(MouseEvent e) {
-		// JComponent c = (JComponent) e.getComponent();
-		// c.setBorder(new EmptyBorder(0, 0, 0,0));
-		// c.setBackground(m_backgroundPressed);
-		// c.repaint();
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		// JComponent c = (JComponent) e.getComponent();
-		// c.repaint();
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -126,8 +115,6 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		c.setBackgroundColor(backgroundActive);
 		c.setFontColor(font_Color_active);
 		c.setImage(imageActive);
-		// c.setBorder(m_borderRaised);
-		// c.repaint();
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -135,29 +122,16 @@ public class RoundTransparentButton extends BasicButtonUI implements MouseListen
 		c.setBackgroundColor(backgroundNormal);
 		c.setFontColor(font_Color_normal);
 		c.setImage(imageNormal);
-		// c.setBorder(m_borderRaised);
-		// c.repaint();
 	}
 
 	public void keyTyped(KeyEvent e) {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode();
-		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
-			JComponent c = (JComponent) e.getComponent();
-			//c.setBorder(new EmptyBorder(0, 0, 0, 0));
-			// c.setBackground(m_backgroundPressed);
-		}
+
 	}
 
 	public void keyReleased(KeyEvent e) {
-		int code = e.getKeyCode();
-		if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
-			JComponent c = (JComponent) e.getComponent();
-			//c.setBorder(border);
-			// c.setBackground(m_backgroundNormal);
-		}
 	}
 
 }

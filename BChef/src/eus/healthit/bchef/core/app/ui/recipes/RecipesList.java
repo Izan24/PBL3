@@ -9,6 +9,7 @@ import eus.healthit.bchef.core.models.Recipe;
 
 public class RecipesList extends AbstractListModel<Recipe> {
 
+	private static final long serialVersionUID = -3331148318284416695L;
 	List<Recipe> list;
 
 	public RecipesList() {
@@ -16,11 +17,6 @@ public class RecipesList extends AbstractListModel<Recipe> {
 	}
 
 	public void setList(List<Recipe> list) {
-		System.out.println("seteando la lista:");
-
-		for (Recipe r : list) {
-			System.out.println(r.toString());
-		}
 		this.list = list;
 	}
 

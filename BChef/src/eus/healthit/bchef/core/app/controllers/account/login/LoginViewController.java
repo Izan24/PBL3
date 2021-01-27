@@ -11,7 +11,6 @@ import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
 import eus.healthit.bchef.core.app.controllers.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.app.ui.dialogs.CreationErrorDialog;
-import eus.healthit.bchef.core.app.ui.panels.CreateAccountView;
 import eus.healthit.bchef.core.app.ui.panels.LoginView;
 import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.User;
@@ -38,7 +37,6 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 
 			break;
 		case LoginViewControllerAC.CREATE_ACCOUNT:
-//			loginView.resetAllFields();
 			windowFrameController.setCreateAccountView();
 			break;
 		}
@@ -77,14 +75,10 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void login() {
@@ -95,7 +89,6 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 					rb.getString("incorrect_login_text"));
 
 		} else {
-			new CreationErrorDialog(window, rb.getString("login_succ_title"), false, rb.getString("login_succ_text"));
 			BChefController.getInstance().setUser(user);
 			windowFrameController.setAppView(user);
 		}

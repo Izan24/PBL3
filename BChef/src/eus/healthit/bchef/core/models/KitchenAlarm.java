@@ -2,11 +2,9 @@ package eus.healthit.bchef.core.models;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.PrimitiveIterator.OfDouble;
 
 import javax.swing.Timer;
 

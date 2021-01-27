@@ -31,6 +31,8 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewRecipeRating extends JPanel {
 
+	private static final long serialVersionUID = 7300036257941450008L;
+
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 25);
@@ -110,8 +112,6 @@ public class CenterViewRecipeRating extends JPanel {
 	private void initJPanels() {
 		starPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		starPanel.setBackground(bgColor);
-//		starPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
-//		starPanel.setPreferredSize(new Dimension(572, 200));
 	}
 
 	private void initJButtons() {

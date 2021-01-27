@@ -1,11 +1,11 @@
 package eus.healthit.bchef.core.app.ui.dialogs;
 
 import javax.swing.JFileChooser;
-import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.metal.MetalFileChooserUI;
 
 public class FileChooser extends JFileChooser {
+
+	private static final long serialVersionUID = 1173315926850030299L;
 
 	public FileChooser() {
 		super();

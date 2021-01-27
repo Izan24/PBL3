@@ -72,7 +72,6 @@ public class BoardController implements SerialPortDataListener, IBoardController
 
 			while (i > 0) {
 				String toPrint = serialRead();
-				// System.out.println(toPrint);
 				if (toPrint != null) {
 					save += toPrint;
 					if (save.contains("<")) {
@@ -90,7 +89,6 @@ public class BoardController implements SerialPortDataListener, IBoardController
 		List<Oven> ovens = new ArrayList<>();
 		List<Stove> stoves = new ArrayList<>();
 		boolean corrupted = false;
-		System.out.println(string);
 
 		for (String instance : string.split("_")) {
 			String[] stats = instance.split("(?<=\\G....)");
@@ -156,7 +154,6 @@ public class BoardController implements SerialPortDataListener, IBoardController
 					String.format("%04d", oven.getTemp())));
 
 		String msg = String.join("+", instances) + "<";
-		System.out.println(msg);
 		allLetters(msg);
 	}
 

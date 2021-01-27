@@ -2,10 +2,7 @@ package eus.healthit.bchef.core.enums;
 
 public enum KitchenUtil {
 	OVEN("Horno", "Hornillo"),
-	STOVE ("Fuego", "Inducción", "Vitro", "Vitrocerámica", "Fogón"),
-	//LIGHT("Luz", "Lámpara", "Foco", "Bombilla", "Lamparilla"),
-	//VENT("Extractor", "Ventilador", "Ventila", "Aire"),
-	//MICROWAVE("Microondas", "Micro"),
+	STOVE ("Fuego", "Induccion", "Vitro", "Vitroceramica", "Fogon"),
 	MISUNDERSTOOD;
 
 	private String[] keywords;

@@ -20,7 +20,6 @@ public class ProfileVisitController implements IRoundButtonListener, IClickable 
 	public void actionPerformed(String command) {
 		switch (command) {
 		case ProfileVisitControllerAC.FOLLOW:
-			System.out.println("FollowPressed");
 
 			JSONCalls.follow(visitProfile.getUser().getId(), visitProfile.getVisitUser().getId());
 
@@ -33,7 +32,6 @@ public class ProfileVisitController implements IRoundButtonListener, IClickable 
 
 			break;
 		case ProfileVisitControllerAC.UNFOLLOW:
-			System.out.println("UnfollwPressed");
 
 			JSONCalls.unfollow(visitProfile.getUser().getId(), visitProfile.getVisitUser().getId());
 

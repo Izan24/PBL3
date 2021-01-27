@@ -18,14 +18,6 @@ import eus.healthit.bchef.core.enums.VoiceCommand;
 
 public class StringParser {
 
-	// private static final String[] PREPOSICIONES = {"a", "ante", "bajo", "cabe",
-	// "con", "contra", "de", "desde", "durante", "en", "entre", "hacia", "hasta",
-	// "mediante", "para", "por", "segun", "sin", "so", "sobre", "tras", "versus",
-	// "via"};
-	// private static final String[] ARTICULOS = {"el", "la", "los", "las", "un",
-	// "uno", "una", "unos", "unas"};
-	// private static final String[] PALABRAS = {"bchef", "receta", "cocina", "y",
-	// "e", "recetas", "algo", ",", "poco", "mucho"};
 	private static final String SEPARATOR = "y";
 
 	static final String[] HOUR = { "hora", "horas" };
@@ -85,7 +77,6 @@ public class StringParser {
 	public static String deleteCommandWords(String text, VoiceCommand command) throws ArrayIndexOutOfBoundsException {
 		for (String cmd : command.getCommands()) {
 			String reg = "\\s*\\b" + cmd.toLowerCase() + "\\b\\s*";
-			// System.out.println(cmd);
 			Pattern pattern = Pattern.compile(reg);
 			Matcher matcher = pattern.matcher(text);
 			if (matcher.find()) {
@@ -93,8 +84,6 @@ public class StringParser {
 				text = subStrings[subStrings.length - 1];
 			}
 		}
-		// text.trim().replaceAll(" +", " ");
-		// Arrays.stream(command.getCommands()).forEach(System.out::println);
 		return text;
 
 	}
@@ -104,7 +93,6 @@ public class StringParser {
 			String reg = "\\s*\\b" + word + "\\b\\s*";
 			text = text.replaceAll(reg, " ");
 		}
-		// text.trim().replaceAll(" +", " ");
 		return text;
 	}
 
@@ -139,7 +127,6 @@ public class StringParser {
 		for (KitchenUtil util : KitchenUtil.values()) {
 			for (String keyword : util.getKeywords()) {
 				String reg = "\\s*\\b" + keyword.toLowerCase() + "\\b\\s*";
-				// System.out.println(cmd);
 				Pattern pattern = Pattern.compile(reg);
 				Matcher matcher = pattern.matcher(string.toLowerCase());
 				if (matcher.find())

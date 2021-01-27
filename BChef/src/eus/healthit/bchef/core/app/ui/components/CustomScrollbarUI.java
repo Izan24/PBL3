@@ -21,19 +21,10 @@ public class CustomScrollbarUI extends MetalScrollBarUI {
 	@Override
 	protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
 		Graphics2D g2 = (Graphics2D) g;
-		// CustomScrollBar csb = (CustomScrollBar)c;
-		// System.out.println("X: "+ csb.getBounds().getX()+ " Y:" +
-		// csb.getBounds().getY());
 		g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		g2.translate(thumbBounds.getX(), thumbBounds.getY());
 		g2.setColor(Color.LIGHT_GRAY);
-
 		g2.fillRoundRect(0, 0, (int) (thumbBounds.getWidth()), (int) (thumbBounds.getHeight()), RADIUS, RADIUS);
-
-		// System.out.println(String.format("x=%f, y=%f, w=%f, h=%f, %s",
-		// thumbBounds.getX(), thumbBounds.getY(), thumbBounds.getWidth(),
-		// thumbBounds.getHeight(),csb.isHorizontal() ));
-
 	}
 
 	@Override
@@ -43,7 +34,7 @@ public class CustomScrollbarUI extends MetalScrollBarUI {
 		g2.setColor(Color.GRAY);
 		g2.translate(trackBounds.getX(), trackBounds.getY());
 		g2.fillRoundRect(0, 0, (int) (trackBounds.getWidth()), (int) (trackBounds.getHeight()), RADIUS, RADIUS);
-		// g2.translate(-trackBounds.getX(), -trackBounds.getY());
+
 	}
 
 	@Override

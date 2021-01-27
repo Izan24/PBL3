@@ -12,6 +12,7 @@ import eus.healthit.bchef.core.assistant.BChefController;
 
 public class WindowFrame extends JFrame {
 
+	private static final long serialVersionUID = 7864734956122358906L;
 	WindowFrameController windowController;
 
 	public WindowFrame() {
@@ -31,7 +32,7 @@ public class WindowFrame extends JFrame {
 		this.setIconImage(img.getImage());
 
 		this.addWindowListener(new WindowAdapter() {
-			
+
 			@Override
 			public void windowClosing(WindowEvent e) {
 				BChefController.getInstance().close();

@@ -22,8 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.google.api.Distribution.RangeOrBuilder;
-
 import eus.healthit.bchef.core.app.controllers.StepViewController;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.ui.borders.RoundedBorder;
@@ -35,6 +33,8 @@ import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewStep extends JPanel {
+
+	private static final long serialVersionUID = -8859767075259697936L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 

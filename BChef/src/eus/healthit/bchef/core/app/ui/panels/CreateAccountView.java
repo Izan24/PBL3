@@ -32,6 +32,7 @@ import eus.healthit.bchef.core.app.ui.components.RoundedTextField;
 import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 
 public class CreateAccountView extends JPanel {
+	private static final long serialVersionUID = -6038577202770690499L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 

@@ -1,7 +1,5 @@
 package eus.healthit.bchef.core.util;
 
-import com.google.api.client.util.Strings;
-
 public class TextFormatter {
 
 	public static String format(String text, int count) {
@@ -16,7 +14,6 @@ public class TextFormatter {
 			}
 			sBuilder.append((!string.endsWith("\n"))?string+" ":string);
 		}
-	    System.out.println(sBuilder.toString());
 		return sBuilder.toString();
 	}
 

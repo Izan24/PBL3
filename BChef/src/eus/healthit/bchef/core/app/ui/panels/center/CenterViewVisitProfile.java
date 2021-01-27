@@ -30,6 +30,7 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewVisitProfile extends JPanel {
+	private static final long serialVersionUID = -190878560250386798L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 

@@ -22,7 +22,6 @@ import eus.healthit.bchef.core.assistant.implementations.OutputController;
 public class AudioInputController extends Thread {
 
 	private boolean reconOn;
-	private boolean broken;
 
 	private static AudioInputController instance = new AudioInputController();
 	private RealtimeResponseObserver responseObserver;
@@ -34,17 +33,12 @@ public class AudioInputController extends Thread {
 	public static AudioInputController getInstance() {
 		return instance;
 	}
-	
-	public void repair() {
-		broken = true;
-	}
 
 	public void run() {
 		while (true)
 			try {
 				streamingMicRecognize();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
@@ -55,12 +49,6 @@ public class AudioInputController extends Thread {
 
 	public void startRecon() {
 		reconOn = true;
-//		try {
-//			streamingMicRecognize();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	@Deprecated
@@ -70,9 +58,11 @@ public class AudioInputController extends Thread {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void streamingMicRecognize() {
 		while (true) {
-			if(!OutputController.getInstance().isComplete()) continue;
+			if (!OutputController.getInstance().isComplete())
+				continue;
 			TargetDataLine targetDataLine = null;
 			System.out.println("out again");
 			try (SpeechClient client = SpeechClient.create()) {
@@ -90,50 +80,34 @@ public class AudioInputController extends Thread {
 						.setConfig(recognitionConfig).build();
 
 				StreamingRecognizeRequest request = StreamingRecognizeRequest.newBuilder()
-						.setStreamingConfig(streamingRecognitionConfig).build(); // The first request in a streaming
-																					// call
+						.setStreamingConfig(streamingRecognitionConfig).build();
 				clientStream.send(request);
-				// SampleRate:16000Hz, SampleSizeInBits: 16, Number of channels: 1, Signed:
-				// true,
-				// bigEndian: false
 				AudioFormat audioFormat = new AudioFormat(16000, 16, 1, true, false);
 
-				DataLine.Info targetInfo = new Info(TargetDataLine.class, audioFormat); // Set the system information to
-																						// read from the microphone
+				DataLine.Info targetInfo = new Info(TargetDataLine.class, audioFormat);
 				if (!AudioSystem.isLineSupported(targetInfo)) {
 					System.out.println("Microphone not supported");
 					System.exit(0);
 				}
-				// Target data line captures the audio stream the microphone produces.
-
-//			TargetDataLine targetDataLine = (TargetDataLine) mixer.getLine(targetInfo);
 				targetDataLine = (TargetDataLine) AudioSystem.getLine(targetInfo);
 				targetDataLine.open(audioFormat);
 				targetDataLine.start();
 				System.out.println("Start speaking");
-//			long startTime = System.currentTimeMillis();
-				// Audio Input Stream
+
 				AudioInputStream audio = new AudioInputStream(targetDataLine);
 				while (true) {
-					if(!OutputController.getInstance().isComplete()) break;
-//					if (OutputController.isComplete() && reconOn) {
+					if (!OutputController.getInstance().isComplete())
+						break;
 					byte[] data = new byte[6400];
 					audio.read(data);
-						if (reconOn) {
-//				long estimatedTime = System.currentTimeMillis() - startTime;
-//						if (reconOn && OutputController.isComplete()) {
+					if (reconOn) {
 						request = StreamingRecognizeRequest.newBuilder().setAudioContent(ByteString.copyFrom(data))
 								.build();
-						
+
 						clientStream.send(request);
 
-//						}
 					}
-
-//				if (estimatedTime > 60000) { // 60 seconds
-
 				}
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -143,7 +117,6 @@ public class AudioInputController extends Thread {
 					responseObserver.onComplete();
 				}
 			}
-			broken = false;
 		}
 	}
 }

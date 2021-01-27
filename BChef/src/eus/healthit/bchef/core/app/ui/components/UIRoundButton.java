@@ -27,18 +27,6 @@ public class UIRoundButton extends ButtonUI implements MouseListener {
 	String actionCommand;
 	String primaryText, secondaryText;
 
-//	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font) {
-//		this.radius = radius;
-//		this.backGroundColor = backGroundColor;
-//		this.backGroundColorActive = backGroundColor.darker();
-//		this.backGroundColorPressed = backGroundColorActive.darker();
-//		this.foreGroundColor = foreGroundColor;
-//		this.font = font;
-//		j.addMouseListener(this);
-//		j.setBackground(backGroundColor);
-//		j.setOpaque(false);
-//	}
-
 	public UIRoundButton(JButton j, int radius, Color backGroundColor, Color foreGroundColor, Font font,
 			IRoundButtonListener listener, String actionCommand) {
 		this.radius = radius;

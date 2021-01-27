@@ -24,16 +24,11 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public RecipeStep nextStep() {
-		System.out.println("---------------------------ASSISTANT CONTROLLER -----------------------");
 		if (recipe == null)
 			return null;
 		List<RecipeStep> steps = recipe.getSteps();
 		if (steps.size() > currentStepCount + 1) {
-			RecipeStep current = steps.get(++currentStepCount);
-//			if (current.getAction() != null) {
-//				// TODO: Switch + Alarma
-//			}
-			return recipe.getSteps().get(currentStepCount);
+			return recipe.getSteps().get(++currentStepCount);
 		}
 		finishRecipe();
 		return null;
@@ -56,7 +51,6 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public KitchenAlarm setAlarm(KitchenUtil util, Integer index, Duration time) {
-		// TODO: Listener panel
 		if(index == null) index = 0;
 		KitchenAlarm alarm = new KitchenAlarm(util, index, time);
 		alarms.add(alarm);
@@ -66,7 +60,6 @@ public class RecipeAssistantController implements IRecipeAssistantController {
 
 	@Override
 	public void finishRecipe() {
-		// recipe = null;
 		finished = true;
 	}
 

@@ -36,7 +36,6 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 		try {
 			StreamingRecognitionResult result = response.getResultsList().get(0);
 			SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-			System.out.printf("Transcript : %s\n", alternative.getTranscript());
 			connector.firePropertyChange("NEW_COMMAND", null, alternative.getTranscript());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,9 +51,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 	}
 
 	public void onError(Throwable t) {
-		System.out.println(t);
 		t.printStackTrace();
-		parent.repair();
 	}
 
 }

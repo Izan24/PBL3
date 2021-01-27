@@ -1,18 +1,12 @@
 package eus.healthit.bchef.core.api;
 
 import java.awt.Image;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -126,7 +120,7 @@ public class JSONutils {
 		List<Ingredient> ingredientes = new ArrayList<>();
 
 		JSONArray arrayJson2 = published.getJSONArray("ingredients");
-		
+
 		for (int i = 0; i < arrayJson2.length(); i++) {
 			JSONObject ingredient = arrayJson2.getJSONObject(i);
 			int id2 = ingredient.getInt("id");
@@ -139,7 +133,7 @@ public class JSONutils {
 
 		List<RecipeStep> stepList = new ArrayList<>();
 		arrayJson2 = published.getJSONArray("instructions");
-		
+
 		for (int i = 0; i < arrayJson2.length(); i++) {
 			JSONObject step = arrayJson2.getJSONObject(i);
 			int idS = step.getInt("id");
@@ -151,8 +145,7 @@ public class JSONutils {
 			Duration time = Duration.ofMillis(step.getLong("duration"));
 			stepList.add(new RecipeStep(idS, recipeS, value, image, text, num, time));
 		}
-		
-		
+
 		Image image = ImageRepository.decodeImage(published.getString("img"));
 		return new Recipe(uuid, name2, author, authorID, description, rating, publishDate, ingredientes, stepList,
 				image);

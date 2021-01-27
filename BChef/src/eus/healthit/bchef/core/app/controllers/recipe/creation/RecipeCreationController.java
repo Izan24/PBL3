@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +134,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 					new CreationErrorDialog(window, rb.getString("invalid_ingredient_title"), true,
 							rb.getString("invalid_ingredient_text"));
 				} else {
-					System.out.println();
 					ingredient.setQuantity(createRecipeView.getIngredientQuantity());
 					addIngredient(ingredient);
 					createRecipeView.resetIngredientFields();
@@ -162,7 +159,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		case RecipeCreationControllerAC.CREATE_RECIPE:
 			if (recipeValid()) {
 				addStepNumbers();
-				System.out.println(createRecipeView.getDescription());
 				Recipe recipe = new Recipe(UUID.randomUUID(), createRecipeView.getTitle(), createRecipeView.getAuthor(),
 						user.getId(), createRecipeView.getDescription(),
 						createRecipeView.getIngredientListModel().getList(),
@@ -333,32 +329,25 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	private Duration parseDuration() {
 		String fullDuration = createRecipeView.getTime();
 
-		System.out.println(fullDuration);
-
 		String[] params = fullDuration.split(" ");
 		String[] time = params[3].split(":");
 
 		try {
 			time[0] = String.valueOf(Integer.parseInt(time[0]));
 		} catch (NumberFormatException e) {
-			System.out.println("String does not contain a valid number");
 		}
 		try {
 			time[1] = String.valueOf(Integer.parseInt(time[1]));
 		} catch (NumberFormatException e) {
-			System.out.println("String does not contain a valid number");
 		}
 		try {
 			time[2] = String.valueOf(Integer.parseInt(time[2]));
 		} catch (NumberFormatException e) {
-			System.out.println("String does not contain a valid number");
 		}
 
 		Duration duration = Duration.ofSeconds(Long.valueOf(time[2]));
 		duration = duration.plusMinutes(Long.valueOf(time[1]));
 		duration = duration.plusHours(Long.valueOf(time[0]));
-
-		System.out.println(duration.toMinutes());
 
 		return duration;
 	}

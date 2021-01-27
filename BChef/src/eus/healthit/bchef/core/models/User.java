@@ -1,14 +1,12 @@
 package eus.healthit.bchef.core.models;
 
 import java.awt.Image;
-import java.awt.font.ImageGraphicAttribute;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class User {
 
@@ -34,9 +32,6 @@ public class User {
 	List<Item> shopList;
 	List<Recipe> history;
 
-	/**
-	 * Creates a new User with Profile pic
-	 */
 	public User(int id, String name, String surname, Image profilePic, String email, String username, String password) {
 		this.id = id;
 		this.name = name;
@@ -53,9 +48,6 @@ public class User {
 		history = new ArrayList<>();
 	}
 
-	/**
-	 * Creates a ppipippip user
-	 */
 
 	public User(int id, String name, String surname, String email) {
 		this.id = id;
@@ -64,9 +56,6 @@ public class User {
 		this.email = email;
 	}
 
-	/**
-	 * Creates a new User with Profile pic and without username and password
-	 */
 	public User(int id, String name, String surname, Image profilePic, String email) {
 		this.id = id;
 		this.name = name;
@@ -83,9 +72,7 @@ public class User {
 		history = new ArrayList<>();
 	}
 
-	/**
-	 * Creates a new User without Profile pic
-	 */
+
 	public User(int id, String name, String surname, String email, String username, String password) {
 
 		this.id = id;
@@ -107,9 +94,7 @@ public class User {
 		history = new ArrayList<>();
 	}
 
-	/**
-	 * Load an existing user
-	 */
+
 	public User(int id, String name, String surname, Image profilePic, String email, String username, String password,
 			List<Integer> followed, int followers, List<Recipe> published, List<Recipe> saved, List<Item> shopList,
 			List<Recipe> history) {

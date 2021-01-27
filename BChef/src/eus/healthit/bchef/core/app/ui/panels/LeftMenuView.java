@@ -2,7 +2,6 @@ package eus.healthit.bchef.core.app.ui.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -17,6 +16,8 @@ import eus.healthit.bchef.core.app.controllers.centerView.CenterViewControllerAC
 import eus.healthit.bchef.core.app.ui.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
+
+	private static final long serialVersionUID = -3225479861573013104L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
@@ -37,11 +38,6 @@ public class LeftMenuView extends JPanel {
 		this.add(createMenuBar());
 	}
 
-	/*
-	 * NOTA CREO QUE PODRIAMOS PONER LOS ICONOS EN UNA CLASE Y QUE SEAN ESTATICOS O
-	 * QUE TENGA METODOS PARA PEDIRLOS POR SI ALGUN DIA QUEREMOS CAMBIARLOS NO TENER
-	 * QUE IR BUSCANDO DONDE SE CREAN LOS BOTONES O POEDER ESCALARLO MAS FACIL
-	 */
 	private void initButtons() {
 
 		Font font = new Font("Segoe UI", Font.PLAIN, 18);
@@ -93,7 +89,6 @@ public class LeftMenuView extends JPanel {
 		JPanel leftMenu = new JPanel();
 		leftMenu.setLayout(new BoxLayout(leftMenu, BoxLayout.Y_AXIS));
 		leftMenu.setBackground(Color.white);
-		// leftMenu.setSize(new Dimension(4000, 800));
 
 		leftMenu.add(Box.createVerticalStrut(30));
 		leftMenu.add(buttonHome);

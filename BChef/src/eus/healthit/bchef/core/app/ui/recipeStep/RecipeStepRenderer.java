@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.font.ImageGraphicAttribute;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,7 +27,6 @@ public class RecipeStepRenderer implements ListCellRenderer<RecipeStep> {
 
 		JPanel ingredientPanel = new JPanel(new GridLayout(1, 2, 0, 0));
 		JLabel ingredientText = new JLabel(value.getText());
-		JLabel actionIcon = new JLabel();
 		JLabel action = new JLabel(value.getAction().toString());
 
 		ingredientText.setFont(textFont);

@@ -11,6 +11,7 @@ import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 
 public class CenterView extends JPanel {
 
+	private static final long serialVersionUID = -596232981360233249L;
 	CenterViewController controller;
 
 	public CenterView() {

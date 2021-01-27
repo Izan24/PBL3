@@ -107,7 +107,6 @@ public class BChefController implements PropertyChangeListener {
 	}
 
 	public void nextStep() {
-		System.out.println("next ->>>>>>>>>>>>>>>>> step");
 		if (recipeAssitantController.getRecipe() == null) {
 			errorMessage("MISSING_RECIPE");
 			return;
@@ -131,17 +130,14 @@ public class BChefController implements PropertyChangeListener {
 		if (stepDuration != null && stepDuration != Duration.ZERO) {
 			switch (step.getAction()) {
 			case OVEN:
-				System.out.println("ALARM IS NEW OVEN");
 				nextFunction = new NewAlarmCall(KitchenUtil.OVEN, null, step.getTime());
 				outputController.send(TextBuilder.askAlarmMessage(stepDuration, KitchenUtil.OVEN, step.getValue()));
 				break;
 			case STOVE:
-				System.out.println("ALARM IS NEW STOVE");
 				nextFunction = new NewAlarmCall(KitchenUtil.STOVE, null, step.getTime());
 				outputController.send(TextBuilder.askAlarmMessage(stepDuration, KitchenUtil.STOVE, step.getValue()));
 				break;
 			case TIMER:
-				System.out.println("ALARM IS NEW TIMER");
 				nextFunction = new NewAlarmCall(null, null, step.getTime());
 				outputController.send(TextBuilder.askAlarmMessage(stepDuration, null, null));
 				break;
@@ -333,6 +329,7 @@ public class BChefController implements PropertyChangeListener {
 		inputController.startRecon();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {

@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import eus.healthit.bchef.core.enums.StatusCode;
 
 public class APIutils {
-//	public static final String URL = "http://172.17.20.241";
 	public static final String URL = "http://healthit.eus";
 	public static final int PORT = 80;
 
@@ -32,7 +31,6 @@ public class APIutils {
 			StringBuilder response = new StringBuilder();
 			String line;
 			while ((line = in.readLine()) != null) {
-				//System.out.println(line);
 				response.append(line);
 			}
 			return new JSONObject(response.toString());
@@ -72,7 +70,6 @@ public class APIutils {
 			System.out.println("Response Code : " + responseCode);
 			return getInputStream(httpClient);
 		} catch (Exception e) {
-			System.out.println("UwuException");
 			return new JSONObject().put("status", StatusCode.CONECTION_ERROR);
 		}
 	}
@@ -88,7 +85,6 @@ public class APIutils {
 			System.out.println("Response Code : " + responseCode);
 			return getInputStream(httpClient);
 		} catch (Exception e) {
-			System.out.println("UwuException");
 			return new JSONObject().put("status", StatusCode.CONECTION_ERROR);
 		}
 	}

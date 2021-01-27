@@ -6,7 +6,5 @@ public class Configuration {
 
 	public static String getLocale() {
 		return locale;
-	}
-	
-	
+	}	
 }

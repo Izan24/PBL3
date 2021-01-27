@@ -14,11 +14,9 @@ import eus.healthit.bchef.core.models.KitchenAlarm;
 
 public class CustomTimer extends JPanel {
 
+	private static final long serialVersionUID = 4561279417489111936L;
 	public static final String COLON = ":";
-
-	private Color red = Color.red;
 	private Color gray = Color.DARK_GRAY;
-	private boolean tick = true;
 
 	KitchenAlarm alarm;
 
@@ -45,10 +43,8 @@ public class CustomTimer extends JPanel {
 		if (alarm.getUtil() == null) {
 			timerIcon.setIcon(new ImageIcon("resources/menuIcons/timer.png"));
 		} else if (alarm.getUtil().equals(KitchenUtil.OVEN)) {
-			System.out.println("Horno letsGOGOOGO");
 			timerIcon.setIcon(new ImageIcon("resources/menuIcons/oven.png"));
 		} else if (alarm.getUtil().equals(KitchenUtil.STOVE)) {
-			System.out.println("Stove letsGOGOOGO");
 			timerIcon.setIcon(new ImageIcon("resources/menuIcons/stove.png"));
 		}
 	}

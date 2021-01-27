@@ -23,6 +23,8 @@ import eus.healthit.bchef.core.app.ui.components.RoundedTextField;
 
 public class NorthView extends JPanel {
 
+	private static final long serialVersionUID = -4914984569571164963L;
+
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	RoundedTextField searchBar;
@@ -70,7 +72,6 @@ public class NorthView extends JPanel {
 		panelSearch.setSize(new Dimension(2002, 2002));
 
 		searchBar = new RoundedTextField(DEFAULT_SEARCH_TEXT_STRING);
-		// searchBar.setToolTipText("Search");
 		searchBar.setPreferredSize(new Dimension(550, 35));
 		searchBar.addActionListener(controller);
 		searchBar.setActionCommand(NorthViewControllerAC.SEARCH);

@@ -23,18 +23,18 @@ import javax.swing.JTextField;
 
 import eus.healthit.bchef.core.app.controllers.account.login.LoginViewController;
 import eus.healthit.bchef.core.app.controllers.account.login.LoginViewControllerAC;
-import eus.healthit.bchef.core.app.controllers.account.register.CreateAccountControllerAC;
 import eus.healthit.bchef.core.app.controllers.windowFrame.WindowFrameController;
 import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.app.ui.borders.RoundedBorder;
 import eus.healthit.bchef.core.app.ui.borders.SearchBorder;
-import eus.healthit.bchef.core.app.ui.components.RoundedJPasswordField;
 import eus.healthit.bchef.core.app.ui.components.RoundedJPasswordFieldShow;
 import eus.healthit.bchef.core.app.ui.components.RoundedTextField;
 import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 import eus.healthit.bchef.core.models.User;
 
 public class LoginView extends JPanel {
+
+	private static final long serialVersionUID = -8442550597292372216L;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
@@ -43,7 +43,6 @@ public class LoginView extends JPanel {
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Color bgColor = Color.white;
-//	Color bgColor = new Color(145, 238, 255);
 
 	User user;
 
@@ -82,7 +81,6 @@ public class LoginView extends JPanel {
 		loginButton.setFont(textFont);
 		loginButton.setBorder(BorderFactory.createEmptyBorder());
 		loginButton.setFocusable(false);
-		// this.getRootPane().setDefaultButton(loginButton);
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, LoginViewControllerAC.LOGIN));
 
@@ -184,7 +182,6 @@ public class LoginView extends JPanel {
 
 	private JPanel createNorthPanel() {
 		JPanel panelLogo = new JPanel(new FlowLayout());
-//		panelLogo.setPreferredSize(new Dimension(600, 300));
 		panelLogo.setBackground(bgColor);
 
 		ImageIcon logo = new ImageIcon("resources/viewIcons/BChefLogoWhite.png");

@@ -3,9 +3,6 @@ package eus.healthit.bchef.core.assistant;
 import java.time.Duration;
 import java.util.Set;
 
-import com.google.common.base.Enums;
-
-import eus.healthit.bchef.core.assistant.implementations.OutputController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.enums.VoiceCommand;
 import eus.healthit.bchef.core.util.StringParser;
@@ -14,12 +11,9 @@ public class CommandController {
 
 	private static CommandController instance = new CommandController();
 
-	// private BChefController BChefController.getInstance();
 
-	// Variables para guardar el comando anterior
 
 	private CommandController() {
-		// BChefController.getInstance() = BChefController.getInstance();
 	}
 
 	public static CommandController getInstance() {
@@ -28,17 +22,14 @@ public class CommandController {
 
 	public boolean selectCommand(VoiceCommand command, String string) {
 		System.out.println("command: " + command);
-		// BChefController.getInstance().stopVoiceRecon();
 		switch (command) {
 		case SEARCH_INGREDIENT:
 			searchIngredient(StringParser.deleteCommandWords(string, command));
 			break;
 		case SEARCH_RECIPE:
-			// TODO: Queryes PETA
 			BChefController.getInstance().searchRecipe(StringParser.deleteCommandWords(string, command));
 			break;
 		case SWITCH_KITCHEN:
-			// TODO: POWER OFF DIFERENTE PQ SIEMPRE ES VALUE 0
 		case POWER_OFF:
 			switchKitchen(string);
 			break;
@@ -53,7 +44,6 @@ public class CommandController {
 			setAlarm(string);
 			break;
 		case LIST_ADD:
-			// TODO
 			String txtString = "";
 			try {
 				txtString = StringParser.deleteCommandWords(string, command);
@@ -64,7 +54,6 @@ public class CommandController {
 			BChefController.getInstance().addToList(txtString);
 			break;
 		case LIST_REMOVE:
-			// TODO
 			try {
 				BChefController.getInstance().deleteFromList(StringParser.deleteCommandWords(string, command));
 
@@ -91,12 +80,10 @@ public class CommandController {
 			BChefController.getInstance().lumbra();
 			break;
 		case NUMBER:
-			// En desuso
 		default:
 			BChefController.getInstance().errorMessage("MISSUNDERSTOOD");
 			break;
 		}
-//		BChefController.getInstance().resumeVoiceRecon();
 		return true;
 	}
 

@@ -21,13 +21,14 @@ import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 
 public class CreationErrorDialog extends JDialog implements IRoundButtonListener {
 
+	private static final long serialVersionUID = 5750206798109947882L;
+
 	final String DISPOSE_COMAND = "dispose";
 
 	JLabel textlabel, iconLabel;
 	JButton confirmButton;
 	String text;
 
-//	Color bgColor = new Color(235, 235, 235);
 	Color bgColor = Color.white;
 
 	public CreationErrorDialog(JFrame frame, String title, boolean mode, String text) {
@@ -62,7 +63,6 @@ public class CreationErrorDialog extends JDialog implements IRoundButtonListener
 
 	private void initJlabels() {
 		textlabel = new JLabel();
-//		textlabel.setSize(new Dimension(100, 90));
 		textlabel.setFont(new Font("Roboto", Font.PLAIN, 15));
 		textlabel.setBackground(Color.white);
 		textlabel.setFocusable(false);
@@ -76,7 +76,6 @@ public class CreationErrorDialog extends JDialog implements IRoundButtonListener
 
 	private Container createContent() {
 		JPanel errorPanel = new JPanel(new BorderLayout());
-//		errorPanel.setPreferredSize(new Dimension(320, 110));
 		errorPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		errorPanel.setBackground(bgColor);
 

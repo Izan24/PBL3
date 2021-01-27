@@ -3,9 +3,7 @@ package eus.healthit.bchef.core.app.controllers.recipe.rating;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.SliderUI;
 
-import eus.healthit.bchef.core.api.API;
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
