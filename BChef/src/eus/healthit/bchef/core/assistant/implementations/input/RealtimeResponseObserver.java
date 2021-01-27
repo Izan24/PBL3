@@ -30,6 +30,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 
 	public void onResponse(StreamingRecognizeResponse response) {
 		sendText(response);
+
 	}
 
 	public void sendText(StreamingRecognizeResponse response) {
@@ -37,6 +38,7 @@ public class RealtimeResponseObserver implements ResponseObserver<StreamingRecog
 			StreamingRecognitionResult result = response.getResultsList().get(0);
 			SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
 			connector.firePropertyChange("NEW_COMMAND", null, alternative.getTranscript());
+			System.out.println("Input: "+alternative.getTranscript());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
