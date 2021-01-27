@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.net.URL;
@@ -19,14 +20,17 @@ import javax.swing.ListCellRenderer;
 import eus.healthit.bchef.core.models.Recipe;
 
 public class RendererRecipes implements ListCellRenderer<Recipe> {
-
+	Font titleFont, normal, authorFont;
+	
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Recipe> list, Recipe value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 
 //		Color bgColor = new Color(244, 249, 255);
 		Color bgColor = Color.white;
-
+		titleFont = new Font("Segoe UI", Font.BOLD, 22);
+		normal = new Font("Segoe UI", Font.PLAIN, 14);
+		authorFont = new Font("Segoe UI", Font.BOLD, 14);
 		JPanel panelList = new JPanel(new BorderLayout());
 		JPanel textPanel = new JPanel(new GridLayout());
 		JPanel panelImage = new JPanel(new GridLayout(1, 1, 20, 20));
@@ -39,9 +43,10 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// The panel
 		// --------------------------------------------------------------------------
 
-		panelList.setBorder(
-				BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
-						BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+//		panelList.setBorder(
+//				BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY),
+//						BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		panelList.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		panelList.setOpaque(true);
 
 		if (!isSelected) {
@@ -63,9 +68,10 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// --------------------------------------------------------------------------
 		// The Recipe name panel
 		// --------------------------------------------------------------------------
-
+		
 		JLabel recipeName = new JLabel(value.getName());
-		recipeName.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		recipeName.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10), BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY)));
+		recipeName.setFont(titleFont);
 		recipeName.setHorizontalTextPosition(JLabel.LEFT);
 
 		textPanel.add(recipeName);
@@ -94,6 +100,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 			description = value.getDescription().substring(0, 100) + "...";
 		}
 		JLabel text = new JLabel(description);
+		text.setFont(normal);
 
 		// --------------------------------------------------------------------------
 		// The bottom part of the panel
@@ -101,6 +108,7 @@ public class RendererRecipes implements ListCellRenderer<Recipe> {
 		// --------------------------------------------------------------------------
 
 		JLabel author = new JLabel("Author: " + value.getAuthor());
+		author.setFont(authorFont);
 		southPanel.add(author);
 
 		JLabel halfStar = new JLabel();
