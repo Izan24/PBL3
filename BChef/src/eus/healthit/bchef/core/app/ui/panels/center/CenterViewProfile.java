@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -32,6 +33,8 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewProfile extends JPanel implements IClickable {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	CenterViewController centerController;
 
@@ -83,17 +86,17 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		username = new JLabel(user.getUsername());
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));
 
-		recipesText = new JLabel("Recipes");
+		recipesText = new JLabel(rb.getString("recipes_text"));
 		recipesText.setFont(textFont);
 		recipesText.setForeground(textColor);
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
 
-		followersText = new JLabel("Followers");
+		followersText = new JLabel(rb.getString("followers_text"));
 		followersText.setFont(textFont);
 		followersText.setForeground(textColor);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
 
-		followingText = new JLabel("Following");
+		followingText = new JLabel(rb.getString("following_text"));
 		followingText.setFont(textFont);
 		followingText.setForeground(textColor);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
@@ -114,7 +117,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	private void initJButtons() {
-		uploadedButton = new JButton("Mis Recetas");
+		uploadedButton = new JButton(rb.getString("my_recipes_text"));
 		uploadedButton.setFont(textFont);
 		uploadedButton.setBackground(bgColor);
 		uploadedButton.setForeground(selectedColor);
@@ -123,7 +126,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		uploadedButton.addActionListener(controller);
 		uploadedButton.setFocusable(false);
 
-		savedButton = new JButton("Recetas Guardadas");
+		savedButton = new JButton(rb.getString("saved_recipes_text"));
 		savedButton.setFont(textFont);
 		savedButton.setBackground(bgColor);
 		savedButton.setBorder(BorderFactory.createEmptyBorder());
@@ -271,7 +274,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setBackground(bgColor);
-//		centerPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.LIGHT_GRAY));
 
 		centerPanel.add(createButtonPannel(), BorderLayout.NORTH);
 		centerPanel.add(createSlidePannel(), BorderLayout.CENTER);
@@ -281,7 +283,6 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private JPanel createButtonPannel() {
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-//		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 		buttonPanel.setBackground(bgColor);
 
 		buttonPanel.add(uploadedButton);

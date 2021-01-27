@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,7 +32,9 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewShopList extends JPanel implements IClickable {
 
-	public static final String DEFAULT_ADD_ELEMENT_TEXT = "Nuevo elemento";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_ADD_ELEMENT_TEXT = rb.getString("add_element_text");
 
 	User user;
 
@@ -77,7 +80,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 		buttonAdd.setPreferredSize(new Dimension(40, 40));
 		buttonAdd.setBackground(new Color(224, 224, 224));
 
-		deleteButton = new JButton("Eliminar");
+		deleteButton = new JButton(rb.getString("remove_text"));
 		deleteButton.setPreferredSize(new Dimension(150, 35));
 		deleteButton.setBackground(new Color(243, 69, 65));
 		deleteButton.setForeground(Color.white);
@@ -91,7 +94,7 @@ public class CenterViewShopList extends JPanel implements IClickable {
 
 	private void initTextFields() {
 		newElementField = new JTextField();
-		newElementField.setText("Nuevo elemento");
+		newElementField.setText(rb.getString("new_element_text"));
 		newElementField.setForeground(Color.GRAY);
 		newElementField.addFocusListener(new DefaultTextController(newElementField, DEFAULT_ADD_ELEMENT_TEXT));
 		newElementField.setPreferredSize(new Dimension(300, 40));

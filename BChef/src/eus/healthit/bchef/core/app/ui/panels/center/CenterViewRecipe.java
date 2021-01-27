@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,6 +32,8 @@ import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewRecipe extends JPanel {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	DoubleClickListener listener;
 
@@ -91,13 +94,13 @@ public class CenterViewRecipe extends JPanel {
 		imageLabel = new JLabel();
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		ingredientTitleLabel = new JLabel("Ingredientes");
+		ingredientTitleLabel = new JLabel(rb.getString("ingredients_text"));
 		ingredientTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		ingredientTitleLabel.setForeground(Color.darkGray);
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		elaborationTitleLabel = new JLabel("Elaboraci�n");
+		elaborationTitleLabel = new JLabel(rb.getString("elaboration_text"));
 		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
@@ -111,7 +114,7 @@ public class CenterViewRecipe extends JPanel {
 	}
 
 	private void initJbuttons() {
-		saveRecipe = new JButton("Guardar");
+		saveRecipe = new JButton(rb.getString("save_text"));
 		saveRecipe.setPreferredSize(new Dimension(150, 40));
 		saveRecipe.setBackground(bgColor);
 		saveRecipe.setForeground(new Color(28, 162, 243));
@@ -123,7 +126,7 @@ public class CenterViewRecipe extends JPanel {
 		saveRecipe.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		startRecipe = new JButton("Empezar receta");
+		startRecipe = new JButton(rb.getString("start_recipe_text"));
 		startRecipe.setPreferredSize(new Dimension(150, 35));
 		startRecipe.setBackground(new Color(28, 162, 243));
 		startRecipe.setForeground(bgColor);
@@ -246,7 +249,7 @@ public class CenterViewRecipe extends JPanel {
 
 	public void updateView(Recipe recipe) {
 		titleLabel.setText(recipe.getName());
-		authorLabel.setText("Autor: " + recipe.getAuthor());
+		authorLabel.setText(rb.getString("author_text") + ": " + recipe.getAuthor());
 		setImage(recipe);
 		setRating(recipe);
 		setIngredients(recipe);
@@ -348,9 +351,9 @@ public class CenterViewRecipe extends JPanel {
 
 	private void setSaveButton(Recipe recipe) {
 		if (user.getSaved().contains(recipe)) {
-			saveRecipe.setText("Quitar");
+			saveRecipe.setText(rb.getString("unsave_text"));
 		} else {
-			saveRecipe.setText("Guardar");
+			saveRecipe.setText(rb.getString("save_text"));
 		}
 	}
 

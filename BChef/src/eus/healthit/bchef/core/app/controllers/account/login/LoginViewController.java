@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ResourceBundle;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
@@ -16,6 +17,8 @@ import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.models.User;
 
 public class LoginViewController implements IRoundButtonListener, KeyListener, ActionListener {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	LoginView loginView;
 	WindowFrameController windowFrameController;
@@ -54,14 +57,13 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 	private void changePasswordFieldState() {
 		String pwd = loginView.getPassword();
 
-		if (!pwd.equals(CreateAccountView.DEFAULT_PWD_TEXT)) {
+		if (!pwd.equals(rb.getString("default_password_text"))) {
 			loginView.changePwdState();
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("KEYPRESS: " + e.getKeyCode());
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ENTER:
 			login();
@@ -89,13 +91,13 @@ public class LoginViewController implements IRoundButtonListener, KeyListener, A
 		User user = JSONCalls.authenticate(loginView.getUsername(), loginView.getPassword());
 
 		if (user == null) {
-			new CreationErrorDialog(window, "Inicio de sesi�n incorrecto", true,
-					"El usuario o contras�a introducidos no son correctos.");
+			new CreationErrorDialog(window, rb.getString("incorrect_login_title"), true,
+					rb.getString("incorrect_login_text"));
 
 		} else {
+			new CreationErrorDialog(window, rb.getString("login_succ_title"), false, rb.getString("login_succ_text"));
 			BChefController.getInstance().setUser(user);
 			windowFrameController.setAppView(user);
-
 		}
 	}
 }

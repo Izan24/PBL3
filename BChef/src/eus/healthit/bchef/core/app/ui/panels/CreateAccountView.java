@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,12 +33,14 @@ import eus.healthit.bchef.core.app.ui.components.UIRoundButton;
 
 public class CreateAccountView extends JPanel {
 
-	public static final String DEFAULT_NAME_TEXT = "Nombre";
-	public static final String DEFAULT_SURNAME_TEXT = "Apellido";
-	public static final String DEFAULT_EMAIL_TEXT = "Correo electronico";
-	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PWD_TEXT = "Contrase�a";
-	public static final String DEFAULT_CONFPWD_TEXT = "Confirma la contrase�a";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_NAME_TEXT = rb.getString("name_text");
+	String DEFAULT_SURNAME_TEXT = rb.getString("surname_text");
+	String DEFAULT_EMAIL_TEXT = rb.getString("email_text");
+	String DEFAULT_USERNAME_TEXT = rb.getString("username_text");
+	String DEFAULT_PWD_TEXT = rb.getString("pwd_text");
+	String DEFAULT_CONFPWD_TEXT = rb.getString("pwd_confirm_text");
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 
@@ -71,7 +74,7 @@ public class CreateAccountView extends JPanel {
 	}
 
 	private void initButtons() {
-		createAcc = new JButton("Crear cuenta");
+		createAcc = new JButton(rb.getString("create_acc_text"));
 		createAcc.setPreferredSize(new Dimension(150, 35));
 		createAcc.setBackground(new Color(28, 162, 243));
 		createAcc.setForeground(Color.white);
@@ -81,7 +84,7 @@ public class CreateAccountView extends JPanel {
 		createAcc.setUI(new UIRoundButton(createAcc, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 13), controller, CreateAccountControllerAC.CREATEACC));
 
-		gotoLogin = new JButton("Ya tengo una cuenta");
+		gotoLogin = new JButton(rb.getString("i_have_acc_text"));
 		gotoLogin.setPreferredSize(new Dimension(150, 40));
 		gotoLogin.setBackground(bgColor);
 		gotoLogin.setForeground(new Color(28, 162, 243));
@@ -143,14 +146,14 @@ public class CreateAccountView extends JPanel {
 		logoLabel.setBackground(bgColor);
 		logoLabel.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
 
-		textLabel = new JLabel("Crea una cuenta de BChef");
+		textLabel = new JLabel(rb.getString("create_bchef_acc_text"));
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contrase�a");
+		showPWDBox = new JCheckBox(rb.getString("show_pwd_text"));
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(CreateAccountControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);

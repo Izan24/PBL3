@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -16,10 +17,12 @@ import eus.healthit.bchef.core.app.ui.components.RoundedTextField;
 
 public class NorthView extends JPanel {
 
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
 	RoundedTextField searchBar;
 	NorthViewController controller;
 
-	public static final String DEFAULT_SEARCH_TEXT_STRING = "Buscar una receta";
+	String DEFAULT_SEARCH_TEXT_STRING = rb.getString("north_search_text");
 
 	public NorthView(CenterViewController centerController) {
 		super(new BorderLayout(50, 50));

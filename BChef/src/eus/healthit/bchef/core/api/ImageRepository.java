@@ -32,7 +32,7 @@ public class ImageRepository {
 	public static Image decodeImage(String codedImage) {
 		try {
 			if (codedImage.equals("default")) {
-				return ImageIO.read(new File("resources/recipeIcons/defaultRecipeStepIcon.jpg"));
+				return ImageIO.read(new File("resources/recipeIcons/defaultRecipeStepIcon.png"));
 			}
 			byte[] bytes = Base64.getDecoder().decode(codedImage);
 			ByteArrayInputStream bis = new ByteArrayInputStream(bytes);

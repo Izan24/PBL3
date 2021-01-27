@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import com.google.api.Distribution.RangeOrBuilder;
 
 import eus.healthit.bchef.core.app.controllers.StepViewController;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
@@ -33,6 +36,8 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewStep extends JPanel {
 
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
 	Recipe recipe;
 
 	StepViewController controller;
@@ -44,7 +49,6 @@ public class CenterViewStep extends JPanel {
 	JPanel southPanel;
 	JTextArea instruction;
 	JLabel imageLabel, titleLabel, logoLabel;
-	
 
 	public CenterViewStep(CenterViewController centerController, User user) {
 		super(new GridLayout());
@@ -175,7 +179,6 @@ public class CenterViewStep extends JPanel {
 
 		centerPanel.add(createStepTextPanel(), constraints);
 		constraints.gridx = 1;
-//		constraints.gridwidth = GridBagConstraints.REMAINDER;
 		centerPanel.add(createImagePanel(), constraints);
 
 		return centerPanel;
@@ -246,16 +249,17 @@ public class CenterViewStep extends JPanel {
 	private void updateView(RecipeStep step) {
 		instruction.setText(step.getText());
 		imageLabel.setIcon(new ImageIcon(step.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-		titleLabel.setText("Paso Nº " + step.getNum());
+		titleLabel.setText(rb.getString("step_number_text") + " " + step.getNum());
 	}
 
 	public void addNewAlarm(CustomTimer alarm) {
 		southPanel.add(alarm);
 	}
-	
+
 	public void removeAlarm(List<CustomTimer> timers) {
 		southPanel.removeAll();
-		for(CustomTimer timer : timers) southPanel.add(timer);
+		for (CustomTimer timer : timers)
+			southPanel.add(timer);
 		southPanel.repaint();
 		southPanel.revalidate();
 	}

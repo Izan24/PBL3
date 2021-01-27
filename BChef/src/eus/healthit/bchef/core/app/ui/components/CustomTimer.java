@@ -1,18 +1,15 @@
 package eus.healthit.bchef.core.app.ui.components;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.time.Duration;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import eus.healthit.bchef.core.enums.RecipeStepActions;
+import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.models.KitchenAlarm;
 
 public class CustomTimer extends JPanel {
@@ -28,7 +25,7 @@ public class CustomTimer extends JPanel {
 	JLabel timerLabel, timerIcon;
 
 	public CustomTimer(KitchenAlarm alarm, Font font) {
-		super(new GridLayout());
+		super(new FlowLayout());
 		this.alarm = alarm;
 		this.setBackground(Color.white);
 
@@ -44,12 +41,15 @@ public class CustomTimer extends JPanel {
 		timerLabel.setForeground(gray);
 
 		timerIcon = new JLabel();
-		if (alarm.getUtil().equals(RecipeStepActions.OVEN)) {
-			timerIcon.setIcon(new ImageIcon("resources/menuIcons/oven.png"));
-		} else if (alarm.getUtil().equals(RecipeStepActions.STOVE)) {
-			timerIcon.setIcon(new ImageIcon("resources/menuIcons/stove.png"));
-		} else if (alarm.getUtil().equals(RecipeStepActions.TIMER)) {
+
+		if (alarm.getUtil() == null) {
 			timerIcon.setIcon(new ImageIcon("resources/menuIcons/timer.png"));
+		} else if (alarm.getUtil().equals(KitchenUtil.OVEN)) {
+			System.out.println("Horno letsGOGOOGO");
+			timerIcon.setIcon(new ImageIcon("resources/menuIcons/oven.png"));
+		} else if (alarm.getUtil().equals(KitchenUtil.STOVE)) {
+			System.out.println("Stove letsGOGOOGO");
+			timerIcon.setIcon(new ImageIcon("resources/menuIcons/stove.png"));
 		}
 	}
 

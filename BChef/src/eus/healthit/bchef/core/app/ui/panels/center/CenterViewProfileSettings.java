@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -37,12 +38,14 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewProfileSettings extends JPanel {
 
-	public static final String DEFAULT_NAME_TEXT = "Nombre";
-	public static final String DEFAULT_SURNAME_TEXT = "Apellido";
-	public static final String DEFAULT_EMAIL_TEXT = "Correo electronico";
-	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PWD_TEXT = "Contrase�a actual";
-	public static final String DEFAULT_CONFPWD_TEXT = "Nueva contrase�a";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_NAME_TEXT = rb.getString("name_text");
+	String DEFAULT_SURNAME_TEXT = rb.getString("surname_text");
+	String DEFAULT_EMAIL_TEXT = rb.getString("email_text");
+	String DEFAULT_USERNAME_TEXT = rb.getString("username_text");
+	String DEFAULT_PWD_TEXT = rb.getString("pwd_text");
+	String DEFAULT_NEWPWD_TEXT = rb.getString("pwd_confirm_text");
 
 	Color bgColor = Color.white;
 	Color textColor = new Color(129, 145, 160);
@@ -90,7 +93,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contrase�a");
+		showPWDBox = new JCheckBox(rb.getString("show_pwd_text"));
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(CreateAccountControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);
@@ -112,7 +115,7 @@ public class CenterViewProfileSettings extends JPanel {
 		logoLabel.setBackground(bgColor);
 		logoLabel.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
 
-		textLabel = new JLabel("Edita tu cuenta de BChef");
+		textLabel = new JLabel(rb.getString("edit_bchef_acc_text"));
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
@@ -155,16 +158,16 @@ public class CenterViewProfileSettings extends JPanel {
 		pwd.setEchoChar((char) 0);
 		pwd.setForeground(Color.gray);
 
-		newPwd = new RoundedJPasswordFieldShow(DEFAULT_CONFPWD_TEXT, showPWDBox);
+		newPwd = new RoundedJPasswordFieldShow(DEFAULT_NEWPWD_TEXT, showPWDBox);
 		newPwd.setPreferredSize(new Dimension(280, 40));
 		newPwd.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
-		newPwd.setText(DEFAULT_CONFPWD_TEXT);
+		newPwd.setText(DEFAULT_NEWPWD_TEXT);
 		newPwd.setEchoChar((char) 0);
 		newPwd.setForeground(Color.gray);
 	}
 
 	private void initJButtons() {
-		addImageButton = new JButton("A�adir imagen");
+		addImageButton = new JButton(rb.getString("add_img_text"));
 		addImageButton.setPreferredSize(new Dimension(125, 45));
 		addImageButton.setBackground(bgColor);
 		addImageButton.setForeground(new Color(28, 162, 243));
@@ -172,11 +175,11 @@ public class CenterViewProfileSettings extends JPanel {
 		addImageButton.setFocusable(false);
 		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				ProfileSettingsControllerAC.UPLOAD_IMAGE, "A�adir imagen", "A�adir imagen"));
+				ProfileSettingsControllerAC.UPLOAD_IMAGE, rb.getString("add_img_text"), rb.getString("add_img_text")));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		saveChanges = new JButton("Aplicar cambios");
+		saveChanges = new JButton(rb.getString("save_changes_text"));
 		saveChanges.setPreferredSize(new Dimension(150, 35));
 		saveChanges.setBackground(new Color(28, 162, 243));
 		saveChanges.setForeground(Color.white);
@@ -186,15 +189,15 @@ public class CenterViewProfileSettings extends JPanel {
 		saveChanges.setUI(new UIRoundButton(saveChanges, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.SAVE_CHANGES));
 
-		logOut = new JButton("Cerrar sesi�n");
+		logOut = new JButton(rb.getString("logout_text"));
 		logOut.setPreferredSize(new Dimension(150, 40));
 		logOut.setBackground(bgColor);
 		logOut.setForeground(new Color(28, 162, 243));
 		logOut.setFont(textFont);
 		logOut.setFocusable(false);
 		logOut.setUI(new UIRoundButton(logOut, 30, bgColor, new Color(255, 217, 217), new Color(196, 35, 93),
-				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.LOG_OUT, "Cerrar sesion",
-				"Cerrar sesion"));
+				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.LOG_OUT,
+				rb.getString("logout_text"), rb.getString("logout_text")));
 		logOut.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(196, 35, 93)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -243,25 +246,6 @@ public class CenterViewProfileSettings extends JPanel {
 
 		return flowPanel;
 	}
-
-//	private JScrollPane createContent() {
-//		JScrollPane scroll = new JScrollPane();
-//		scroll.setBackground(bgColor);
-//
-//		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		scroll.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
-//		scroll.setBackground(bgColor);
-//		scroll.setOpaque(false);
-//
-//		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
-//		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-//		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
-//		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-//
-//		scroll.setViewportView(createMainPanel());
-//
-//		return scroll;
-//	}
 
 	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new GridLayout(1, 1));
@@ -400,7 +384,6 @@ public class CenterViewProfileSettings extends JPanel {
 	private Component createProfilePicPanel() {
 		JPanel profilepicPanel = new JPanel(new FlowLayout());
 		profilepicPanel.setBackground(bgColor);
-//		profilepicPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 10));
 
 		profilepicPanel.add(profilePicture);
 
@@ -410,7 +393,6 @@ public class CenterViewProfileSettings extends JPanel {
 	private Component createAddButonPanel() {
 		JPanel butonPanel = new JPanel(new FlowLayout());
 		butonPanel.setBackground(bgColor);
-//		butonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 170, 10));
 
 		butonPanel.add(addImageButton);
 
@@ -429,7 +411,7 @@ public class CenterViewProfileSettings extends JPanel {
 		email.setText(user.getEmail());
 		pwd.setText(DEFAULT_PWD_TEXT);
 		pwd.setEchoChar((char) 0);
-		newPwd.setText(DEFAULT_CONFPWD_TEXT);
+		newPwd.setText(DEFAULT_NEWPWD_TEXT);
 		newPwd.setEchoChar((char) 0);
 	}
 

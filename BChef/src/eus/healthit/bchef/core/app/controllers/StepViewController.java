@@ -26,7 +26,6 @@ public class StepViewController implements PropertyChangeListener {
 
 	int currentStep;
 
-//	List<KitchenAlarm> alarms;
 	List<CustomTimer> alarms;
 
 	public StepViewController(CenterViewStep recipeView, CenterViewController centerController, User user) {
@@ -52,10 +51,8 @@ public class StepViewController implements PropertyChangeListener {
 			break;
 		case "UPDATE_STEP":
 			updateStep((RecipeStep) evt.getNewValue());
-			System.out.println("updated en el contrl");
 			break;
 		case "FINISH_RECIPE":
-			System.out.println("termino usted su recipe maestro");
 			recipeEnded();
 			break;
 		case "START_RECIPE":
@@ -84,10 +81,8 @@ public class StepViewController implements PropertyChangeListener {
 	}
 
 	private void removeAlarm(KitchenAlarm alarm) {
-		System.out.println("length antes de: " + alarms.size());
 		alarms.removeIf(x -> x.getAlarm().equals(alarm));
 		stepView.removeAlarm(alarms);
-		System.out.println("length despues de: " + alarms.size());
 	}
 
 	private void updateAlarm(KitchenAlarm alarm) {
