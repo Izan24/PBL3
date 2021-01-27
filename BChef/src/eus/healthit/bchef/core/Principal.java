@@ -2,7 +2,6 @@ package eus.healthit.bchef.core;
 
 import eus.healthit.bchef.core.app.ui.WindowFrame;
 import eus.healthit.bchef.core.assistant.BChefController;
-import eus.healthit.bchef.core.assistant.implementations.input.AudioInputController;
 
 public class Principal {
 
@@ -15,7 +14,9 @@ public class Principal {
 	public static void main(String[] args) throws InterruptedException {
 		BChefController.getInstance();
 		Principal principal = new Principal();
-		//IKitchenController = new KitchenController();
+		
+//		System.out.println(String.valueOf(BChefController.getInstance().errorMessage("RECIPES_NOT_FOUND")));
+		// IKitchenController = new KitchenController();
 //		Thread.sleep(10000);
 //		CommandController commandController = CommandController.getInstance();
 //		String cmdString = "lee".toLowerCase();

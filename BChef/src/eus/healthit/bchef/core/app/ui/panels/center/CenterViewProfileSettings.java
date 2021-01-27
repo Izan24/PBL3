@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -37,12 +38,14 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewProfileSettings extends JPanel {
 
-	public static final String DEFAULT_NAME_TEXT = "Nombre";
-	public static final String DEFAULT_SURNAME_TEXT = "Apellido";
-	public static final String DEFAULT_EMAIL_TEXT = "Correo electronico";
-	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PWD_TEXT = "Contrase�a actual";
-	public static final String DEFAULT_CONFPWD_TEXT = "Nueva contrase�a";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_NAME_TEXT = rb.getString("name_text");
+	String DEFAULT_SURNAME_TEXT = rb.getString("surname_text");
+	String DEFAULT_EMAIL_TEXT = rb.getString("email_text");
+	String DEFAULT_USERNAME_TEXT = rb.getString("username_text");
+	String DEFAULT_PWD_TEXT = rb.getString("pwd_text");
+	String DEFAULT_NEWPWD_TEXT = rb.getString("pwd_confirm_text");
 
 	Color bgColor = Color.white;
 	Color textColor = new Color(129, 145, 160);
@@ -90,7 +93,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contrase�a");
+		showPWDBox = new JCheckBox(rb.getString("show_pwd_text"));
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(CreateAccountControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);
@@ -112,7 +115,7 @@ public class CenterViewProfileSettings extends JPanel {
 		logoLabel.setBackground(bgColor);
 		logoLabel.setIcon(new ImageIcon("resources/menuIcons/bchef_icon.png"));
 
-		textLabel = new JLabel("Edita tu cuenta de BChef");
+		textLabel = new JLabel(rb.getString("edit_bchef_acc_text"));
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
@@ -155,10 +158,10 @@ public class CenterViewProfileSettings extends JPanel {
 		pwd.setEchoChar((char) 0);
 		pwd.setForeground(Color.gray);
 
-		newPwd = new RoundedJPasswordFieldShow(DEFAULT_CONFPWD_TEXT, showPWDBox);
+		newPwd = new RoundedJPasswordFieldShow(DEFAULT_NEWPWD_TEXT, showPWDBox);
 		newPwd.setPreferredSize(new Dimension(280, 40));
 		newPwd.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
-		newPwd.setText(DEFAULT_CONFPWD_TEXT);
+		newPwd.setText(DEFAULT_NEWPWD_TEXT);
 		newPwd.setEchoChar((char) 0);
 		newPwd.setForeground(Color.gray);
 	}
@@ -400,7 +403,6 @@ public class CenterViewProfileSettings extends JPanel {
 	private Component createProfilePicPanel() {
 		JPanel profilepicPanel = new JPanel(new FlowLayout());
 		profilepicPanel.setBackground(bgColor);
-//		profilepicPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 10));
 
 		profilepicPanel.add(profilePicture);
 
@@ -410,7 +412,6 @@ public class CenterViewProfileSettings extends JPanel {
 	private Component createAddButonPanel() {
 		JPanel butonPanel = new JPanel(new FlowLayout());
 		butonPanel.setBackground(bgColor);
-//		butonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 170, 10));
 
 		butonPanel.add(addImageButton);
 
@@ -429,7 +430,7 @@ public class CenterViewProfileSettings extends JPanel {
 		email.setText(user.getEmail());
 		pwd.setText(DEFAULT_PWD_TEXT);
 		pwd.setEchoChar((char) 0);
-		newPwd.setText(DEFAULT_CONFPWD_TEXT);
+		newPwd.setText(DEFAULT_NEWPWD_TEXT);
 		newPwd.setEchoChar((char) 0);
 	}
 

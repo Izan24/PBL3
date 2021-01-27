@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,6 +24,15 @@ import eus.healthit.bchef.core.app.ui.panels.center.CenterViewProfileSettings;
 import eus.healthit.bchef.core.models.User;
 
 public class ProfileSettingsController implements ActionListener, IRoundButtonListener {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_NAME_TEXT = rb.getString("name_text");
+	String DEFAULT_SURNAME_TEXT = rb.getString("surname_text");
+	String DEFAULT_EMAIL_TEXT = rb.getString("email_text");
+	String DEFAULT_USERNAME_TEXT = rb.getString("username_text");
+	String DEFAULT_PWD_TEXT = rb.getString("pwd_text");
+	String DEFAULT_NEWPWD_TEXT = rb.getString("pwd_confirm_text");
 
 	User user;
 	CenterViewProfileSettings settingsView;
@@ -47,7 +57,7 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				file = new FileChooser();
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			} catch (Exception e) {
-				System.out.println("Die");
+				System.out.println("Windows lookAndFeel error");
 			}
 			try {
 				try {
@@ -72,52 +82,52 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 				user.setUsername(settingsView.getUsername());
 				String pathString = settingsView.getImagePath();
 				user.setImgString((pathString != null) ? pathString : "nochange");
-				// System.out.println(user.getImgString());
 				JSONCalls.updateUser(user);
 				settingsView.updateView();
 			}
 			break;
 
 		case ProfileSettingsControllerAC.LOG_OUT:
-			System.out.println("Envia el user entero a la database antes de logout");
 			windowController.setLoginView();
 			break;
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	private boolean verifyParameters() {
 		EmailValidator validator = EmailValidator.getInstance();
-		if (settingsView.getName().trim().equals("") || settingsView.getName().equals(settingsView.DEFAULT_NAME_TEXT)) {
-			new CreationErrorDialog(window, "Invalid name", true, "El nombre introducido no es valido");
+		if (settingsView.getName().trim().equals("") || settingsView.getName().equals(DEFAULT_NAME_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_name_title"), true,
+					rb.getString("invalid_name_text"));
 			return false;
 		} else if (settingsView.getSurname().trim().equals("")
-				|| settingsView.getSurname().equals(settingsView.DEFAULT_SURNAME_TEXT)) {
-			new CreationErrorDialog(window, "Invalid surname", true, "El apellido introducido no es valido");
+				|| settingsView.getSurname().equals(DEFAULT_SURNAME_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_surname_title"), true,
+					rb.getString("invalid_surname_text"));
 			return false;
-		} else if (settingsView.getEmail().trim().equals("")
-				|| settingsView.getEmail().equals(settingsView.DEFAULT_EMAIL_TEXT)
+		} else if (settingsView.getEmail().trim().equals("") || settingsView.getEmail().equals(DEFAULT_EMAIL_TEXT)
 				|| !validator.isValid(settingsView.getEmail())) {
-			new CreationErrorDialog(window, "Invalid email", true, "El email introducido no es valido");
+			new CreationErrorDialog(window, rb.getString("invalid_email_title"), true,
+					rb.getString("invalid_email_text"));
 			return false;
 		} else if (!settingsView.getUsername().equals(user.getUsername())) {
 			if (!JSONCalls.checkUser(settingsView.getUsername())) {
-				new CreationErrorDialog(window, "Invalid username", true, "El nombre de usuario introducido ya existe");
+				new CreationErrorDialog(window, rb.getString("invalid_username_title"), true,
+						rb.getString("invalid_username_text"));
 				return false;
 			}
 		} else if (!passwordVerify()) {
-			new CreationErrorDialog(window, "Invalid password", true, "Las contrase�as no coinciden");
+			new CreationErrorDialog(window, rb.getString("invalid_password_title"), true,
+					rb.getString("invalid_password_text"));
 			return false;
 		}
 		return true;
 	}
 
-	@SuppressWarnings("static-access")
 	private boolean passwordVerify() {
-		if (!settingsView.getPwd().trim().equals("") && !settingsView.getPwd().equals(settingsView.DEFAULT_PWD_TEXT)) {
+		if (!settingsView.getPwd().trim().equals("") && !settingsView.getPwd().equals(DEFAULT_PWD_TEXT)) {
 			if (JSONCalls.reauth(user.getUsername(), settingsView.getPwd())) {
 				if (!settingsView.getNewPwd().trim().equals("")
-						&& !settingsView.getNewPwd().equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
+						&& !settingsView.getNewPwd().equals(DEFAULT_NEWPWD_TEXT)) {
 					user.setPassword(settingsView.getNewPwd());
 					return true;
 				} else {
@@ -138,15 +148,14 @@ public class ProfileSettingsController implements ActionListener, IRoundButtonLi
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	private void changePasswordFieldState() {
 		String pwd = settingsView.getPwd();
 		String pwdConfirm = settingsView.getNewPwd();
 
-		if (!pwd.equals(settingsView.DEFAULT_PWD_TEXT)) {
+		if (!pwd.equals(DEFAULT_PWD_TEXT)) {
 			settingsView.changePwdState();
 		}
-		if (!pwdConfirm.equals(settingsView.DEFAULT_CONFPWD_TEXT)) {
+		if (!pwdConfirm.equals(DEFAULT_NEWPWD_TEXT)) {
 			settingsView.changenewPwdState();
 		}
 	}

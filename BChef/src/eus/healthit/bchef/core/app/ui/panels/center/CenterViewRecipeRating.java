@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.Hashtable;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -30,12 +31,14 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewRecipeRating extends JPanel {
 
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 25);
 
 	Color bgColor = Color.white;
 
 	RecipeRatingController controller;
-	
+
 	Recipe recipe;
 
 	JButton rateButton, skipButton;
@@ -113,7 +116,7 @@ public class CenterViewRecipeRating extends JPanel {
 
 	private void initJButtons() {
 
-		rateButton = new JButton("Enviar valoraci�n");
+		rateButton = new JButton(rb.getString("send_rating_text"));
 		rateButton.setPreferredSize(new Dimension(150, 35));
 		rateButton.setBackground(new Color(28, 162, 243));
 		rateButton.setForeground(Color.white);
@@ -123,7 +126,7 @@ public class CenterViewRecipeRating extends JPanel {
 		rateButton.setUI(new UIRoundButton(rateButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 13), controller, RecipeRatingControllerAC.SUBMIT_RATING));
 
-		skipButton = new JButton("No quiero valorar");
+		skipButton = new JButton(rb.getString("no_rating_text"));
 		skipButton.setPreferredSize(new Dimension(150, 40));
 		skipButton.setBackground(bgColor);
 		skipButton.setForeground(new Color(28, 162, 243));
@@ -131,7 +134,7 @@ public class CenterViewRecipeRating extends JPanel {
 		skipButton.setFocusable(false);
 		skipButton.setUI(new UIRoundButton(skipButton, 30, bgColor, new Color(234, 246, 254), new Color(210, 236, 252),
 				new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 13), controller,
-				RecipeRatingControllerAC.SKIP_RATING, "No quiero valorar", "No quiero valorar"));
+				RecipeRatingControllerAC.SKIP_RATING, rb.getString("no_rating_text"), rb.getString("no_rating_text")));
 		skipButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -270,7 +273,7 @@ public class CenterViewRecipeRating extends JPanel {
 
 	private void updateView(Recipe recipe) {
 		imageLabel.setIcon(new ImageIcon(recipe.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-		titleLabel.setText("Valoraci�n de " + recipe.getName());
+		titleLabel.setText(rb.getString("rating_of_text") + " " + recipe.getName());
 	}
 
 	public void setStarView(int rating) {

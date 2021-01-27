@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -32,6 +33,14 @@ import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
 
 public class RecipeCreationController implements IRoundButtonListener, ActionListener, KeyListener {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String TITLE_DEFAULT_TEXT = rb.getString("title_text");
+	String DESCRIPTION_DEFAULT_TEXT = rb.getString("description_text");
+	String INGREDIENT_DEFAULT_TEXT = rb.getString("ingredient_text");
+	String QUANTITY_DEFAULT_TEXT = rb.getString("quantity_text");
+	String STEP_DEFAULT_TEXT = rb.getString("step_text");
 
 	JFrame framePreview;
 	CenterViewCreateRecipe createRecipeView;
@@ -58,16 +67,12 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("keypressed");
 		if (!createRecipeView.getIngredientName().equals(oldIngredientName)) {
 
 			suggestionIngredientList = JSONCalls.ingredientLike(createRecipeView.getIngredientName());
 
 			createRecipeView.setAutoCompleteList(suggestionIngredientList);
-
-			System.out.println("query");
 		}
-
 	}
 
 	@Override
@@ -97,7 +102,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 		case RecipeCreationControllerAC.ADD_IMAGE:
 			FileChooser file = null;
-			System.out.println("ADD IMAGE");
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				file = new FileChooser();
@@ -112,7 +116,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 		case RecipeCreationControllerAC.ADD_IMAGE_STEP:
 			FileChooser fileImage = null;
-			System.out.println("ADD IMAGE");
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				fileImage = new FileChooser();
@@ -130,8 +133,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			if (checkIngredient()) {
 				Ingredient ingredient = ingredientExists();
 				if (ingredient == null) {
-					new CreationErrorDialog(window, "Invalid ingredient", true,
-							"El ingrediente introducido no est� en la base de datos");
+					new CreationErrorDialog(window, rb.getString("invalid_ingredient_title"), true,
+							rb.getString("invalid_ingredient_text"));
 				} else {
 					System.out.println();
 					ingredient.setQuantity(createRecipeView.getIngredientQuantity());
@@ -146,7 +149,6 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			break;
 
 		case RecipeCreationControllerAC.ADD_STEP:
-			System.out.println("ADD_STEP");
 			if (checkStep()) {
 				addStep();
 				createRecipeView.resetStepFIelds();
@@ -154,13 +156,10 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 			break;
 
 		case RecipeCreationControllerAC.REMOVE_STEP:
-			System.out.println("REMOVE_STEP:");
 			createRecipeView.removeStep();
 			break;
 
 		case RecipeCreationControllerAC.CREATE_RECIPE:
-//			System.out.println(
-//					"Create recipe, hay que comrpobar que tenga toddos los campos puesto, para" + "eso haz un metodo:");
 			if (recipeValid()) {
 				addStepNumbers();
 				System.out.println(createRecipeView.getDescription());
@@ -173,7 +172,8 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 				JSONCalls.addRecipe(recipe);
 				user.addPublication(recipe);
 
-				new CreationErrorDialog(window, "Receta creada", true, "La receta se ha creado correctamente.");
+				new CreationErrorDialog(window, rb.getString("recipe_created_title"), true,
+						rb.getString("recipe_created_text"));
 				createRecipeView.resetAllFields();
 				centerController.setListView();
 
@@ -191,28 +191,29 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		for (int i = 0; i < ls.size(); i++) {
 			ls.get(i).setNum(i + 1);
 		}
-		// createRecipeView.getStepListModel().setList(ls);
 	}
 
 	private void addIngredient(Ingredient ingredient) {
-		// createRecipeView.getIngredientListModel().getList().add(ingredient);
 		createRecipeView.getIngredientListModel().addElement(ingredient);
 	}
 
 	private boolean recipeValid() {
-		if (createRecipeView.getTitle().trim().equals("")
-				|| createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid title", true, "El titulo introducido no es valido");
+		if (createRecipeView.getTitle().trim().equals("") || createRecipeView.getTitle().equals(TITLE_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_title_title"), true,
+					rb.getString("invalid_title_text"));
 			return false;
 		} else if (createRecipeView.getDescription().trim().equals("")
-				|| createRecipeView.getDescription().equals(CenterViewCreateRecipe.DESCRIPTION_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid description", true, "La descripci�n no es valida");
+				|| createRecipeView.getDescription().equals(DESCRIPTION_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_description_title"), true,
+					rb.getString("invalid_description_text"));
 			return false;
 		} else if (createRecipeView.getIngredientListModel().getSize() == 0) {
-			new CreationErrorDialog(window, "Invalid ingredients", true, "Introduce minimo un ingrediente");
+			new CreationErrorDialog(window, rb.getString("invalid_ingredient_title"), true,
+					rb.getString("invalid_ingredient_missing_text"));
 			return false;
 		} else if (createRecipeView.getStepListModel().getSize() == 0) {
-			new CreationErrorDialog(window, "Invalid step", true, "Introduce minimo un paso");
+			new CreationErrorDialog(window, rb.getString("invalid_step_title"), true,
+					rb.getString("invalid_step_text"));
 			return false;
 		}
 		return true;
@@ -232,13 +233,13 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 		String title;
 		String description;
 
-		if (createRecipeView.getTitle().equals(CenterViewCreateRecipe.TITLE_DEFAULT_TEXT)) {
+		if (createRecipeView.getTitle().equals(TITLE_DEFAULT_TEXT)) {
 			title = "";
 		} else {
 			title = createRecipeView.getTitle();
 		}
 
-		if (createRecipeView.getDescription().equals(CenterViewCreateRecipe.DESCRIPTION_DEFAULT_TEXT)) {
+		if (createRecipeView.getDescription().equals(DESCRIPTION_DEFAULT_TEXT)) {
 			description = "";
 		} else {
 			description = createRecipeView.getName();
@@ -251,7 +252,7 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 	}
 
 	private void createPreviewWindow() {
-		framePreview = new JFrame("Preview de receta");
+		framePreview = new JFrame(rb.getString("recipe_preview_text"));
 		framePreview.setSize(1250, 750);
 		framePreview.setLocation(400, 75);
 		framePreview.setResizable(true);
@@ -262,12 +263,14 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	private boolean checkIngredient() {
 		if (createRecipeView.getIngredientName().trim().equals("")
-				|| createRecipeView.getIngredientName().equals(CenterViewCreateRecipe.INGREDIENT_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid ingredient", true, "El ingrediente introducido no es valido");
+				|| createRecipeView.getIngredientName().equals(INGREDIENT_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_ingredient_empty_title"), true,
+					rb.getString("invalid_ingredient_empty_text"));
 			return false;
 		} else if (createRecipeView.getIngredientQuantity().trim().equals("")
-				|| createRecipeView.getIngredientQuantity().equals(CenterViewCreateRecipe.QUANTITY_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid quantity", true, "La cantidad introducida no es valida");
+				|| createRecipeView.getIngredientQuantity().equals(QUANTITY_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_quantity_title"), true,
+					rb.getString("invalid_quantity_text"));
 			return false;
 		}
 		return true;
@@ -303,20 +306,23 @@ public class RecipeCreationController implements IRoundButtonListener, ActionLis
 
 	public boolean checkStep() {
 		if (createRecipeView.getInstruction().trim().equals("")
-				|| createRecipeView.getInstruction().equals(CenterViewCreateRecipe.STEP_DEFAULT_TEXT)) {
-			new CreationErrorDialog(window, "Invalid instruction", true, "La instrucci�n no es valida");
+				|| createRecipeView.getInstruction().equals(STEP_DEFAULT_TEXT)) {
+			new CreationErrorDialog(window, rb.getString("invalid_instruction_title"), true,
+					rb.getString("invalid_instruction_text"));
 			return false;
 		} else {
 			if (createRecipeView.getAction().equals(RecipeStepActions.TIMER)) {
 				Duration duration = parseDuration();
 				if (duration.toNanos() == 0) {
-					new CreationErrorDialog(window, "Invalid time", true, "El tiempo no puede ser 0");
+					new CreationErrorDialog(window, rb.getString("invalid_time_title"), true,
+							rb.getString("invalid_time_text"));
 					return false;
 				}
 			} else if (createRecipeView.getAction().equals(RecipeStepActions.OVEN)
 					|| createRecipeView.getAction().equals(RecipeStepActions.STOVE)) {
 				if (createRecipeView.getValue() == 0) {
-					new CreationErrorDialog(window, "Invalid value", true, "El valor no puede ser 0");
+					new CreationErrorDialog(window, rb.getString("invalid_value_title"), true,
+							rb.getString("invalid_value_text"));
 					return false;
 				}
 			}

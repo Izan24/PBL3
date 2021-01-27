@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -35,8 +36,10 @@ import eus.healthit.bchef.core.models.User;
 
 public class LoginView extends JPanel {
 
-	public static final String DEFAULT_USERNAME_TEXT = "Nombre de usuario";
-	public static final String DEFAULT_PASSWORD_TEXT = "Contraseña";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_USERNAME_TEXT = rb.getString("default_username_text");
+	String DEFAULT_PASSWORD_TEXT = rb.getString("default_password_text");
 
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Color bgColor = Color.white;
@@ -72,7 +75,7 @@ public class LoginView extends JPanel {
 	}
 
 	private void initButtons() {
-		loginButton = new JButton("Iniciar sesion");
+		loginButton = new JButton(rb.getString("login_text"));
 		loginButton.setPreferredSize(new Dimension(150, 35));
 		loginButton.setBackground(new Color(28, 162, 243));
 		loginButton.setForeground(Color.white);
@@ -83,7 +86,7 @@ public class LoginView extends JPanel {
 		loginButton.setUI(new UIRoundButton(loginButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, LoginViewControllerAC.LOGIN));
 
-		createAccButton = new JButton("Crear cuenta");
+		createAccButton = new JButton(rb.getString("create_acc_text"));
 		createAccButton.setPreferredSize(new Dimension(150, 40));
 		createAccButton.setBackground(bgColor);
 		createAccButton.setForeground(new Color(28, 162, 243));
@@ -114,14 +117,14 @@ public class LoginView extends JPanel {
 	}
 
 	private void initJLabels() {
-		textLabel = new JLabel("Iniciar sesión");
+		textLabel = new JLabel(rb.getString("login_text"));
 		textLabel.setFont(new Font("Segoe UI", Font.PLAIN, 32));
 		textLabel.setBackground(Color.white);
 		textLabel.setForeground(Color.gray);
 	}
 
 	private void initCheckBoxes() {
-		showPWDBox = new JCheckBox("Mostrar contraseña");
+		showPWDBox = new JCheckBox(rb.getString("show_pwd_text"));
 		showPWDBox.addActionListener(controller);
 		showPWDBox.setActionCommand(LoginViewControllerAC.SHOW_PWD);
 		showPWDBox.setBackground(bgColor);

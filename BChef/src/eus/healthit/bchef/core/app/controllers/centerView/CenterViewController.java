@@ -137,7 +137,6 @@ public class CenterViewController implements ActionListener {
 	}
 
 	public void setStepView(Recipe recipe) {
-		System.out.println("El recipe cambio a " + recipe);
 		stepView.setRecipe(recipe);
 		principalView.changeCenterView(stepView);
 	}

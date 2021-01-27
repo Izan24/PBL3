@@ -44,7 +44,7 @@ public class Recipe {
 		this.publishDate = publishDate;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+		this.image = image;
 	}
 
 	public Recipe(String name, String author, int authorID, String description, int rating,
@@ -55,7 +55,7 @@ public class Recipe {
 		this.rating = rating;
 		this.ingredients = ingredients;
 		this.steps = steps;
-		this.image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+		this.image = image;
 
 	}
 

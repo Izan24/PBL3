@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,6 +17,8 @@ import eus.healthit.bchef.core.app.controllers.centerView.CenterViewControllerAC
 import eus.healthit.bchef.core.app.ui.components.CustomButton;
 
 public class LeftMenuView extends JPanel {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	CustomButton buttonHome, buttonProfile, buttonList, buttonChef, buttonCreateRecipe, buttonSettings;
 	ActionListener listener;
@@ -43,42 +46,42 @@ public class LeftMenuView extends JPanel {
 
 		Font font = new Font("Segoe UI", Font.PLAIN, 18);
 
-		buttonHome = new CustomButton("Home", "resources\\menuIcons\\home_normal_64.png",
+		buttonHome = new CustomButton(rb.getString("home_text"), "resources\\menuIcons\\home_normal_64.png",
 				"resources\\menuIcons\\home_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonHome.setPreferredSize(new Dimension(180, 40));
 		buttonHome.addActionListener(listener);
 		buttonHome.setActionCommand(CenterViewControllerAC.HOME);
 
-		buttonProfile = new CustomButton("Perfil", "resources\\menuIcons\\profile_normal_642.png",
+		buttonProfile = new CustomButton(rb.getString("profile_text"), "resources\\menuIcons\\profile_normal_642.png",
 				"resources\\menuIcons\\profile_active_642.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonProfile.setPreferredSize(new Dimension(180, 40));
 		buttonProfile.addActionListener(listener);
 		buttonProfile.setActionCommand(CenterViewControllerAC.PROFILE);
 
-		buttonList = new CustomButton("Lista", "resources\\menuIcons\\list_normal_64.png",
+		buttonList = new CustomButton(rb.getString("list_text"), "resources\\menuIcons\\list_normal_64.png",
 				"resources\\menuIcons\\list_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonList.setPreferredSize(new Dimension(180, 40));
 		buttonList.addActionListener(listener);
 		buttonList.setActionCommand(CenterViewControllerAC.LIST);
 
-		buttonCreateRecipe = new CustomButton("Crear Receta", "resources\\menuIcons\\create_recipe_64.png",
+		buttonCreateRecipe = new CustomButton(rb.getString("create_recipe_text"), "resources\\menuIcons\\create_recipe_64.png",
 				"resources\\menuIcons\\create_recipe_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonCreateRecipe.setPreferredSize(new Dimension(180, 40));
 		buttonCreateRecipe.addActionListener(listener);
 		buttonCreateRecipe.setActionCommand(CenterViewControllerAC.CREATE_RECIPE);
 
-		buttonChef = new CustomButton("BChef", "resources\\menuIcons\\logo.png", "resources\\menuIcons\\logo.png",
+		buttonChef = new CustomButton(rb.getString("bchef_text"), "resources\\menuIcons\\logo.png", "resources\\menuIcons\\logo.png",
 				Color.white, Color.white, new Color(30, 170, 255), new Color(29, 154, 231),
 				new Font("Segoe UI", Font.TYPE1_FONT, 18), CustomButton.CENTER_ALIGN);
 		buttonChef.setPreferredSize(new Dimension(200, 40));
 		buttonChef.addActionListener(listener);
 		buttonChef.setActionCommand(CenterViewControllerAC.BCHEF);
 
-		buttonSettings = new CustomButton("Ajustes", "resources\\menuIcons\\settings_normal_64.png",
+		buttonSettings = new CustomButton(rb.getString("settings_text"), "resources\\menuIcons\\settings_normal_64.png",
 				"resources\\menuIcons\\settings_active_64.png", new Color(15, 20, 25), new Color(29, 161, 242),
 				new Color(0, 0, 0, 0), new Color(232, 245, 254), font);
 		buttonSettings.setPreferredSize(new Dimension(200, 40));

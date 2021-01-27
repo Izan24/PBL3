@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
@@ -54,11 +55,13 @@ import eus.healthit.bchef.core.models.User;
 
 public class CenterViewCreateRecipe extends JPanel {
 
-	public final static String TITLE_DEFAULT_TEXT = "Introduzca titulo";
-	public final static String DESCRIPTION_DEFAULT_TEXT = "Descripcion de la receta";
-	public final static String INGREDIENT_DEFAULT_TEXT = "Ingrediente";
-	public final static String QUANTITY_DEFAULT_TEXT = "Cantidad";
-	public final static String STEP_DEFAULT_TEXT = "Instruccion del paso";
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String TITLE_DEFAULT_TEXT = rb.getString("title_text");
+	String DESCRIPTION_DEFAULT_TEXT = rb.getString("description_text");
+	String INGREDIENT_DEFAULT_TEXT = rb.getString("ingredient_text");
+	String QUANTITY_DEFAULT_TEXT = rb.getString("quantity_text");
+	String STEP_DEFAULT_TEXT = rb.getString("step_text");
 
 	Font titleFont = new Font("Segoe UI", Font.PLAIN, 20);
 	Font textFont = new Font("Segoe UI", Font.PLAIN, 20);
@@ -119,7 +122,7 @@ public class CenterViewCreateRecipe extends JPanel {
 	}
 
 	private void initButtons() {
-		addStepButton = new JButton("A�adir");
+		addStepButton = new JButton(rb.getString("add_text"));
 		addStepButton.setPreferredSize(new Dimension(150, 35));
 		addStepButton.setBackground(greenButtonColor);
 		addStepButton.setForeground(Color.white);
@@ -129,7 +132,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		addStepButton.setUI(new UIRoundButton(addStepButton, 30, greenButtonColor, Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.ADD_STEP));
 
-		removeStepButton = new JButton("Eliminar");
+		removeStepButton = new JButton(rb.getString("remove_text"));
 		removeStepButton.setPreferredSize(new Dimension(150, 35));
 		removeStepButton.setBackground(redButtonColor);
 		removeStepButton.setForeground(Color.white);
@@ -139,7 +142,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		removeStepButton.setUI(new UIRoundButton(removeStepButton, 30, redButtonColor, Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.REMOVE_STEP));
 
-		addImageButton = new JButton("A�adir imagen");
+		addImageButton = new JButton(rb.getString("add_img_text"));
 		addImageButton.setPreferredSize(new Dimension(150, 40));
 		addImageButton.setBackground(bgColor);
 		addImageButton.setForeground(new Color(28, 162, 243));
@@ -147,11 +150,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		addImageButton.setFocusable(false);
 		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.ADD_IMAGE, "A�adir imagen", "A�adir imagen"));
+				RecipeCreationControllerAC.ADD_IMAGE, rb.getString("add_img_text"), rb.getString("add_img_text")));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		addStepImageButton = new JButton("A�adir imagen");
+		addStepImageButton = new JButton(rb.getString("add_img_text"));
 		addStepImageButton.setPreferredSize(new Dimension(125, 75));
 		addStepImageButton.setBackground(bgColor);
 		addStepImageButton.setForeground(new Color(28, 162, 243));
@@ -159,11 +162,11 @@ public class CenterViewCreateRecipe extends JPanel {
 		addStepImageButton.setFocusable(false);
 		addStepImageButton.setUI(new UIRoundButton(addStepImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.ADD_IMAGE_STEP, "A�adir imagen", "A�adir imagen"));
+				RecipeCreationControllerAC.ADD_IMAGE_STEP, rb.getString("add_img_text"), rb.getString("add_img_text")));
 		addStepImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		addIngredientButton = new JButton("A�adir");
+		addIngredientButton = new JButton(rb.getString("add_text"));
 		addIngredientButton.setPreferredSize(new Dimension(150, 35));
 		addIngredientButton.setBackground(new Color(28, 162, 243));
 		addIngredientButton.setForeground(Color.white);
@@ -173,7 +176,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		addIngredientButton.setUI(new UIRoundButton(addIngredientButton, 30, greenButtonColor, Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.ADD_INGREDIENT));
 
-		removeIngredientButton = new JButton("Eliminar");
+		removeIngredientButton = new JButton(rb.getString("remove_text"));
 		removeIngredientButton.setPreferredSize(new Dimension(150, 35));
 		removeIngredientButton.setBackground(new Color(28, 162, 243));
 		removeIngredientButton.setForeground(Color.white);
@@ -183,7 +186,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		removeIngredientButton.setUI(new UIRoundButton(removeIngredientButton, 30, redButtonColor, Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.REMOVE_INGREDIENT));
 
-		createButton = new JButton("Crear receta");
+		createButton = new JButton(rb.getString("create_recipe_text"));
 		createButton.setPreferredSize(new Dimension(150, 35));
 		createButton.setBackground(new Color(28, 162, 243));
 		createButton.setForeground(Color.white);
@@ -193,7 +196,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		createButton.setUI(new UIRoundButton(createButton, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 15), controller, RecipeCreationControllerAC.CREATE_RECIPE));
 
-		previewButton = new JButton("Vista previa");
+		previewButton = new JButton(rb.getString("preview_text"));
 		previewButton.setPreferredSize(new Dimension(150, 40));
 		previewButton.setBackground(bgColor);
 		previewButton.setForeground(new Color(28, 162, 243));
@@ -201,21 +204,22 @@ public class CenterViewCreateRecipe extends JPanel {
 		previewButton.setFocusable(false);
 		previewButton.setUI(new UIRoundButton(previewButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.PREVIEW, "Vista previa", "Vista previa"));
+				RecipeCreationControllerAC.PREVIEW, rb.getString("create_recipe_text"),
+				rb.getString("create_recipe_text")));
 		previewButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
 
 	private void initJLabels() {
-		recipeCreationTitle = new JLabel("Crea tu propia receta");
+		recipeCreationTitle = new JLabel(rb.getString("create_your_own_recipe_text"));
 		recipeCreationTitle.setFont(titleFont);
 		recipeCreationTitle.setBackground(bgColor);
 
-		ingredientTitle = new JLabel("Ingredientes");
+		ingredientTitle = new JLabel(rb.getString("ingredients_text"));
 		ingredientTitle.setFont(titleFont);
 		ingredientTitle.setBackground(bgColor);
 
-		stepsTitleJLabel = new JLabel("Pasos");
+		stepsTitleJLabel = new JLabel(rb.getString("steps_text"));
 		stepsTitleJLabel.setFont(titleFont);
 		stepsTitleJLabel.setBackground(bgColor);
 	}
@@ -255,7 +259,6 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		instruction = new JTextArea();
 		instruction.setFont(textFont);
-//		instruction.setBorder(new SearchBorder(20, new Color(200, 200, 200), false));
 		instruction.setText(STEP_DEFAULT_TEXT);
 		instruction.addFocusListener(new DefaultTextAreaController(instruction, STEP_DEFAULT_TEXT));
 		instruction.setForeground(Color.gray);
@@ -671,7 +674,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		JPanel infoPanel = new JPanel(new BorderLayout(10, 10));
 		infoPanel.setBackground(bgColor);
 
-		JLabel titleLabel = new JLabel("Pasos");
+		JLabel titleLabel = new JLabel(rb.getString("steps_text"));
 		titleLabel.setFont(textFont);
 		titleLabel.setHorizontalAlignment(JLabel.LEFT);
 
@@ -740,7 +743,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		northPanel.setBackground(bgColor);
 		northPanel.setBorder(BorderFactory.createMatteBorder(100, 0, 0, 0, Color.white));
 
-		JLabel titleLabel = new JLabel("Ingredientes");
+		JLabel titleLabel = new JLabel(rb.getString("ingredients_text"));
 		titleLabel.setFont(textFont);
 		titleLabel.setBackground(bgColor);
 
@@ -765,16 +768,6 @@ public class CenterViewCreateRecipe extends JPanel {
 
 		return scrollPane;
 	}
-
-//	public void addIngredient() {
-//		controller.addIngredient(ingredient.getText(), quantity.getText());
-//	}
-//	
-
-//	public void addStep(String imageURL, int num) {
-//		controller.addStep(instruction.getText(), (int) values.getValue(),
-//				(RecipeStepActions) actions.getSelectedItem(), imageURL, num);
-//	}
 
 	public void removeIngredient() {
 		try {

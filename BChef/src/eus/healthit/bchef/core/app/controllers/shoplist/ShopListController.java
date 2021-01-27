@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ResourceBundle;
 
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.interfaces.IRoundButtonListener;
@@ -14,6 +15,10 @@ import eus.healthit.bchef.core.models.Item;
 
 public class ShopListController
 		implements ActionListener, IShopListController, IRoundButtonListener, PropertyChangeListener {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
+
+	String DEFAULT_ADD_ELEMENT_TEXT = rb.getString("add_element_text");
 
 	CenterViewShopList shopListView;
 
@@ -37,7 +42,7 @@ public class ShopListController
 
 		String spaceless = name.trim();
 
-		if (!spaceless.equals("") && !name.equals("Nuevo elemento")) {
+		if (!spaceless.equals("") && !name.equals(rb.getString("new_element_text"))) {
 			shopListView.getListModel().addElement(new Item(name));
 		}
 	}
@@ -74,7 +79,7 @@ public class ShopListController
 
 	private boolean checkItem() {
 		String trimmedString = shopListView.getNewElementname().trim();
-		if (trimmedString.equals("") || trimmedString.equals(CenterViewShopList.DEFAULT_ADD_ELEMENT_TEXT)) {
+		if (trimmedString.equals("") || trimmedString.equals(DEFAULT_ADD_ELEMENT_TEXT)) {
 			return false;
 		} else {
 			return true;

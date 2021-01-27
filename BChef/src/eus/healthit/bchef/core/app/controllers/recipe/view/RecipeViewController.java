@@ -26,22 +26,17 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 		switch (command) {
 		case RecipeViewControllerAC.SAVE:
 			if (user.getSaved().contains(centerViewRecipe.getRecipe())) {
-//				System.out.println("dELETE");
 				user.getSaved().remove(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 				JSONCalls.unsave(user.getId(), centerViewRecipe.getRecipe().getUUID());
 			} else {
-//				System.out.println("SAVE");
 				user.getSaved().add(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 				JSONCalls.save(user.getId(), centerViewRecipe.getRecipe().getUUID());
 			}
 			break;
 		case RecipeViewControllerAC.START:
-//			System.out.println("Start recipe");
-//			System.out.println(centerViewRecipe.getRecipe().toString());
 			Recipe recipe = centerViewRecipe.getRecipe();
-			//System.out.println(recipe.toString());
 			centerController.setStepView(recipe);
 			System.out.println("action performed START");
 			BChefController controller = BChefController.getInstance();
@@ -49,7 +44,7 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 			System.out.println("entrando en  ----------------------->");
 			controller.startRecipe(recipe);
 			System.out.println("<---------------------------- saliendo de");
-			
+
 			break;
 		}
 	}

@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,6 +26,7 @@ import eus.healthit.bchef.core.models.RecipeStep;
 public class CenterPreviewRecipe extends JPanel {
 
 	Recipe recipe;
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	JScrollPane scrollPane;
 
@@ -68,13 +70,13 @@ public class CenterPreviewRecipe extends JPanel {
 		imageLabel = new JLabel();
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		ingredientTitleLabel = new JLabel("Ingredientes");
+		ingredientTitleLabel = new JLabel(rb.getString("ingredients"));
 		ingredientTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		ingredientTitleLabel.setForeground(Color.darkGray);
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		elaborationTitleLabel = new JLabel("Elaboraci�n");
+		elaborationTitleLabel = new JLabel(rb.getString("elaboration"));
 		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
@@ -92,7 +94,7 @@ public class CenterPreviewRecipe extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(bgColor);
 		scrollPane.setOpaque(true);
-		
+
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollbarUI());
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
 		scrollPane.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
@@ -185,7 +187,7 @@ public class CenterPreviewRecipe extends JPanel {
 
 	public void updateView(Recipe recipe) {
 		titleLabel.setText(recipe.getName());
-		authorLabel.setText("Autor: " + recipe.getAuthor());
+		authorLabel.setText(rb.getString("author") + " " + recipe.getAuthor());
 		setImage(recipe);
 		setRating(recipe);
 		setIngredients(recipe);

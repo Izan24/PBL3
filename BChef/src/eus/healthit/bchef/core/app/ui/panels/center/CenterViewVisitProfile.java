@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -29,6 +30,8 @@ import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.User;
 
 public class CenterViewVisitProfile extends JPanel {
+
+	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
 	Color bgColor = Color.white;
 	Color textColor = new Color(129, 145, 160);
@@ -86,17 +89,17 @@ public class CenterViewVisitProfile extends JPanel {
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));
 		username.setBackground(Color.white);
 
-		recipesText = new JLabel("Recipes");
+		recipesText = new JLabel(rb.getString("recipes_text"));
 		recipesText.setFont(textFont);
 		recipesText.setForeground(textColor);
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
 
-		followersText = new JLabel("Followers");
+		followersText = new JLabel(rb.getString("followers_text"));
 		followersText.setFont(textFont);
 		followersText.setForeground(textColor);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
 
-		followingText = new JLabel("Following");
+		followingText = new JLabel(rb.getString("following_text"));
 		followingText.setFont(textFont);
 		followingText.setForeground(textColor);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
@@ -114,7 +117,7 @@ public class CenterViewVisitProfile extends JPanel {
 		followers.setFont(numberFont);
 		followers.setHorizontalAlignment(JLabel.CENTER);
 
-		recipesTextList = new JLabel("Recetas creadas");
+		recipesTextList = new JLabel(rb.getString("recipes_text"));
 		recipesTextList.setFont(textFont);
 		recipesTextList.setForeground(selectedColor);
 		recipesTextList.setHorizontalAlignment(JLabel.CENTER);
@@ -124,7 +127,7 @@ public class CenterViewVisitProfile extends JPanel {
 	}
 
 	private void initJButtons() {
-		followButton = new JButton("Seguir");
+		followButton = new JButton(rb.getString("follow_text"));
 		followButton.setPreferredSize(new Dimension(150, 35));
 		followButton.setBackground(new Color(28, 162, 243));
 		followButton.setForeground(Color.white);
@@ -134,16 +137,16 @@ public class CenterViewVisitProfile extends JPanel {
 		followButton.setUI(new UIRoundButton(followButton, 30, new Color(28, 162, 243), Color.white, buttonFont,
 				controller, ProfileVisitControllerAC.FOLLOW));
 
-		unfollowButton = new JButton("Siguiendo");
+		unfollowButton = new JButton(rb.getString("following_text"));
 		unfollowButton.setPreferredSize(new Dimension(150, 35));
 		unfollowButton.setBackground(new Color(28, 162, 243));
 		unfollowButton.setForeground(Color.white);
 		unfollowButton.setFont(textFont);
 		unfollowButton.setBorder(BorderFactory.createEmptyBorder());
 		unfollowButton.setFocusable(false);
-		unfollowButton.setUI(
-				new UIRoundButton(unfollowButton, 30, new Color(28, 162, 243), new Color(196, 35, 93), Color.white,
-						buttonFont, controller, ProfileVisitControllerAC.UNFOLLOW, "Siguiendo", "Dejar de seguir"));
+		unfollowButton.setUI(new UIRoundButton(unfollowButton, 30, new Color(28, 162, 243), new Color(196, 35, 93),
+				Color.white, buttonFont, controller, ProfileVisitControllerAC.UNFOLLOW, rb.getString("following_text"),
+				rb.getString("unfollow_text")));
 	}
 
 	private void initJlist() {
