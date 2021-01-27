@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.util.ResourceBundle;
 
@@ -203,7 +204,7 @@ public class CenterPreviewRecipe extends JPanel {
 		imageLabel.removeAll();
 		imageLabel.revalidate();
 		try {
-			imageLabel.setIcon(new ImageIcon(recipe.getImage()));
+			imageLabel.setIcon(new ImageIcon(recipe.getImage().getScaledInstance(500, 300, Image.SCALE_SMOOTH)));
 		} catch (Exception e) {
 		}
 	}
