@@ -384,4 +384,8 @@ public class CenterViewRecipe extends JPanel {
 	public Recipe getRecipe() {
 		return recipe;
 	}
+
+	public void setScrollPaneTop() {
+		scrollPane.getHorizontalScrollBar().setValue(0);
+	}
 }

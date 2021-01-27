@@ -55,6 +55,9 @@ public class CenterListController implements IClickable, AdjustmentListener {
 				actualPage++;
 			}
 		}
+
+		viewList.repaint();
+		viewList.revalidate();
 	}
 
 	private boolean checkPage() {
@@ -65,6 +68,5 @@ public class CenterListController implements IClickable, AdjustmentListener {
 		}
 		return false;
 	}
-
 
 }

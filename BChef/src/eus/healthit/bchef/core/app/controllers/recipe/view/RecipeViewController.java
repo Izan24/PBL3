@@ -31,6 +31,7 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 				user.getSaved().remove(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
 				JSONCalls.unsave(user.getId(), centerViewRecipe.getRecipe().getUUID());
+				centerViewRecipe.setScrollPaneTop();
 			} else {
 				user.getSaved().add(centerViewRecipe.getRecipe());
 				centerViewRecipe.updateView(centerViewRecipe.getRecipe());
@@ -40,13 +41,9 @@ public class RecipeViewController implements IRoundButtonListener, IClickable {
 		case RecipeViewControllerAC.START:
 			Recipe recipe = centerViewRecipe.getRecipe();
 			centerController.setStepView(recipe);
-			System.out.println("action performed START");
 			BChefController controller = BChefController.getInstance();
 			controller.startVoiceRecon();
-			System.out.println("entrando en  ----------------------->");
 			controller.startRecipe(recipe);
-			System.out.println("<---------------------------- saliendo de");
-
 			break;
 		}
 	}
