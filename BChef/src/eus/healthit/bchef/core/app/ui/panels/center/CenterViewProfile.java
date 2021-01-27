@@ -36,6 +36,12 @@ public class CenterViewProfile extends JPanel implements IClickable {
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("MessagesBundle");
 
+	String RECIPES_TEXT = rb.getString("recipes_text");
+	String FOLLOWERS_TEXT = rb.getString("followers_text");
+	String FOLLOWING_TEXT = rb.getString("following_text");
+	String MY_RECIPES_TEXT = rb.getString("my_recipes_text");
+	String SAVED_RECIPES_TEXT = rb.getString("saved_recipes_text");
+
 	CenterViewController centerController;
 
 	User user;
@@ -86,17 +92,17 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		username = new JLabel(user.getUsername());
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 35));
 
-		recipesText = new JLabel(rb.getString("recipes_text"));
+		recipesText = new JLabel(RECIPES_TEXT);
 		recipesText.setFont(textFont);
 		recipesText.setForeground(textColor);
 		recipesText.setHorizontalAlignment(JLabel.CENTER);
 
-		followersText = new JLabel(rb.getString("followers_text"));
+		followersText = new JLabel(FOLLOWERS_TEXT);
 		followersText.setFont(textFont);
 		followersText.setForeground(textColor);
 		followersText.setHorizontalAlignment(JLabel.CENTER);
 
-		followingText = new JLabel(rb.getString("following_text"));
+		followingText = new JLabel(FOLLOWING_TEXT);
 		followingText.setFont(textFont);
 		followingText.setForeground(textColor);
 		followingText.setHorizontalAlignment(JLabel.CENTER);
@@ -117,7 +123,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 	}
 
 	private void initJButtons() {
-		uploadedButton = new JButton(rb.getString("my_recipes_text"));
+		uploadedButton = new JButton(MY_RECIPES_TEXT);
 		uploadedButton.setFont(textFont);
 		uploadedButton.setBackground(bgColor);
 		uploadedButton.setForeground(selectedColor);
@@ -126,7 +132,7 @@ public class CenterViewProfile extends JPanel implements IClickable {
 		uploadedButton.addActionListener(controller);
 		uploadedButton.setFocusable(false);
 
-		savedButton = new JButton(rb.getString("saved_recipes_text"));
+		savedButton = new JButton(SAVED_RECIPES_TEXT);
 		savedButton.setFont(textFont);
 		savedButton.setBackground(bgColor);
 		savedButton.setBorder(BorderFactory.createEmptyBorder());
