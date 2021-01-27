@@ -167,7 +167,7 @@ public class CenterViewProfileSettings extends JPanel {
 	}
 
 	private void initJButtons() {
-		addImageButton = new JButton("A�adir imagen");
+		addImageButton = new JButton(rb.getString("add_img_text"));
 		addImageButton.setPreferredSize(new Dimension(125, 45));
 		addImageButton.setBackground(bgColor);
 		addImageButton.setForeground(new Color(28, 162, 243));
@@ -175,11 +175,11 @@ public class CenterViewProfileSettings extends JPanel {
 		addImageButton.setFocusable(false);
 		addImageButton.setUI(new UIRoundButton(addImageButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				ProfileSettingsControllerAC.UPLOAD_IMAGE, "A�adir imagen", "A�adir imagen"));
+				ProfileSettingsControllerAC.UPLOAD_IMAGE, rb.getString("add_img_text"), rb.getString("add_img_text")));
 		addImageButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 
-		saveChanges = new JButton("Aplicar cambios");
+		saveChanges = new JButton(rb.getString("save_changes_text"));
 		saveChanges.setPreferredSize(new Dimension(150, 35));
 		saveChanges.setBackground(new Color(28, 162, 243));
 		saveChanges.setForeground(Color.white);
@@ -189,15 +189,15 @@ public class CenterViewProfileSettings extends JPanel {
 		saveChanges.setUI(new UIRoundButton(saveChanges, 30, new Color(28, 162, 243), Color.white,
 				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.SAVE_CHANGES));
 
-		logOut = new JButton("Cerrar sesi�n");
+		logOut = new JButton(rb.getString("logout_text"));
 		logOut.setPreferredSize(new Dimension(150, 40));
 		logOut.setBackground(bgColor);
 		logOut.setForeground(new Color(28, 162, 243));
 		logOut.setFont(textFont);
 		logOut.setFocusable(false);
 		logOut.setUI(new UIRoundButton(logOut, 30, bgColor, new Color(255, 217, 217), new Color(196, 35, 93),
-				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.LOG_OUT, "Cerrar sesion",
-				"Cerrar sesion"));
+				new Font("Segoe UI", Font.BOLD, 13), controller, ProfileSettingsControllerAC.LOG_OUT,
+				rb.getString("logout_text"), rb.getString("logout_text")));
 		logOut.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(196, 35, 93)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
@@ -246,25 +246,6 @@ public class CenterViewProfileSettings extends JPanel {
 
 		return flowPanel;
 	}
-
-//	private JScrollPane createContent() {
-//		JScrollPane scroll = new JScrollPane();
-//		scroll.setBackground(bgColor);
-//
-//		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		scroll.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
-//		scroll.setBackground(bgColor);
-//		scroll.setOpaque(false);
-//
-//		scroll.getVerticalScrollBar().setUI(new CustomScrollbarUI());
-//		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-//		scroll.getHorizontalScrollBar().setUI(new CustomScrollbarUI());
-//		scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-//
-//		scroll.setViewportView(createMainPanel());
-//
-//		return scroll;
-//	}
 
 	private JPanel createMainPanel() {
 		JPanel contentPanel = new JPanel(new GridLayout(1, 1));

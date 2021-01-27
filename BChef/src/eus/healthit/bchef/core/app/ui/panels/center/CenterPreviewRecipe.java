@@ -70,13 +70,13 @@ public class CenterPreviewRecipe extends JPanel {
 		imageLabel = new JLabel();
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		ingredientTitleLabel = new JLabel(rb.getString("ingredients"));
+		ingredientTitleLabel = new JLabel(rb.getString("ingredients_text"));
 		ingredientTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		ingredientTitleLabel.setForeground(Color.darkGray);
 		ingredientTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		ingredientTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		elaborationTitleLabel = new JLabel(rb.getString("elaboration"));
+		elaborationTitleLabel = new JLabel(rb.getString("elaboration_text"));
 		elaborationTitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
 		elaborationTitleLabel.setForeground(Color.darkGray);
 		elaborationTitleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
@@ -187,7 +187,7 @@ public class CenterPreviewRecipe extends JPanel {
 
 	public void updateView(Recipe recipe) {
 		titleLabel.setText(recipe.getName());
-		authorLabel.setText(rb.getString("author") + " " + recipe.getAuthor());
+		authorLabel.setText(rb.getString("author_text") + " " + recipe.getAuthor());
 		setImage(recipe);
 		setRating(recipe);
 		setIngredients(recipe);

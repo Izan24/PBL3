@@ -204,8 +204,7 @@ public class CenterViewCreateRecipe extends JPanel {
 		previewButton.setFocusable(false);
 		previewButton.setUI(new UIRoundButton(previewButton, 30, bgColor, new Color(234, 246, 254),
 				new Color(210, 236, 252), new Color(28, 162, 243), new Font("Segoe UI", Font.BOLD, 15), controller,
-				RecipeCreationControllerAC.PREVIEW, rb.getString("create_recipe_text"),
-				rb.getString("create_recipe_text")));
+				RecipeCreationControllerAC.PREVIEW, rb.getString("preview_text"), rb.getString("preview_text")));
 		previewButton.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(30, new Color(148, 204, 255)),
 				BorderFactory.createEmptyBorder(60, 40, 60, 40)));
 	}
