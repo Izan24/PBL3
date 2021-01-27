@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 import eus.healthit.bchef.core.app.controllers.DoubleClickListener;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
@@ -30,6 +33,7 @@ import eus.healthit.bchef.core.models.Ingredient;
 import eus.healthit.bchef.core.models.Recipe;
 import eus.healthit.bchef.core.models.RecipeStep;
 import eus.healthit.bchef.core.models.User;
+import eus.healthit.bchef.core.util.TextFormatter;
 
 public class CenterViewRecipe extends JPanel {
 
@@ -162,7 +166,7 @@ public class CenterViewRecipe extends JPanel {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weighty = 1;
 		constraints.weightx = 1;
-		constraints.insets = new Insets(0, 140, 0, 140);
+		constraints.insets = new Insets(0, 80, 0, 80);
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
@@ -333,16 +337,34 @@ public class CenterViewRecipe extends JPanel {
 		fullStepPanel.add(stepPanel, BorderLayout.CENTER);
 
 		try {
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.weighty = 1;
+			constraints.weightx = 1;
+			constraints.insets = new Insets(15, 0, 15, 0);
+			constraints.gridx = 0;
+			constraints.gridy = 0;
+
+			int i = 1;
 			for (RecipeStep step : recipe.getSteps()) {
-				JPanel tmpStepPanel = new JPanel(new GridLayout(1, 1, 0, 0));
+				JPanel tmpStepPanel = new JPanel(new GridBagLayout());
 				tmpStepPanel.setBackground(bgColor);
 
-				JLabel stepText = new JLabel(step.getText());
+				// JLabel stepText = new JLabel(TextFormatter.format(step.getText(), 40));
 
+				JTextPane stepText = new JTextPane();
+				stepText.setText(TextFormatter.format(step.getText(), 40));
+				stepText.setForeground(Color.DARK_GRAY);
+				stepText.setAlignmentX(JTextPane.CENTER_ALIGNMENT);
 				stepText.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-				stepText.setHorizontalAlignment(JLabel.CENTER);
+				stepText.setBorder(BorderFactory.createEmptyBorder());
+				// stepText.setFocusable(false);
+				stepText.setEditable(false);
+				tmpStepPanel.add(stepText);
 
-				stepPanel.add(stepText);
+				constraints.gridx = i;
+				stepPanel.add(tmpStepPanel, constraints);
+				i++;
 			}
 		} catch (NullPointerException e) {
 
