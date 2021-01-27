@@ -129,7 +129,8 @@ public class BoardController implements SerialPortDataListener, IBoardController
 	}
 
 	public void allLetters(String frase) {
-		if(serialPort == null) return;
+		if (serialPort == null)
+			return;
 		for (int i = 0; i < frase.length(); i++) {
 			String s = Character.toString(frase.charAt(i));
 			serialWrite(s);
@@ -162,6 +163,12 @@ public class BoardController implements SerialPortDataListener, IBoardController
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		connector.addPropertyChangeListener(listener);
+	}
+
+	@Override
+	public void close() {
+		if (serialPort != null)
+			serialPort.closePort();
 	}
 
 }

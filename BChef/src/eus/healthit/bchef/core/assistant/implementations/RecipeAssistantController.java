@@ -4,7 +4,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import eus.healthit.bchef.core.assistant.BChefController;
 import eus.healthit.bchef.core.assistant.interfaces.IRecipeAssistantController;
 import eus.healthit.bchef.core.enums.KitchenUtil;
 import eus.healthit.bchef.core.models.KitchenAlarm;

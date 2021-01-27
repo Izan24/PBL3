@@ -1,5 +1,7 @@
 package eus.healthit.bchef.core.app.controllers.recipe.view;
 
+import java.util.ResourceBundle;
+
 import eus.healthit.bchef.core.api.JSONCalls;
 import eus.healthit.bchef.core.app.controllers.centerView.CenterViewController;
 import eus.healthit.bchef.core.app.controllers.interfaces.IClickable;

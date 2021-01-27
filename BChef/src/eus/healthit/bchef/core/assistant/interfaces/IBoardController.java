@@ -11,4 +11,6 @@ public interface IBoardController {
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener);
 	
+	public void close();
+	
 }

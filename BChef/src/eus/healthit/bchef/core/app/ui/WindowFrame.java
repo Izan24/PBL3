@@ -1,11 +1,14 @@
 package eus.healthit.bchef.core.app.ui;
 
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import eus.healthit.bchef.core.app.controllers.windowFrame.WindowFrameController;
+import eus.healthit.bchef.core.assistant.BChefController;
 
 public class WindowFrame extends JFrame {
 
@@ -27,7 +30,14 @@ public class WindowFrame extends JFrame {
 		ImageIcon img = new ImageIcon("resources/menuIcons/bchef_icon.png");
 		this.setIconImage(img.getImage());
 
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				BChefController.getInstance().close();
+				e.getWindow().dispose();
+			}
+		});
 	}
 
 	public void setContentPane(PrincipalView principalView, WindowFrameController windowFrameController) {

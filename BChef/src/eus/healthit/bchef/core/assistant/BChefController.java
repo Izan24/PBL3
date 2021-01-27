@@ -384,4 +384,8 @@ public class BChefController implements PropertyChangeListener {
 	public void sayWelcome() {
 		outputController.send(TextBuilder.thankMessage());
 	}
+	
+	public void close() {
+		boardController.close();
+	}
 }
