@@ -17,14 +17,16 @@ new knowledge and the strengthening of those already obtained previously.
 ## Libraries
 ```Java
 JSON In Java (Version 20201115)
+
 JavaZOOM (Versión 1.0.1)
+
 Google Cloud (Versión 16.2.1)
+
 Apache Commons Validator (Versión 1.7)
+
 jSerialComm (Versión 2.6.2)
+
 Swing
-
-
-
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
