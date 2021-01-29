@@ -2,6 +2,11 @@
 
 BChef is a visual aplication ...
 
+## Rest API project
+
+
+REST API for our application, visit (https://github.com/UrkoAT/bchef-server) to see the code. The client requires access to the database, and the API will be the handler for its petitions.
+
 ## Project description
 
 There are many problems in the culinary world, one of the most notable being the lack
